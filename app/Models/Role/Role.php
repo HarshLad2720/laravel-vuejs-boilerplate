@@ -1,11 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Models\Role;
 
+use App\Traits\Scopes;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {
+    use Scopes,SoftDeletes;
+
+    //public $timestamps = false;
+    public $sortable=[
+        'name','id'
+    ];
+
 
     /**
      * The attributes that are mass assignable.
@@ -40,6 +50,22 @@ class Role extends Model
     protected $casts = [
         //
     ];
+
+    /**
+     * Get the Users for the Role.
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    /**
+     * Get the Permissions for the Role.
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class,"permission_roles","role_id","permission_id");
+    }
 
 
 }

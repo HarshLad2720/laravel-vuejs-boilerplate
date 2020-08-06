@@ -23,12 +23,18 @@ use Illuminate\Routing\Router;
     })->values();
 });*/
 
+Route::group([
+    'prefix' => 'v1',
+], function () {
+
 Route::apiResource('users', '\App\Http\Controllers\API\user\UsersAPIController');
 
 Route::apiResource('passwordResets', '\App\Http\Controllers\API\PasswordResetsAPIController');
 
-Route::apiResource('roles', '\App\Http\Controllers\API\RolesAPIController');
+Route::apiResource('roles', '\App\Http\Controllers\API\Role\RolesAPIController');
 
 Route::apiResource('permissions', '\App\Http\Controllers\API\PermissionsAPIController');
 
 Route::apiResource('permissionRoles', '\App\Http\Controllers\API\PermissionRolesAPIController');
+
+});
