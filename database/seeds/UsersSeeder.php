@@ -1,0 +1,17 @@
+<?php
+
+use App\Users;
+use Illuminate\Database\Seeder;
+
+class UsersSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        factory(Users::class, 10)->create();
+    }
+}

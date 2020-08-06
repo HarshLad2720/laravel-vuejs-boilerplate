@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/*
+* Snippet for a quick route reference
+*/
+Route::get('/', function (Router $router) {
+    return collect($router->getRoutes()->getRoutesByMethod()["GET"])->map(function($value, $key) {
+        return url($key);
+    })->values();   
 });
+
+Route::apiResource('users', '\App\Http\Controllers\API\UsersAPIController');
+
+Route::apiResource('passwordResets', '\App\Http\Controllers\API\PasswordResetsAPIController');
+
+Route::apiResource('roles', '\App\Http\Controllers\API\RolesAPIController');
+
+Route::apiResource('permissions', '\App\Http\Controllers\API\PermissionsAPIController');
+
+Route::apiResource('permissionRoles', '\App\Http\Controllers\API\PermissionRolesAPIController');
