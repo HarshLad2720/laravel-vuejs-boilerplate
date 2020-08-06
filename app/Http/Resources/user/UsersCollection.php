@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\user;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\DataJsonResponse;
 
-class UsersCollection extends JsonResource
+class UsersCollection extends DataJsonResponse
 {
     /**
      * Transform the resource into an array.
