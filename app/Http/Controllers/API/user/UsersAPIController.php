@@ -33,20 +33,16 @@ class UsersAPIController extends Controller
             ], config('constants.validation_codes.422'));
         $user = $request->user();
 
-        $user_id = $user->id;
-        $userTokens = $user->tokens;
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
 
         if($user != null){
             //get User Permission and save permission in token
-            //$token->scopes = $user->role->permissions->pluck('permissions')->toArray();
+            $token->scopes = $user->role->permissions->pluck('permissions')->toArray();
             $token->save();
-            ///$user->permissions = is_null($user->role)?[]:$user->role->permissions->pluck('permissions');
+            $user->permissions = is_null($user->role)?[]:$user->role->permissions->pluck('permissions');
             $user->authorization_secret_key = $tokenResult->accessToken;
             return new \App\Http\Resources\user\UsersResource($user);
-            //return new UsersCollection(UsersResource::collection($user),UsersResource::class);
-
         }else{
             return response("No User found.", 200);
         }

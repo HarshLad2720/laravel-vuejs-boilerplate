@@ -29,9 +29,13 @@ Route::group([
 
     Route::post('login','\App\Http\Controllers\API\user\UsersAPIController@login');
     Route::post('users', '\App\Http\Controllers\API\user\UsersAPIController@store');
+    Route::apiResource('roles', '\App\Http\Controllers\API\Role\RolesAPIController');
+    Route::apiResource('permissions', '\App\Http\Controllers\API\Permission\PermissionsAPIController');
+    Route::put('permission_role/{role}', '\App\Http\Controllers\API\Role\RolesAPIController@permission_role');
+
 
     Route::group([
-        'middleware' => 'auth:api'
+        'middleware' => ['auth:api', 'check.permission'],
     ], function() {
 
         Route::apiResource('users', '\App\Http\Controllers\API\user\UsersAPIController', [
@@ -40,15 +44,6 @@ Route::group([
 
         Route::apiResource('passwordResets', '\App\Http\Controllers\API\PasswordResetsAPIController');
 
-        Route::apiResource('roles', '\App\Http\Controllers\API\Role\RolesAPIController');
-
-        Route::apiResource('permissions', '\App\Http\Controllers\API\Permission\PermissionsAPIController');
-
-        Route::put('permission_role/{role}', '\App\Http\Controllers\API\Role\RolesAPIController@permission_role');
     });
-
-
-
-
 
 });
