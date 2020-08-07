@@ -33,7 +33,7 @@ Route::apiResource('passwordResets', '\App\Http\Controllers\API\PasswordResetsAP
 
 Route::apiResource('roles', '\App\Http\Controllers\API\Role\RolesAPIController');
 
-Route::apiResource('permissions', '\App\Http\Controllers\API\PermissionsAPIController');
+Route::apiResource('permissions', '\App\Http\Controllers\API\Permission\PermissionsAPIController');
 
 Route::apiResource('permissionRoles', '\App\Http\Controllers\API\PermissionRolesAPIController');
 
