@@ -27,14 +27,28 @@ Route::group([
     'prefix' => 'v1',
 ], function () {
 
-Route::apiResource('users', '\App\Http\Controllers\API\user\UsersAPIController');
+    Route::post('login','\App\Http\Controllers\API\user\UsersAPIController@login');
+    Route::post('users', '\App\Http\Controllers\API\user\UsersAPIController@store');
 
-Route::apiResource('passwordResets', '\App\Http\Controllers\API\PasswordResetsAPIController');
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function() {
 
-Route::apiResource('roles', '\App\Http\Controllers\API\Role\RolesAPIController');
+        Route::apiResource('users', '\App\Http\Controllers\API\user\UsersAPIController', [
+            'only' => ['index', 'show', 'update', 'destroy']
+        ]);
 
-Route::apiResource('permissions', '\App\Http\Controllers\API\Permission\PermissionsAPIController');
+        Route::apiResource('passwordResets', '\App\Http\Controllers\API\PasswordResetsAPIController');
 
-Route::put('permission_role/{role}', '\App\Http\Controllers\API\Role\RolesAPIController@permission_role');
+        Route::apiResource('roles', '\App\Http\Controllers\API\Role\RolesAPIController');
+
+        Route::apiResource('permissions', '\App\Http\Controllers\API\Permission\PermissionsAPIController');
+
+        Route::put('permission_role/{role}', '\App\Http\Controllers\API\Role\RolesAPIController@permission_role');
+    });
+
+
+
+
 
 });

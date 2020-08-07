@@ -28,6 +28,7 @@ class UsersResource extends JsonResource
             'address' => (string)$this->address,
             'status' => (string)$this->status,
             'status_text' => (string) config('constants.user.status.'.$this->status),
+            'authorization_secret_key' => $this->authorization_secret_key,
             'email_verified_at' =>(string) $this->email_verified_at,
             'created_at' => (string)$this->created_at,
             'updated_at' => (string)$this->updated_at

@@ -8,11 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Scopes;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Schema;
 
 class User extends Authenticatable
 {
-    use Notifiable,Scopes;
+    use Notifiable,Scopes,HasApiTokens;
 
     public function scopeCommonFunctionMethod($query,$model, $request, $preQuery = null, $tablename = null, $groupBy = null, $export_select = false, $no_paginate = false)
     {
