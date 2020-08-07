@@ -73,6 +73,6 @@ class PermissionsAPIController extends Controller
     public function destroy(Request $request, Permission $permission)
     {
         $permission->delete();
-        return response()->json(['data' => config('constants.messages.delete_sucess')]);
+        return response()->json(['data' => config('constants.messages.delete_sucess')], 200);
     }
 }

@@ -22,6 +22,7 @@ return [
 
         'success' => 'Success.',
         'delete_sucess' => 'Delete Successful.',
+        'apply_permissions' => 'Role permissions applied successfully.',
         'delete_24_hour_error_message' => 'You can\'t delete after 24 hours.',
         'update_24_hour_error_message' => 'You can\'t update after 24 hours.',
         'add_sucess' => 'Added Successfully.',

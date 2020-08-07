@@ -38,12 +38,12 @@ class RolesAPIController extends Controller
     public function destroy(Request $request, Role $role)
     {
         $role->delete();
-        return response()->json(['data' => 'Role deleted successfully'], 200);
+        return response()->json(['data' => config('constants.messages.delete_sucess')], 200);
     }
 
     public function permission_role(Request $request, Role $role){
-        $role->permission()->detach();
-        $role->permission()->attach($request->get('permissions'));
-        return response()->json(['data' => 'Apply Permissions Role successfully']);
+        $role->permissions()->detach();
+        $role->permissions()->attach($request->get('permissions'));
+        return response()->json(['data' => config('constants.messages.apply_permissions')]);
     }
 }
