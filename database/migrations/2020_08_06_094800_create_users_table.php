@@ -20,10 +20,12 @@ class CreateUsersTable extends Migration
             $table->string('password',255)->nullable();
             $table->string('mobile_no',255)->nullable();
             $table->unsignedInteger('role_id')->index()->nullable();
-            $table->string('profile_image',255)->nullable();
+            $table->string('profile',255)->nullable();
             $table->enum('gender',['0', '1'])->nullable()->index()->comment('0 - Female, 1 - Male');
             $table->date('dob')->nullable();
-            $table->string('city',255)->nullable();
+            $table->unsignedInteger('country_id')->nullable()->comment('Country table ID');
+            $table->unsignedInteger('state_id')->nullable()->comment('State table ID');
+            $table->unsignedInteger('city_id')->nullable()->comment('City table ID');
             $table->string('address',500)->nullable();
             $table->enum('status', ['0', '1'])->index()->comment('0 - Inactive, 1 - Active');
             $table->timestamp('email_verified_at')->nullable();
