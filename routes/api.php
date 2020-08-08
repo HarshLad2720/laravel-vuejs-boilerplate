@@ -27,6 +27,8 @@ Auth::routes(['verify' => true]);
 Route::get('email/verify/{id}', '\App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
 Route::get('email/resend', '\App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
 
+Route::post('register', '\App\Http\Controllers\API\user\UsersAPIController@register');
+
 Route::post('users/{id}', '\App\Http\Controllers\API\user\UsersAPIController@update');
 
 Route::group([
