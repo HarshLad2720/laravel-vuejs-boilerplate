@@ -7,7 +7,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="" type="image/png">
     <title>Vue Demo</title>
-    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700|Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" scoped>
 
 </head>

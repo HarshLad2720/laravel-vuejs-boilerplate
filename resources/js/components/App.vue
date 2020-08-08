@@ -1,7 +1,5 @@
 <template>
-        <v-app id="appMain" class="appMain" light>
-            <router-view :key="$route.fullPath"></router-view>
-        </v-app>
+    <router-view :key="$route.fullPath"></router-view>
 </template>
 <script>
 export default {

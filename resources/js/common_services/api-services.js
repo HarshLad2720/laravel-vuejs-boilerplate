@@ -5,14 +5,20 @@ window._ = require('lodash');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+import store from '../store/store';
+
 window.axios = require('axios');
 window.axios.defaults.headers.common['Content-Type'] = 'application/json';
 export const HTTP = window.axios;
 
 HTTP.interceptors.request.use(
     function (config) {
+        config.baseURL = "http://localhost:8000";
+        if (config.url == "/api/checklogin") {
+            return config;
+        }
         // Check authorizationData
-            var authorizationtoken = ""; //get authorizationtoken from login response data
+            var authorizationtoken = store.state.userStore.currentUserData.authorization; //get authorizationtoken from login response data
 
             if (!authorizationtoken) {
                 window.location.href = "/";

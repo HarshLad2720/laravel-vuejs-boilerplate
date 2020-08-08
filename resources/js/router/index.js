@@ -9,7 +9,29 @@ const router = new VueRouter({
             path: '/users',
             name: 'users',
             component: () => import('../components/user/Users.vue')
-        }]
+        },
+        /*{
+            path: '/',
+            name: 'login',
+            component: () => import('../components/auth/Login')
+        },*/
+        {
+            path: "/",
+            component: () => import("../components/auth/Auth"),
+            children: [
+                {
+                    name: "login",
+                    path: "/",
+                    component: () => import("../components/auth/Login")
+                },
+                {
+                    name: "register",
+                    path: "/register",
+                    component: () => import("../components/auth/Register")
+                }
+            ]
+        },
+    ]
 });
 
 export default router
