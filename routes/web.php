@@ -17,3 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });*/
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+
+Route::get('register', function () {
+    return view('auth/register');
+});
+
+Auth::routes();
+
+///Route::get('/home', 'HomeController@index')->name('home');
