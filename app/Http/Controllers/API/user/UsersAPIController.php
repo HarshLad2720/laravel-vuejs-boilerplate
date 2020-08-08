@@ -4,12 +4,16 @@ namespace App\Http\Controllers\API\user;
 
 use App\Http\Requests\user\LoginRequest;
 use App\User;
+use App\UserGallery;
+use App\Hobby;
 use App\Http\Requests\user\UsersRequest;
 use App\Http\Resources\user\UsersCollection;
 use App\Http\Resources\user\UsersResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Support\Facades\Auth;
 
 class UsersAPIController extends Controller
 {
@@ -67,9 +71,38 @@ class UsersAPIController extends Controller
         $data['password'] = bcrypt($data['password']);
 
         $user = User::create($data);
-        $real_path = 'user/'.$user->id.'/';
-        $file_data = $request->file('profile_image')->store('/public/' . $real_path);
-        $user->profile_image = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+
+        if($request->hasfile('profile')) {
+            $real_path = 'user/' . $user->id . '/';
+            $file_data = $request->file('profile')->store('/public/' . $real_path);
+            $user->profile = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+        }
+
+        if($request->hasfile('gallery')) {
+
+            foreach ($request->gallery as $photo) {
+                $real_path = 'gallery/'.$user->id.'/';
+                $file_data = $photo->store('/public/' . $real_path);
+                $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+                UserGallery::create([
+                    'user_id' => $user->id,
+                    'filename' => $filename
+                ]);
+            }
+        }
+
+        if($data['hobby']) {
+
+            foreach ($data['hobby'] as $hobby) {
+                Hobby::create([
+                    'user_id' => $user->id,
+                    'hobby_id' => $hobby
+                ]);
+            }
+        }
+
+        $user->sendEmailVerificationNotification();
+        $success['message'] = 'Please check your inbox to activate your account.';
 
         return new UsersResource($user);
     }

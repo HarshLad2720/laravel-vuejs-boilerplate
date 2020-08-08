@@ -22,6 +22,12 @@ use Illuminate\Routing\Router;
         return url($key);
     })->values();
 });*/
+Auth::routes(['verify' => true]);
+
+Route::get('email/verify/{id}', '\App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
+Route::get('email/resend', '\App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
+
+Route::post('users/{id}', '\App\Http\Controllers\API\user\UsersAPIController@update');
 
 Route::group([
     'prefix' => 'v1',

@@ -11,7 +11,7 @@ use App\Traits\Scopes;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Schema;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable,Scopes,HasApiTokens;
 
@@ -59,14 +59,30 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'email', 'password', 'mobile_no', 'role_id', 'profile_image', 'gender', 'dob', 'city', 'address', 'status', 'remember_token'
+        'id', 'name', 'email', 'password', 'mobile_no', 'role_id', 'profile', 'gender', 'dob', 'address','country_id','state_id','city_id', 'status', 'remember_token'
     ];
 
     /**
      * @var array
      */
     public $sortable=[
-        'id','name',
+        'id','name','country_id','state_id','city_id'
+    ];
+
+    public $foreign_sortable = [
+        'country_id','state_id','city_id'
+    ];
+
+    public $foreign_table = [
+        'countries','states','cities'
+    ];
+
+    public $foreign_key = [
+        'name','name','name'
+    ];
+
+    public $foreign_method = [
+        'country','state','city'
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -101,5 +117,17 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function country() {
+        return $this->belongsTo(Country::class,'country_id');
+    }
+
+    public function state() {
+        return $this->belongsTo(State::class,'state_id');
+    }
+
+    public function city() {
+        return $this->belongsTo(City::class,'city_id');
     }
 }
