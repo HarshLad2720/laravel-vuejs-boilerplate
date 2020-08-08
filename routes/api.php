@@ -35,7 +35,7 @@ Route::group([
     'prefix' => 'v1',
 ], function () {
 
-    Route::post('login','\App\Http\Controllers\API\user\UsersAPIController@login');
+    Route::post('login','\App\Http\Controllers\API\user\LoginController@login');
     Route::post('users', '\App\Http\Controllers\API\user\UsersAPIController@store');
     Route::apiResource('roles', '\App\Http\Controllers\API\Role\RolesAPIController');
     Route::apiResource('permissions', '\App\Http\Controllers\API\Permission\PermissionsAPIController');
