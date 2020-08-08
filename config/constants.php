@@ -20,6 +20,13 @@ return [
             'invalid' => 'Invalid credentials',
         ],
 
+        'login' => [
+            'success' => 'Login is successful.',
+            'unverified_account' => 'Your account is not verified yet.',
+            'wrong_credentials' => 'Invalid combination of email and password.',
+            'login_token_failed' => 'Could not create login token.',
+        ],
+
         'success' => 'Success.',
         'delete_sucess' => 'Delete Successful.',
         'apply_permissions' => 'Role permissions applied successfully.',
@@ -31,6 +38,13 @@ return [
         'token_amount_exceed' => 'Assign token total must be less or equal to ',
         'token_expire' => 'Invalid token id or token expired.',
 
+    ],
+
+    'register' => [
+        'status' => [
+            'pending' => '0',
+            'approved' => '1',
+        ],
     ],
 
     'validation_codes' => [
