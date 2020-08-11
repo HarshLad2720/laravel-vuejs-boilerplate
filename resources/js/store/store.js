@@ -14,6 +14,6 @@ const vuexPersist = new VuexPersist({
 export default new Vuex.Store({
     plugins: [vuexPersist.plugin],
     modules: {
-        userStore
+        userStore,
     }
 });

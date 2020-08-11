@@ -122,3 +122,18 @@
         }
     }
 }
+
+/*Custom CSS*/
+.login-form {
+    form {
+        .v-input {
+            .v-input__slot {
+                background-color: #F3F6F9 !important;
+                border-color: #F3F6F9;
+                color: #3F4254;
+                transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+                .v-text-field__slot  { label, input { font-size: 13px } }
+            }
+        }
+    }
+}

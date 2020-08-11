@@ -26,71 +26,78 @@
       </div>
 
       <!--begin::Form-->
-      <b-form class="form" @submit.stop.prevent="onSubmit">
-        <b-form-group
-          id="example-input-group-0"
-          label=""
-          label-for="example-input-0"
-        >
-          <b-form-input
-            class="form-control form-control-solid h-auto py-5 px-6"
-            id="example-input-0"
-            name="example-input-0"
-            aria-describedby="input-0-live-feedback"
-            placeholder="Username"
-          ></b-form-input>
-
-          <b-form-invalid-feedback id="input-0-live-feedback">
-            Username is required.
-          </b-form-invalid-feedback>
-        </b-form-group>
-
-        <b-form-group
-          id="example-input-group-1"
-          label=""
-          label-for="example-input-1"
-        >
-          <b-form-input
-            class="form-control form-control-solid h-auto py-5 px-6"
-            id="example-input-1"
-            name="example-input-1"
-            aria-describedby="input-1-live-feedback"
-            placeholder="Email address"
-          ></b-form-input>
-
-          <b-form-invalid-feedback id="input-1-live-feedback">
-            Email is required and a valid email address.
-          </b-form-invalid-feedback>
-        </b-form-group>
-
-        <b-form-group
-          id="example-input-group-2"
-          label=""
-          label-for="example-input-2"
-        >
-          <b-form-input
-            class="form-control form-control-solid h-auto py-5 px-6"
-            type="password"
-            id="example-input-2"
-            name="example-input-2"
-            aria-describedby="input-2-live-feedback"
-            placeholder="Password"
-          ></b-form-input>
-
-          <b-form-invalid-feedback id="input-2-live-feedback">
-            Password is required.
-          </b-form-invalid-feedback>
-        </b-form-group>
+      <v-form class="form" @submit.prevent="onSubmit"  method="POST" role="form" enctype="multipart/form-data" novalidate autocomplete="off">
+<!--          <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>-->
+          <v-layout row wrap class="display-block">
+              <v-flex xs12>
+                  <v-text-field
+                      label="Username" type="text"
+                      name="name"
+                      v-model="model.name"
+                      :error-messages="getErrorValue('name')"
+                      v-validate="'required'"
+                      solo
+                  ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                  <v-text-field
+                      label="Email" type="text"
+                      name="email"
+                      v-model="model.email"
+                      :error-messages="getErrorValue('email')"
+                      v-validate="'required|email'"
+                      solo
+                  ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                  <v-text-field
+                      label="Password" type="password"
+                      name="password"
+                      v-model="model.password"
+                      :error-messages="getErrorValue('password')"
+                      v-validate="'required|min:6'"
+                      solo
+                  ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                  <v-text-field
+                      label="Mobile No" type="text"
+                      name="mobile_no"
+                      v-model="model.mobile_no"
+                      :error-messages="getErrorValue('mobile_no')"
+                      v-validate="'required'"
+                      solo
+                  ></v-text-field>
+              </v-flex>
+              <!--gender: '',
+              dob:'',
+              address: '',
+              country_id: '',
+              state_id: '',
+              city_id: '',
+              gallery: [],
+              hobby: [],-->
+              <v-flex xs12>
+                  <v-file-input label="Profile" solo></v-file-input>
+              </v-flex>
+              <v-flex xs12>
+              </v-flex>
+              <v-flex xs12>
+              </v-flex>
+          </v-layout>
 
         <!--begin::Action-->
         <div class="form-group d-flex flex-wrap flex-center">
-          <button
+          <!--<button
             type="submit"
             ref="kt_login_signup_submit"
             class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4"
           >
             Submit
-          </button>
+          </button>-->
+
+            <v-btn class="btn" type="submit"
+                   :loading="isSubmitting" ref="submitBtn">Submit</v-btn>
           <button
             v-on:click="$router.push('login')"
             class="btn btn-light-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4"
@@ -99,7 +106,7 @@
           </button>
         </div>
         <!--end::Action-->
-      </b-form>
+      </v-form>
       <!--end::Form-->
     </div>
     <!--end::Signup-->
@@ -112,21 +119,4 @@
 }
 </style>
 
-<script>
-    import BootstrapVue from "../../plugins/bootstrap-vue";
-
-export default {
-  name: "register",
-  data() {
-    return {
-      // Remove this dummy login info
-      form: {
-        email: "admin@demo.com",
-        password: "demo"
-      }
-    };
-  },
-  methods: {},
-  computed: {}
-};
-</script>
+<script src="./register.js"></script>

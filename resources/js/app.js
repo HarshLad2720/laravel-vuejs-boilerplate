@@ -2,7 +2,8 @@ require('./bootstrap');
 import router from "./router";
 import Vue from 'vue';
 import App from './components/App.vue';
-import Vuetify from '../../node_modules/vuetify'
+import Vuetify from '../../node_modules/vuetify';
+import 'vuetify/dist/vuetify.min.css';
 import store from './store/store';
 import VueRouter from 'vue-router';
 import VueAxios from 'vue-axios';
