@@ -47,6 +47,9 @@ const userStore = {
         setTableData(state, payload) {
             state.tableData = payload;
         },
+        setRoleList(state, payload) {
+            state.roleList = payload;
+        },
         setCurrentUserData(state, payload) {
             state.currentUserData = payload;
         },
@@ -77,7 +80,7 @@ const userStore = {
     actions: {
         login({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.post(loginUrl , param.loginDetail).then(response => {
+                HTTP.post(loginUrl , param.loginParam).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);
@@ -87,6 +90,34 @@ const userStore = {
         getAll({ commit }, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "users" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
+        getRoles({ commit }, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.get("").then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
+
+        add({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.post(baseUrl + "create_sbuscription", param.model).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
+        edit({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.post(baseUrl + "update_business_detail/" + param.editId, param.model).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);

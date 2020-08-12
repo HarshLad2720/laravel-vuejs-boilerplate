@@ -12,7 +12,7 @@
         >
             <template v-slot:top>
                 <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
-<!--                <v-select v-model="roleId" :items="roleList" item-text="name" item-value="id" label="Role" @change="setFilter()"></v-select>-->
+                <v-select v-model="roleId" :items="roleList" item-text="name" item-value="id" label="Role" @change="setFilter()"></v-select>
                 <v-toolbar flat color="white">
                     <v-toolbar-title>Users</v-toolbar-title>
                     <v-divider
@@ -30,9 +30,9 @@
                 </v-toolbar>
             </template>
 
-            <!--<template v-slot:item.role_id="{ item }">
+            <template v-slot:item.role_id="{ item }">
                 {{ item.role.name }}
-            </template>-->
+            </template>
 
         </v-data-table>
     </div>
