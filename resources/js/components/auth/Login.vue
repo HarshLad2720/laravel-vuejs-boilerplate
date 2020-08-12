@@ -1,16 +1,12 @@
 <template>
   <div>
     <!--begin::Content header-->
-    <div
-      class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10"
-    >
+    <div class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
       <span class="font-weight-bold font-size-3 text-dark-60">
         Don't have an account yet?
       </span>
-      <router-link
-        class="font-weight-bold font-size-3 ml-2"
-        :to="{ name: 'register' }"
-      >
+      <router-link class="font-weight-bold font-size-3 ml-2"
+                   :to="{ name: 'register' }">
         Sign Up!
       </router-link>
     </div>
@@ -25,6 +21,26 @@
         </p>
       </div>
 
+           <!-- <form>
+                <v-text-field
+                    label="Name"
+                    required
+                    class="form-control form-control-solid h-auto py-5 px-6 form-control"
+                ></v-text-field>
+                <v-text-field
+                    label="E-mail"
+                    required
+                    class="form-control form-control-solid h-auto py-5 px-6 form-control"
+                ></v-text-field>
+
+                <v-btn class="mr-4">submit</v-btn>
+                <v-btn>clear</v-btn>
+            </form>-->
+
+
+
+
+
       <!--begin::Form-->
       <b-form class="form" @submit.stop.prevent="onSubmit">
         <!--<div role="alert" class="alert alert-info">
@@ -34,26 +50,19 @@
           </div>
         </div>-->
 
-        <div
-          role="alert"
-          v-bind:class="{ show: errorMessage.length }"
-          class="alert fade alert-danger"
-        >
+        <!--Displaying error Message-->
+        <div role="alert" v-bind:class="{ show: errorMessage.length }" class="alert fade alert-danger">
           <div class="alert-text">
             {{ errorMessage }}
           </div>
         </div>
 
-        <b-form-group
-          id="example-input-group-1"
-          label=""
-          label-for="example-input-1"
-        >
+        <b-form-group id="example-input-group-1" label="" label-for="example-input-1">
           <b-form-input
             class="form-control form-control-solid h-auto py-5 px-6"
             id="example-input-1"
             name="example-input-1"
-            v-model="loginParam.email"
+            v-model="loginDetail.email"
             aria-describedby="input-1-live-feedback"
           ></b-form-input>
 
@@ -62,17 +71,13 @@
           </b-form-invalid-feedback>
         </b-form-group>
 
-        <b-form-group
-          id="example-input-group-2"
-          label=""
-          label-for="example-input-2"
-        >
+        <b-form-group id="example-input-group-2" label="" label-for="example-input-2">
           <b-form-input
             class="form-control form-control-solid h-auto py-5 px-6"
             type="password"
             id="example-input-2"
             name="example-input-2"
-            v-model="loginParam.password"
+            v-model="loginDetail.password"
             aria-describedby="input-2-live-feedback"
           ></b-form-input>
 
@@ -82,20 +87,11 @@
         </b-form-group>
 
         <!--begin::Action-->
-        <div
-          class="form-group d-flex flex-wrap justify-content-between align-items-center"
-        >
-          <a
-            href="#"
-            class="text-dark-60 text-hover-primary my-3 mr-2"
-            id="kt_login_forgot"
-          >
+        <div class="form-group d-flex flex-wrap justify-content-between align-items-center">
+          <a href="#" class="text-dark-60 text-hover-primary my-3 mr-2" id="kt_login_forgot">
             Forgot Password ?
           </a>
-          <button
-            ref="kt_login_signin_submit"
-            class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3"
-          >
+          <button ref="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3">
             Sign In
           </button>
         </div>
@@ -113,33 +109,44 @@
 }
 </style>
 
+
 <script>
-    import BootstrapVue from "../../plugins/bootstrap-vue";
+import BootstrapVue from "../../plugins/bootstrap-vue";
 export default {
   name: "login",
   data() {
     return {
-      // Remove this dummy login info
-        loginParam: {
+      //login info
+        loginDetail: {
             email: '',
             password: '',
         },
         errorMessage: '',
     };
   },
+    mixins:[BootstrapVue],
   methods: {
+      /**
+       * Login Submit Method
+       */
       onSubmit() {
+          // set spinner to submit button
           var submitButton = this.$refs["kt_login_signin_submit"];
           submitButton.classList.add("spinner", "spinner-light", "spinner-right");
+
           this.$store.dispatch("userStore/login",
               {
-                  loginParam: this.loginParam,
+                  loginDetail: this.loginDetail
               }).then(response => {
                   this.errorMessage = '';
-                  this.$router.push("/users");
+                  // Set Data of Current user in store
                   this.$store.commit('userStore/setCurrentUserData', response.data.data);
+                  // go to which page after successfully login
+                  this.$router.push("/users");
           })
+          // If Login has Error
           .catch(err => {
+            // Remove spinner to submit button
             submitButton.classList.remove(
                 "spinner",
                 "spinner-light",
