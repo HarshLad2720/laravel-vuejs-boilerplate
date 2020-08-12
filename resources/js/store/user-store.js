@@ -47,9 +47,6 @@ const userStore = {
         setTableData(state, payload) {
             state.tableData = payload;
         },
-        setRoleList(state, payload) {
-            state.roleList = payload;
-        },
         setCurrentUserData(state, payload) {
             state.currentUserData = payload;
         },
@@ -80,7 +77,7 @@ const userStore = {
     actions: {
         login({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.post(loginUrl , param.loginParam).then(response => {
+                HTTP.post(loginUrl , param.loginDetail).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);
@@ -96,34 +93,24 @@ const userStore = {
                 })
             })
         },
-        getRoles({ commit }, param) {
-            return new Promise((resolve, reject) => {
-                HTTP.get("").then(response => {
-                    resolve(response);
-                }).catch(e => {
-                    reject(e);
-                })
-            })
-        },
-
         add({commit}, param) {
-            return new Promise((resolve, reject) => {
-                HTTP.post(baseUrl + "create_sbuscription", param.model).then(response => {
-                    resolve(response);
-                }).catch(e => {
-                    reject(e);
-                })
+        return new Promise((resolve, reject) => {
+            HTTP.post(baseUrl + "create_sbuscription", param.model).then(response => {
+                resolve(response);
+            }).catch(e => {
+                reject(e);
             })
-        },
-        edit({commit}, param) {
-            return new Promise((resolve, reject) => {
-                HTTP.post(baseUrl + "update_business_detail/" + param.editId, param.model).then(response => {
-                    resolve(response);
-                }).catch(e => {
-                    reject(e);
-                })
+        })
+    },
+    edit({commit}, param) {
+        return new Promise((resolve, reject) => {
+            HTTP.post(baseUrl + "update_business_detail/" + param.editId, param.model).then(response => {
+                resolve(response);
+            }).catch(e => {
+                reject(e);
             })
-        },
+        })
+    },
     }
 }
 

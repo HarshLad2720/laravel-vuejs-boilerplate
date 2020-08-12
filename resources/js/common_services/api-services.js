@@ -13,20 +13,19 @@ export const HTTP = window.axios;
 
 HTTP.interceptors.request.use(
     function (config) {
-        config.baseURL = "http://localhost:8000";
-        if (config.url == "/api/checklogin") {
+        if (config.url == "/api/v1/login") {
             return config;
         }
         // Check authorizationData
-            var authorizationtoken = store.state.userStore.currentUserData.authorization; //get authorizationtoken from login response data
+        var authorizationtoken = store.state.userStore.currentUserData.authorization_secret_key; //get authorizationtoken from login response data
 
-            if (!authorizationtoken) {
-                window.location.href = "/";
-            } else {
-                config.headers.common.Authorization = 'Bearer ' + authorizationtoken;
-                // If organisation login
-                return config;
-            }
+        if (!authorizationtoken) {
+            window.location.href = "/";
+        } else {
+            config.headers.common.Authorization = 'Bearer ' + authorizationtoken;
+            // If organisation login
+            return config;
+        }
     },
     function (error) {
         return Promise.reject(error)
