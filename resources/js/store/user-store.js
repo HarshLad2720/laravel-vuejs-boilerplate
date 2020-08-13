@@ -93,24 +93,25 @@ const userStore = {
                 })
             })
         },
-        add({commit}, param) {
-        return new Promise((resolve, reject) => {
-            HTTP.post(baseUrl + "create_sbuscription", param.model).then(response => {
-                resolve(response);
-            }).catch(e => {
-                reject(e);
+        register({commit}, param) {
+            console.log("in store");
+            return new Promise((resolve, reject) => {
+                HTTP.post(baseUrl + "register", param.model).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
             })
-        })
-    },
-    edit({commit}, param) {
-        return new Promise((resolve, reject) => {
-            HTTP.post(baseUrl + "update_business_detail/" + param.editId, param.model).then(response => {
-                resolve(response);
-            }).catch(e => {
-                reject(e);
+        },
+        edit({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.post(baseUrl + "users/" + param.editId, param.model).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
             })
-        })
-    },
+        },
     }
 }
 

@@ -31,7 +31,7 @@
         "vuex-persist": "^2.0.1"
     },
     "dependencies": {
-        "vee-validate": "^3.3.8",
-        "moment-timezone": "^0.5.28"
+        "moment-timezone": "^0.5.28",
+        "vee-validate": "^2.2.14"
     }
 }

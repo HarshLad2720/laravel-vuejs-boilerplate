@@ -50,50 +50,68 @@ export default {
                 "hobby": [{key: 'url', value: 'Hobby required'}]
             },
             isSubmitting: false,
+            menu: false,
+            country_items: [
+                { id: '1', name: 'India' },
+                { id: '2', name: 'US' },
+            ],
+            state_items: [
+                { id: '1', name: 'Gujarat' },
+                { id: '2', name: 'Maharastra' },
+            ],
+            city_items: [
+                { id: '1', name: 'Surat' },
+                { id: '2', name: 'US' },
+            ]
         };
     },
     computed: {
         ...mapState({
             model: state => state.userStore.createModel,
         }),
-        expireMonth(){
-            return this.computedMonthUnixSlashShortYearFormat(this.model.exp_month);
-        }
     },
     mixins: [CommonServices],
     methods: {
         onSubmit() {
             var self = this;
+            // console.log(self.model);
+
             this.$validator.validate().then(valid => {
                 if (valid) {
                     console.log("Valid");
-                    /*self.isSubmitting = true;
+                    // self.isSubmitting = true;
                     let formData = new FormData();
+                    console.log("work1");
                     for (var key in self.model) {
                         formData.append(key, self.model[key]);
                     }
-                    formData.delete('logo');
+                    console.log("work2");
+                    /*formData.delete('logo');
                     if (self.model.logo && self.model.logo != null && self.model.logo instanceof File) {
                         formData.append('logo', self.model.logo);
-                    }
-                    self.$store.dispatch("subscriptionStore/add", {model: formData},
+                    }*/
+                    console.log(formData);
+                    self.$store.dispatch("userStore/register", {model: formData},
                         {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
                             }
                         }).then(response => {
                         if (response.error) {
+                            console.log("response error");
                             self.isSubmitting = false;
                             self.errorMessage = response.data.error;
                         } else {
-                            self.$store.commit("snackbarStore/setMsg", self.$getConst('CREATE_SUBSRIPTION'));
+                            console.log("if else");
+                            // self.$store.commit("snackbarStore/setMsg", self.$getConst('CREATE_SUBSRIPTION'));
                             console.log("SUccess");
-                            self.onCancel();
+                            // self.onCancel();
                         }
                     }, error => {
+                        console.log("dispatch else");
                         self.isSubmitting = false;
                         self.errorMessage = self.getAPIErrorMessage(error.response);
-                    });*/
+                    });
                 }
             });
         },
