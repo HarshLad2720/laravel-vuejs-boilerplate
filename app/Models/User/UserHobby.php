@@ -1,15 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Hobby extends Model
+class UserHobby extends Model
 {
     //
     protected $fillable = ['user_id', 'hobby_id'];
 
-    public function hobby()
+    public function gallery()
     {
         return $this->belongsTo('App\User');
     }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models\User;
 use App\Traits\Scopes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class State extends Model
+class City extends Model
 {
     use SoftDeletes, Scopes;
     /**

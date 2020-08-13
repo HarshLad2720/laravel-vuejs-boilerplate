@@ -20,8 +20,11 @@ return [
             'invalid' => 'Invalid credentials',
         ],
 
-        'success' => 'Success.',
-        'delete_sucess' => 'Delete Successful.',
+        'success' => 'Success',
+        'delete_success' => 'Delete Successfully',
+        'registration_success'=>'Please check your inbox to activate your account',
+        'forgotpassword_success'=>'Password reset instructions has been sent to your email. Please check your inbox/spam',
+        'forgotpassword_error'=>'Invalid Email',
         'apply_permissions' => 'Role permissions applied successfully.',
         'delete_24_hour_error_message' => 'You can\'t delete after 24 hours.',
         'update_24_hour_error_message' => 'You can\'t update after 24 hours.',
@@ -42,12 +45,16 @@ return [
             '0' => 'Inactive',
             '1' => 'Active',
         ],
-        'status_enum' => ['0', '1'],
+        'status_code' => [
+            'inactive' => '0',
+            'active' => '1',
+        ],
+        //'status_enum' => ['0', '1'],
 
         'gender' => [
             '0' => 'Female',
             '1' => 'Male',
         ],
-        'gender_enum' => ['0', '1'],
+       // 'gender_enum' => ['0', '1'],
     ],
 ];
