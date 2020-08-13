@@ -33,17 +33,25 @@ Route::group([
     Route::post('password/email','Auth\ForgotPasswordController@sendResetLinkEmail');
 
     Route::post('register', '\App\Http\Controllers\API\User\UsersAPIController@register');
-    Route::post('login','\App\Http\Controllers\API\User\UsersAPIController@login');
+    Route::post('login','\App\Http\Controllers\API\User\LoginController@login');
 
     Route::post('users', '\App\Http\Controllers\API\user\UsersAPIController@store');
     Route::apiResource('roles', '\App\Http\Controllers\API\user\RolesAPIController');
     Route::apiResource('permissions', '\App\Http\Controllers\API\user\PermissionsAPIController');
     Route::put('permission_role/{role}', '\App\Http\Controllers\API\user\RolesAPIController@permission_role');
     Route::get('users-export', '\App\Http\Controllers\API\User\UsersAPIController@export');
+
+    Route::group([
+        'middleware' => ['auth:api'],
+    ], function() {
+        // Change Password
+        Route::post('change-password','\App\Http\Controllers\API\User\LoginController@changePassword');
+
+    });
+
     Route::group([
         'middleware' => ['auth:api', 'check.permission'],
     ], function() {
-
 
         Route::post('users/{user}', '\App\Http\Controllers\API\User\UsersAPIController@update');
         Route::apiResource('users', '\App\Http\Controllers\API\User\UsersAPIController', [
