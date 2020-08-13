@@ -30,9 +30,21 @@
                 </v-toolbar>
             </template>
 
-            <!--<template v-slot:item.role_id="{ item }">
-                {{ item.role.name }}
-            </template>-->
+            <template v-slot:item.actions="{ id }">
+                <v-icon
+                    small
+                    class="mr-2"
+                    @click="editItem(id)"
+                >
+                    {{ icons.mdiPencil }}
+                </v-icon>
+                <v-icon
+                    small
+                    @click="deleteItem(id)"
+                >
+                    {{ icons.mdiDelete }}
+                </v-icon>
+            </template>
 
         </v-data-table>
     </div>

@@ -1,6 +1,6 @@
 import { HTTP } from '../common_services/api-services.js';
 var baseUrl = ''; // set url here e.g.'/api/v1/mypreferences/business/user/'
-var loginUrl = '/api/checklogin';
+var loginUrl = '/api/v1/login';
 var baseUrl ='/api/v1/users';
 
 
@@ -86,7 +86,7 @@ const userStore = {
         },
         getAll({ commit }, param) {
             return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "users" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
+                HTTP.get(baseUrl  + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);
