@@ -19,6 +19,14 @@ class CreatePermisssionsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        DB::table('permissions')->insert(array(
+            array('permissions' => 'index-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('permissions' => 'show-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('permissions' => 'update-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('permissions' => 'destroy-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'))
+
+        ));
     }
 
     /**

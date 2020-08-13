@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\Permission;
+namespace App\Http\Resources\user;
 
 use App\Http\Resources\DataJsonResponse;
 

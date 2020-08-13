@@ -16,6 +16,10 @@ class Country extends Model
     public $sortable=[
         'id','name',
     ];
+
+    /**
+     * @var array
+     */
     protected $fillable = [
         'id', 'name', 'created_by','updated_by'
     ];
@@ -43,9 +47,8 @@ class Country extends Model
      */
     protected $casts = [
         //
+        'id'=>'string',
+        'name'=>'string'
     ];
-
-
-
 
 }

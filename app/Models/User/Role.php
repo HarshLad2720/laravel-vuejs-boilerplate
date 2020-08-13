@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Role;
+namespace App\Models\User;
 
 use App\Traits\Scopes;
 use App\User;
-use App\Models\Permission\Permission;
+use App\Models\User\Permission;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

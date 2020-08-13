@@ -16,6 +16,10 @@ class City extends Model
     public $sortable=[
         'id','name',
     ];
+
+    /**
+     * @var array
+     */
     protected $fillable = [
         'id', 'name', 'created_by','updated_by'
     ];
@@ -43,6 +47,9 @@ class City extends Model
      */
     protected $casts = [
         //
+        'id'=>'string',
+        'state_id'=>'string',
+        'name'=>'string',
     ];
 
 

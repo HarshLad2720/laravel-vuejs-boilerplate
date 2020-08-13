@@ -31,8 +31,9 @@ return [
             'wrong_credentials' => 'Invalid combination of email and password.',
             'login_token_failed' => 'Could not create login token.',
         ],
-
-        'success' => 'Success.',
+        'password_changed' => "Password has been changed.",
+        'something_went_wrong' => 'Something went wrong.',
+        'invalid_old_password' => "Invalid old password",
         'delete_sucess' => 'Delete Successful.',
         'apply_permissions' => 'Role permissions applied successfully.',
         'delete_24_hour_error_message' => 'You can\'t delete after 24 hours.',

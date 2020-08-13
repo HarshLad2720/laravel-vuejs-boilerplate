@@ -17,6 +17,15 @@ class CreatePermissionRolesTable extends Migration
             $table->unsignedInteger('permission_id');
             $table->unsignedInteger('role_id');
         });
+
+        DB::table('permission_roles')->insert(array(
+            array('permission_id' => '1','role_id' =>'1'),
+            array('permission_id' => '2','role_id' =>'1'),
+            array('permission_id' => '3','role_id' =>'1'),
+            array('permission_id' => '4','role_id' =>'1'),
+
+        ));
+
     }
 
     /**

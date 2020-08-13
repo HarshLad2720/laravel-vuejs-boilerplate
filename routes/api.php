@@ -30,28 +30,47 @@ Route::group([
 ], function () {
     Route::get('email/verify/{id}', '\App\Http\Controllers\API\User\VerificationAPIController@verify')->name('verification.verify');
     Route::get('email/resend', '\App\Http\Controllers\API\User\VerificationAPIController@resend')->name('verification.resend');
-    Route::post('password/email','Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::post('password/email','\App\Http\Controllers\API\User\ForgotPasswordAPIController@sendResetLinkEmail');
+    Route::post('reset-password','\App\Http\Controllers\API\User\ResetPasswordAPIController@resetPassword');
 
     Route::post('register', '\App\Http\Controllers\API\User\UsersAPIController@register');
-    Route::post('login','\App\Http\Controllers\API\User\UsersAPIController@login');
+    Route::post('login','\App\Http\Controllers\API\User\LoginController@login');
 
     Route::post('users', '\App\Http\Controllers\API\user\UsersAPIController@store');
-    Route::apiResource('roles', '\App\Http\Controllers\API\Role\RolesAPIController');
-    Route::apiResource('permissions', '\App\Http\Controllers\API\Permission\PermissionsAPIController');
-    Route::put('permission_role/{role}', '\App\Http\Controllers\API\Role\RolesAPIController@permission_role');
+    Route::apiResource('roles', '\App\Http\Controllers\API\user\RolesAPIController');
+    Route::apiResource('permissions', '\App\Http\Controllers\API\user\PermissionsAPIController');
+    Route::put('permission_role/{role}', '\App\Http\Controllers\API\user\RolesAPIController@permission_role');
     Route::get('users-export', '\App\Http\Controllers\API\User\UsersAPIController@export');
+
+    Route::group([
+        'middleware' => ['auth:api'],
+    ], function() {
+        // Change Password
+        Route::post('change-password','\App\Http\Controllers\API\User\LoginController@changePassword');
+
+    });
+
     Route::group([
         'middleware' => ['auth:api', 'check.permission'],
     ], function() {
 
+        Route::apiResource('countries', '\App\Http\Controllers\API\User\CountriesAPIController');
+        Route::get('countries-export', '\App\Http\Controllers\API\User\CountriesAPIController@export');
+
+        Route::apiResource('states', '\App\Http\Controllers\API\User\StatesAPIController');
+        Route::get('states-export', '\App\Http\Controllers\API\User\StatesAPIController@export');
+
+        Route::apiResource('cities', '\App\Http\Controllers\API\User\CitiesAPIController');
+        Route::get('cities-export', '\App\Http\Controllers\API\User\CitiesAPIController@export');
+
+        Route::apiResource('hobbies', '\App\Http\Controllers\API\User\HobbiesAPIController');
+        Route::get('hobbies-export', '\App\Http\Controllers\API\User\HobbiesAPIController@export');
 
         Route::post('users/{user}', '\App\Http\Controllers\API\User\UsersAPIController@update');
         Route::apiResource('users', '\App\Http\Controllers\API\User\UsersAPIController', [
             'only' => ['index', 'show', 'update', 'destroy']
         ]);
-
-        Route::apiResource('passwordResets', '\App\Http\Controllers\API\PasswordResetsAPIController');
-
+        Route::get('users-export', '\App\Http\Controllers\API\User\UsersAPIController@export');
     });
 
 });

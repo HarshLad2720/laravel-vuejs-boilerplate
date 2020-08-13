@@ -4,7 +4,7 @@ namespace App;
 use App\Models\User\Country;
 use App\Models\User\State;
 use App\Models\User\City;
-use App\Models\Role\Role;
+use App\Models\user\Role;
 use App\Models\User\UserGallery;
 use App\Models\User\UserHobby;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -117,28 +117,64 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         //
+        'id'=>'string',
+        'name'=>'string',
+        'email'=>'string',
+        'password'=>'string',
+        'mobile_no'=>'string',
+        'role_id'=>'string',
+        'profile'=>'string',
+        'gender'=>'string',
+        'dob'=>'string',
+        'address'=>'string',
+        'country_id'=>'string',
+        'state_id'=>'string',
+        'city_id'=>'string',
+        'status'=>'string',
+        'email_verified_at'=>'string',
+        'created_at'=>'string',
+        'updated_at'=>'string',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function country() {
         return $this->belongsTo(Country::class,'country_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function state() {
         return $this->belongsTo(State::class,'state_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function city() {
         return $this->belongsTo(City::class,'city_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function user_galleries() {
         return $this->hasMany(UserGallery::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function user_hobbies() {
         return $this->hasMany(UserHobby::class);
     }

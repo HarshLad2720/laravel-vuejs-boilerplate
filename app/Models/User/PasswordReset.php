@@ -1,19 +1,11 @@
 <?php
 
-namespace App\Models\Permission;
+namespace App\Models\User;
 
-use App\Traits\Scopes;
-use App\Models\role\role;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Permission extends Model
+class PasswordReset extends Model
 {
-    use Scopes,SoftDeletes;
-
-    public $sortable=[
-        'permissions',
-    ];
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +13,7 @@ class Permission extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'permissions'
+        'id', 'email', 'token'
     ];
 
     /**
@@ -46,16 +38,8 @@ class Permission extends Model
      * @var array
      */
     protected $casts = [
-        'id'=>'string',
-        'permissions'=>'string',
+        //
     ];
 
-    /**
-     * Get the Roles for the Permission.
-     */
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class,"permission_roles","permission_id","role_id");
-    }
 
 }

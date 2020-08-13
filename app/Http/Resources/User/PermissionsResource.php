@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\user;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PasswordResetsResource extends JsonResource
+class PermissionsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,9 @@ class PasswordResetsResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'email' => $this->email,
-            'token' => $this->token,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'permissions' => (string)$this->permissions,
+            'created_at' => (string)$this->created_at,
+            'updated_at' => (string)$this->updated_at
         ];
     }
 }
