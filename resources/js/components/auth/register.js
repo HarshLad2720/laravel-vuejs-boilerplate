@@ -26,7 +26,7 @@ export default {
                     key: 'min',
                     value: 'Password length should be at least 6'
                 }],
-                "mobile_no": [{key: 'required', value: 'Mobile Number required'}],
+                "mobile_no": [{key: 'required', value: 'Mobile Number required'}, {key: 'min', value: 'Mobile Number must be 10 digits'}, {key: 'max', value: 'Mobile Number must be 10 digits'}],
                 "profile": [{key: 'required', value: 'Profile Image required'}, {
                     key: 'size',
                     value: 'File size should be less than 4 MB!'
@@ -74,22 +74,29 @@ export default {
     methods: {
         onSubmit() {
             var self = this;
-            // console.log(self.model);
-
             this.$validator.validate().then(valid => {
                 if (valid) {
-                    console.log("Valid");
-                    // self.isSubmitting = true;
+                    console.log(self.model);
+                    self.isSubmitting = true;
                     let formData = new FormData();
-                    console.log("work1");
                     for (var key in self.model) {
                         formData.append(key, self.model[key]);
                     }
-                    console.log("work2");
-                    /*formData.delete('logo');
-                    if (self.model.logo && self.model.logo != null && self.model.logo instanceof File) {
-                        formData.append('logo', self.model.logo);
+                    formData.delete('profile');
+                    if (self.model.profile && self.model.profile != null && self.model.profile instanceof File) {
+                        formData.append('profile', self.model.profile);
+                    }
+                    /*formData.delete('gallery');
+                    if (self.model.gallery && self.model.gallery != null && self.model.gallery instanceof File) {
+                        formData.append('gallery', self.model.gallery);
                     }*/
+                    // formData.delete('gallery');
+                    if (self.model.gallery.length > 0) {
+                        self.model.gallery.map(function (g) {
+                            formData.append('gallery[]', g);
+                        });
+                    }
+
                     console.log(formData);
                     self.$store.dispatch("userStore/register", {model: formData},
                         {
@@ -103,12 +110,11 @@ export default {
                             self.errorMessage = response.data.error;
                         } else {
                             console.log("if else");
-                            // self.$store.commit("snackbarStore/setMsg", self.$getConst('CREATE_SUBSRIPTION'));
-                            console.log("SUccess");
+                            self.$store.commit("snackbarStore/setMsg", self.$getConst('REGISTER_SUCCESS'));
+                            console.log("Success");
                             // self.onCancel();
                         }
                     }, error => {
-                        console.log("dispatch else");
                         self.isSubmitting = false;
                         self.errorMessage = self.getAPIErrorMessage(error.response);
                     });

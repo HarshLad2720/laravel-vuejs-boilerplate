@@ -27,7 +27,7 @@
 
       <!--begin::Form-->
       <v-form class="form" @submit.prevent="onSubmit"  method="POST" role="form" enctype="multipart/form-data">
-<!--          <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>-->
+          <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
           <v-layout row wrap class="display-block">
               <v-flex xs12>
                   <v-text-field
@@ -65,7 +65,7 @@
                       name="mobile_no"
                       v-model="model.mobile_no"
                       :error-messages="getErrorValue('mobile_no')"
-                      v-validate="'required'"
+                      v-validate="'required|min:10|max:10'"
                       solo
                   ></v-text-field>
               </v-flex>

@@ -29,7 +29,7 @@
         "vuetify": "^2.2.26",
         "vuex": "^3.3.0",
         "vuex-persist": "^2.0.1",
-        "vue-persistent-state": "^0.2.1",
+        "vue-persistent-state": "^0.2.1"
     },
     "dependencies": {
         "moment-timezone": "^0.5.28",
