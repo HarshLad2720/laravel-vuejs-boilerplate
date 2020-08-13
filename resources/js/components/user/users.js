@@ -1,4 +1,5 @@
 import CustomTable from '../../components/customtable/table'
+import DeleteModal from "../../partials/DeleteModal";
 import {
     mdiPencil,
     mdiDelete,
@@ -6,29 +7,40 @@ import {
 
 export default CustomTable.extend({
     name: "Users",
-    data: () => ({
-        statename:'userStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
-        headers: [
-            { text: 'Name', value: 'name'},
-            { text: 'DOB', value: 'dob'},
-            { text: 'Gender', value: 'gender_text'},
-            { text: 'Address', value: 'address'},
-            { text: 'Mobile', value: 'mobile_no' },
-            { text: 'Email', value: 'email' },
-            { text: 'Role', value: 'role_id' },
-            { text: 'status', value: 'status_text' },
-            { text: 'Actions', value: 'actions', sortable: false },
-        ],
-         options:{
-             filter:{},
-         },
-        icons: {
-            mdiPencil,
-            mdiDelete,
-        },
-        /*roleId:"",*/
-    }),
-    components: {},
+    data: function () {
+        var self = this;
+        return {
+            modalOpen: false,
+            statename:'userStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
+            headers: [
+                { text: 'Name', value: 'name'},
+                { text: 'DOB', value: 'dob'},
+                { text: 'Gender', value: 'gender_text'},
+                { text: 'Address', value: 'address'},
+                { text: 'Mobile', value: 'mobile_no' },
+                { text: 'Email', value: 'email' },
+                { text: 'Role', value: 'role_id' },
+                { text: 'status', value: 'status_text' },
+                { text: 'Actions', value: 'actions', sortable: false },
+            ],
+            options:{
+                filter:{},
+            },
+            icons: {
+                mdiPencil,
+                mdiDelete,
+            },
+            Confirmation: {
+                title: '',
+                description: '',
+                btnCancelText: self.$getConst('BTN_OK'),
+                btnConfirmationText: self.$getConst('BTN_CANCEL'),
+            },
+        }
+    },
+    components: {
+        DeleteModal
+    },
     computed: {
         /*...mapState({
             roleList: state => state.userStore.roleList,
@@ -40,7 +52,9 @@ export default CustomTable.extend({
     },
     methods:{
         deleteItem (id) {
-
+            this.Confirmation.title = this.$getConst('DELETE_TITLE');
+            this.Confirmation.description = this.$getConst('WARNING');
+            this.modalOpen = true;
         },
         /*setFilter(){
             this.options.filter = { role_id : [this.roleId] };

@@ -30,23 +30,24 @@
                 </v-toolbar>
             </template>
 
-            <template v-slot:item.actions="{ id }">
+            <template v-slot:item.actions="{ item }">
                 <v-icon
                     small
                     class="mr-2"
-                    @click="editItem(id)"
+                    @click="editItem(item.id)"
                 >
                     {{ icons.mdiPencil }}
                 </v-icon>
                 <v-icon
                     small
-                    @click="deleteItem(id)"
+                    @click="deleteItem(item.id)"
                 >
                     {{ icons.mdiDelete }}
                 </v-icon>
             </template>
 
         </v-data-table>
+        <delete-modal v-model="modalOpen" :Confirmation="Confirmation"></delete-modal>
     </div>
 </template>
 
