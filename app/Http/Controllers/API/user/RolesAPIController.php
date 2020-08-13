@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API\Role;
+namespace App\Http\Controllers\API\user;
 
-use App\Models\Role\Role;
+use App\Models\user\Role;
 use App\User;
-use App\Http\Requests\Role\RolesRequest;
-use App\Http\Resources\Role\RolesCollection;
-use App\Http\Resources\Role\RolesResource;
+use App\Http\Requests\user\RolesRequest;
+use App\Http\Resources\user\RolesCollection;
+use App\Http\Resources\user\RolesResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

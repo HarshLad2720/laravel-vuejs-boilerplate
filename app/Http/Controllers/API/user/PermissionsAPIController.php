@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API\Permission;
+namespace App\Http\Controllers\API\user;
 
-use App\Models\Permission\Permission;
-use App\Http\Resources\Permission\PermissionsCollection;
-use App\Http\Resources\Permission\PermissionsResource;
-use App\Http\Requests\Permission\PermissionRequest;
+use App\Models\user\Permission;
+use App\Http\Resources\user\PermissionsCollection;
+use App\Http\Resources\user\PermissionsResource;
+use App\Http\Requests\user\PermissionRequest;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -22,8 +22,8 @@ class PermissionsAPIController extends Controller
     */
 
     /**
-    * Display a listing of the resource.
-    */
+     * Display a listing of the resource.
+     */
 
     public function index(Request $request)
     {
@@ -34,8 +34,8 @@ class PermissionsAPIController extends Controller
     /**
      * Display the specified resource.
      *
-     //* @param  \App\Permission  $permission
-     //* @return \Illuminate\Http\Response
+    //* @param  \App\Permission  $permission
+    //* @return \Illuminate\Http\Response
      */
 
     public function show(Permission $permission)
@@ -48,7 +48,7 @@ class PermissionsAPIController extends Controller
      *
      * @param  array  $request
      * @param  PermissionRequest
-     //* @return Permission
+    //* @return Permission
      */
 
     public function store(PermissionRequest $request)
@@ -67,8 +67,8 @@ class PermissionsAPIController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.
-    */
+     * Remove the specified resource from storage.
+     */
 
     public function destroy(Request $request, Permission $permission)
     {

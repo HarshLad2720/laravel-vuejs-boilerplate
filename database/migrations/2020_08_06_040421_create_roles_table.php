@@ -21,6 +21,10 @@ class CreateRolesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        DB::table('roles')->insert(array(
+            array('name' => 'Admin','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+        ));
     }
 
     /**

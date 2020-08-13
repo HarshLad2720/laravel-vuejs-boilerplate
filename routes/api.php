@@ -36,6 +36,9 @@ Route::group([
     Route::post('login','\App\Http\Controllers\API\User\UsersAPIController@login');
 
     Route::post('users', '\App\Http\Controllers\API\user\UsersAPIController@store');
+    Route::apiResource('roles', '\App\Http\Controllers\API\user\RolesAPIController');
+    Route::apiResource('permissions', '\App\Http\Controllers\API\user\PermissionsAPIController');
+    Route::put('permission_role/{role}', '\App\Http\Controllers\API\user\RolesAPIController@permission_role');
     Route::get('users-export', '\App\Http\Controllers\API\User\UsersAPIController@export');
     Route::group([
         'middleware' => ['auth:api', 'check.permission'],
