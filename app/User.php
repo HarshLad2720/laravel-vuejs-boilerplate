@@ -1,8 +1,12 @@
 <?php
 
 namespace App;
-
+use App\Models\User\Country;
+use App\Models\User\State;
+use App\Models\User\City;
 use App\Models\Role\Role;
+use App\Models\User\UserGallery;
+use App\Models\User\UserHobby;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -47,6 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail
             $mainQuery = $mainQuery->groupBy($groupBy);
 
         if ( $no_paginate ){
+
             return $mainQuery->withOrderBy($request->get('sort'), $request->get('order_by'), $tablename, $export_select);
         }else{
             return $mainQuery->withOrderBy($request->get('sort'), $request->get('order_by'), $tablename, $export_select)
@@ -129,5 +134,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function city() {
         return $this->belongsTo(City::class,'city_id');
+    }
+
+    public function user_galleries() {
+        return $this->hasMany(UserGallery::class);
+    }
+    public function user_hobbies() {
+        return $this->hasMany(UserHobby::class);
     }
 }

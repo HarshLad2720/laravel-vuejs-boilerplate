@@ -24,29 +24,29 @@ use Illuminate\Routing\Router;
 });*/
 Auth::routes(['verify' => true]);
 
-Route::get('email/verify/{id}', '\App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
-Route::get('email/resend', '\App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
-
-Route::post('register', '\App\Http\Controllers\API\user\UsersAPIController@register');
-
-Route::post('users/{id}', '\App\Http\Controllers\API\user\UsersAPIController@update');
 
 Route::group([
     'prefix' => 'v1',
 ], function () {
+    Route::get('email/verify/{id}', '\App\Http\Controllers\API\User\VerificationAPIController@verify')->name('verification.verify');
+    Route::get('email/resend', '\App\Http\Controllers\API\User\VerificationAPIController@resend')->name('verification.resend');
+    Route::post('password/email','Auth\ForgotPasswordController@sendResetLinkEmail');
 
-    Route::post('login','\App\Http\Controllers\API\user\LoginController@login');
+    Route::post('register', '\App\Http\Controllers\API\User\UsersAPIController@register');
+    Route::post('login','\App\Http\Controllers\API\User\UsersAPIController@login');
+
     Route::post('users', '\App\Http\Controllers\API\user\UsersAPIController@store');
     Route::apiResource('roles', '\App\Http\Controllers\API\Role\RolesAPIController');
     Route::apiResource('permissions', '\App\Http\Controllers\API\Permission\PermissionsAPIController');
     Route::put('permission_role/{role}', '\App\Http\Controllers\API\Role\RolesAPIController@permission_role');
-
-
+    Route::get('users-export', '\App\Http\Controllers\API\User\UsersAPIController@export');
     Route::group([
         'middleware' => ['auth:api', 'check.permission'],
     ], function() {
 
-        Route::apiResource('users', '\App\Http\Controllers\API\user\UsersAPIController', [
+
+        Route::post('users/{user}', '\App\Http\Controllers\API\User\UsersAPIController@update');
+        Route::apiResource('users', '\App\Http\Controllers\API\User\UsersAPIController', [
             'only' => ['index', 'show', 'update', 'destroy']
         ]);
 
