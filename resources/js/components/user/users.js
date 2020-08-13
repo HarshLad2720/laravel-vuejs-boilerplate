@@ -1,5 +1,6 @@
 import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
+import CommonServices from '../../common_services/common.js';
 import {
     mdiPencil,
     mdiDelete,
@@ -73,18 +74,17 @@ export default CustomTable.extend({
         /* Edit User */
         onEdit(id) {
             this.userDialogue = true;
-            /*this.$store.commit('userStore/setEditId', id);
+            this.$store.commit('userStore/setEditId', id);
             this.$store.dispatch('userStore/getById', id).then(response => {
                 if (response.error) {
                     this.errorArr = response.data.error;
                     this.errorDialog = true;
-                } else {
                     this.userDialogue = true;
                 }
             }, error => {
                 this.errorArr = this.getModalAPIerrorMessage(error);
                 this.errorDialog = true;
-            });*/
+            });
         },
     },
     mounted(){
