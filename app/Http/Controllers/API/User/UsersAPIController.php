@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API\User;
-use App\Exports\UsersExport;
+use App\Exports\User\UsersExport;
 use App\Http\Requests\User\LoginRequest;
 use App\User;
 use App\Models\User\UserGallery;
@@ -128,7 +128,36 @@ class UsersAPIController extends Controller
      */
     public function update(UsersRequest $request, User $user)
     {
-        $user->update($request->all());
+        $data = $request->all();
+        if($request->hasfile('profile')) {
+            $real_path = 'user/' . $user->id . '/';
+            $file_data = $request->file('profile')->store('/public/' . $real_path);
+            $user->profile = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+        }
+
+        if($request->hasfile('gallery')) {
+
+            foreach ($request->gallery as $photo) {
+                $real_path = 'gallery/'.$user->id.'/';
+                $file_data = $photo->store('/public/' . $real_path);
+                $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+                UserGallery::create([
+                    'user_id' => $user->id,
+                    'filename' => $filename
+                ]);
+            }
+        }
+
+        if($data['hobby']) {
+
+            foreach ($data['hobby'] as $hobby) {
+                UserHobby::create([
+                    'user_id' => $user->id,
+                    'hobby_id' => $hobby
+                ]);
+            }
+        }
+        $user->update($data);
 
         return new UsersResource($user);
     }
@@ -155,5 +184,16 @@ class UsersAPIController extends Controller
     public function export(Request $request)
     {
         return Excel::download(new UsersExport($request), 'User.csv');
+    }
+
+    /**
+     * Logout User
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function logout(Request $request) {
+        $token = $request->user()->token();
+        $token->revoke();
+        return response()->json('You have been Successfully logged out!');
     }
 }

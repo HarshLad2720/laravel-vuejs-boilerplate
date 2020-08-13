@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PasswordResetsResource extends JsonResource
+class DataTrueResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,11 +15,7 @@ class PasswordResetsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'email' => $this->email,
-            'token' => $this->token,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'data' => true
         ];
     }
 }

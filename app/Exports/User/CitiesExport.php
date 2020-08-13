@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Exports;
+namespace App\Exports\User;
 
-use App\User;
+use App\Models\User\City;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class UsersExport implements FromCollection, WithHeadings
+class CitiesExport implements FromCollection, WithHeadings
 {
     protected $request;// defined private $request variable
 
@@ -20,9 +20,9 @@ class UsersExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $model = new User();
+        $model = new City();
 
-        $query =  User::commonFunctionMethod($model::select('name', 'email'),$this->request, true, null, null, true);
+        $query =  City::commonFunctionMethod($model::select('id','name'),$this->request, true, null, null, true);
 
         return $query;
     }
@@ -30,8 +30,8 @@ class UsersExport implements FromCollection, WithHeadings
     public function headings():array
     {
         return[
-            'Name',
-            'Email'
+            'ID',
+            'Name'
         ];
     }
 }
