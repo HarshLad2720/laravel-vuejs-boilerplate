@@ -40,8 +40,8 @@ export default {
             UserData: state => state.userStore.currentUser,
         }),
         ...mapGetters({
-            userFullName: 'userStore/userFullName',
-            userProfilePicture: 'userStore/userProfilePicture',
+            /*userFullName: 'userStore/userFullName',
+            userProfilePicture: 'userStore/userProfilePicture',*/
         }),
     },
     methods: {

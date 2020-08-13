@@ -1,4 +1,3 @@
-import BootstrapVue from "../../plugins/bootstrap-vue";
 import CommonServices from '../../common_services/common.js';
 import ErrorBlockServer from "../../partials/ErrorBlockServer";
 import ErrorModal from "../../partials/ErrorModal";
@@ -67,7 +66,8 @@ export default {
     },
     computed: {
         ...mapState({
-            model: state => state.userStore.createModel,
+            model: state => state.userStore.model,
+            isEditMode: state => state.userStore.editId > 0
         }),
     },
     mixins: [CommonServices],
@@ -96,9 +96,15 @@ export default {
                             formData.append('gallery[]', g);
                         });
                     }
-
-                    console.log(formData);
-                    self.$store.dispatch("userStore/register", {model: formData},
+                    var apiName = "register";
+                    var editId = '';
+                    var msgType= self.$getConst('REGISTER_SUCCESS');
+                    if (this.$store.state.userStore.editId > 0) {
+                        apiName = "edit";
+                        editId = this.$store.state.userStore.editId;
+                        msgType=2;
+                    }
+                    self.$store.dispatch("userStore/" + apiName, {model: formData, editId: editId},
                         {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
@@ -110,7 +116,7 @@ export default {
                             self.errorMessage = response.data.error;
                         } else {
                             console.log("if else");
-                            self.$store.commit("snackbarStore/setMsg", self.$getConst('REGISTER_SUCCESS'));
+                            self.$store.commit("snackbarStore/setMsg", );
                             console.log("Success");
                             // self.onCancel();
                         }

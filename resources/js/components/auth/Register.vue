@@ -2,7 +2,7 @@
   <div>
     <!--begin::Content header-->
     <div
-      class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10"
+      class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10" v-if="!isEditMode"
     >
       <span class="font-weight-bold font-size-3 text-dark-60">
         Already have an account?
@@ -18,7 +18,7 @@
 
     <!--begin::Signup-->
     <div class="login-form login-signin">
-      <div class="text-center mb-10 mb-lg-20">
+      <div class="text-center mb-10 mb-lg-20" v-if="!isEditMode">
         <h3 class="font-size-h1">Sign Up</h3>
         <p class="text-muted font-weight-semi-bold">
           Enter your details to create your account

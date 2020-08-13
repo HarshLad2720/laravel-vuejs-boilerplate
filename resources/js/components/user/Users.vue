@@ -34,7 +34,7 @@
                 <v-icon
                     small
                     class="mr-2"
-                    @click="editItem(item.id)"
+                    @click="onEdit(item.id)"
                 >
                     {{ icons.mdiPencil }}
                 </v-icon>
@@ -48,6 +48,10 @@
 
         </v-data-table>
         <delete-modal v-model="modalOpen" :Confirmation="Confirmation"></delete-modal>
+
+<!--        <error-modal :errorArr="errorArr" v-model="errorDialog"></error-modal>-->
+        <user-modal :paramProps="paramProps" v-model="userDialogue"></user-modal>
+
     </div>
 </template>
 

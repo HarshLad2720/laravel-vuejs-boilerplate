@@ -36,10 +36,20 @@ export default CustomTable.extend({
                 btnCancelText: self.$getConst('BTN_OK'),
                 btnConfirmationText: self.$getConst('BTN_CANCEL'),
             },
+            userDialogue: false,
+            paramProps: {
+                idProps: '',
+                storeProps: '',
+            },
+            errorArr: [],
+            errorDialog: false,
         }
     },
+    mixins: [CommonServices],
     components: {
-        DeleteModal
+        DeleteModal,
+        UserModal,
+        ErrorModal
     },
     computed: {
         /*...mapState({
@@ -59,6 +69,23 @@ export default CustomTable.extend({
         /*setFilter(){
             this.options.filter = { role_id : [this.roleId] };
         }*/
+
+        /* Edit User */
+        onEdit(id) {
+            this.userDialogue = true;
+            /*this.$store.commit('userStore/setEditId', id);
+            this.$store.dispatch('userStore/getById', id).then(response => {
+                if (response.error) {
+                    this.errorArr = response.data.error;
+                    this.errorDialog = true;
+                } else {
+                    this.userDialogue = true;
+                }
+            }, error => {
+                this.errorArr = this.getModalAPIerrorMessage(error);
+                this.errorDialog = true;
+            });*/
+        },
     },
     mounted(){
         /*this.$store.dispatch('userStore/getRoles').then(response => {

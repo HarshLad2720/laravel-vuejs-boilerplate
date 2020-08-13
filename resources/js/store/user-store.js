@@ -18,7 +18,7 @@ function initialState() {
         roleList: [],
         currentUserData: [],
 
-        createModel: {
+        model: {
             name: '',
             email: '',
             password: '',
@@ -55,23 +55,16 @@ const userStore = {
             state.editId = payload;
         },
         setModel(state, param) {
-            Object.keys(state.model).forEach(key => {
-                if (param.model[key] == null){
-                    param.model[key] = '';
-                }
-                state.model[key] = param.model[key];
-            });
-            state.model.timezone = {name: param.model.default_timezone, offset: param.model.timezone_offset};
-            state.model.logo_upload=null;
+            state.model = param.model;
         },
         clearStore(state) {
             const s = initialState();
             state.model = s.model;
             state.editId = s.editId;
         },
-        clearCreateModel(state) {
+        clearModel(state) {
             const s = initialState();
-            state.createModel = s.createModel;
+            state.model = s.model;
         },
     },
     actions: {
@@ -94,7 +87,6 @@ const userStore = {
             })
         },
         register({commit}, param) {
-            console.log("in store");
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "register", param.model).then(response => {
                     console.log(response);
@@ -102,6 +94,17 @@ const userStore = {
                 }).catch(e => {
                     reject(e);
                 })
+            })
+        },
+        getById({commit, state}) {
+            return new Promise((resolve, reject) => {
+                HTTP.get(baseUrl + 'users' + "/" + state.editId).then(response => {
+                    commit('setModel', {model: response.data.data})
+                    resolve(response.data);
+                })
+                    .catch(e => {
+                        reject(e);
+                    })
             })
         },
         edit({commit}, param) {
