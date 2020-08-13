@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\user;
+namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -30,6 +30,8 @@ class UsersResource extends JsonResource
             'address' => (string)$this->address,
             'status' => (string)$this->status,
             'status_text' => (string) config('constants.user.status.'.$this->status),
+            'user_gallery' => $this->user_galleries,
+            'user_hobby' => $this->user_hobbies,
             'authorization_secret_key' => $this->authorization_secret_key,
             'email_verified_at' =>(string) $this->email_verified_at,
             'created_at' => (string)$this->created_at,

@@ -99,7 +99,7 @@ export default {
             return 'N/A';
         },
         getErrorRule(field) {
-            /*var error = this.errors.items.find(function (item) {
+            var error = this.errors.items.find(function (item) {
                 if (item.scope) {
                     return item.scope + "." + item.field == field;
                 } else {
@@ -108,7 +108,7 @@ export default {
             });
             if (error) {
                 return error.rule;
-            }*/
+            }
         },
         getErrorValue(field, indexVal) {
             let rule = '';

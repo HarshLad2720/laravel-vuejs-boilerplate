@@ -26,7 +26,7 @@
       </div>
 
       <!--begin::Form-->
-      <v-form class="form" @submit.prevent="onSubmit"  method="POST" role="form" enctype="multipart/form-data" novalidate autocomplete="off">
+      <v-form class="form" @submit.prevent="onSubmit"  method="POST" role="form" enctype="multipart/form-data">
 <!--          <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>-->
           <v-layout row wrap class="display-block">
               <v-flex xs12>
@@ -69,20 +69,100 @@
                       solo
                   ></v-text-field>
               </v-flex>
-              <!--gender: '',
-              dob:'',
-              address: '',
-              country_id: '',
-              state_id: '',
-              city_id: '',
-              gallery: [],
-              hobby: [],-->
               <v-flex xs12>
-                  <v-file-input label="Profile" solo></v-file-input>
+                  <v-file-input label="Profile" name="profile" v-model="model.profile" solo :error-messages="getErrorValue('profile')"
+                                v-validate="'required'"></v-file-input>
               </v-flex>
               <v-flex xs12>
+                  <v-radio-group row v-model="model.gender"
+                                 name="gender"
+                                 :error-messages="getErrorValue('gender')"
+                                 v-validate="'required'">
+                      <v-radio label="Male" value="1"></v-radio>
+                      <v-radio label="Female" value="2"></v-radio>
+                  </v-radio-group>
               </v-flex>
               <v-flex xs12>
+                  <v-menu
+                      v-model="menu"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      class="display-inline-blc"
+                  >
+                      <template v-slot:activator="{ on }">
+                          <v-text-field
+                              label="Month"
+                              readonly
+                              v-on="on"
+                              single-line
+                              value="08/12/2020" solo
+                          ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="model.dob"  :error-messages="getErrorValue('dob')"
+                                     v-validate="'required'" name="dob"
+                                     @input="menu = false"></v-date-picker>
+                  </v-menu>
+              </v-flex>
+              <v-flex xs12>
+                  <v-text-field
+                      label="Address" type="text"
+                      name="address"
+                      v-model="model.address"
+                      :error-messages="getErrorValue('address')"
+                      v-validate="'required'"
+                      solo
+                  ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                  <v-select
+                      name="country_id"
+                      v-model="model.country_id"
+                      :items="country_items"
+                      label="Country"
+                      item-text="name"
+                      item-value="id"
+                      :error-messages="getErrorValue('country_id')"
+                      v-validate="'required'"
+                      solo
+                  ></v-select>
+              </v-flex>
+              <v-flex xs12>
+                  <v-select
+                      name="state_id"
+                      v-model="model.state_id"
+                      :items="state_items"
+                      label="State"
+                      item-text="name"
+                      item-value="id"
+                      :error-messages="getErrorValue('state_id')"
+                      v-validate="'required'"
+                      solo
+                  ></v-select>
+              </v-flex>
+              <v-flex xs12>
+                  <v-select
+                      name="city_id"
+                      v-model="model.city_id"
+                      :items="city_items"
+                      label="City"
+                      item-text="name"
+                      item-value="id"
+                      :error-messages="getErrorValue('city_id')"
+                      v-validate="'required'"
+                      solo
+                  ></v-select>
+              </v-flex>
+              <v-flex xs12>
+                  <v-file-input multiple name="gallery" label="Gallery" v-model="model.gallery" solo :error-messages="getErrorValue('gallery')"
+                                v-validate="'required'"></v-file-input>
+              </v-flex>
+              <v-flex xs12>
+                  <v-row justify="space-around">
+                      <v-checkbox name="hobby1" v-model="model.hobby" label="Singing" value="1" v-validate="'required'" :error="getErrorCount('hobby1')"></v-checkbox>
+                      <v-checkbox name="hobby2" v-model="model.hobby" label="Cooking" value="2" v-validate="'required'" :error="getErrorCount('hobby2')"></v-checkbox>
+                  </v-row>
               </v-flex>
           </v-layout>
 
@@ -96,7 +176,7 @@
             Submit
           </button>-->
 
-            <v-btn class="btn" type="submit"
+            <v-btn class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4" type="submit"
                    :loading="isSubmitting" ref="submitBtn">Submit</v-btn>
           <button
             v-on:click="$router.push('login')"
