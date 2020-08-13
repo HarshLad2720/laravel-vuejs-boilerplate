@@ -20,6 +20,11 @@ return [
             'invalid' => 'Invalid credentials',
         ],
 
+        'success' => 'Success',
+        'delete_success' => 'Delete Successfully',
+        'registration_success'=>'Please check your inbox to activate your account',
+        'forgotpassword_success'=>'Password reset instructions has been sent to your email. Please check your inbox/spam',
+        'forgotpassword_error'=>'Invalid Email',
         'login' => [
             'success' => 'Login is successful.',
             'unverified_account' => 'Your account is not verified yet.',
@@ -40,13 +45,6 @@ return [
 
     ],
 
-    'register' => [
-        'status' => [
-            'pending' => '0',
-            'approved' => '1',
-        ],
-    ],
-
     'validation_codes' => [
         '422' => 422,
     ],
@@ -56,12 +54,16 @@ return [
             '0' => 'Inactive',
             '1' => 'Active',
         ],
-        'status_enum' => ['0', '1'],
+        'status_code' => [
+            'inactive' => '0',
+            'active' => '1',
+        ],
+        //'status_enum' => ['0', '1'],
 
         'gender' => [
             '0' => 'Female',
             '1' => 'Male',
         ],
-        'gender_enum' => ['0', '1'],
+       // 'gender_enum' => ['0', '1'],
     ],
 ];

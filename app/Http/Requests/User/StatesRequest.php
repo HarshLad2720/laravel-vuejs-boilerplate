@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\user;
+namespace App\Http\Requests\User;
 
 //use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 
-class UsersRequest extends FormRequest
+class StatesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,7 @@ class UsersRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'email' => 'required|max:255',
+            'country_id' => 'required'
         ];
     }
 }
