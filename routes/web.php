@@ -13,7 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('password/reset', 'Auth\ResetPasswordController@showResetForm')->name('password.request');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.reset');
-
 ///Route::get('/home', 'HomeController@index')->name('home');
+

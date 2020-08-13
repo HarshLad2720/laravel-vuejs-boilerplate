@@ -31,6 +31,15 @@ class UsersRequest extends FormRequest
             'email' => 'required|max:255|email|max:255|unique:users,email',
             'password' => 'required | min:6 | max:255',
             'mobile_no' => 'required | digits:10',
+            'profile' => 'required',
+            'gender' => 'required',
+            'dob' => 'required',
+            'address' => 'required',
+            'country_id' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
+            'gallery' => 'required',
+            'hobby' => 'required',
         ];
     }
 }

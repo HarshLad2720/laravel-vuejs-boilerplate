@@ -13,11 +13,44 @@ class State extends Model
      *
      * @var array
      */
-    public $sortable=[
-        'id','name',
-    ];
+
     protected $fillable = [
-        'id', 'name', 'created_by','updated_by'
+        'id', 'name','country_id', 'created_by','updated_by'
+    ];
+
+    /**
+     * @var array
+     */
+    public $sortable=[
+        'id','name','country_id'
+    ];
+
+    /**
+     * @var array
+     */
+    public $foreign_sortable = [
+        'country_id'
+    ];
+
+    /**
+     * @var array
+     */
+    public $foreign_table = [
+        'countries'
+    ];
+
+    /**
+     * @var array
+     */
+    public $foreign_key = [
+        'name'
+    ];
+
+    /**
+     * @var array
+     */
+    public $foreign_method = [
+        'country'
     ];
 
     /**
@@ -43,9 +76,16 @@ class State extends Model
      */
     protected $casts = [
         //
+        'id'=>'string',
+        'country_id'=>'string',
+        'name'=>'string',
     ];
 
-
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function country() {
+        return $this->belongsTo(Country::class,'country_id');
+    }
 
 }

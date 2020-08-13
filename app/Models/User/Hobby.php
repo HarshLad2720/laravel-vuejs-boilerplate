@@ -16,6 +16,10 @@ class Hobby extends Model
     public $sortable=[
         'id','name',
     ];
+
+    /**
+     * @var array
+     */
     protected $fillable = [
         'id', 'name', 'created_by','updated_by'
     ];
@@ -43,6 +47,8 @@ class Hobby extends Model
      */
     protected $casts = [
         //
+        'id'=>'string',
+        'name'=>'string',
     ];
 
 
