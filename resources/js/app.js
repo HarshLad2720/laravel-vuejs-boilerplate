@@ -8,6 +8,7 @@ import VueRouter from 'vue-router';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import Vuex from 'vuex';
+import constants from './common_services/constantPlugin';
 import persistentState from 'vue-persistent-state';
 // import VeeValidate from 'vee-validate';
 import VeeValidate from 'vee-validate';
@@ -15,6 +16,7 @@ import VeeValidate from 'vee-validate';
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 Vue.use(Vuex);
+Vue.use(constants);
 Vue.use(persistentState);
 /*Vue.use(Vuetify);*/
 Vue.use(VeeValidate);
