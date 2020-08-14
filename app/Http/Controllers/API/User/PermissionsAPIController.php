@@ -8,6 +8,7 @@ use App\Http\Resources\User\PermissionsResource;
 use App\Http\Requests\User\PermissionsRequest;
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Resources\DataTrueResource;
 use App\Http\Controllers\Controller;
 
 class PermissionsAPIController extends Controller
@@ -17,12 +18,15 @@ class PermissionsAPIController extends Controller
     | Permission Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles the Permissions of new Permissions.
+    | This controller handles the Permissions of index, show, store, update, destroy Methods.
     |
     */
 
     /**
-     * Display a listing of the resource.
+     * Permissions List
+     * @param Request $request
+     * @return PermissionsCollection
+     * @return PermissionsResource
      */
 
     public function index(Request $request)
@@ -32,10 +36,9 @@ class PermissionsAPIController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-    //* @param  \App\Permission  $permission
-    //* @return \Illuminate\Http\Response
+     * Permission Detail
+     * @param Permission $permission
+     * @return PermissionsResource
      */
 
     public function show(Permission $permission)
@@ -44,11 +47,9 @@ class PermissionsAPIController extends Controller
     }
 
     /**
-     * Create a new Permission instance after a valid Permissions.
-     *
-     * @param  array  $request
-     * @param  PermissionsRequest
-     * //* @return Permission
+     * Create a new Permission instance after a valid Permission.
+     * @param PermissionsRequest $request
+     * @return PermissionsResource
      */
 
     public function store(PermissionsRequest $request)
@@ -57,7 +58,10 @@ class PermissionsAPIController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update Permission
+     * @param PermissionsRequest $request
+     * @param Permission $permission
+     * @return PermissionsResource
      */
 
     public function update(PermissionsRequest $request, Permission $permission)
@@ -67,12 +71,15 @@ class PermissionsAPIController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     */
+    * Delete Role
+    * @param Request $request
+    * @param Permission $permission
+    * @return DataTrueResource
+    */
 
     public function destroy(Request $request, Permission $permission)
     {
         $permission->delete();
-        return response()->json(['data' => config('constants.messages.delete_sucess')], 200);
+        return new DataTrueResource($permission);
     }
 }
