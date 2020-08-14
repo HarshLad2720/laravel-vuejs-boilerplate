@@ -27,5 +27,5 @@ const app = new Vue({
     render: h => h(App)
 }).$mount('#appMain');
 
-/*const version = "__VERSION__";
-export {version};*/
+const version = "__VERSION__";
+export {version};

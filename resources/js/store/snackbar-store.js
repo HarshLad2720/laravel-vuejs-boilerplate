@@ -6,20 +6,7 @@ const snackbarStore = {
     },
     mutations: {
         setMsg(state,payload) {
-            if(payload==1) {
-                state.msg = 'Inserted Successfully';
-            }
-            else if(payload==2)
-            {
-                state.msg = 'Edited Successfully' ;
-            }
-            else if(payload==3)
-            {
-                state.msg = 'Deleted Successfully' ;
-            }
-            else{
-                state.msg = payload;
-            }
+            state.msg = payload;
             state.snackbar = true ;
         },
         clearStore(state) {

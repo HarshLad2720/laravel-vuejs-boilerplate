@@ -116,6 +116,15 @@ const userStore = {
                 })
             })
         },
+        delete({ commit }, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.delete(baseUrl + "users/"  + param, { _method: 'DELETE' }).then(response => {
+                    resolve(response.data);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        }
     }
 }
 

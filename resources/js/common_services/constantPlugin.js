@@ -2,9 +2,9 @@
 //https://dev.to/nkoik/writing-a-very-simple-plugin-in-vuejs---example-8g8
 import {PERMISSION_CONSTANTS} from './permission/permission-constants'*/
 const YOUR_CONSTS = {
-    CREATE_ACTION: 1,
-    UPDATE_ACTION: 2,
-    DELETE_ACTION: 3,
+    CREATE_ACTION: 'Inserted Successfully',
+    UPDATE_ACTION: 'Edited Successfully',
+    DELETE_ACTION: "Deleted Successfully",
 
     REGISTER_SUCCESS: "Sucessfully registered. Please check your email for Verification",
     BTN_CANCEL: 'Cancel',

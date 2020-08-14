@@ -1,6 +1,8 @@
 import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
+import ErrorModal from "../../partials/ErrorModal";
 import CommonServices from '../../common_services/common.js';
+import UserModal from './UserModal';
 import {
     mdiPencil,
     mdiDelete,
@@ -31,17 +33,17 @@ export default CustomTable.extend({
                 mdiPencil,
                 mdiDelete,
             },
-            Confirmation: {
+            confirmation: {
                 title: '',
                 description: '',
-                btnCancelText: self.$getConst('BTN_OK'),
-                btnConfirmationText: self.$getConst('BTN_CANCEL'),
+                btnCancelText: self.$getConst('BTN_CANCEL'),
+                btnConfirmationText: self.$getConst('BTN_OK'),
             },
-            userDialogue: false,
             paramProps: {
                 idProps: '',
                 storeProps: '',
             },
+            userDialogue: false,
             errorArr: [],
             errorDialog: false,
         }
@@ -50,7 +52,7 @@ export default CustomTable.extend({
     components: {
         DeleteModal,
         UserModal,
-        ErrorModal
+        ErrorModal,
     },
     computed: {
         /*...mapState({
@@ -63,8 +65,10 @@ export default CustomTable.extend({
     },
     methods:{
         deleteItem (id) {
-            this.Confirmation.title = this.$getConst('DELETE_TITLE');
-            this.Confirmation.description = this.$getConst('WARNING');
+            this.paramProps.idProps = id;
+            this.paramProps.storeProps = 'userStore';
+            this.confirmation.title = this.$getConst('DELETE_TITLE');
+            this.confirmation.description = this.$getConst('WARNING');
             this.modalOpen = true;
         },
         /*setFilter(){

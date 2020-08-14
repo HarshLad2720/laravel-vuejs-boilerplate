@@ -5,24 +5,27 @@
                 class="headline black-bg"
                 primary-title
             >
-                {{confirmation.title}}
+                {{paramRole.title}}
             </v-card-title>
 
             <v-card-text>
                 <form method="POST" name="" role="form">
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
+                    <v-col cols="12" sm="6" md="4">
+                        <v-text-field label="Legal first name*" required></v-text-field>
+                    </v-col>
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <p>{{confirmation.description}}</p>
+                            <p>{{paramRole.description}}</p>
                         </v-flex>
                     </v-layout>
 
                     <v-layout row wrap>
                         <v-flex xs12>
                             <v-btn color="secondary" class="btn btn-grey m-b-10 m-t-10" @click.native="onCancel">
-                                {{confirmation.btnCancelText}}
+                                {{paramRole.btnCancelText}}
                             </v-btn>
-                            <v-btn color="success" class="btn btn-black m-b-10 m-t-10" @click.native="deleteAction">{{confirmation.btnConfirmationText}}
+                            <v-btn color="success" class="btn btn-black m-b-10 m-t-10" @click.native="deleteAction">{{paramRole.btnConfirmationText}}
                             </v-btn>
                         </v-flex>
                     </v-layout>
@@ -37,9 +40,9 @@
 </template>
 
 <script>
-    import CommonServices from '../common_services/common.js';
-    import ErrorBlock from "../partials/ErrorBlock.vue"
-    import ErrorBlockServer from "../partials/ErrorBlockServer.vue"
+    import CommonServices from '../../common_services/common.js';
+    import ErrorBlock from "../../partials/ErrorBlock.vue"
+    import ErrorBlockServer from "../../partials/ErrorBlockServer.vue"
 
     export default {
         data() {
@@ -53,11 +56,11 @@
             ErrorBlock,
             ErrorBlockServer,
         },
-        props: ['value', 'paramProps' ,'confirmation'],
+        props: ['value', 'paramRole'],
         mixins: [CommonServices],
         methods: {
             deleteAction() {
-                this.$store.dispatch(this.paramProps.storeProps + '/delete', this.paramProps.idProps).then(response => {
+                this.$store.dispatch(this.paramRole.storeProps + '/delete', this.paramRole.idProps).then(response => {
                     if (response.error) {
                         this.errorMessage = response.error;
                     } else {
@@ -81,3 +84,17 @@
         }
     }
 </script>
+
+<!--<template>
+
+</template>
+
+<script>
+    export default {
+        name: "AddRole"
+    }
+</script>
+
+<style scoped>
+
+</style>-->

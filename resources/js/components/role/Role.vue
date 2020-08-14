@@ -25,8 +25,8 @@
                         color="primary"
                         dark
                         class="mb-2"
-                        @click="refresh()"
-                    >New Item</v-btn>
+                        @click="addrole()"
+                    >Add Role</v-btn>
                 </v-toolbar>
             </template>
 
@@ -34,7 +34,7 @@
                 <v-icon
                     small
                     class="mr-2"
-                    @click="onEdit(item.id)"
+                    @click="editItem(item.id)"
                 >
                     {{ icons.mdiPencil }}
                 </v-icon>
@@ -47,13 +47,9 @@
             </template>
 
         </v-data-table>
+        <add-role v-model="addRoleModal" :paramRole="paramRole"></add-role>
         <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
-        <user-modal :paramProps="paramProps" v-model="userDialogue"></user-modal>
-
     </div>
 </template>
 
-<script src="./users.js"></script>
-
-<style scoped>
-</style>
+<script src="./role.js"></script>
