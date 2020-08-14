@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API\user;
+namespace App\Http\Controllers\API\User;
 
-use App\Models\user\Permission;
-use App\Http\Resources\user\PermissionsCollection;
-use App\Http\Resources\user\PermissionsResource;
-use App\Http\Requests\user\PermissionRequest;
+use App\Models\User\Permission;
+use App\Http\Resources\User\PermissionsCollection;
+use App\Http\Resources\User\PermissionsResource;
+use App\Http\Requests\User\PermissionsRequest;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -47,11 +47,11 @@ class PermissionsAPIController extends Controller
      * Create a new Permission instance after a valid Permissions.
      *
      * @param  array  $request
-     * @param  PermissionRequest
-    //* @return Permission
+     * @param  PermissionsRequest
+     * //* @return Permission
      */
 
-    public function store(PermissionRequest $request)
+    public function store(PermissionsRequest $request)
     {
         return new PermissionsResource(Permission::create($request->all()));
     }
@@ -60,7 +60,7 @@ class PermissionsAPIController extends Controller
      * Update the specified resource in storage.
      */
 
-    public function update(PermissionRequest $request, Permission $permission)
+    public function update(PermissionsRequest $request, Permission $permission)
     {
         $permission->update($request->all());
         return new PermissionsResource($permission);

@@ -4,7 +4,7 @@ namespace App;
 use App\Models\User\Country;
 use App\Models\User\State;
 use App\Models\User\City;
-use App\Models\user\Role;
+use App\Models\User\Role;
 use App\Models\User\UserGallery;
 use App\Models\User\UserHobby;
 use Illuminate\Contracts\Auth\MustVerifyEmail;

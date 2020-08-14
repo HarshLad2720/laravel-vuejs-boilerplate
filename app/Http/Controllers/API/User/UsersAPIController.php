@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API\User;
 use App\Exports\User\UsersExport;
-use App\Http\Requests\User\LoginRequest;
 use App\User;
 use App\Models\User\UserGallery;
 use App\Models\User\UserHobby;

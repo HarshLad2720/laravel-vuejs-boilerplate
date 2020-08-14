@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api\user;
+namespace App\Http\Controllers\Api\User;
 
 use App\Http\Requests\User\LoginRequest;
+use \App\Http\Resources\User\UsersResource;
+
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\User;
 use App\Scopes\VerifiedScope;
@@ -44,8 +46,8 @@ class LoginController extends Controller
             $token->scopes = $user->role->permissions->pluck('permissions')->toArray();
             $token->save();
             $user->permissions = is_null($user->role)?[]:$user->role->permissions->pluck('permissions');
-            $user->authorization_secret_key = $tokenResult->accessToken;
-            return new \App\Http\Resources\user\UsersResource($user);
+            $user->authorization = $tokenResult->accessToken;
+            return new UsersResource($user);
         }else{
             return response("No User found.", 200);
         }
