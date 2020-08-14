@@ -6,6 +6,7 @@ use App\Models\User\Permission;
 use App\Http\Resources\User\PermissionsCollection;
 use App\Http\Resources\User\PermissionsResource;
 use App\Http\Requests\User\PermissionsRequest;
+use App\Http\Requests\User\SetUnsetPermissionToRoleRequest;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\DataTrueResource;
@@ -81,5 +82,16 @@ class PermissionsAPIController extends Controller
     {
         $permission->delete();
         return new DataTrueResource($permission);
+    }
+
+    /**
+     * This method is used set/unset permission to role
+     *
+     * @param SetUnsetPermissionToRoleRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function setUnsetPermissionToRole(SetUnsetPermissionToRoleRequest $request)
+    {
+        return Permission::setUnsetPermission($request);
     }
 }

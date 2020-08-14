@@ -44,7 +44,8 @@ Route::group([
 
         Route::apiResource('roles', 'RolesAPIController');
         Route::apiResource('permissions', 'PermissionsAPIController');
-        Route::put('permission_role/{role}', 'RolesAPIController@permission_role');
+        Route::post('set_unset_permission_to_role', 'PermissionsAPIController@setUnsetPermissionToRole');
+
 
 
         Route::group([

@@ -3,7 +3,8 @@
 namespace App\Models\User;
 
 use App\Traits\Scopes;
-use App\Models\User\role;
+use App\Models\User\Role;
+use App\Models\User\Permission_role;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

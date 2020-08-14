@@ -85,15 +85,4 @@ class RolesAPIController extends Controller
         return new DataTrueResource($role);
     }
 
-    /**
-    * This Function is used to give permission in role .
-     * @param Request $request
-     * @param Role $role
-    */
-
-    public function permission_role(Request $request, Role $role){
-        $role->permissions()->detach();
-        $role->permissions()->attach($request->get('permissions'));
-        return response()->json(['data' => config('constants.messages.apply_permissions')]);
-    }
 }
