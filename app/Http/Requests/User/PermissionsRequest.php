@@ -22,7 +22,8 @@ class PermissionsRequest extends FormRequest
     public function rules()
     {
         return [
-            'permissions'=> 'required|max:255',
+            'name'=> 'required|max:255',
+            'guard_name'=> 'required|max:255',
         ];
     }
 }

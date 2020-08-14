@@ -23,7 +23,7 @@ class CreateRolesTable extends Migration
         });
 
         DB::table('roles')->insert(array(
-            array('name' => 'Admin','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'Administrator','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
         ));
     }
 

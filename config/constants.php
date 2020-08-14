@@ -69,4 +69,21 @@ return [
         ],
        // 'gender_enum' => ['0', '1'],
     ],
+
+    'permission' => [
+        'has_permission' => '1',
+        'has_not_permission' => '0',
+        'role_guard_name' => 'web',
+        'user_has_not_permission' => "You don\'t have permission to this functionality",
+        'user_already_has_permission' => "Given permission already exists",
+        'user_clinic_mapping_error' => "User clinic is not mapped yet",
+        'module_error' => "Module not in request",
+        'invalid_module_error' => "Invalid Module",
+        'validation_error_status_code' => 422,
+        'permission_assign_success' => 'Permission assign successfully',
+        'permission_revert_success' => 'Permission reverted successfully',
+        'permission_revert_failure' => 'Permission revert failed',
+        'permission_not_found' => 'Permission not found',
+        'role_not_found' => 'Role not found',
+    ],
 ];

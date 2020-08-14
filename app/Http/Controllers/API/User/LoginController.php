@@ -7,6 +7,8 @@ use \App\Http\Resources\User\UsersResource;
 
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\User;
+use App\Models\User\Role;
+use App\Models\User\Permission;
 use App\Scopes\VerifiedScope;
 
 use Illuminate\Http\Request;
@@ -51,12 +53,13 @@ class LoginController extends Controller
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
-
+        $user->permissions = [];
         if($user != null){
             //get User Permission and save permission in token
-            $token->scopes = $user->role->permissions->pluck('permissions')->toArray();
+            $token->scopes = $user->role->permissions->pluck('name')->toArray();
             $token->save();
-            $user->permissions = is_null($user->role)?[]:$user->role->permissions->pluck('permissions');
+            $role = Role::findorfail($user->role_id);//get role details
+            $user->permissions = Permission::getPermissions($role,$isSubscription = true);
             $user->authorization = $tokenResult->accessToken;
             return new UsersResource($user);
         }else{
