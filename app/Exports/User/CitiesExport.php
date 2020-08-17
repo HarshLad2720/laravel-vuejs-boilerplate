@@ -3,6 +3,7 @@
 namespace App\Exports\User;
 
 use App\Models\User\City;
+use App\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
@@ -22,7 +23,7 @@ class CitiesExport implements FromCollection, WithHeadings
     {
         $model = new City();
 
-        $query =  City::commonFunctionMethod($model::select('id','name'),$this->request, true, null, null, true);
+        $query =  User::commonFunctionMethod($model::select('id','name'),$this->request, true, null, null, true);
 
         return $query;
     }

@@ -79,6 +79,6 @@ class CitiesAPIController extends Controller
      */
     public function export(Request $request)
     {
-        return Excel::download(new CitiesExport($request), 'User.csv');
+        return Excel::download(new CitiesExport($request), 'City.csv');
     }
 }
