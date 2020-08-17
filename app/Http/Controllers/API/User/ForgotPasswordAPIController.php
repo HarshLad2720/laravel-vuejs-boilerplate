@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\API\User;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
@@ -21,6 +20,12 @@ class ForgotPasswordAPIController extends Controller
 
     use SendsPasswordResetEmails;
 
+    protected function validateEmail()
+    {
+        return [
+            'email' => 'required|exists:users,email'
+        ];
+    }
     /**
      * Forgot password reset link success response
      * @param Request $request

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserHobby extends Model
 {
+    public $table = 'user_hobby';
     /**
      * @var array
      */
@@ -14,7 +15,7 @@ class UserHobby extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function gallery()
+    public function hobby()
     {
         return $this->belongsTo('App\User');
     }

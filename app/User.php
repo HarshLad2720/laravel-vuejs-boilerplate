@@ -148,28 +148,28 @@ class User extends Authenticatable implements MustVerifyEmail
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function country() {
-        return $this->belongsTo(Country::class,'country_id');
+        return $this->belongsTo(Country::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function state() {
-        return $this->belongsTo(State::class,'state_id');
+        return $this->belongsTo(State::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function city() {
-        return $this->belongsTo(City::class,'city_id');
+        return $this->belongsTo(City::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function user_galleries() {
-        return $this->hasMany(UserGallery::class);
+        return $this->hasMany(UserGallery::class,'user_gallery');
     }
 
     /**

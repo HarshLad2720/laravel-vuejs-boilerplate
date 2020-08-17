@@ -85,7 +85,7 @@ class State extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function country() {
-        return $this->belongsTo(Country::class,'country_id');
+        return $this->belongsTo(Country::class);
     }
 
 }

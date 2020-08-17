@@ -8,20 +8,47 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class City extends Model
 {
     use SoftDeletes, Scopes;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    public $sortable=[
-        'id','name',
-    ];
 
     /**
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'created_by','updated_by'
+        'id', 'name','state_id', 'created_by','updated_by'
+    ];
+
+    /**
+     * @var array
+     */
+    public $sortable=[
+        'id','name','state_id'
+    ];
+
+    /**
+     * @var array
+     */
+    public $foreign_sortable = [
+        'state_id'
+    ];
+
+    /**
+     * @var array
+     */
+    public $foreign_table = [
+        'states'
+    ];
+
+    /**
+     * @var array
+     */
+    public $foreign_key = [
+        'name'
+    ];
+
+    /**
+     * @var array
+     */
+    public $foreign_method = [
+        'state'
     ];
 
     /**
@@ -52,7 +79,9 @@ class City extends Model
         'name'=>'string',
     ];
 
-
+    public function state() {
+        return $this->belongsTo(State::class);
+    }
 
 
 }
