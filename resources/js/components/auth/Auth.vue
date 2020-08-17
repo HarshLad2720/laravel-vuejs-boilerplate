@@ -63,7 +63,7 @@
 
 <!-- Load login custom page styles -->
 <style lang="scss">
-/*@import "@/assets/sass/pages/login/login-1.scss";*/
+/*@import "../../../../assetsassets/sass/pages/login/login-1.scss";*/
 </style>
 
 <script>

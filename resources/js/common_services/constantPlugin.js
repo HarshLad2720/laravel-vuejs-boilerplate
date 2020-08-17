@@ -11,6 +11,8 @@ const YOUR_CONSTS = {
     BTN_OK: 'Ok',
     DELETE_TITLE: 'Delete Confirmation',
     WARNING: 'Are you sure you want to delete this record',
+    EMAIL_SEND_MESSAGE: 'Email sent successfully',
+    RESET_PASSWORD: 'Password reset successfullly'
 };
 
 export default {

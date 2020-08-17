@@ -110,7 +110,7 @@
 
                 <!--begin::Action-->
                 <div class="form-group d-flex flex-wrap justify-content-between align-items-center">
-                    <a href="#" class="text-dark-60 text-hover-primary my-3 mr-2" id="kt_login_forgot">
+                    <a class="text-dark-60 text-hover-primary my-3 mr-2" id="kt_login_forgot" @click="fpdialog = true">
                         Forgot Password ?
                     </a>
                     <button ref="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3">
@@ -122,6 +122,8 @@
             <!--end::Form-->
         </div>
         <!--end::Signin-->
+        <forgot-password-modal v-model="fpdialog" @forget-password-email="forgotPassword"></forgot-password-modal>
+        <snackbar v-model="snackbar"></snackbar>
     </div>
 </template>
 
@@ -137,6 +139,10 @@
     import ErrorBlockServer from "../../partials/ErrorBlockServer";
     import ErrorModal from "../../partials/ErrorModal";
     import BootstrapVue from "../../plugins/bootstrap-vue";
+    import ForgotPasswordModal from "./ForgotPasswordModal.vue";
+    import Snackbar from "../../partials/Snackbar.vue"
+    import {mapState} from "vuex";
+
     export default {
         name: "login",
         data() {
@@ -149,9 +155,11 @@
                     email: '',
                     password: '',
                 },
+                fpdialog : false
             };
         },
-        mixins:[BootstrapVue],
+        components:{ForgotPasswordModal, Snackbar, ErrorBlockServer, ErrorModal},
+        mixins:[BootstrapVue, CommonServices],
         methods: {
             /**
              * Login Submit Method
@@ -181,12 +189,32 @@
                         );
                         this.errorMessage = err.response.data.error;
                     });
+            },
+
+            /**
+             * Forgot Password Emit Method
+             */
+            forgotPassword(payload){
+                this.$store.dispatch("forgotPasswordStore/sendForgotPasswordEmail",
+                    {
+                        email: payload,
+                    }).then(response => {
+                    if (response.error) {
+                        this.errorMessage = response.data.error;
+                    } else {
+                        // this.$store.commit("snackbarStore/setMsg", response.success);
+                        debugger;
+                        this.$store.commit("snackbarStore/setMsg", this.$getConst('EMAIL_SEND_MESSAGE'));
+                    }
+                }, error => {
+                    this.errorMessage = this.getAPIErrorMessage(error.response);
+                });
             }
         },
         computed: {
-            CommonServices,
-            ErrorBlockServer,
-            ErrorModal
-        }
+            ...mapState({
+                snackbar: state => state.snackbarStore.snackbar,
+            }),
+        },
     };
 </script>

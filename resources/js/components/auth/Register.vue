@@ -55,8 +55,8 @@
                       name="password"
                       v-model="model.password"
                       :error-messages="getErrorValue('password')"
-                      v-validate="'required|min:6'"
-                      solo
+                      v-validate="isEditMode ? '' :'required|min:6'"
+                      solo v-if="!isEditMode"
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>

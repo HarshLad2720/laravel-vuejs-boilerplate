@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 const router = new VueRouter({
     mode: 'history',
     routes: [
-        {
+        /*{
             path: '/users',
             name: 'users',
             component: () => import('../components/user/Users.vue')
@@ -20,6 +20,7 @@ const router = new VueRouter({
             name: 'login',
             component: () => import('../components/auth/Login')
         },*/
+
         {
             path: "/",
             component: () => import("../components/auth/Auth"),
@@ -33,7 +34,24 @@ const router = new VueRouter({
                     name: "register",
                     path: "/register",
                     component: () => import("../components/auth/Register.vue")
-                }
+                },
+                {
+                    path: '/password/:id',
+                    name: 'Reset Password',
+                    component: () => import('../components/auth/ResetPassword.vue')
+                },
+            ]
+        },
+        {
+            path: "/",
+            redirect: "/dashboard",
+            component: () => import("../components/layout/Layout.vue"),
+            children: [
+                {
+                    path: "/users",
+                    name: "users",
+                    component: () => import("../components/user/Users.vue")
+                },
             ]
         },
     ]

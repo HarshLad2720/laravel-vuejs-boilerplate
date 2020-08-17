@@ -1,8 +1,11 @@
 import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
-import ErrorModal from "../../partials/ErrorModal";
+import Vue from 'vue';
+import UserModal from "./UserModal.vue";
+import {mapState} from "vuex";
 import CommonServices from '../../common_services/common.js';
-import UserModal from './UserModal';
+import ErrorModal from "../../partials/ErrorModal";
+
 import {
     mdiPencil,
     mdiDelete,

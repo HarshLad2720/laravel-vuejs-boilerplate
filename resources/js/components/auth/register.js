@@ -76,7 +76,7 @@ export default {
             var self = this;
             this.$validator.validate().then(valid => {
                 if (valid) {
-                    console.log(self.model);
+                    // console.log(self.model);
                     self.isSubmitting = true;
                     let formData = new FormData();
                     for (var key in self.model) {
