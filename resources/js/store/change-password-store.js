@@ -1,6 +1,6 @@
 import {HTTP} from "../common_services/api-services";
 
-var baseUrl = '/api/v1/mypreferences/business/user/';
+var baseUrl ='/api/v1/';
 
 function initialState() {
     return {
@@ -23,7 +23,7 @@ const changePasswordStore = {
     actions: {
         changePassword({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.post(baseUrl + "change_password", param).then(response => {
+                HTTP.post(baseUrl + "change-password", param).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);

@@ -85,6 +85,9 @@
             <button class="btn btn-light-primary btn-bold" @click="onLogout">
               Sign out
             </button>
+              <button class="btn btn-light-primary btn-bold" @click="changePasswordModal = true">
+                  Change Password
+              </button>
           </div>
         </div>
         <!--end::Header-->
@@ -248,6 +251,9 @@
       </perfect-scrollbar>
       <!--end::Content-->
     </div>
+
+      <!-- change password Modal -->
+      <change-password v-model="changePasswordModal"></change-password>
   </div>
 </template>
 
@@ -261,6 +267,7 @@
 // import { LOGOUT } from "../../../../common_services/services/store/auth.module";
 import KTLayoutQuickUser from "../../../../../assets/js/layout/extended/quick-user.js";
 import KTOffcanvas from "../../../../../assets/js/components/offcanvas.js";
+import ChangePassword from "../../../auth/ChangePassword.vue";
 
 export default {
   name: "KTQuickUser",
@@ -295,9 +302,11 @@ export default {
           svg: "media/svg/icons/General/Attachment2.svg",
           type: "info"
         }
-      ]
+      ],
+        changePasswordModal: false,
     };
   },
+  components:{ChangePassword},
   mounted() {
     // Init Quick User Panel
     KTLayoutQuickUser.init(this.$refs["kt_quick_user"]);
