@@ -79,6 +79,6 @@ class StatesAPIController extends Controller
      */
     public function export(Request $request)
     {
-        return Excel::download(new StatesExport($request), 'User.csv');
+        return Excel::download(new StatesExport($request), 'State.csv');
     }
 }

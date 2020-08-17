@@ -79,6 +79,6 @@ class HobbiesAPIController extends Controller
      */
     public function export(Request $request)
     {
-        return Excel::download(new HobbiesExport($request), 'User.csv');
+        return Excel::download(new HobbiesExport($request), 'Hobbie.csv');
     }
 }
