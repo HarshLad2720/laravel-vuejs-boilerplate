@@ -94,7 +94,7 @@ class RolesAPIController extends Controller
      */
     public function export(Request $request)
     {
-        return Excel::download(new RolesExport($request), 'Role.csv');
+        return Excel::download(new RolesExport($request), 'role.csv');
     }
 
 }

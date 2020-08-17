@@ -81,7 +81,7 @@ class StatesAPIController extends Controller
      */
     public function export(Request $request)
     {
-        return Excel::download(new StatesExport($request), 'User.csv');
+        return Excel::download(new StatesExport($request), 'state.csv');
     }
 
     /**
@@ -91,14 +91,19 @@ class StatesAPIController extends Controller
      */
     public function importBulk(Request $request)
     {
-        $path1 = $request->file('file')->store('temp');
-        $path=storage_path('app').'/'.$path1;
-        $import = new StatesImport;
-        $data = \Excel::import($import ,$path);
+        if($request->hasfile('file')) {
+            $path1 = $request->file('file')->store('temp');
+            $path = storage_path('app') . '/' . $path1;
+            $import = new StatesImport;
+            $data = \Excel::import($import, $path);
 
-        if(count($import->getErrors()) > 0) {
-            return response()->json(['errors' => $import->getErrors()], 422);
+            if (count($import->getErrors()) > 0) {
+                return response()->json(['errors' => $import->getErrors()], 422);
+            }
+            return response()->json(['success' => true]);
         }
-        return response()->json(['success' => true]);
+        else{
+            return response()->json(['errors' =>config('constants.messages.file_csv_error')], 422);
+        }
     }
 }

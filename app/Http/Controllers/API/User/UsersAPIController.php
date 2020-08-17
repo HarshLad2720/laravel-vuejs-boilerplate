@@ -148,7 +148,7 @@ class UsersAPIController extends Controller
      */
     public function export(Request $request)
     {
-        return Excel::download(new UsersExport($request), 'User.csv');
+        return Excel::download(new UsersExport($request), 'user.csv');
     }
 
 }
