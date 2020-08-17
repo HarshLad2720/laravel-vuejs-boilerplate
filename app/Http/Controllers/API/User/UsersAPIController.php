@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\User;
 use App\Exports\User\UsersExport;
+use App\Http\Resources\DataTrueResource;
 use App\User;
 use App\Models\User\UserGallery;
 use App\Models\User\UserHobby;
@@ -137,7 +138,7 @@ class UsersAPIController extends Controller
     {
         $user->delete();
 
-        return response()->json(['success' => config('constants.messages.delete_success')],200);
+        return new DataTrueResource($user);
     }
 
     /**
@@ -150,14 +151,4 @@ class UsersAPIController extends Controller
         return Excel::download(new UsersExport($request), 'User.csv');
     }
 
-    /**
-     * Logout User
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public static function logout(Request $request) {
-        $token = $request->user()->token();
-        $token->revoke();
-        return response()->json('You have been Successfully logged out!');
-    }
 }

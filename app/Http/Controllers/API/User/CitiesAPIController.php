@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Exports\User\CitiesExport;
+use App\Http\Resources\DataTrueResource;
+use App\Imports\User\CitiesImport;
 use App\User;
 use App\Models\User\City;
 use App\Http\Requests\User\CitiesRequest;
@@ -69,7 +71,7 @@ class CitiesAPIController extends Controller
     {
         $city->delete();
 
-        return response()->json(['success' => config('constants.messages.delete_success')],200);
+        return new DataTrueResource($city);
     }
 
     /**
@@ -80,5 +82,23 @@ class CitiesAPIController extends Controller
     public function export(Request $request)
     {
         return Excel::download(new CitiesExport($request), 'User.csv');
+    }
+
+    /**
+     * Import bulk
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function importBulk(Request $request)
+    {
+        $path1 = $request->file('file')->store('temp');
+        $path=storage_path('app').'/'.$path1;
+        $import = new CitiesImport;
+        $data = \Excel::import($import ,$path);
+
+        if(count($import->getErrors()) > 0) {
+            return response()->json(['errors' => $import->getErrors()], 422);
+        }
+        return response()->json(['success' => true]);
     }
 }

@@ -98,5 +98,15 @@ class LoginController extends Controller
 
     }
 
+    /**
+     * Logout User
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function logout(Request $request) {
+        $token = $request->user()->token();
+        $token->revoke();
+        return response()->json('You have been Successfully logged out!');
+    }
 
 }
