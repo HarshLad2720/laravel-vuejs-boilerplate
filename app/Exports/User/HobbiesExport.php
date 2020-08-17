@@ -3,6 +3,8 @@
 namespace App\Exports\User;
 
 use App\Models\User\Hobby;
+//use Laravel\Passport\Bridge\User;
+use App\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
@@ -22,7 +24,7 @@ class HobbiesExport implements FromCollection, WithHeadings
     {
         $model = new Hobby();
 
-        $query =  Hobby::commonFunctionMethod($model::select('id','name'),$this->request, true, null, null, true);
+        $query =  User::commonFunctionMethod($model::select('id','name'),$this->request, true, null, null, true);
 
         return $query;
     }
