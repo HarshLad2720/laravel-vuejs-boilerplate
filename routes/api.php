@@ -43,7 +43,11 @@ Route::group([
         Route::post('login','LoginController@login');
 
         Route::apiResource('roles', 'RolesAPIController');
+        Route::get('roles-export', 'RolesAPIController@export');
+
         Route::apiResource('permissions', 'PermissionsAPIController');
+        Route::get('permissions-export', 'PermissionsAPIController@export');
+
         Route::post('set_unset_permission_to_role', 'PermissionsAPIController@setUnsetPermissionToRole');
 
 

@@ -2,12 +2,13 @@
 
 namespace App\Exports\User;
 
-use App\Models\User\Country;
+use App\Models\User\Permission;
 use App\User;
+
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class CountriesExport implements FromCollection, WithHeadings
+class PermissionsExport implements FromCollection, WithHeadings
 {
     protected $request;// defined private $request variable
 
@@ -21,9 +22,9 @@ class CountriesExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $model = new Country();
+        $model = new Permission();
 
-        $query =  User::commonFunctionMethod($model::select('id','name'),$this->request, true, null, null, true);
+        $query =  User::commonFunctionMethod($model::select('id','name','guard_name'),$this->request, true, null, null, true);
 
         return $query;
     }
@@ -32,7 +33,8 @@ class CountriesExport implements FromCollection, WithHeadings
     {
         return[
             'ID',
-            'Name'
+            'Name',
+            'Guard Name',
         ];
     }
 }

@@ -79,6 +79,6 @@ class CountriesAPIController extends Controller
      */
     public function export(Request $request)
     {
-        return Excel::download(new CountriesExport($request), 'User.csv');
+        return Excel::download(new CountriesExport($request), 'Countrie.csv');
     }
 }

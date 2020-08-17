@@ -23,10 +23,41 @@ class CreatePermisssionsTable extends Migration
 
         DB::table('permissions')->insert(array(
             array('name' => 'my-users','guard_name' => 'root','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+
             array('name' => 'index-users','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
             array('name' => 'show-users','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
             array('name' => 'update-users','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
-            array('name' => 'destroy-users','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'))
+            array('name' => 'destroy-users','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'export-users','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+
+            array('name' => 'store-countries','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'index-countries','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'show-countries','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'update-countries','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'destroy-countries','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'export-countries','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+
+            array('name' => 'index-states','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'show-states','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'update-states','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'destroy-states','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'export-states','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+
+            array('name' => 'index-cities','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'show-cities','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'update-cities','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'destroy-cities','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'export-cities','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+
+            array('name' => 'index-hobbies','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'show-hobbies','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'update-hobbies','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'destroy-hobbies','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'export-hobbies','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+
+            array('name' => 'changePassword-logincontroller','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+
+
         ));
     }
 

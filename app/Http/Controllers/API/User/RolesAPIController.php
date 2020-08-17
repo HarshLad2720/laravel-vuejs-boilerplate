@@ -10,6 +10,8 @@ use App\Http\Resources\User\RolesResource;
 use Illuminate\Http\Request;
 use App\Http\Resources\DataTrueResource;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\User\RolesExport;
 
 class RolesAPIController extends Controller
 {
@@ -19,7 +21,7 @@ class RolesAPIController extends Controller
    | Roles Controller
    |--------------------------------------------------------------------------
    |
-   | This controller handles the Roles of index, show, store, update, destroy and permission_role Methods.
+   | This controller handles the Roles of index, show, store, update, destroy and export Methods.
    |
    */
 
@@ -83,6 +85,16 @@ class RolesAPIController extends Controller
     {
         $role->delete();
         return new DataTrueResource($role);
+    }
+
+    /**
+     * Export Roles Data
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function export(Request $request)
+    {
+        return Excel::download(new RolesExport($request), 'Role.csv');
     }
 
 }
