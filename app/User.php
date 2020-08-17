@@ -169,7 +169,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function user_galleries() {
-        return $this->hasMany(UserGallery::class,'user_gallery');
+        return $this->hasMany(UserGallery::class);
     }
 
     /**
