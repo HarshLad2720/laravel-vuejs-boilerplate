@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\user;
+namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,7 +16,8 @@ class PermissionsResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'permissions' => (string)$this->permissions,
+            'name' => (string)$this->name,
+            'guard_name' => (string)$this->guard_name,
             'created_at' => (string)$this->created_at,
             'updated_at' => (string)$this->updated_at
         ];
