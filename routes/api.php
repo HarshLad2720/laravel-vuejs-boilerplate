@@ -41,9 +41,14 @@ Route::group([
 
         Route::post('register', 'UsersAPIController@register');
         Route::post('login','LoginController@login');
+        Route::post('logout','LoginController@logout');
 
         Route::apiResource('roles', 'RolesAPIController');
+        Route::get('roles-export', 'RolesAPIController@export');
+
         Route::apiResource('permissions', 'PermissionsAPIController');
+        Route::get('permissions-export', 'PermissionsAPIController@export');
+
         Route::post('set_unset_permission_to_role', 'PermissionsAPIController@setUnsetPermissionToRole');
 
 
@@ -54,15 +59,19 @@ Route::group([
 
             Route::apiResource('countries', 'CountriesAPIController');
             Route::get('countries-export', 'CountriesAPIController@export');
+            Route::post('countries-import-bulk', 'CountriesAPIController@importBulk');
 
             Route::apiResource('states', 'StatesAPIController');
             Route::get('states-export', 'StatesAPIController@export');
+            Route::post('states-import-bulk', 'StatesAPIController@importBulk');
 
             Route::apiResource('cities', 'CitiesAPIController');
             Route::get('cities-export', 'CitiesAPIController@export');
+            Route::post('cities-import-bulk', 'CitiesAPIController@importBulk');
 
             Route::apiResource('hobbies', 'HobbiesAPIController');
             Route::get('hobbies-export', 'HobbiesAPIController@export');
+            Route::post('hobbies-import-bulk', 'HobbiesAPIController@importBulk');
 
             Route::post('users/{user}', 'UsersAPIController@update');
             Route::apiResource('users', 'UsersAPIController');

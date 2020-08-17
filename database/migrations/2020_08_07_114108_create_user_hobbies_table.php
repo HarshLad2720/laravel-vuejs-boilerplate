@@ -13,7 +13,7 @@ class CreateUserHobbiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_hobbies', function (Blueprint $table) {
+        Schema::create('user_hobby', function (Blueprint $table) {
             $table->increments('id')->index()->comment('AUTO_INCREMENT');
             $table->unsignedInteger('user_id')->index()->comment('Users table ID');
             $table->foreign('user_id')->references('id')->on('users');

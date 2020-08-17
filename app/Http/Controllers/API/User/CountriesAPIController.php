@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Exports\User\CountriesExport;
+use App\Imports\User\CountriesImport;
+use App\Http\Resources\DataTrueResource;
 use App\User;
 use App\Models\User\Country;
 use App\Http\Requests\User\CountriesRequest;
@@ -69,7 +71,7 @@ class CountriesAPIController extends Controller
     {
         $country->delete();
 
-        return response()->json(['success' => config('constants.messages.delete_success')],200);
+        return new DataTrueResource($country);
     }
 
     /**
@@ -79,6 +81,29 @@ class CountriesAPIController extends Controller
      */
     public function export(Request $request)
     {
-        return Excel::download(new CountriesExport($request), 'User.csv');
+        return Excel::download(new CountriesExport($request), 'country.csv');
+    }
+
+    /**
+     * Import bulk
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function importBulk(Request $request)
+    {
+        if($request->hasfile('file')) {
+            $path1 = $request->file('file')->store('temp');
+            $path = storage_path('app') . '/' . $path1;
+            $import = new CountriesImport;
+            $data = \Excel::import($import, $path);
+
+            if (count($import->getErrors()) > 0) {
+                return response()->json(['errors' => $import->getErrors()], 422);
+            }
+            return response()->json(['success' => true]);
+        }
+        else{
+            return response()->json(['errors' =>config('constants.messages.file_csv_error')], 422);
+        }
     }
 }

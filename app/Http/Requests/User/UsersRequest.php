@@ -5,7 +5,7 @@ namespace App\Http\Requests\User;
 //use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Http\Request;
 
 class UsersRequest extends FormRequest
 {
@@ -24,22 +24,35 @@ class UsersRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
+        $uri = $request->path();
+        $urlArr = explode("/",$uri);
+
         return [
             'name' => 'required | max:255',
-            'email' => 'required|max:255|email|max:255|unique:users,email',
+            'is_email' => [
+                'nullable',
+                Rule::in([0, 1])
+            ],
+            'email' => [
+                'nullable',
+                'max:255',
+                'required_if:is_email,1',
+                Rule::unique('users')->ignore(end($urlArr)),
+            ],
             'password' => 'required | min:6 | max:255',
             'mobile_no' => 'required | digits:10',
-            'profile' => 'required',
-            'gender' => 'required',
-            'dob' => 'required',
-            'address' => 'required',
-            'country_id' => 'required',
-            'state_id' => 'required',
-            'city_id' => 'required',
-            'gallery' => 'required',
-            'hobby' => 'required',
+            'profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:255',
+            'gender' => ['required', Rule::in([0, 1,])],
+            'dob' => 'required|date|date_format:Y-m-d',
+            'address' => 'required|max:500',
+            'country_id' => 'required|integer|exists:countries,id,deleted_at,NULL',
+            'state_id' => 'required|integer|exists:states,id,deleted_at,NULL',
+            'city_id' => 'required|integer|exists:cities,id,deleted_at,NULL',
+            'gallery.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'hobby.*' => 'required|integer',
+            'role_id' => 'integer|exists:roles,id,deleted_at,NULL',
         ];
     }
 }

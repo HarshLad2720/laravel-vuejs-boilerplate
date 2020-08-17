@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserGallery extends Model
 {
+    public $table = 'user_gallery';
     /**
      * @var array
      */

@@ -22,7 +22,7 @@ class VerificationAPIController extends Controller
         $user->status = config('constants.user.status_code.active');
         $user->save();
 
-        return redirect('email-verification');
+        return redirect('');
 
     }
 

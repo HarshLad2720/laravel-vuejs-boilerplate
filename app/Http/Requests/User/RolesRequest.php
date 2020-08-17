@@ -23,6 +23,8 @@ class RolesRequest extends FormRequest
     {
         return [
             'name'=> 'required|max:255',
+            'guard_name' => 'nullable|max:255',
+            'landing_page' => 'nullable|max:255',
         ];
     }
 }

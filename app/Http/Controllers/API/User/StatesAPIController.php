@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Exports\User\StatesExport;
+use App\Http\Resources\DataTrueResource;
+use App\Imports\User\StatesImport;
 use App\User;
 use App\Models\User\State;
 use App\Http\Requests\User\StatesRequest;
@@ -69,7 +71,7 @@ class StatesAPIController extends Controller
     {
         $state->delete();
 
-        return response()->json(['success' => config('constants.messages.delete_success')],200);
+        return new DataTrueResource($state);
     }
 
     /**
@@ -79,6 +81,29 @@ class StatesAPIController extends Controller
      */
     public function export(Request $request)
     {
-        return Excel::download(new StatesExport($request), 'User.csv');
+        return Excel::download(new StatesExport($request), 'state.csv');
+    }
+
+    /**
+     * Import bulk
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function importBulk(Request $request)
+    {
+        if($request->hasfile('file')) {
+            $path1 = $request->file('file')->store('temp');
+            $path = storage_path('app') . '/' . $path1;
+            $import = new StatesImport;
+            $data = \Excel::import($import, $path);
+
+            if (count($import->getErrors()) > 0) {
+                return response()->json(['errors' => $import->getErrors()], 422);
+            }
+            return response()->json(['success' => true]);
+        }
+        else{
+            return response()->json(['errors' =>config('constants.messages.file_csv_error')], 422);
+        }
     }
 }

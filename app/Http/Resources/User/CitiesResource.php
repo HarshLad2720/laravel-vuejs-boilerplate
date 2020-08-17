@@ -16,12 +16,13 @@ class CitiesResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'created_at' => $this->created_at,
-            'created_by' => $this->created_by,
-            'updated_at' => $this->updated_at,
-            'updated_by' => $this->updated_by,
-            'deleted_at' => $this->deleted_at
+            'name' => (string)$this->name,
+            'state' => $this->state,
+            'created_at' => (string)$this->created_at,
+            'created_by' => (string)$this->created_by,
+            'updated_at' => (string)$this->updated_at,
+            'updated_by' => (string)$this->updated_by,
+            'deleted_at' => (string)$this->deleted_at
         ];
     }
 }

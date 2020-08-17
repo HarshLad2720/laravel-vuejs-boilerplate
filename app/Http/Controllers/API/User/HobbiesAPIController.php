@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Exports\User\HobbiesExport;
+use App\Http\Resources\DataTrueResource;
+use App\Imports\User\HobbiesImport;
 use App\User;
 use App\Models\User\Hobby;
 use App\Http\Requests\User\HobbiesRequest;
@@ -69,7 +71,7 @@ class HobbiesAPIController extends Controller
     {
         $hobby->delete();
 
-        return response()->json(['success' => config('constants.messages.delete_success')],200);
+        return new DataTrueResource($hobby);
     }
 
     /**
@@ -79,6 +81,29 @@ class HobbiesAPIController extends Controller
      */
     public function export(Request $request)
     {
-        return Excel::download(new HobbiesExport($request), 'User.csv');
+        return Excel::download(new HobbiesExport($request), 'hobby.csv');
+    }
+
+    /**
+     * Import bulk
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function importBulk(Request $request)
+    {
+        if($request->hasfile('file')) {
+            $path1 = $request->file('file')->store('temp');
+            $path = storage_path('app') . '/' . $path1;
+            $import = new HobbiesImport;
+            $data = \Excel::import($import, $path);
+
+            if (count($import->getErrors()) > 0) {
+                return response()->json(['errors' => $import->getErrors()], 422);
+            }
+            return response()->json(['success' => true]);
+        }
+        else{
+            return response()->json(['errors' =>config('constants.messages.file_csv_error')], 422);
+        }
     }
 }

@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\DataTrueResource;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\User\PermissionsExport;
 
 class PermissionsAPIController extends Controller
 {
@@ -19,7 +21,7 @@ class PermissionsAPIController extends Controller
     | Permission Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles the Permissions of index, show, store, update, destroy Methods.
+    | This controller handles the Permissions of index, show, store, update, destroy, setUnsetPermissionToRole and Export Methods.
     |
     */
 
@@ -93,5 +95,15 @@ class PermissionsAPIController extends Controller
     public function setUnsetPermissionToRole(SetUnsetPermissionToRoleRequest $request)
     {
         return Permission::setUnsetPermission($request);
+    }
+
+    /**
+     * Export Roles Data
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function export(Request $request)
+    {
+        return Excel::download(new PermissionsExport($request), 'Permission.csv');
     }
 }
