@@ -21,27 +21,49 @@
                 </p>
             </div>
 
-            <!-- <form>
-                 <v-text-field
-                     label="Name"
-                     required
-                     class="form-control form-control-solid h-auto py-5 px-6 form-control"
-                 ></v-text-field>
-                 <v-text-field
-                     label="E-mail"
-                     required
-                     class="form-control form-control-solid h-auto py-5 px-6 form-control"
-                 ></v-text-field>
-
-                 <v-btn class="mr-4">submit</v-btn>
-                 <v-btn>clear</v-btn>
-             </form>-->
-
-
-
-
 
             <!--begin::Form-->
+            <!--<v-form class="form" @submit.prevent="onSubmit">
+                <div role="alert" v-bind:class="{ show: errorMessage.length }" class="alert fade alert-danger">
+                    <div class="alert-text">
+                        {{ errorMessage }}
+                    </div>
+                </div>
+&lt;!&ndash;                <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>&ndash;&gt;
+                <v-layout row wrap class="display-block">
+                    <v-flex xs12>
+                        <v-text-field
+                            label="Username" type="text"
+                            name="name"
+                            v-model="model.name"
+                            :error-messages="getErrorValue('name')"
+                            v-validate="'required'"
+                            solo
+                        ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12>
+                        <v-text-field
+                            label="Email" type="text"
+                            name="email"
+                            v-model="model.email"
+                            :error-messages="getErrorValue('email')"
+                            v-validate="'required|email'"
+                            solo
+                        ></v-text-field>
+                    </v-flex>
+                </v-layout>
+
+                &lt;!&ndash;begin::Action&ndash;&gt;
+                <div class="form-group d-flex flex-wrap flex-center">
+                    <a href="#" class="text-dark-60 text-hover-primary my-3 mr-2" id="kt_login_forgot">
+                        Forgot Password ?
+                    </a>
+                    <v-btn ref="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4">
+                        Submit
+                    </v-btn>
+                </div>
+                &lt;!&ndash;end::Action&ndash;&gt;
+            </v-form>-->
             <b-form class="form" @submit.stop.prevent="onSubmit">
                 <!--<div role="alert" class="alert alert-info">
                   <div class="alert-text">
@@ -111,17 +133,22 @@
 
 
 <script>
+    import CommonServices from '../../common_services/common.js';
+    import ErrorBlockServer from "../../partials/ErrorBlockServer";
+    import ErrorModal from "../../partials/ErrorModal";
     import BootstrapVue from "../../plugins/bootstrap-vue";
     export default {
         name: "login",
         data() {
             return {
+                errorArr: [],
+                errorDialog: false,
+                errorMessage: '',
                 //login info
                 loginDetail: {
                     email: '',
                     password: '',
                 },
-                errorMessage: '',
             };
         },
         mixins:[BootstrapVue],
@@ -156,6 +183,10 @@
                     });
             }
         },
-        computed: {}
+        computed: {
+            CommonServices,
+            ErrorBlockServer,
+            ErrorModal
+        }
     };
 </script>
