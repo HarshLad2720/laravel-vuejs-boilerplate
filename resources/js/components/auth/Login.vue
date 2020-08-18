@@ -23,7 +23,7 @@
 
 
             <!--begin::Form-->
-            <v-form class="form" @submit.prevent="onSubmit">
+            <v-form class="form" @submit.prevent="onSubmit" novalidate autocomplete="off">
                 <div role="alert" v-bind:class="{ show: errorMessage.length }" class="alert fade alert-danger">
                     <div class="alert-text">
                         {{ errorMessage }}
@@ -33,7 +33,7 @@
                 <v-layout row wrap class="display-block">
                     <v-flex xs12>
                         <v-text-field
-                            label="Username" type="text"
+                            label="Email" type="text"
                             name="email"
                             v-model="loginDetail.email"
                             :error-messages="getErrorValue('email')"
@@ -43,7 +43,7 @@
                     </v-flex>
                     <v-flex xs12>
                         <v-text-field
-                            label="Email" type="password"
+                            label="Password" type="password"
                             name="password"
                             v-model="loginDetail.password"
                             :error-messages="getErrorValue('password')"
