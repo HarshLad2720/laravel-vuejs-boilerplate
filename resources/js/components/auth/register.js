@@ -72,6 +72,9 @@ export default {
             isEditMode: state => state.userStore.editId > 0,
             snackbar: state => state.snackbarStore.snackbar,
         }),
+        computedDateFormatted () {
+            return this.formatDate(this.model.dob)
+        },
     },
     mixins: [CommonServices],
     methods: {
@@ -139,6 +142,12 @@ export default {
                     });
                 }
             });
+        },
+        formatDate (date) {
+            if (!date) return null
+
+            const [year, month, day] = date.split('-')
+            return `${month}/${day}/${year}`
         },
     },
 };

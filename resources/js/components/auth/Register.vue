@@ -93,15 +93,17 @@
                   >
                       <template v-slot:activator="{ on }">
                           <v-text-field
-                              label="Month"
+                              label="DOB"
                               readonly
                               v-on="on"
                               single-line
-                              value="08/12/2020" solo
+                              solo
+                              v-model="computedDateFormatted"
+                              :error-messages="getErrorValue('dob')"
+                              v-validate="'required'" name="dob"
                           ></v-text-field>
                       </template>
-                      <v-date-picker v-model="model.dob"  :error-messages="getErrorValue('dob')"
-                                     v-validate="'required'" name="dob"
+                      <v-date-picker v-model="model.dob"
                                      @input="menu = false"></v-date-picker>
                   </v-menu>
               </v-flex>

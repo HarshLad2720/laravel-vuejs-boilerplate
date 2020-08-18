@@ -10,6 +10,7 @@ const permissionStore = {
     },
     mutations: {
         setPermissions(state, param) {
+            debugger;
             state.permissions = param;
         },
         clearPermissions(state, param) {
@@ -33,8 +34,10 @@ const permissionStore = {
             })
         },
         getById({commit, state}, param) {
+            debugger;
             return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + 'get_permissions_by_role?role_id=' + param).then(response => {
+                HTTP.get(baseUrl + 'permissions?role_id=' + param).then(response => {
+                    debugger;
                     commit('setPermissions', response.data.data);
                     resolve(response.data);
                 }).catch(e => {
