@@ -1,32 +1,49 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
+import router from "./router";
+import Vue from 'vue';
+import App from './components/App.vue';
+import vuetify from './plugins/vuetify'
+import store from './store/store';
+import VueRouter from 'vue-router';
+import VueAxios from 'vue-axios';
+import axios from 'axios';
+import Vuex from 'vuex';
+import constants from './common_services/constantPlugin';
+import persistentState from 'vue-persistent-state';
+// import VeeValidate from 'vee-validate';
+import VeeValidate from 'vee-validate';
+import { InlineSvgPlugin } from "vue-inline-svg";
+// import PerfectScrollbar from "perfect-scrollbar";
 
-window.Vue = require('vue');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+import KTUtil from "../assets/js/components/util.js";
+window.KTUtil = KTUtil
+import "../js/plugins/metronic";
+import PerfectScrollbar from "vue2-perfect-scrollbar";
+window.PerfectScrollbar = PerfectScrollbar;
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+Vue.use(VueRouter);
+Vue.use(VueAxios, axios);
+Vue.use(Vuex);
+Vue.use(constants);
+Vue.use(persistentState);
+/*Vue.use(Vuetify);*/
+Vue.use(VeeValidate);
+Vue.use(InlineSvgPlugin);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Perfect scrollbar
+Vue.use(PerfectScrollbar);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+// Install BootstrapVue
+Vue.use(BootstrapVue);
 
 const app = new Vue({
-    el: '#app',
-});
+    router,
+    vuetify,
+    store,
+    render: h => h(App)
+}).$mount('#appMain');
+
+const version = "__VERSION__";
+export {version};
