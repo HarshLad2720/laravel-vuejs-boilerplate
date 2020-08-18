@@ -190,6 +190,7 @@
       <!--end::Form-->
     </div>
     <!--end::Signup-->
+      <snackbar v-model="snackbar"></snackbar>
   </div>
 </template>
 

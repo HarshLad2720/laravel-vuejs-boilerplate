@@ -1,13 +1,15 @@
 import CommonServices from '../../common_services/common.js';
 import ErrorBlockServer from "../../partials/ErrorBlockServer";
 import ErrorModal from "../../partials/ErrorModal";
-import {mapActions, mapState} from 'vuex';
+import {mapActions, mapState} from 'vuex'
+import Snackbar from "../../partials/Snackbar.vue"
 
 export default {
     name: "register",
     components: {
         ErrorModal,
-        ErrorBlockServer
+        ErrorBlockServer,
+        Snackbar
     },
     data() {
         return {
@@ -67,38 +69,50 @@ export default {
     computed: {
         ...mapState({
             model: state => state.userStore.model,
-            isEditMode: state => state.userStore.editId > 0
+            isEditMode: state => state.userStore.editId > 0,
+            snackbar: state => state.snackbarStore.snackbar,
         }),
     },
     mixins: [CommonServices],
     methods: {
+        /**
+         * Register Submit Method
+         */
         onSubmit() {
             var self = this;
             this.$validator.validate().then(valid => {
                 if (valid) {
-                    // console.log(self.model);
                     self.isSubmitting = true;
                     let formData = new FormData();
                     for (var key in self.model) {
                         formData.append(key, self.model[key]);
                     }
+                    // for profile
                     formData.delete('profile');
                     if (self.model.profile && self.model.profile != null && self.model.profile instanceof File) {
                         formData.append('profile', self.model.profile);
                     }
-                    /*formData.delete('gallery');
-                    if (self.model.gallery && self.model.gallery != null && self.model.gallery instanceof File) {
-                        formData.append('gallery', self.model.gallery);
-                    }*/
-                    // formData.delete('gallery');
+
+                    // Multiple Gallery array
+                    formData.delete('gallery');
                     if (self.model.gallery.length > 0) {
                         self.model.gallery.map(function (g) {
                             formData.append('gallery[]', g);
                         });
                     }
+
+                    // Multiple Hobby array
+                    formData.delete('hobby');
+                    if (self.model.hobby.length > 0) {
+                        self.model.hobby.map(function (h) {
+                            formData.append('hobby[]', h);
+                        });
+                    }
                     var apiName = "register";
                     var editId = '';
                     var msgType= self.$getConst('REGISTER_SUCCESS');
+
+                    // For Edit User
                     if (this.$store.state.userStore.editId > 0) {
                         apiName = "edit";
                         editId = this.$store.state.userStore.editId;
@@ -111,14 +125,13 @@ export default {
                             }
                         }).then(response => {
                         if (response.error) {
-                            console.log("response error");
                             self.isSubmitting = false;
                             self.errorMessage = response.data.error;
                         } else {
-                            console.log("if else");
-                            self.$store.commit("snackbarStore/setMsg", );
-                            console.log("Success");
-                            // self.onCancel();
+                            self.isSubmitting = false;
+                            self.$store.commit("snackbarStore/setMsg", msgType);
+                            self.onModalDataPost('userStore');
+                            this.$router.push("/");
                         }
                     }, error => {
                         self.isSubmitting = false;

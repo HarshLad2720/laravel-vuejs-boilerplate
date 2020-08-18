@@ -55,6 +55,13 @@ export default {
             this.$router.push('/login');
             localStorage.clear();
         },*/
+        onModalCancelPref(storeName) {
+            this.$validator.reset();
+            this.isSubmitting = false;
+            this.errorMessage = '';
+            this.$store.commit(storeName + '/clearStore');
+            this.$emit('input'); //Close Pop-up
+        },
         onModalClear(storeName, stateName) {
             this.$validator.reset();
             this.isSubmitting = false;
