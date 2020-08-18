@@ -6,6 +6,8 @@ use App\Http\Requests\User\LoginRequest;
 use \App\Http\Resources\User\UsersResource;
 
 use App\Http\Requests\User\ChangePasswordRequest;
+use App\Http\Resources\DataTrueResource;
+
 use App\User;
 use App\Models\User\Role;
 use App\Models\User\Permission;
@@ -69,33 +71,26 @@ class LoginController extends Controller
     }
 
     /**
-     * Change user's password
+     * change password functionality.
+     *
      * @param ChangePasswordRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
+     * @return DataTrueResource|\Illuminate\Http\JsonResponse
      */
-    public function changePassword(ChangePasswordRequest $request){
-
+    public function changePassword(ChangePasswordRequest $request)
+    {
         //get all updated data.
         $data = $request->all();
-
-        $masterUser = User::findorFail($request->user()->id);
-        /* Check old Password */
-        if ((Hash::check($data['old_password'], $masterUser->password)) == false) {
-            return response()->json(['error' => config("constants.messages.invalid_old_password")],422);
-            /*Check old Password and New Password is not same */
-        } else if ((Hash::check($data['new_password'], $masterUser->password)) == true) {
-            return response()->json(['error' => config("constants.messages.similar_password")],422);
+        $masterUser = User::where('email', $request->user()->email)->first();
+        if (Hash::check($data['old_password'], $masterUser->password)) {
+            $masterData['password'] = bcrypt($data['new_password']);
+            //update user password in master user table
+            if ($masterUser->update($masterData)) {
+                return new DataTrueResource($masterUser);
+            }else
+                return response()->json(['error' => config("constants.messages.something_wrong")],422);
         } else {
-            /*Check New password is not match to confirm password*/
-            if ($data['new_password']!= $data['confirm_password']) {
-                return response()->json(['error' => config("constants.messages.not_match_confirm_password")],422);
-            } else{
-                User::where('id', $request->user()->id)->update(['password' => Hash::make($data['new_password'])]);
-                return response()->json(['message' => config("constants.messages.password_changed")],200);
-            }
+            return response()->json(['error' => config("constants.messages.invalid_old_password")],422);
         }
-
     }
 
     /**
