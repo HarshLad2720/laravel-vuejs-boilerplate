@@ -5,9 +5,9 @@ var baseUrl ='/api/v1/';
 function initialState() {
     return {
         model: {
-            current_password: '',
-            password: '',
-            password_confirmation: '',
+            old_password: '',
+            new_password: '',
+            confirm_password: '',
         }
     }
 }

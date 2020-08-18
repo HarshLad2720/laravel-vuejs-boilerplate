@@ -14,6 +14,7 @@ function initialState() {
         },
         tableData:[],
         roleList: [],
+        roledropdownlist: [],
         editId: 0,
         model:{
             name:'',
@@ -35,6 +36,9 @@ const roleStore = {
         },
         setEditId(state, payload) {
             state.editId = payload;
+        },
+        setRoleList(state, payload) {
+            state.roledropdownlist = payload;
         },
         setModel(state, param) {
             Object.keys(state.model).forEach(key => {
@@ -97,6 +101,17 @@ const roleStore = {
                         reject(e);
                     })
             })
+        },
+        getRoleList({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.get(baseUrl + "roles?per_page=1000").then(response => {
+                    resolve(response);
+                    commit('setRoleList', response.data.data);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+
         },
     }
 }

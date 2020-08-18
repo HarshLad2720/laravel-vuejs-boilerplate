@@ -9,6 +9,7 @@ import config from "./config.module";
 import breadcrumbs from "./breadcrumbs.module";
 import forgotPasswordStore from './forgot-password-store';
 import changePasswordStore from './change-password-store';
+import permissionStore from './permission-store';
 
 Vue.use(Vuex)
 
@@ -28,6 +29,7 @@ export default new Vuex.Store({
         config,
         breadcrumbs,
         forgotPasswordStore,
-        changePasswordStore
+        changePasswordStore,
+        permissionStore
     }
 });

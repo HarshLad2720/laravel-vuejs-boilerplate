@@ -127,8 +127,7 @@
                     if (valid) {
                         let sendParams = JSON.parse(JSON.stringify(this.model));
                         //token
-                        sendParams.token = this.$route.query.token;
-                        console.log(sendParams);
+                        sendParams.token = this.$route.params.id;
                         this.isSubmitting = true;
                         this.$store.dispatch("forgotPasswordStore/resetPassword", sendParams).then(response => {
                             if (response.error) {

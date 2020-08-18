@@ -14,16 +14,16 @@
                     <v-layout row wrap>
                         <v-flex lg10>
                             <v-text-field solo
-                                :type="show_current_password ? 'text' : 'password'"
-                                @click:append="show_current_password = !show_current_password"
-                                :append-icon="show_current_password ? 'visibility' : 'visibility_off'"
+                                :type="show_old_password ? 'text' : 'password'"
+                                @click:append="show_old_password = !show_old_password"
+                                :append-icon="show_old_password ? 'visibility' : 'visibility_off'"
                                 label="Current Password"
-                                id='current_password'
+                                id='old_password'
                                 class=""
-                                name="current_password"
+                                name="old_password"
                                 maxlength="50"
-                                v-model="model.current_password"
-                                :error-messages="getErrorValue('current_password')"
+                                v-model="model.old_password"
+                                :error-messages="getErrorValue('old_password')"
                                 v-validate="'required'"
                             ></v-text-field>
                         </v-flex>
@@ -37,7 +37,7 @@
                                 class=""
                                 name="new_password"
                                 maxlength="50"
-                                v-model="model.password"
+                                v-model="model.new_password"
                                 :error-messages="getErrorValue('new_password')"
                                 v-validate="'required|min:6'"
                                 ref="password"
@@ -51,12 +51,12 @@
                                 @click:append="show_new_confirmation_password = !show_new_confirmation_password"
                                 :append-icon="show_new_confirmation_password ? 'visibility' : 'visibility_off'"
                                 label="Confirm New Password"
-                                id='password_confirmation'
+                                id='confirm_password'
                                 class="" autocomplete="off"
-                                name="password_confirmation"
+                                name="confirm_password"
                                 maxlength="50"
-                                v-model="model.password_confirmation"
-                                :error-messages="getErrorValue('password_confirmation')"
+                                v-model="model.confirm_password"
+                                :error-messages="getErrorValue('confirm_password')"
                                 v-validate="'required|min:6|confirmed:password'"
                             ></v-text-field>
                         </v-flex>
@@ -87,13 +87,13 @@
             return {
                 errorMessage: '',
                 isSubmitting: false,
-                show_current_password: false,
+                show_old_password: false,
                 show_new_password: false,
                 show_new_confirmation_password: false,
                 validationMessages: {
-                    "current_password": [{key: 'required', value: 'Current password required'}],
+                    "old_password": [{key: 'required', value: 'Current password required'}],
                     "new_password": [{key: 'required', value: 'New password required'},{key: 'min', value: 'Password length should be at least 6'}, ],
-                    "password_confirmation": [{key: 'required', value: 'New password confirmation required'}, {key: 'min', value: 'Password length should be at least 6'},{key: 'confirmed', value: 'New password confirmation does not match'},],
+                    "confirm_password": [{key: 'required', value: 'New password confirmation required'}, {key: 'min', value: 'Password length should be at least 6'},{key: 'confirmed', value: 'New password confirmation does not match'},],
                 },
             }
         },
@@ -130,7 +130,7 @@
              * Cancel Method
              */
             onCancel() {
-                this.show_current_password= false;
+                this.show_old_password= false;
                 this.show_new_password= false;
                 this.show_new_confirmation_password= false;
                 this.onModalCancelPref('changePasswordStore');

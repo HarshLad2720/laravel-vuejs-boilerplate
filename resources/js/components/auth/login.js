@@ -85,7 +85,6 @@ export default {
                     this.errorMessage = response.data.error;
                 } else {
                     // this.$store.commit("snackbarStore/setMsg", response.success);
-                debugger;
                     this.$store.commit("snackbarStore/setMsg", this.$getConst('EMAIL_SEND_MESSAGE'));
                 }
             }, error => {
