@@ -60,10 +60,21 @@ export default CustomTable.extend({
     },
     methods:{
         addrole(){
-            this.paramRole.storeProps = 'roleStore';
-            this.paramRole.title = this.$getConst('DELETE_TITLE');
-            this.paramRole.description = this.$getConst('WARNING');
             this.addRoleModal = true;
+        },
+        editItem(id){
+            this.$store.commit('roleStore/setEditId', id);
+            this.$store.dispatch('roleStore/getById', id).then(response => {
+                if (response.error) {
+                    this.errorArr = response.data.error;
+                    this.errorDialog = true;
+                } else {
+                    this.addRoleModal = true;
+                }
+            }, error => {
+                this.errorArr = this.getModalAPIerrorMessage(error);
+                this.errorDialog = true;
+            });
         },
         deleteItem (id) {
             this.paramProps.idProps = id;

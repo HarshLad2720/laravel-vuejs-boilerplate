@@ -8,8 +8,12 @@ const YOUR_CONSTS = {
 
     REGISTER_SUCCESS: "Sucessfully registered. Please check your email for Verification",
     BTN_CANCEL: 'Cancel',
+    BTN_SUBMIT: 'Submit',
+    BTN_UPDATE: 'Update',
     BTN_OK: 'Ok',
     DELETE_TITLE: 'Delete Confirmation',
+    ROLE_TITLE: 'Add Role',
+    ROLE_DESC: 'Please Enter Your Role',
     WARNING: 'Are you sure you want to delete this record',
     EMAIL_SEND_MESSAGE: 'Email sent successfully',
     RESET_PASSWORD: 'Password reset successfullly',

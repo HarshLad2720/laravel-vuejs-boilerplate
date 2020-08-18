@@ -15,6 +15,11 @@ function initialState() {
         tableData:[],
         roleList: [],
         editId: 0,
+        model:{
+            name:'',
+            guard_name:'',
+            landing_page:''
+        }
     }
 }
 
@@ -38,17 +43,11 @@ const roleStore = {
                 }
                 state.model[key] = param.model[key];
             });
-            state.model.timezone = {name: param.model.default_timezone, offset: param.model.timezone_offset};
-            state.model.logo_upload=null;
         },
         clearStore(state) {
             const s = initialState();
             state.model = s.model;
             state.editId = s.editId;
-        },
-        clearCreateModel(state) {
-            const s = initialState();
-            state.createModel = s.createModel;
         },
     },
     actions: {
@@ -72,7 +71,7 @@ const roleStore = {
         },
         edit({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.post(baseUrl + "roles/" + param.editId, param.model).then(response => {
+                HTTP.put(baseUrl + "roles/" + param.editId, param.model).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);
@@ -87,7 +86,18 @@ const roleStore = {
                     reject(e);
                 })
             })
-        }
+        },
+        getById({commit, state}) {
+            return new Promise((resolve, reject) => {
+                HTTP.get(baseUrl + 'roles' + "/" + state.editId).then(response => {
+                    commit('setModel', {model: response.data.data})
+                    resolve(response.data);
+                })
+                    .catch(e => {
+                        reject(e);
+                    })
+            })
+        },
     }
 }
 

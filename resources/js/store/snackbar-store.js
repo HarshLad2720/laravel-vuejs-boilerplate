@@ -6,7 +6,6 @@ const snackbarStore = {
     },
     mutations: {
         setMsg(state,payload) {
-            debugger;
             state.msg = payload;
             state.snackbar = true ;
         },
