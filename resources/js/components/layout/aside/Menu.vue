@@ -45,7 +45,7 @@
           </li>
       </router-link>
 
-      <!--<router-link
+      <router-link
           to="permission"
           v-slot="{ href, navigate, isActive, isExactActive }"
       >
@@ -63,7 +63,7 @@
                   <span class="menu-text">Permission</span>
               </a>
           </li>
-      </router-link>-->
+      </router-link>
   </ul>
 </template>
 
