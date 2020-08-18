@@ -17,7 +17,7 @@ HTTP.interceptors.request.use(
             return config;
         }
         // Check authorizationData
-        var authorizationtoken = store.state.userStore.currentUserData.authorization_secret_key; //get authorizationtoken from login response data
+        var authorizationtoken = store.state.userStore.currentUserData.authorization; //get authorizationtoken from login response data
 
         if (!authorizationtoken) {
             window.location.href = "/";
