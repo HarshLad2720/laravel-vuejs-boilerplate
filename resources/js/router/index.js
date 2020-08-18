@@ -57,6 +57,11 @@ const router = new VueRouter({
                     name: 'role',
                     component: () => import('../components/role/Role.vue')
                 },
+                {
+                    path: '/permission',
+                    name: 'permission',
+                    component: () => import('../components/permission/permission.vue')
+                },
             ]
         },
     ]
