@@ -17,14 +17,8 @@ use Illuminate\Routing\Router;
 /*
 * Snippet for a quick route reference
 */
-/*Route::get('/', function (Router $router) {
-    return collect($router->getRoutes()->getRoutesByMethod()["GET"])->map(function($value, $key) {
-        return url($key);
-    })->values();
-});*/
+
 Auth::routes(['verify' => true]);
-
-
 Route::group([
     'prefix' => 'v1',
     'namespace' => 'API',
@@ -41,17 +35,6 @@ Route::group([
 
         Route::post('register', 'UsersAPIController@register');
         Route::post('login','LoginController@login');
-        Route::post('logout','LoginController@logout');
-
-        Route::apiResource('roles', 'RolesAPIController');
-        Route::get('roles-export', 'RolesAPIController@export');
-
-        Route::apiResource('permissions', 'PermissionsAPIController');
-        Route::get('permissions-export', 'PermissionsAPIController@export');
-
-        Route::post('set_unset_permission_to_role', 'PermissionsAPIController@setUnsetPermissionToRole');
-
-
 
         Route::group([
             'middleware' => ['auth:api', 'check.permission'],
@@ -77,7 +60,16 @@ Route::group([
             Route::apiResource('users', 'UsersAPIController');
             Route::get('users-export', 'UsersAPIController@export');
 
+            Route::apiResource('roles', 'RolesAPIController');
+            Route::get('roles-export', 'RolesAPIController@export');
+
+            Route::apiResource('permissions', 'PermissionsAPIController');
+            Route::get('permissions-export', 'PermissionsAPIController@export');
+
+            Route::post('set_unset_permission_to_role', 'PermissionsAPIController@setUnsetPermissionToRole');
+
             Route::post('change-password','LoginController@changePassword');
+            Route::get('logout','LoginController@logout');
         });
     });
 

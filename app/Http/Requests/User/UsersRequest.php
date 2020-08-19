@@ -31,14 +31,9 @@ class UsersRequest extends FormRequest
 
         return [
             'name' => 'required | max:255',
-            'is_email' => [
-                'nullable',
-                Rule::in([0, 1])
-            ],
             'email' => [
-                'nullable',
+                'required',
                 'max:255',
-                'required_if:is_email,1',
                 Rule::unique('users')->ignore(end($urlArr)),
             ],
             'password' => 'required | min:6 | max:255',
@@ -50,9 +45,10 @@ class UsersRequest extends FormRequest
             'country_id' => 'required|integer|exists:countries,id,deleted_at,NULL',
             'state_id' => 'required|integer|exists:states,id,deleted_at,NULL',
             'city_id' => 'required|integer|exists:cities,id,deleted_at,NULL',
+            'gallery' => 'required|array',
             'gallery.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'hobby' => 'required|exists:hobbies,id,deleted_at,NULL|array',
             'hobby.*' => 'required|integer',
-            'role_id' => 'integer|exists:roles,id,deleted_at,NULL',
         ];
     }
 }
