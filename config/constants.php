@@ -86,4 +86,8 @@ return [
         'permission_not_found' => 'Permission not found',
         'role_not_found' => 'Role not found',
     ],
+
+    'role'=>[
+        'apply_role' => '1',
+    ],
 ];
