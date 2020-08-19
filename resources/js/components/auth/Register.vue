@@ -121,7 +121,7 @@
                   <v-select
                       name="country_id"
                       v-model="model.country_id"
-                      :items="country_items"
+                      :items="countryList"
                       label="Country"
                       item-text="name"
                       item-value="id"
@@ -134,7 +134,7 @@
                   <v-select
                       name="state_id"
                       v-model="model.state_id"
-                      :items="state_items"
+                      :items="stateList"
                       label="State"
                       item-text="name"
                       item-value="id"
@@ -147,7 +147,7 @@
                   <v-select
                       name="city_id"
                       v-model="model.city_id"
-                      :items="city_items"
+                      :items="cityList"
                       label="City"
                       item-text="name"
                       item-value="id"

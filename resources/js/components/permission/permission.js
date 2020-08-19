@@ -33,7 +33,6 @@ export default {
     },
     methods: {
         getPermissions() {
-            debugger;
             this.$store.dispatch("permissionStore/getById", this.role_id).then(response => {
                 if (response.error) {
                     this.errorDialog = false;

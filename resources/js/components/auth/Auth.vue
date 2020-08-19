@@ -21,12 +21,12 @@
             class="flex-column-fluid d-flex flex-column justify-content-center"
           >
             <h3 class="font-size-h1 mt-10 mb-5 text-white">
-              Welcome to Metronic!
+              Welcome to Eastern Techno Solutions!
             </h3>
-            <p class="font-weight-lighter text-white opacity-80">
+            <!--<p class="font-weight-lighter text-white opacity-80">
               The ultimate Bootstrap, Angular 8, React &amp; VueJS admin theme
               framework for next generation web apps.
-            </p>
+            </p>-->
           </div>
           <!--end: Aside content -->
           <!--begin: Aside footer for desktop -->
@@ -34,13 +34,13 @@
             class="d-none flex-column-auto d-lg-flex justify-content-between mt-15"
           >
             <div class="opacity-70 font-weight-bold text-white">
-              © 2020 Metronic
+              © 2020 Eastern Techno Solutions
             </div>
-            <div class="d-flex">
+            <!--<div class="d-flex">
               <a href="#" class="text-white">Privacy</a>
               <a href="#" class="text-white ml-10">Legal</a>
               <a href="#" class="text-white ml-10">Contact</a>
-            </div>
+            </div>-->
           </div>
           <!--end: Aside footer for desktop -->
         </div>

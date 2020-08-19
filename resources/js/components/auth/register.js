@@ -52,15 +52,15 @@ export default {
             },
             isSubmitting: false,
             menu: false,
-            country_items: [
+            countryList: [
                 { id: '1', name: 'India' },
                 { id: '2', name: 'US' },
             ],
-            state_items: [
+            stateList: [
                 { id: '1', name: 'Gujarat' },
                 { id: '2', name: 'Maharastra' },
             ],
-            city_items: [
+            cityList: [
                 { id: '1', name: 'Surat' },
                 { id: '2', name: 'US' },
             ]
@@ -71,6 +71,10 @@ export default {
             model: state => state.userStore.model,
             isEditMode: state => state.userStore.editId > 0,
             snackbar: state => state.snackbarStore.snackbar,
+            /*countryList: state => state.countryStore.countryList,
+            cityList: state => state.cityStore.cityList,
+            hobbyList: state => state.hobbyStore.hobbyList,
+            stateList: state => state.stateStore.stateList,*/
         }),
         computedDateFormatted () {
             return this.formatDate(this.model.dob)
@@ -149,5 +153,11 @@ export default {
             const [year, month, day] = date.split('-')
             return `${month}/${day}/${year}`
         },
+    },
+    mounted() {
+        /*this.$store.dispatch('countryStore/getCountryList');
+        this.$store.dispatch('cityStore/getCityList');
+        this.$store.dispatch('stateStore/getStateList');
+        this.$store.dispatch('hobbyStore/getHobbyList');*/
     },
 };

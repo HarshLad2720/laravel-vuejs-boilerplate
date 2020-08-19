@@ -1,5 +1,5 @@
 <template>
-  <ul class="menu-nav">
+  <!--<ul class="menu-nav">
     <router-link
       to="users"
       v-slot="{ href, navigate, isActive, isExactActive }"
@@ -39,7 +39,7 @@
     </router-link>
 
 
-  </ul>
+  </ul>-->
 </template>
 
 <script>

@@ -10,6 +10,10 @@ import breadcrumbs from "./breadcrumbs.module";
 import forgotPasswordStore from './forgot-password-store';
 import changePasswordStore from './change-password-store';
 import permissionStore from './permission-store';
+import countryStore from './country-store';
+import cityStore from './city-store';
+import stateStore from './state-store';
+import hobbyStore from './hobby-store';
 
 Vue.use(Vuex)
 
@@ -30,6 +34,10 @@ export default new Vuex.Store({
         breadcrumbs,
         forgotPasswordStore,
         changePasswordStore,
-        permissionStore
+        permissionStore,
+        countryStore,
+        cityStore,
+        stateStore,
+        hobbyStore
     }
 });

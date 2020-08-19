@@ -38,7 +38,7 @@
                                         </thead>
                                         <tbody>
                                         <tr v-for="permission in permissions" :key="permission.id" >
-                                            <td :colspan="permission.is_third_level == '1' ? '4' : ''">{{permission.display_name}}
+                                            <td :colspan="permission.is_third_level && permission.is_third_level == '1' ? '4' : ''">{{permission.display_name}}
                                                 <v-tooltip bottom>
                                                     <template v-slot:activator="{ on }">
                                                         <v-icon v-on="on">
@@ -64,7 +64,7 @@
                                                     </tbody>
                                                 </table>
                                             </td>
-                                            <template v-if="permission.is_third_level != '1'">
+                                            <template v-if="!permission.is_third_level || permission.is_third_level != '1'">
                                                 <td v-for="subPermission in permission.sub_permissions" :key="subPermission.id"><v-checkbox
                                                     type="checkbox"
                                                     v-model="subPermission.is_permission"
