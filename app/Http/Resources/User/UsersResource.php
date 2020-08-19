@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use App\Models\User\UserHobby;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UsersResource extends JsonResource
@@ -34,7 +35,7 @@ class UsersResource extends JsonResource
             'status' => (string)$this->status,
             'status_text' => (string) config('constants.user.status.'.$this->status),
             'gallery' => $this->user_galleries,
-            'hobby' => $this->user_hobbies,
+            'hobby' => UserHobby::where('user_id',$this->id)->get(),
             'role' => $this->role,
             'permissions' => $this->permissions,
             'authorization' => $this->authorization,

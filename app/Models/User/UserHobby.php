@@ -6,17 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserHobby extends Model
 {
-    public $table = 'user_hobby';
+    public $table = 'hobby_user';
+    public $timestamps = false;
     /**
      * @var array
      */
     protected $fillable = ['user_id', 'hobby_id'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function hobby()
+  /*  public function hobby()
     {
-        return $this->belongsTo('App\User');
-    }
+        return $this->belongsTo(UserHobby::class,'hobby_id');
+    }*/
+
 }

@@ -175,7 +175,14 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function user_hobbies() {
+   /* public function user_hobbies() {
         return $this->hasMany(UserHobby::class);
+    }*/
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function hobbies() {
+        return $this->belongsToMany(UserHobby::class,"hobby_user","user_id","hobby_id");
     }
 }

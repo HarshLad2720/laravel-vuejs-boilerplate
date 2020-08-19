@@ -22,6 +22,8 @@ use Illuminate\Routing\Router;
         return url($key);
     })->values();
 });*/
+
+
 Auth::routes(['verify' => true]);
 
 

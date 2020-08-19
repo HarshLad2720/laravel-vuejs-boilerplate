@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\ValidationException;
 
 class ForgotPasswordAPIController extends Controller
 {
@@ -26,6 +28,7 @@ class ForgotPasswordAPIController extends Controller
             'email' => 'required|exists:users,email'
         ];
     }
+
     /**
      * Forgot password reset link success response
      * @param Request $request
@@ -45,6 +48,15 @@ class ForgotPasswordAPIController extends Controller
      */
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
-        return response()->json(['error' => config('constants.messages.forgotpassword_error')], 422);
+        if ($request->wantsJson()) {
+            throw ValidationException::withMessages([
+                'email' => [trans($response)],
+            ]);
+        }
+
+       /* return back()
+            ->withInput($request->only('email'))
+            ->withErrors(['email' => trans($response)]);*/
+        return response()->json(['error' => trans($response)], 422);
     }
 }

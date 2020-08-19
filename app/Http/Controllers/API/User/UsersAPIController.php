@@ -51,13 +51,7 @@ class UsersAPIController extends Controller
         }
 
         if($data['hobby']) {
-
-            foreach ($data['hobby'] as $hobby) {
-                UserHobby::create([
-                    'user_id' => $user->id,
-                    'hobby_id' => $hobby
-                ]);
-            }
+            $user->hobbies()->attach($data['hobby']); //this executes the insert-query
         }
 
         $user->sendEmailVerificationNotification();
@@ -94,6 +88,7 @@ class UsersAPIController extends Controller
     public function update(UsersRequest $request, User $user)
     {
         $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
         if($request->hasfile('profile')) {
             $real_path = 'user/' . $user->id . '/';
             $file_data = $request->file('profile')->store('/public/' . $real_path);
@@ -114,13 +109,8 @@ class UsersAPIController extends Controller
         }
 
         if($data['hobby']) {
-
-            foreach ($data['hobby'] as $hobby) {
-                UserHobby::create([
-                    'user_id' => $user->id,
-                    'hobby_id' => $hobby
-                ]);
-            }
+            $user->hobbies()->detach(); //this executes the delete-query
+            $user->hobbies()->attach($data['hobby']); //this executes the insert-query
         }
         $user->update($data);
 
