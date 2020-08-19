@@ -25,6 +25,7 @@ return [
         'registration_success'=>'Please check your inbox to activate your account',
         'forgotpassword_success'=>'Password reset instructions has been sent to your email. Please check your inbox/spam',
         'forgotpassword_error'=>'Invalid Email',
+        'something_wrong' => 'Something went wrong.',
         'login' => [
             'success' => 'Login is successful.',
             'unverified_account' => 'Your account is not verified yet.',
@@ -84,5 +85,9 @@ return [
         'permission_revert_failure' => 'Permission revert failed',
         'permission_not_found' => 'Permission not found',
         'role_not_found' => 'Role not found',
+    ],
+
+    'role'=>[
+        'apply_role' => '1',
     ],
 ];

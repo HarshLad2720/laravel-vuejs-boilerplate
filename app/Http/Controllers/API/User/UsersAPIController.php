@@ -28,7 +28,7 @@ class UsersAPIController extends Controller
     {
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
-
+        $data['role_id'] = config('constants.role.apply_role');
         $user = User::create($data);
 
         if($request->hasfile('profile')) {
