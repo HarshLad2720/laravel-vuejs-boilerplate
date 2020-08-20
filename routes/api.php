@@ -18,7 +18,10 @@ use Illuminate\Routing\Router;
 * Snippet for a quick route reference
 */
 
+
 Auth::routes(['verify' => true]);
+
+
 Route::group([
     'prefix' => 'v1',
     'namespace' => 'API',
@@ -69,7 +72,6 @@ Route::group([
             Route::post('set_unset_permission_to_role', 'PermissionsAPIController@setUnsetPermissionToRole');
 
             Route::post('change-password','LoginController@changePassword');
-            Route::get('logout','LoginController@logout');
         });
     });
 

@@ -28,7 +28,7 @@ class StatesRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255|unique:states,name',
-            'country_id' => 'required'
+            'country_id' => 'required|integer|exists:countries,id,deleted_at,NULL'
         ];
     }
 }

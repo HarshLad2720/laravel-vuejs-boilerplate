@@ -5,7 +5,7 @@ use App\Exports\User\UsersExport;
 use App\Http\Resources\DataTrueResource;
 use App\User;
 use App\Models\User\UserGallery;
-use App\Models\User\UserHobby;
+use App\Models\User\Hobby_user;
 use App\Http\Requests\User\UsersRequest;
 use App\Http\Resources\User\UsersCollection;
 use App\Http\Resources\User\UsersResource;
@@ -51,13 +51,7 @@ class UsersAPIController extends Controller
         }
 
         if($data['hobby']) {
-
-            foreach ($data['hobby'] as $hobby) {
-                UserHobby::create([
-                    'user_id' => $user->id,
-                    'hobby_id' => $hobby
-                ]);
-            }
+            $user->hobbies()->attach($data['hobby']); //this executes the insert-query
         }
 
         $user->sendEmailVerificationNotification();
@@ -94,6 +88,7 @@ class UsersAPIController extends Controller
     public function update(UsersRequest $request, User $user)
     {
         $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
         if($request->hasfile('profile')) {
             $real_path = 'user/' . $user->id . '/';
             $file_data = $request->file('profile')->store('/public/' . $real_path);
@@ -114,13 +109,8 @@ class UsersAPIController extends Controller
         }
 
         if($data['hobby']) {
-
-            foreach ($data['hobby'] as $hobby) {
-                UserHobby::create([
-                    'user_id' => $user->id,
-                    'hobby_id' => $hobby
-                ]);
-            }
+            $user->hobbies()->detach(); //this executes the delete-query
+            $user->hobbies()->attach($data['hobby']); //this executes the insert-query
         }
         $user->update($data);
 
