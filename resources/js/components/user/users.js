@@ -89,5 +89,6 @@ export default CustomTable.extend({
         },
     },
     mounted(){
+
     }
 });

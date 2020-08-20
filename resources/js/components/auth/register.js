@@ -182,6 +182,6 @@ export default {
         /*this.$store.dispatch('countryStore/getCountryList');
         this.$store.dispatch('cityStore/getCityList');
         this.$store.dispatch('stateStore/getStateList');*/
-        this.$store.dispatch('hobbyStore/getHobbyList');
+        // this.$store.dispatch('hobbyStore/getHobbyList');
     },
 };

@@ -48,7 +48,6 @@
         </v-data-table>
         <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
         <user-modal :paramProps="paramProps" v-model="userDialogue"></user-modal>
-
     </div>
 </template>
 

@@ -27,7 +27,7 @@ export default {
                 this.errorDialog = true;
             }
         }, error => {
-            this.errorArr = getAPIErrorMessage(error.response);
+            this.errorArr = this.getAPIErrorMessage(error.response);
             this.errorDialog = true;
         });
     },
@@ -61,5 +61,6 @@ export default {
                 this.errorDialog = true;
             });
         }
-    }
+    },
+
 }
