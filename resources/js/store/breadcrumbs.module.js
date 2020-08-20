@@ -16,7 +16,6 @@ export default {
      * @returns {*}
      */
     breadcrumbs(state) {
-        // debugger;
       return state.breadcrumbs;
     },
 
@@ -26,7 +25,6 @@ export default {
      * @returns {*}
      */
     pageTitle(state) {
-        // debugger;
       let last = state.breadcrumbs[state.breadcrumbs.length - 1];
       if (last && last.title) {
         return last.title;

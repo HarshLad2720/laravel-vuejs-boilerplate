@@ -10,12 +10,8 @@ import axios from 'axios';
 import Vuex from 'vuex';
 import constants from './common_services/constantPlugin';
 import persistentState from 'vue-persistent-state';
-// import VeeValidate from 'vee-validate';
 import VeeValidate from 'vee-validate';
 import { InlineSvgPlugin } from "vue-inline-svg";
-// import PerfectScrollbar from "perfect-scrollbar";
-
-
 import KTUtil from "../assets/js/components/util.js";
 window.KTUtil = KTUtil
 import "../js/plugins/metronic";
@@ -28,7 +24,6 @@ Vue.use(VueAxios, axios);
 Vue.use(Vuex);
 Vue.use(constants);
 Vue.use(persistentState);
-/*Vue.use(Vuetify);*/
 Vue.use(VeeValidate);
 Vue.use(InlineSvgPlugin);
 
@@ -37,6 +32,12 @@ Vue.use(PerfectScrollbar);
 
 // Install BootstrapVue
 Vue.use(BootstrapVue);
+
+// Permission directives
+import {hasPermission} from "./common_services/permission/permission-directives";
+Vue.directive('can-access', hasPermission);
+Vue.directive('can-edit', hasPermission);
+Vue.directive('can-delete', hasPermission);
 
 const app = new Vue({
     router,

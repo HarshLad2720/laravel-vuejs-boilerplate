@@ -65,7 +65,7 @@ export default {
                 { id: '1', name: 'Surat' },
                 { id: '2', name: 'US' },
             ],
-            "hobbyList": [
+            /*"hobbyList": [
                 {
                     "id": "1",
                     "name": "Cooking",
@@ -74,7 +74,7 @@ export default {
                     "id": "2",
                     "name": "hobby1",
                 }
-            ],
+            ],*/
         };
     },
     computed: {
@@ -84,8 +84,8 @@ export default {
             snackbar: state => state.snackbarStore.snackbar,
             /*countryList: state => state.countryStore.countryList,
             cityList: state => state.cityStore.cityList,
-            hobbyList: state => state.hobbyStore.hobbyList,
             stateList: state => state.stateStore.stateList,*/
+            hobbyList: state => state.hobbyStore.hobbyList,
         }),
         computedDateFormatted () {
             return this.formatDate(this.model.dob)
@@ -147,9 +147,10 @@ export default {
                             self.errorMessage = response.data.error;
                         } else {
                             self.isSubmitting = false;
+                            // Success message
                             self.$store.commit("snackbarStore/setMsg", msgType);
+                            // Reset data
                             self.onModalDataPost('userStore');
-                            this.$router.push("/");
                         }
                     }, error => {
                         self.isSubmitting = false;
@@ -180,7 +181,7 @@ export default {
         // this.$store.commit('userStore/clearModel');
         /*this.$store.dispatch('countryStore/getCountryList');
         this.$store.dispatch('cityStore/getCityList');
-        this.$store.dispatch('stateStore/getStateList');
-        this.$store.dispatch('hobbyStore/getHobbyList');*/
+        this.$store.dispatch('stateStore/getStateList');*/
+        this.$store.dispatch('hobbyStore/getHobbyList');
     },
 };

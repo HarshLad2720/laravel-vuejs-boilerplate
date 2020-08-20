@@ -72,7 +72,7 @@
               </v-flex>
               <v-flex xs12>
                   <v-file-input label="Profile" name="profile" v-model="model.profile" solo :error-messages="getErrorValue('profile')"
-                                v-validate="'required'"></v-file-input>
+                                v-validate="isEditMode ? '' :'required'"></v-file-input>
               </v-flex>
               <v-flex xs12>
                   <v-radio-group row v-model="model.gender"
@@ -80,7 +80,7 @@
                                  :error-messages="getErrorValue('gender')"
                                  v-validate="'required'">
                       <v-radio label="Male" value="1"></v-radio>
-                      <v-radio label="Female" value="2"></v-radio>
+                      <v-radio label="Female" value="0"></v-radio>
                   </v-radio-group>
               </v-flex>
               <v-flex xs12>
@@ -159,7 +159,7 @@
               </v-flex>
               <v-flex xs12>
                   <v-file-input multiple name="gallery" label="Gallery" v-model="model.gallery" solo :error-messages="getErrorValue('gallery')"
-                                v-validate="'required'"></v-file-input>
+                                v-validate="isEditMode ? '' :'required'"></v-file-input>
               </v-flex>
               <v-flex xs12>
                   <v-row justify="space-around">
@@ -169,10 +169,8 @@
                                   :name="'hobby'+hList.id"
                                   :value="hList.id"
                                   v-model="model.hobby"
-                                  v-validate="'required'" :error="getErrorCount('hobby1' +hList.id)"></v-checkbox>
+                                  v-validate="isEditMode ? '' :'required'" :error="getErrorCount('hobby1' +hList.id)"></v-checkbox>
                       </template>
-                      <!--<v-checkbox name="hobby1" v-model="model.hobby" label="Singing" value="1" v-validate="'required'" :error="getErrorCount('hobby1')"></v-checkbox>
-                      <v-checkbox name="hobby2" v-model="model.hobby" label="Cooking" value="2" v-validate="'required'" :error="getErrorCount('hobby2')"></v-checkbox>-->
                   </v-row>
               </v-flex>
           </v-layout>
@@ -196,11 +194,5 @@
       <snackbar v-model="snackbar"></snackbar>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.spinner.spinner-right {
-  padding-right: 3.5rem !important;
-}
-</style>
 
 <script src="./register.js"></script>
