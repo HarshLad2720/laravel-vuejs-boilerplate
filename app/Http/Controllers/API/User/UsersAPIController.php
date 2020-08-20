@@ -5,7 +5,7 @@ use App\Exports\User\UsersExport;
 use App\Http\Resources\DataTrueResource;
 use App\User;
 use App\Models\User\UserGallery;
-use App\Models\User\UserHobby;
+use App\Models\User\Hobby_user;
 use App\Http\Requests\User\UsersRequest;
 use App\Http\Resources\User\UsersCollection;
 use App\Http\Resources\User\UsersResource;
