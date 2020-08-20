@@ -89,7 +89,6 @@ const userStore = {
         register({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "register", param.model).then(response => {
-                    // console.log(response);
                     resolve(response);
                 }).catch(e => {
                     reject(e);

@@ -23,10 +23,6 @@
             <h3 class="font-size-h1 mt-10 mb-5 text-white">
               Welcome to Eastern Techno Solutions!
             </h3>
-            <!--<p class="font-weight-lighter text-white opacity-80">
-              The ultimate Bootstrap, Angular 8, React &amp; VueJS admin theme
-              framework for next generation web apps.
-            </p>-->
           </div>
           <!--end: Aside content -->
           <!--begin: Aside footer for desktop -->
@@ -36,11 +32,6 @@
             <div class="opacity-70 font-weight-bold text-white">
               © 2020 Eastern Techno Solutions
             </div>
-            <!--<div class="d-flex">
-              <a href="#" class="text-white">Privacy</a>
-              <a href="#" class="text-white ml-10">Legal</a>
-              <a href="#" class="text-white ml-10">Contact</a>
-            </div>-->
           </div>
           <!--end: Aside footer for desktop -->
         </div>
@@ -74,7 +65,6 @@ export default {
   computed: {
     backgroundImage() {
     return  "images/bg-4.jpg";
-      // return  "/assets/images/bg-4.jpg";
     }
   }
 };
