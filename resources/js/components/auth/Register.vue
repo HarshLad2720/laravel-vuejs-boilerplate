@@ -26,7 +26,7 @@
       </div>
 
       <!--begin::Form-->
-      <v-form class="form" @submit.prevent="onSubmit"  method="POST" role="form" enctype="multipart/form-data">
+      <v-form class="form" @submit.prevent="onSubmit"  method="POST" role="form" enctype="multipart/form-data" autocomplete="off">
           <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
           <v-layout row wrap class="display-block">
               <v-flex xs12>
@@ -45,8 +45,9 @@
                       name="email"
                       v-model="model.email"
                       :error-messages="getErrorValue('email')"
-                      v-validate="'required|email'"
+                      v-validate="'required|email'" autocomplete="email"
                       solo
+                      :readonly="isEditMode?'readonly':''"
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -55,7 +56,7 @@
                       name="password"
                       v-model="model.password"
                       :error-messages="getErrorValue('password')"
-                      v-validate="isEditMode ? '' :'required|min:6'"
+                      v-validate="isEditMode ? '' :'required|min:6'" autocomplete="new-password"
                       solo v-if="!isEditMode"
                   ></v-text-field>
               </v-flex>
@@ -103,7 +104,7 @@
                               v-validate="'required'" name="dob"
                           ></v-text-field>
                       </template>
-                      <v-date-picker v-model="model.dob"
+                      <v-date-picker v-model="model.dob" :min="todayDate"
                                      @input="menu = false"></v-date-picker>
                   </v-menu>
               </v-flex>
@@ -121,7 +122,7 @@
                   <v-select
                       name="country_id"
                       v-model="model.country_id"
-                      :items="country_items"
+                      :items="countryList"
                       label="Country"
                       item-text="name"
                       item-value="id"
@@ -134,7 +135,7 @@
                   <v-select
                       name="state_id"
                       v-model="model.state_id"
-                      :items="state_items"
+                      :items="stateList"
                       label="State"
                       item-text="name"
                       item-value="id"
@@ -147,7 +148,7 @@
                   <v-select
                       name="city_id"
                       v-model="model.city_id"
-                      :items="city_items"
+                      :items="cityList"
                       label="City"
                       item-text="name"
                       item-value="id"
@@ -162,26 +163,26 @@
               </v-flex>
               <v-flex xs12>
                   <v-row justify="space-around">
-                      <v-checkbox name="hobby1" v-model="model.hobby" label="Singing" value="1" v-validate="'required'" :error="getErrorCount('hobby1')"></v-checkbox>
-                      <v-checkbox name="hobby2" v-model="model.hobby" label="Cooking" value="2" v-validate="'required'" :error="getErrorCount('hobby2')"></v-checkbox>
+                      <template v-for="(hList,index) in hobbyList">
+                      <v-checkbox :id="'hobby'+hList.id"
+                                  :label="hList.name"
+                                  :name="'hobby'+hList.id"
+                                  :value="hList.id"
+                                  v-model="model.hobby"
+                                  v-validate="'required'" :error="getErrorCount('hobby1' +hList.id)"></v-checkbox>
+                      </template>
+                      <!--<v-checkbox name="hobby1" v-model="model.hobby" label="Singing" value="1" v-validate="'required'" :error="getErrorCount('hobby1')"></v-checkbox>
+                      <v-checkbox name="hobby2" v-model="model.hobby" label="Cooking" value="2" v-validate="'required'" :error="getErrorCount('hobby2')"></v-checkbox>-->
                   </v-row>
               </v-flex>
           </v-layout>
 
         <!--begin::Action-->
         <div class="form-group d-flex flex-wrap flex-center">
-          <!--<button
-            type="submit"
-            ref="kt_login_signup_submit"
-            class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4"
-          >
-            Submit
-          </button>-->
-
             <v-btn class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4" type="submit"
                    :loading="isSubmitting" ref="submitBtn">Submit</v-btn>
-          <button
-            v-on:click="$router.push('login')"
+          <button v-if="isEditMode"
+            v-on:click="onCancel()"
             class="btn btn-light-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4"
           >
             Cancel
