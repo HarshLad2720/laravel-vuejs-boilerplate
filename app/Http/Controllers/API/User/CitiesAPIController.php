@@ -16,6 +16,23 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class CitiesAPIController extends Controller
 {
+
+    /*
+   |--------------------------------------------------------------------------
+   | Cities Controller
+   |--------------------------------------------------------------------------
+   |
+   | This controller handles the Roles of
+     index,
+     show,
+     store,
+     update,
+     destroy,
+     export and
+     importBulk Methods.
+   |
+   */
+
     /**
      * list Cities
      * @param Request $request

@@ -19,6 +19,22 @@ use Maatwebsite\Excel\Facades\Excel;
 class UsersAPIController extends Controller
 {
 
+    /*
+   |--------------------------------------------------------------------------
+   | Users Controller
+   |--------------------------------------------------------------------------
+   |
+   | This controller handles the Roles of
+       register,
+       index,
+       show,
+       store,
+       update,
+       destroy,
+       export Methods.
+   |
+   */
+
     /***
      * Register New User
      * @param UsersRequest $request
