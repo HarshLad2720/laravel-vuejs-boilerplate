@@ -30,11 +30,17 @@ Route::group([
 
         Route::get('email/verify/{id}', 'VerificationAPIController@verify')->name('verification.verify');
         Route::get('email/resend', 'VerificationAPIController@resend')->name('verification.resend');
+
         Route::post('password/email','ForgotPasswordAPIController@sendResetLinkEmail');
         Route::post('reset-password','ResetPasswordAPIController@resetPassword');
 
         Route::post('register', 'UsersAPIController@register');
         Route::post('login','LoginController@login');
+
+        Route::get('countries', 'CountriesAPIController@index');
+        Route::get('states', 'StatesAPIController@index');
+        Route::get('cities', 'CitiesAPIController@index');
+        Route::get('hobbies', 'HobbiesAPIController@index');
 
         Route::group([
             'middleware' => ['auth:api', 'check.permission'],
@@ -62,6 +68,7 @@ Route::group([
 
             Route::apiResource('roles', 'RolesAPIController');
             Route::get('roles-export', 'RolesAPIController@export');
+            Route::get('get_role_by_permissions/{id}', 'RolesAPIController@getPermissionsByRole');
 
             Route::apiResource('permissions', 'PermissionsAPIController');
             Route::get('permissions-export', 'PermissionsAPIController@export');
