@@ -195,10 +195,4 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-.spinner.spinner-right {
-  padding-right: 3.5rem !important;
-}
-</style>
-
 <script src="./register.js"></script>
