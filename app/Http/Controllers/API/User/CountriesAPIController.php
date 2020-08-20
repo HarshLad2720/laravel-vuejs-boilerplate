@@ -16,6 +16,22 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class CountriesAPIController extends Controller
 {
+    /*
+  |--------------------------------------------------------------------------
+  | Countries Controller
+  |--------------------------------------------------------------------------
+  |
+  | This controller handles the Roles of
+    index,
+    show,
+    store,
+    update,
+    destroy,
+    export and
+    importBulk Methods.
+  |
+  */
+
     /**
      * list Countires
      * @param Request $request

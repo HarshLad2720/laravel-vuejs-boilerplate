@@ -22,9 +22,17 @@ class RolesAPIController extends Controller
    | Roles Controller
    |--------------------------------------------------------------------------
    |
-   | This controller handles the Roles of index, show, store, update, destroy and export Methods.
+   | This controller handles the Roles of
+     index,
+     show,
+     store,
+     update,
+     destroy,
+     export and
+     getPermissionsByRole Methods.
    |
    */
+
 
     /**
     * Roles List

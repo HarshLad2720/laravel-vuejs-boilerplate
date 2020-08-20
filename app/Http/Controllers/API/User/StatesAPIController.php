@@ -16,6 +16,23 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class StatesAPIController extends Controller
 {
+
+    /*
+    |--------------------------------------------------------------------------
+    | States Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the Roles of
+        index,
+        show,
+        store,
+        update,
+        destroy,
+        export and
+        importBulk Methods.
+    |
+    */
+
     /**
      * List States
      * @param Request $request
