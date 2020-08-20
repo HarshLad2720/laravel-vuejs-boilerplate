@@ -52,6 +52,7 @@ export default {
             },
             isSubmitting: false,
             menu: false,
+            todayDate: new Date().toISOString().slice(0,10),
             countryList: [
                 { id: '1', name: 'India' },
                 { id: '2', name: 'US' },
@@ -63,7 +64,17 @@ export default {
             cityList: [
                 { id: '1', name: 'Surat' },
                 { id: '2', name: 'US' },
-            ]
+            ],
+            "hobbyList": [
+                {
+                    "id": "1",
+                    "name": "Cooking",
+                },
+                {
+                    "id": "2",
+                    "name": "hobby1",
+                }
+            ],
         };
     },
     computed: {
@@ -147,14 +158,26 @@ export default {
                 }
             });
         },
+
+        /**
+         * Format DOB
+         */
         formatDate (date) {
             if (!date) return null
-
             const [year, month, day] = date.split('-')
             return `${month}/${day}/${year}`
         },
+
+        /**
+         * Cancel button
+         */
+        onCancel() {
+            // this.onModalCancelPref('userStore');
+            this.$emit('input');
+        }
     },
     mounted() {
+        // this.$store.commit('userStore/clearModel');
         /*this.$store.dispatch('countryStore/getCountryList');
         this.$store.dispatch('cityStore/getCityList');
         this.$store.dispatch('stateStore/getStateList');
