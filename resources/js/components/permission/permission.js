@@ -27,13 +27,12 @@ export default {
                 this.errorDialog = true;
             }
         }, error => {
-            this.errorArr = getAPIErrorMessage(error.response);
+            this.errorArr = this.getAPIErrorMessage(error.response);
             this.errorDialog = true;
         });
     },
     methods: {
         getPermissions() {
-            debugger;
             this.$store.dispatch("permissionStore/getById", this.role_id).then(response => {
                 if (response.error) {
                     this.errorDialog = false;
@@ -62,5 +61,6 @@ export default {
                 this.errorDialog = true;
             });
         }
-    }
+    },
+
 }

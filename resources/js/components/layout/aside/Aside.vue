@@ -8,7 +8,7 @@
     @mouseleave="mouseLeave"
   >
     <!-- begin:: Aside -->
-<!--    <KTBrand></KTBrand>-->
+    <KTBrand></KTBrand>
     <!-- end:: Aside -->
 
     <!-- begin:: Aside Menu -->
@@ -39,7 +39,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import KTBrand from "../../../../assets/layout/brand/Brand.vue";
+import KTBrand from "../../../../js/components/layout/brand/Brand.vue";
 
 import KTLayoutAside from "../../../../assets/js/layout/base/aside.js";
 import KTLayoutAsideMenu from "../../../../assets/js/layout/base/aside-menu.js";
@@ -54,7 +54,7 @@ export default {
     };
   },
   components: {
-    // KTBrand,
+    KTBrand,
     KTMenu
   },
   mounted() {

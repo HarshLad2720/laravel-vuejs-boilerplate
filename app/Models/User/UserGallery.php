@@ -18,4 +18,14 @@ class UserGallery extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * @param $value
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function getFilenameAttribute($value){
+        if ($value == NULL)
+            return "";
+        return url(config('constants.image.dir_path') . $value);
+    }
 }

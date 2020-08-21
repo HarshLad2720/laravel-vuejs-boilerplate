@@ -378,9 +378,9 @@ export default {
             }
         },
     },
-    /*beforeCreate() {
+    beforeCreate() {
         this.$store.commit('snackbarStore/clearStore');
-    },*/
+    },
     created() { },
     filters: {
         getHumanReadableDate(value) {

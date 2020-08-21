@@ -71,40 +71,42 @@ class Permission extends Model
 
         $isPermission = $role->permissions->pluck('name')->toArray();// get all role permissions mappings
         $allPermission = [];
-        $rootPermissions = Self::getPermissionByGuardName('root');// get permissions
+        if($isPermission) {
+            $rootPermissions = Self::getPermissionByGuardName('root');// get permissions
 
-        if(!$rootPermissions->isEmpty()){// Check permissions is not empty
-            foreach($rootPermissions As $root){
+            if (!$rootPermissions->isEmpty()) {// Check permissions is not empty
+                foreach ($rootPermissions As $root) {
 
-                $root = Self::commonPermissionCode($root,$isPermission,$isSubscription);
-                $root['is_third_level'] = "0";
+                    $root = Self::commonPermissionCode($root, $isPermission, $isSubscription);
+                    $root['is_third_level'] = "0";
 
-                $firstPermission = [];
-                $firstPermissions = Self::getPermissionByGuardName($root['name']);// get permissions
+                    $firstPermission = [];
+                    $firstPermissions = Self::getPermissionByGuardName($root['name']);// get permissions
 
-                if(!$firstPermissions->isEmpty()){// Check permissions is not empty
-                    foreach($firstPermissions As $first){
+                    if (!$firstPermissions->isEmpty()) {// Check permissions is not empty
+                        foreach ($firstPermissions As $first) {
 
-                        $first = Self::commonPermissionCode($first,$isPermission,$isSubscription);
-                        $first['sub_permissions'] = [];
+                            $first = Self::commonPermissionCode($first, $isPermission, $isSubscription);
+                            $first['sub_permissions'] = [];
 
-                        $secondPermission = [];
-                        $secondPermissions = Self::getPermissionByGuardName($first['name']);// get permissions
+                            $secondPermission = [];
+                            $secondPermissions = Self::getPermissionByGuardName($first['name']);// get permissions
 
-                        if(!$secondPermissions->isEmpty()){// Check permissions is not empty
-                            $root['is_third_level'] = "1";
-                            foreach($secondPermissions As $second)
-                                $secondPermission[] = Self::commonPermissionCode($second,$isPermission,$isSubscription);
+                            if (!$secondPermissions->isEmpty()) {// Check permissions is not empty
+                                $root['is_third_level'] = "1";
+                                foreach ($secondPermissions As $second)
+                                    $secondPermission[] = Self::commonPermissionCode($second, $isPermission, $isSubscription);
 
-                            $first['sub_permissions'] = $secondPermission;
+                                $first['sub_permissions'] = $secondPermission;
+                            }
+
+                            $firstPermission[] = $first;
                         }
-
-                        $firstPermission[] = $first;
                     }
-                }
 
-                $root['sub_permissions'] = $firstPermission;
-                $allPermission[] = $root;
+                    $root['sub_permissions'] = $firstPermission;
+                    $allPermission[] = $root;
+                }
             }
         }
 

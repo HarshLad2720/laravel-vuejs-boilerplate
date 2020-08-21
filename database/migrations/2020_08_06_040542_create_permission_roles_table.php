@@ -70,6 +70,15 @@ class CreatePermissionRolesTable extends Migration
             array('permission_id' => '47','role_id' =>'1'),
             array('permission_id' => '48','role_id' =>'1'),
             array('permission_id' => '49','role_id' =>'1'),
+            array('permission_id' => '50','role_id' =>'1'),
+            array('permission_id' => '51','role_id' =>'1'),
+            array('permission_id' => '52','role_id' =>'1'),
+            array('permission_id' => '53','role_id' =>'1'),
+            array('permission_id' => '54','role_id' =>'1'),
+            array('permission_id' => '55','role_id' =>'1'),
+            array('permission_id' => '56','role_id' =>'1'),
+            array('permission_id' => '57','role_id' =>'1'),
+
         ));
 
     }

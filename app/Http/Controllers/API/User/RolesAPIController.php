@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Models\User\Role;
+use App\Models\User\Permission;
 use App\User;
 use App\Http\Requests\User\RolesRequest;
 use App\Http\Resources\User\RolesCollection;
@@ -21,9 +22,17 @@ class RolesAPIController extends Controller
    | Roles Controller
    |--------------------------------------------------------------------------
    |
-   | This controller handles the Roles of index, show, store, update, destroy and export Methods.
+   | This controller handles the Roles of
+     index,
+     show,
+     store,
+     update,
+     destroy,
+     export and
+     getPermissionsByRole Methods.
    |
    */
+
 
     /**
     * Roles List
@@ -95,6 +104,20 @@ class RolesAPIController extends Controller
     public function export(Request $request)
     {
         return Excel::download(new RolesExport($request), 'role.csv');
+    }
+
+    /**
+     * Role Detail
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function getPermissionsByRole(Request $request)
+    {
+        //return new RolesResource($role->load([]));
+        $role = Role::findorfail($request->id);//get role details
+        $allPermission = Permission::getPermissions($role);
+        return response()->json(['data' => $allPermission]);
     }
 
 }

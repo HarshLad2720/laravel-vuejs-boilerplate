@@ -57,11 +57,7 @@ export default CustomTable.extend({
         UserModal,
         ErrorModal,
     },
-    computed: {
-        /*...mapState({
-            roleList: state => state.userStore.roleList,
-        }),*/
-    },
+    computed: {},
     watch: {
     },
     created () {
@@ -74,18 +70,16 @@ export default CustomTable.extend({
             this.confirmation.description = this.$getConst('WARNING');
             this.modalOpen = true;
         },
-        /*setFilter(){
-            this.options.filter = { role_id : [this.roleId] };
-        }*/
 
         /* Edit User */
         onEdit(id) {
-            this.userDialogue = true;
             this.$store.commit('userStore/setEditId', id);
             this.$store.dispatch('userStore/getById', id).then(response => {
                 if (response.error) {
                     this.errorArr = response.data.error;
                     this.errorDialog = true;
+                } else {
+                    // Open edit user modal
                     this.userDialogue = true;
                 }
             }, error => {
@@ -95,11 +89,6 @@ export default CustomTable.extend({
         },
     },
     mounted(){
-        /*this.$store.dispatch('userStore/getRoles').then(response => {
-            //set data by calling mutation
-            this.$store.commit('userStore/setRoleList', response.data.data);
-        }, error => {
-            //add error handling code here
-        });*/
+
     }
 });

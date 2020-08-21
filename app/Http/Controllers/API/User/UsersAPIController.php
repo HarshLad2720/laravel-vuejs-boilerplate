@@ -19,6 +19,22 @@ use Maatwebsite\Excel\Facades\Excel;
 class UsersAPIController extends Controller
 {
 
+    /*
+   |--------------------------------------------------------------------------
+   | Users Controller
+   |--------------------------------------------------------------------------
+   |
+   | This controller handles the Roles of
+       register,
+       index,
+       show,
+       store,
+       update,
+       destroy,
+       export Methods.
+   |
+   */
+
     /***
      * Register New User
      * @param UsersRequest $request
@@ -34,7 +50,8 @@ class UsersAPIController extends Controller
         if($request->hasfile('profile')) {
             $real_path = 'user/' . $user->id . '/';
             $file_data = $request->file('profile')->store('/public/' . $real_path);
-            $user->profile = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+            $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+            $user->update(['profile' => $filename]);
         }
 
         if($request->hasfile('gallery')) {
@@ -92,7 +109,8 @@ class UsersAPIController extends Controller
         if($request->hasfile('profile')) {
             $real_path = 'user/' . $user->id . '/';
             $file_data = $request->file('profile')->store('/public/' . $real_path);
-            $user->profile = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+            $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+            $data['profile'] = $filename;
         }
 
         if($request->hasfile('gallery')) {
