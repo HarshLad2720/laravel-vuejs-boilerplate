@@ -23,7 +23,8 @@ function initialState() {
             email: '',
             password: '',
             mobile_no:'',
-            profile:null,
+            profile:'',
+            profile_upload: null,
             gender: '',
             dob:'',
             address: '',
@@ -55,8 +56,9 @@ const userStore = {
             state.editId = payload;
         },
         setModel(state, param) {
-            // debugger;
+            debugger;
             state.model = param.model;
+            state.model.profile_upload = null;
 
         },
         clearStore(state) {

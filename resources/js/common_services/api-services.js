@@ -13,7 +13,7 @@ export const HTTP = window.axios;
 
 HTTP.interceptors.request.use(
     function (config) {
-        if (config.url == "/api/v1/login" || config.url.includes("password/email") || config.url.includes("reset-password") || config.url.includes("register")) {
+        if (config.url == "/api/v1/login" || config.url.includes("password/email") || config.url.includes("reset-password") || config.url.includes("register") || config.url.includes("countries") || config.url.includes("states") || config.url.includes("cities") || config.url.includes("hobbies")) {
             return config;
         }
         // Check authorizationData

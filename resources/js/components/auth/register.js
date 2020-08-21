@@ -53,7 +53,7 @@ export default {
             isSubmitting: false,
             menu: false,
             todayDate: new Date().toISOString().slice(0,10),
-            countryList: [
+            /*countryList: [
                 { id: '1', name: 'India' },
                 { id: '2', name: 'US' },
             ],
@@ -64,7 +64,7 @@ export default {
             cityList: [
                 { id: '1', name: 'Surat' },
                 { id: '2', name: 'US' },
-            ],
+            ],*/
             /*"hobbyList": [
                 {
                     "id": "1",
@@ -82,9 +82,9 @@ export default {
             model: state => state.userStore.model,
             isEditMode: state => state.userStore.editId > 0,
             snackbar: state => state.snackbarStore.snackbar,
-            /*countryList: state => state.countryStore.countryList,
+            countryList: state => state.countryStore.countryList,
             cityList: state => state.cityStore.cityList,
-            stateList: state => state.stateStore.stateList,*/
+            stateList: state => state.stateStore.stateList,
             hobbyList: state => state.hobbyStore.hobbyList,
         }),
         computedDateFormatted () {
@@ -98,6 +98,8 @@ export default {
          */
         onSubmit() {
             var self = this;
+            debugger;
+            console.log(self.model);
             this.$validator.validate().then(valid => {
                 if (valid) {
                     self.isSubmitting = true;
@@ -107,7 +109,7 @@ export default {
                     }
                     // for profile
                     formData.delete('profile');
-                    if (self.model.profile && self.model.profile != null && self.model.profile instanceof File) {
+                    if (self.model.profile_upload && self.model.profile_upload != null && self.model.profile instanceof File) {
                         formData.append('profile', self.model.profile);
                     }
 
@@ -119,6 +121,7 @@ export default {
                         });
                     }
 
+                    debugger;
                     // Multiple Hobby array
                     formData.delete('hobby');
                     if (self.model.hobby.length > 0) {
@@ -179,9 +182,9 @@ export default {
     },
     mounted() {
         // this.$store.commit('userStore/clearModel');
-        /*this.$store.dispatch('countryStore/getCountryList');
+        this.$store.dispatch('countryStore/getCountryList');
         this.$store.dispatch('cityStore/getCityList');
-        this.$store.dispatch('stateStore/getStateList');*/
-        // this.$store.dispatch('hobbyStore/getHobbyList');
+        this.$store.dispatch('stateStore/getStateList');
+        this.$store.dispatch('hobbyStore/getHobbyList');
     },
 };

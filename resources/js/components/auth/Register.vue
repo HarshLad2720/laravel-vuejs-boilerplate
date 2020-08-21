@@ -70,10 +70,24 @@
                       solo
                   ></v-text-field>
               </v-flex>
+              <template row wrap v-if="model.profile != ''">
+                  <v-flex lg6>
+                      Existing Profile Image :
+                  </v-flex><v-flex lg6>
+                  <a :href="model.profile" target="_blank"><img :src="model.profile" width="auto" height="100" class=""></a>
+              </v-flex>
+              </template>
               <v-flex xs12>
-                  <v-file-input label="Profile" name="profile" v-model="model.profile" solo
-                                :error-messages="getErrorValue('profile')"
-                                v-validate="isEditMode ? '' :'required'"></v-file-input>
+                  <v-file-input
+                      attach solo
+                      v-model="model.profile_upload"
+                      :rules="rules"
+                      label="Profile Image"
+                      @click:clear="model.profile_upload=null"
+                      id="profile" name="profile" ref="profile"
+                      :error-messages="getErrorValue('profile')"
+                      v-validate="!isEditMode ? 'required' : ''">
+                  </v-file-input>
               </v-flex>
               <v-flex xs12>
                   <v-radio-group row v-model="model.gender"
@@ -164,13 +178,14 @@
               </v-flex>
               <v-flex xs12>
                   <v-row justify="space-around">
-                      <template v-for="(hList,index) in hobbyList">
+                      <template v-for="(hList,index) in hobbyList" >
                       <v-checkbox :id="'hobby'+hList.id"
+                                  :key="'hobby'+index"
                                   :label="hList.name"
                                   :name="'hobby'+hList.id"
                                   :value="hList.id"
                                   v-model="model.hobby"
-                                  v-validate="isEditMode ? '' :'required'" :error="getErrorCount('hobby1' +hList.id)"></v-checkbox>
+                                  v-validate="isEditMode ? '' :'required'" :error="getErrorCount('hobby' +hList.id)"></v-checkbox>
                       </template>
                   </v-row>
               </v-flex>
