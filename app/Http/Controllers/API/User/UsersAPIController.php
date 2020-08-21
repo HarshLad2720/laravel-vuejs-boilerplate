@@ -50,7 +50,8 @@ class UsersAPIController extends Controller
         if($request->hasfile('profile')) {
             $real_path = 'user/' . $user->id . '/';
             $file_data = $request->file('profile')->store('/public/' . $real_path);
-            $user->profile = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+            $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+            $user->update(['profile' => $filename]);
         }
 
         if($request->hasfile('gallery')) {
@@ -113,7 +114,8 @@ class UsersAPIController extends Controller
         if($request->hasfile('profile')) {
             $real_path = 'user/' . $user->id . '/';
             $file_data = $request->file('profile')->store('/public/' . $real_path);
-            $user->profile = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+            $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+            $data['profile'] = $filename;
         }
 
         if($request->hasfile('gallery')) {

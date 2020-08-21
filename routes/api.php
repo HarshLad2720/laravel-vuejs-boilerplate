@@ -46,19 +46,31 @@ Route::group([
             'middleware' => ['auth:api', 'check.permission'],
         ], function() {
 
-            Route::apiResource('countries', 'CountriesAPIController');
+
+            Route::resource('countries', 'CountriesAPIController', [
+                'only' => ['show', 'store', 'update', 'destroy']
+            ]);
             Route::get('countries-export', 'CountriesAPIController@export');
             Route::post('countries-import-bulk', 'CountriesAPIController@importBulk');
 
-            Route::apiResource('states', 'StatesAPIController');
+
+            Route::resource('states', 'StatesAPIController', [
+                'only' => ['show', 'store', 'update', 'destroy']
+            ]);
             Route::get('states-export', 'StatesAPIController@export');
             Route::post('states-import-bulk', 'StatesAPIController@importBulk');
 
-            Route::apiResource('cities', 'CitiesAPIController');
+
+            Route::resource('cities', 'CitiesAPIController', [
+                'only' => ['show', 'store', 'update', 'destroy']
+            ]);
             Route::get('cities-export', 'CitiesAPIController@export');
             Route::post('cities-import-bulk', 'CitiesAPIController@importBulk');
 
-            Route::apiResource('hobbies', 'HobbiesAPIController');
+
+            Route::resource('hobbies', 'HobbiesAPIController', [
+                'only' => ['show', 'store', 'update', 'destroy']
+            ]);
             Route::get('hobbies-export', 'HobbiesAPIController@export');
             Route::post('hobbies-import-bulk', 'HobbiesAPIController@importBulk');
 
