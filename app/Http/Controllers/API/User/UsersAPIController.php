@@ -130,6 +130,11 @@ class UsersAPIController extends Controller
             $user->hobbies()->detach(); //this executes the delete-query
             $user->hobbies()->attach($data['hobby']); //this executes the insert-query
         }
+
+        if(is_array($data['delete_gallery'])) {
+            UserGallery::destroy($data['delete_gallery']);
+        }
+
         $user->update($data);
 
         return new UsersResource($user);

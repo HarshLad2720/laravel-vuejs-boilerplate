@@ -83,6 +83,7 @@ class CreatePermisssionsTable extends Migration
 
             array('name' => 'my-permissions','guard_name' => 'root','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
 
+            array('name' => 'importBulk-countries','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
             array('name' => 'store-permissions','guard_name' => 'my-permissions','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
             array('name' => 'index-permissions','guard_name' => 'my-permissions','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
             array('name' => 'show-permissions','guard_name' => 'my-permissions','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
