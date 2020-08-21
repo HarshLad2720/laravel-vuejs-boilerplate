@@ -49,21 +49,25 @@ export default CustomTable.extend({
         DeleteModal,
         AddRole
     },
-    computed: {
-        /*...mapState({
-            roleList: state => state.userStore.roleList,
-        }),*/
-    },
+    computed: {},
     watch: {
     },
     created () {
     },
     methods:{
+        /*
+        * Add Role Modal method
+        * */
         addrole(){
             this.addRoleModal = true;
         },
+        /*
+        * Edit Role Modal
+        * */
         editItem(id){
+            // set the edit id in store
             this.$store.commit('roleStore/setEditId', id);
+            //get by id to open and edit the role of particular id
             this.$store.dispatch('roleStore/getById', id).then(response => {
                 if (response.error) {
                     this.errorArr = response.data.error;
@@ -83,16 +87,6 @@ export default CustomTable.extend({
             this.paramProps.description = this.$getConst('WARNING');
             this.modalOpen = true;
         },
-        /*setFilter(){
-            this.options.filter = { role_id : [this.roleId] };
-        }*/
     },
-    mounted(){
-        /*this.$store.dispatch('userStore/getRoles').then(response => {
-            //set data by calling mutation
-            this.$store.commit('userStore/setRoleList', response.data.data);
-        }, error => {
-            //add error handling code here
-        });*/
-    }
+    mounted(){}
 });

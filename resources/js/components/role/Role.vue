@@ -12,7 +12,6 @@
         >
             <template v-slot:top>
                 <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
-                <!--                <v-select v-model="roleId" :items="roleList" item-text="name" item-value="id" label="Role" @change="setFilter()"></v-select>-->
                 <v-toolbar flat color="white">
                     <v-toolbar-title>Roles</v-toolbar-title>
                     <v-divider
