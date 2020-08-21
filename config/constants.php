@@ -90,4 +90,10 @@ return [
     'role'=>[
         'apply_role' => '1',
     ],
+
+    'image' => [
+        'dir_path' => '/storage/',
+        'default_types' => 'gif|jpg|png|jpeg',
+        'user_default_img' => 'images/default.jpg',
+    ],
 ];

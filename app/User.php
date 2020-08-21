@@ -178,4 +178,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function user_hobbies() {
         return $this->hasMany(UserHobby::class);
     }
+
+    /**
+    * @param $value
+    * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+    */
+    public function getProfileAttribute($value){
+        if ($value == NULL)
+            return "";
+        return url(config('constants.image.dir_path') . $value);
+    }
+
+
 }
