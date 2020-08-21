@@ -91,6 +91,8 @@ Route::group([
             Route::post('set_unset_permission_to_role', 'PermissionsAPIController@setUnsetPermissionToRole');
 
             Route::post('change-password','LoginController@changePassword');
+
+            Route::delete('gallery/{gallery}', 'UsersAPIController@delete_gallery');
         });
     });
 
