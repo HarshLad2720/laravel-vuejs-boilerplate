@@ -1,9 +1,9 @@
 export const PERMISSION_CONSTANTS = {
 
     //Start -> second level permissions
-    /*DASHBOARD: {module: 'dashboard', subModule: ''},
-    HEADER: {module: 'header', subModule: ''},
-    MY_PATIENT: {module: "my-patient", subModule: ''},
+    MYUSER: {module: 'my-users', subModule: ''},
+    ROLE: {module: 'my-roles', subModule: ''},
+    /*MY_PATIENT: {module: "my-patient", subModule: ''},
     MY_TIME: {module: "my-time", subModule: ''},
     MY_MONEY: {module: "my-money", subModule: ''},
     PRODUCT_AND_SERVICES: {module: "product-and-service", subModule: ''},*/

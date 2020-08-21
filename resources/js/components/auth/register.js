@@ -134,7 +134,7 @@ export default {
                     if (this.$store.state.userStore.editId > 0) {
                         apiName = "edit";
                         editId = this.$store.state.userStore.editId;
-                        msgType=2;
+                        msgType= self.$getConst('UPDATE_ACTION');
                     }
                     self.$store.dispatch("userStore/" + apiName, {model: formData, editId: editId},
                         {

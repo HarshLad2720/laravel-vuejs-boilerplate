@@ -55,7 +55,9 @@ const userStore = {
             state.editId = payload;
         },
         setModel(state, param) {
+            // debugger;
             state.model = param.model;
+
         },
         clearStore(state) {
             const s = initialState();

@@ -35,6 +35,7 @@
                     class="mr-2"
                     @click="onEdit(item.id)"
                 >
+<!--                    v-update-users = "$getConst('MYUSER')"-->
                     {{ icons.mdiPencil }}
                 </v-icon>
                 <v-icon

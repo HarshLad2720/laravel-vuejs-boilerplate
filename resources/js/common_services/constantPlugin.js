@@ -1,6 +1,6 @@
 /*//https://stackoverflow.com/questions/42662144/how-could-i-use-const-in-vue-template
-//https://dev.to/nkoik/writing-a-very-simple-plugin-in-vuejs---example-8g8
-import {PERMISSION_CONSTANTS} from './permission/permission-constants'*/
+//https://dev.to/nkoik/writing-a-very-simple-plugin-in-vuejs---example-8g8*/
+import {PERMISSION_CONSTANTS} from './permission/permission-constants'
 const YOUR_CONSTS = {
     CREATE_ACTION: 'Inserted Successfully',
     UPDATE_ACTION: 'Edited Successfully',
@@ -17,7 +17,11 @@ const YOUR_CONSTS = {
     WARNING: 'Are you sure you want to delete this record',
     EMAIL_SEND_MESSAGE: 'Email sent successfully',
     RESET_PASSWORD: 'Password reset successfullly',
-    CHANGED_PASSWORD: 'Password changed successfullly'
+    CHANGED_PASSWORD: 'Password changed successfullly',
+
+
+    ...PERMISSION_CONSTANTS,
+
 };
 
 export default {

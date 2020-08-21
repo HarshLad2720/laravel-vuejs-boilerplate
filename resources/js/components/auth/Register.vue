@@ -71,7 +71,8 @@
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
-                  <v-file-input label="Profile" name="profile" v-model="model.profile" solo :error-messages="getErrorValue('profile')"
+                  <v-file-input label="Profile" name="profile" v-model="model.profile" solo
+                                :error-messages="getErrorValue('profile')"
                                 v-validate="isEditMode ? '' :'required'"></v-file-input>
               </v-flex>
               <v-flex xs12>
