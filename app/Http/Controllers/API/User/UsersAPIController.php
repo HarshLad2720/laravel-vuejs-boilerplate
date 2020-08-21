@@ -5,7 +5,6 @@ use App\Exports\User\UsersExport;
 use App\Http\Resources\DataTrueResource;
 use App\User;
 use App\Models\User\UserGallery;
-use App\Models\User\Hobby_user;
 use App\Http\Requests\User\UsersRequest;
 use App\Http\Resources\User\UsersCollection;
 use App\Http\Resources\User\UsersResource;
@@ -39,9 +38,9 @@ class UsersAPIController extends Controller
 
         if($request->hasfile('gallery')) {
 
-            foreach ($request->gallery as $photo) {
+            foreach ($request->gallery as $image) {
                 $real_path = 'gallery/'.$user->id.'/';
-                $file_data = $photo->store('/public/' . $real_path);
+                $file_data = $image->store('/public/' . $real_path);
                 $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
                 UserGallery::create([
                     'user_id' => $user->id,
@@ -97,9 +96,9 @@ class UsersAPIController extends Controller
 
         if($request->hasfile('gallery')) {
 
-            foreach ($request->gallery as $photo) {
+            foreach ($request->gallery as $image) {
                 $real_path = 'gallery/'.$user->id.'/';
-                $file_data = $photo->store('/public/' . $real_path);
+                $file_data = $image->store('/public/' . $real_path);
                 $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
                 UserGallery::create([
                     'user_id' => $user->id,
@@ -111,10 +110,6 @@ class UsersAPIController extends Controller
         if($data['hobby']) {
             $user->hobbies()->detach(); //this executes the delete-query
             $user->hobbies()->attach($data['hobby']); //this executes the insert-query
-        }
-
-        if(is_array($data['delete_gallery'])) {
-            UserGallery::destroy($data['delete_gallery']);
         }
 
         $user->update($data);
@@ -144,6 +139,20 @@ class UsersAPIController extends Controller
     public function export(Request $request)
     {
         return Excel::download(new UsersExport($request), 'user.csv');
+    }
+
+    /**
+     * Delete gallery
+     * @param Request $request
+     * @param User $user
+     * @return DataTrueResource
+     * @throws \Exception
+     */
+    public function delete_gallery(Request $request, UserGallery $gallery)
+    {
+        $gallery->delete();
+
+        return new DataTrueResource($gallery);
     }
 
 }
