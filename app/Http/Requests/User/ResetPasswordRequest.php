@@ -25,8 +25,8 @@ class ResetPasswordRequest extends FormRequest
     {
         return [
             'token' => 'required|exists:password_resets,token',
-            'password' => 'required|confirmed|min:6||max:255',
-            'password_confirmation' => 'required|min:6||max:255',
+            'password' => 'required|confirmed|min:6|max:255',
+            'password_confirmation' => 'required|min:6|max:255',
 
             // confirmed validation need one more key 'password_confirmation' and both have same value;
             // ex. '{key_name}_confirmation'
