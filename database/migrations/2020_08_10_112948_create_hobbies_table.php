@@ -19,6 +19,12 @@ class CreateHobbiesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        DB::table('hobbies')->insert(array(
+            array('name' => 'Sports','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'Music','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'Travelling','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'))
+        ));
     }
 
     /**
@@ -30,4 +36,6 @@ class CreateHobbiesTable extends Migration
     {
         Schema::dropIfExists('hobbies');
     }
+
+
 }

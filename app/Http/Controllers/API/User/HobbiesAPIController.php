@@ -16,6 +16,23 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class HobbiesAPIController extends Controller
 {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hobbies Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the Roles of
+        index,
+        show,
+        store,
+        update,
+        destroy,
+        export and
+        importBulk Methods.
+    |
+    */
+
     /**
      * Hobbies List
      * @param Request $request

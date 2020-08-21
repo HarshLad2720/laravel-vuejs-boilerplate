@@ -22,7 +22,7 @@ class RolesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=> 'required|max:255',
+            'name'=> 'required|max:255|unique:roles,name',
             'guard_name' => 'nullable|max:255',
             'landing_page' => 'nullable|max:255',
         ];

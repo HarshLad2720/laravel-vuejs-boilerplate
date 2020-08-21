@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserGallery extends Model
 {
-    public $table = 'user_gallery';
     /**
      * @var array
      */
@@ -18,5 +17,15 @@ class UserGallery extends Model
     public function gallery()
     {
         return $this->belongsTo('App\User');
+    }
+
+    /**
+     * @param $value
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function getFilenameAttribute($value){
+        if ($value == NULL)
+            return "";
+        return url(config('constants.image.dir_path') . $value);
     }
 }

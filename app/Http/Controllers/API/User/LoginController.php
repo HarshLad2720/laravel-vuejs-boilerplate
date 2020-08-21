@@ -26,7 +26,7 @@ class LoginController extends Controller
     | Login Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles the User login and Change Password Functionality.
+    | This controller handles the User login, Change Password and logout Functionality.
     |
     */
 

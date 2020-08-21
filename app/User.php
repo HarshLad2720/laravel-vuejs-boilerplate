@@ -2,11 +2,11 @@
 
 namespace App;
 use App\Models\User\Country;
+use App\Models\User\Hobby;
 use App\Models\User\State;
 use App\Models\User\City;
 use App\Models\User\Role;
 use App\Models\User\UserGallery;
-use App\Models\User\UserHobby;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -173,9 +173,21 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function user_hobbies() {
-        return $this->hasMany(UserHobby::class);
+    public function hobbies() {
+        return $this->belongsToMany(Hobby::class,"hobby_user","user_id","hobby_id");
     }
+
+    /**
+    * @param $value
+    * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+    */
+    public function getProfileAttribute($value){
+        if ($value == NULL)
+            return "";
+        return url(config('constants.image.dir_path') . $value);
+    }
+
+
 }

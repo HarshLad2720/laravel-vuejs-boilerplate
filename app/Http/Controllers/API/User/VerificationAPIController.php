@@ -9,6 +9,19 @@ use Illuminate\Http\Request;
 
 class VerificationAPIController extends Controller
 {
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Verification Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller is responsible for handling verify and resend requests
+    | and uses a simple trait to include this behavior. You're free to
+    | explore this trait and override any methods you wish to tweak.
+    |
+    */
+
     /**
      * Email Verification
      * @param Request $request
@@ -22,7 +35,7 @@ class VerificationAPIController extends Controller
         $user->status = config('constants.user.status_code.active');
         $user->save();
 
-        return redirect('');
+        return redirect('home');
 
     }
 

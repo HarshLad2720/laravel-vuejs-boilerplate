@@ -13,13 +13,11 @@ class CreateUserHobbiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_hobby', function (Blueprint $table) {
-            $table->increments('id')->index()->comment('AUTO_INCREMENT');
-            $table->unsignedInteger('user_id')->index()->comment('Users table ID');
+        Schema::create('hobby_user', function (Blueprint $table) {
+            $table->unsignedInteger('user_id')->comment('users table ID');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('hobby_id');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->unsignedInteger('hobby_id')->comment('hobbies table ID');
+            $table->foreign('hobby_id')->references('id')->on('hobbies');
         });
     }
 
@@ -30,6 +28,6 @@ class CreateUserHobbiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_hobbies');
+        Schema::dropIfExists('hobby_user');
     }
 }
