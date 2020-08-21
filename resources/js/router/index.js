@@ -44,7 +44,7 @@ const router = new VueRouter({
                 {
                     path: '/permission',
                     name: 'permission',
-                    component: () => import('../components/permission/permission.vue')
+                    component: () => import('../components/permission/Permission.vue')
                 },
             ]
         },

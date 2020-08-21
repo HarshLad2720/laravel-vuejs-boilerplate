@@ -9,7 +9,18 @@
             </v-card-title>
 
             <v-card-text>
-                <form method="POST" name="" role="form">
+                <!-- loader -->
+                <v-progress-linear
+                        :active="loading"
+                        :indeterminate="loading"
+                        absolute
+                        bottom
+                        color="light-blue"
+                ></v-progress-linear>
+                <!-- loader ends -->
+
+                <!--the form will load once the loader is loaded-->
+                <form v-if ="!loading" method="POST" name="" role="form">
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                     <v-layout row wrap>
                         <v-flex xs12>
@@ -24,6 +35,7 @@
                                 v-validate="'required'"
                                 solo
                             ></v-text-field>
+
                         </v-flex>
                     </v-layout>
 
@@ -47,71 +59,4 @@
     </v-dialog>
 </template>
 
-<script>
-    import CommonServices from '../../common_services/common.js';
-    import ErrorBlock from "../../partials/ErrorBlock.vue"
-    import ErrorBlockServer from "../../partials/ErrorBlockServer.vue"
-    import {mapState} from "vuex";
-
-    export default {
-        data() {
-            return {
-                errorMessage: '',
-                validationMessages: {
-                    "role": [{key: 'required', value: 'Enter role name'}]
-                }
-            }
-        },
-        components: {
-            CommonServices,
-            ErrorBlock,
-            ErrorBlockServer,
-        },
-        props: ['value'],
-        mixins: [CommonServices],
-        computed: {
-            ...mapState({
-                model: state => state.roleStore.model,
-                isEditMode: state => state.roleStore.editId > 0
-            }),
-        },
-        methods: {
-            addAction() {
-                this.$validator.validate().then(valid => {
-                    if (valid) {
-                        var apiName = "add";
-                        var editId = '';
-                        var msgType=this.$getConst('CREATE_ACTION');
-                        if (this.$store.state.roleStore.editId > 0) {
-                            apiName = "edit";
-                            editId = this.$store.state.roleStore.editId;
-                            msgType=this.$getConst('UPDATE_ACTION');
-                        }
-                        let sendData = {
-                            name: this.model.name,
-                        };
-
-                        this.$store.dispatch('roleStore/'+apiName, {model: sendData, editId: editId}).then(response => {
-                            if (response.error) {
-                                this.errorMessage = response.error;
-                            } else {
-                                this.$store.commit("snackbarStore/setMsg",msgType);
-                                this.onCancel();
-                                this.$parent.getData()
-                            }
-                        }, error => {
-                            this.errorMessage = this.getAPIErrorMessage(error.response);
-                        });
-
-                    }
-                })
-            },
-            onCancel() {
-                this.onModalClear('roleStore', 'clearStore');
-            },
-        },
-        mounted() {
-            this.errorMessage = '';
-        }
-    }
-</script>
+<script src="./addrole.js"></script>
