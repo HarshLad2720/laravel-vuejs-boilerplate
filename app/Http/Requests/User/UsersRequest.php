@@ -47,7 +47,7 @@ class UsersRequest extends FormRequest
             'hobby.*' => 'required|integer',
         ];
 
-        if($uri == 'api/register'){
+        if($uri == 'api/v1/register'){
 
             $commonRule['password'] = 'required |nullable| min:6 | max:255';
             $commonRule['profile'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096';

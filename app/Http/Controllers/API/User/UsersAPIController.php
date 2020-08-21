@@ -104,7 +104,6 @@ class UsersAPIController extends Controller
     public function update(UsersRequest $request, User $user)
     {
         $data = $request->all();
-        $data['password'] = bcrypt($data['password']);
         if($request->hasfile('profile')) {
             $real_path = 'user/' . $user->id . '/';
             $file_data = $request->file('profile')->store('/public/' . $real_path);
