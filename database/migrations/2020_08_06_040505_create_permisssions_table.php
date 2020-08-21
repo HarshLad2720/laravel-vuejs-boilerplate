@@ -90,6 +90,7 @@ class CreatePermisssionsTable extends Migration
             array('name' => 'destroy-permissions','guard_name' => 'my-permissions','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
             array('name' => 'export-permissions','guard_name' => 'my-permissions','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
             array('name' => 'setUnsetPermissionToRole-permissions','guard_name' => 'my-permissions','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'delete_gallery-users','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
 
             array('name' => 'my-login','guard_name' => 'root','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
 
