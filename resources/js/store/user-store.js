@@ -48,6 +48,9 @@ const userStore = {
         setTableData(state, payload) {
             state.tableData = payload;
         },
+        clearUserData(state) {
+            state.currentUserData = [];
+        },
         setCurrentUserData(state, payload) {
             state.currentUserData = payload;
         },

@@ -353,7 +353,7 @@ export default {
             return filter;
         },
         convertToCSV(filename, data, type = 'text/csv;charset=utf-8;', extension = '.csv') {
-            var exportedFilename = filename + new Date() + extension;
+            var exportedFilename = filename + '' + new Date() + extension;
             var blob = new Blob([data], {type: type});
             if (navigator.msSaveBlob) { // IE 10+
                 navigator.msSaveBlob(blob, exportedFilename);

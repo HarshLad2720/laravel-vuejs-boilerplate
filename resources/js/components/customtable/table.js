@@ -5,6 +5,8 @@ export default Vue.extend({
     data() {
         return {
             loading: false,
+            singleSelect: false,
+            selected: [],
             statename:"",
             headers:[],
             options: {
@@ -51,6 +53,21 @@ export default Vue.extend({
         },
     },
     methods: {
+        onSelectColumnAll(checked) {
+            let list = this.$refs.tableData.data;
+            let rowIds = [];
+            if (checked) {
+                list.forEach((element, index) => {
+                    rowIds[index] = element.id;
+                });
+                this.selected = rowIds;
+            } else {
+                this.selected = [];
+            }
+        },
+        resetMarkedRows() {
+            this.selected = [];
+        },
         /**
          * set table's current options to store and call api to get data
          * @param options - table's current options

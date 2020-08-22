@@ -1,22 +1,21 @@
 import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
-import AddRole from "./AddRole";
-import ExportBtn from "../../partials/ExportBtn";
-import {mapState} from "vuex";
-
+import AddCountry from "./AddCountry";
 import {
     mdiPencil,
     mdiDelete,
 } from '@mdi/js'
 
 export default CustomTable.extend({
-    name: "Role",
+    name: "Country",
     data: function () {
         var self = this;
         return {
+
+
             modalOpen: false,
             addRoleModal: false,
-            statename:'roleStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
+            statename:'countryStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
             headers: [
                 { text: 'Role', value: 'name'},
                 { text: 'Actions', value: 'actions', sortable: false },
@@ -30,13 +29,7 @@ export default CustomTable.extend({
             },
             paramProps:{
                 idProps: '',
-                storeProps: ''
-            },
-            exportProps:{
-                id: '',
-                store: '',
-                fileName: '',
-                pagination: '',
+                storeProps: '',
             },
             confirmation:{
                 title: '',
@@ -56,42 +49,23 @@ export default CustomTable.extend({
     },
     components: {
         DeleteModal,
-        AddRole,
-        ExportBtn
+        AddCountry
     },
-    computed: {
-       ...mapState({
-                    pagination : state => state.roleStore.pagination,
-                })
-
-
-
-    },
+    computed: {},
     watch: {
     },
     created () {
     },
     methods:{
-        /**
-         *
-         */
-        setExport(){
-            this.exportProps.id = '';
-            this.exportProps.store = 'roleStore';
-            this.exportProps.fileName = 'Role';
-            this.exportProps.pagination = this.pagination;
-            this.$refs.exportbtn.exportToCSV();
-        },
-        /**
-         * Add Role Modal method
-         */
+        /*
+        * Add Role Modal method
+        * */
         addrole(){
             this.addRoleModal = true;
         },
-        /**
-         * Edit Role Modal
-         * @param id
-         */
+        /*
+        * Edit Role Modal
+        * */
         editItem(id){
             // set the edit id in store
             this.$store.commit('roleStore/setEditId', id);

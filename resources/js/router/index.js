@@ -42,6 +42,21 @@ const router = new VueRouter({
                     component: () => import('../components/role/Role.vue')
                 },
                 {
+                    path: '/country',
+                    name: 'country',
+                    component: () => import('../components/country/Country.vue')
+                },
+                {
+                    path: '/city',
+                    name: 'city',
+                    component: () => import('../components/city/City.vue')
+                },
+                {
+                    path: '/hobby',
+                    name: 'hobby',
+                    component: () => import('../components/hobby/Hobby.vue')
+                },
+                {
                     path: '/permission',
                     name: 'permission',
                     component: () => import('../components/permission/Permission.vue')

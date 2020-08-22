@@ -12,12 +12,12 @@
       <span
         class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3"
       >
-        Sean
+        {{username}}
       </span>
       <span class="symbol symbol-35 symbol-light-success">
         <img v-if="false" alt="Pic" :src="picture" />
-        <span v-if="true" class="symbol-label font-size-h5 font-weight-bold">
-          S
+        <span v-if="true" class="symbol-label font-size-h5 font-weight-bold text-uppercase">
+          {{nameInitials}}
         </span>
       </span>
     </div>
@@ -61,7 +61,7 @@
               href="#"
               class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary"
             >
-              James Jones
+              {{username}}
             </a>
             <div class="text-muted mt-1">Application Developer</div>
             <div class="navi mt-2">
@@ -77,7 +77,7 @@
                     </span>
                   </span>
                   <span class="navi-text text-muted text-hover-primary">
-                    jm@softplus.com
+                    {{userEmail}}
                   </span>
                 </span>
               </a>
@@ -268,6 +268,7 @@
 import KTLayoutQuickUser from "../../../../../assets/js/layout/extended/quick-user.js";
 import KTOffcanvas from "../../../../../assets/js/components/offcanvas.js";
 import ChangePassword from "../../../auth/ChangePassword.vue";
+import { mapGetters, mapState} from 'vuex';
 
 export default {
   name: "KTQuickUser",
@@ -304,27 +305,37 @@ export default {
         }
       ],
         changePasswordModal: false,
+      username: '',
+      nameInitials : '',
+      userEmail: '',
     };
   },
   components:{ChangePassword},
   mounted() {
+    this.userEmail = this.$store.state.userStore.currentUserData.email;
+    this.username = this.$store.state.userStore.currentUserData.name;
+    this.nameInitials = this.username.charAt(0);
     // Init Quick User Panel
     KTLayoutQuickUser.init(this.$refs["kt_quick_user"]);
   },
   methods: {
     onLogout() {
-      this.$store
-        .dispatch(LOGOUT)
-        .then(() => this.$router.push({ name: "login" }));
+      localStorage.clear();
+      this.$store.commit("userStore/clearUserData");
+      this.$router.push("/");
     },
     closeOffcanvas() {
       new KTOffcanvas(KTLayoutQuickUser.getElement()).hide();
     }
   },
   computed: {
+    ...mapGetters({
+      currentUserData: 'userStore/currentUserData',
+
+    }),
     picture() {
       return process.env.BASE_URL + "media/users/300_21.jpg";
     }
-  }
+  },
 };
 </script>

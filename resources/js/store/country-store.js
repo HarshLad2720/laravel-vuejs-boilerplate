@@ -3,6 +3,15 @@ var baseUrl='/api/v1/';
 const countryStore = {
     namespaced:true,
     state: {
+        pagination:{
+            query: '',
+            page: 1,
+            limit: 10,
+            orderBy: '',
+            ascending: true,
+            filter: ''
+        },
+        tableData:[],
         list: [],
         countryList:[],
         model: {
@@ -13,6 +22,12 @@ const countryStore = {
 
     },
     mutations: {
+        setPagination(state,payload){
+            state.pagination = payload;
+        },
+        setTableData(state, payload) {
+            state.tableData = payload;
+        },
         setList(state, payload) {
             state.list = payload;
         },
