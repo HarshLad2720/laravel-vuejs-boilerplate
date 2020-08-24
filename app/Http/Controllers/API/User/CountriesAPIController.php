@@ -91,6 +91,17 @@ class CountriesAPIController extends Controller
     }
 
     /**
+     * Delete Country multiple
+     * @param Request $request
+     * @return DataTrueResource
+     */
+    public function deleteAll(Request $request)
+    {
+        Country::whereIn('id', $request->id)->delete();
+
+        return new DataTrueResource(true);
+    }
+    /**
      * Export Country Data
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse

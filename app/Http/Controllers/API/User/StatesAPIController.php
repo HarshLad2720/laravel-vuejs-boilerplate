@@ -92,6 +92,17 @@ class StatesAPIController extends Controller
     }
 
     /**
+     * Delete State multiple
+     * @param Request $request
+     * @return DataTrueResource
+     */
+    public function deleteAll(Request $request)
+    {
+        State::whereIn('id', $request->id)->delete();
+
+        return new DataTrueResource(true);
+    }
+    /**
      * Export States Data
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse

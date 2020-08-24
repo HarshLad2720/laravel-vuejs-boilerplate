@@ -92,6 +92,18 @@ class CitiesAPIController extends Controller
     }
 
     /**
+     * Delete City multiple
+     * @param Request $request
+     * @return DataTrueResource
+     */
+    public function deleteAll(Request $request)
+    {
+        City::whereIn('id', $request->id)->delete();
+
+        return new DataTrueResource(true);
+    }
+
+    /**
      * Export City Data
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
