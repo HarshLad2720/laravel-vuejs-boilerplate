@@ -16,7 +16,6 @@
                 <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
                 <v-toolbar flat color="white">
                     <v-toolbar-title>Roles</v-toolbar-title>
-                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps"></export-btn>
                     <v-divider
                         class="mx-4"
                         inset
@@ -26,9 +25,10 @@
                     <v-btn
                         color="primary"
                         dark
-                        class="mb-2"
+                        class="mb-2 mr-2"
                         @click="addrole()"
                     >Add Role</v-btn>
+                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps"></export-btn>
                 </v-toolbar>
             </template>
 

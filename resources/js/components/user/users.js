@@ -1,5 +1,6 @@
 import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
+import ExportBtn from "../../partials/ExportBtn";
 import Vue from 'vue';
 import UserModal from "./UserModal.vue";
 import {mapState} from "vuex";
@@ -42,6 +43,12 @@ export default CustomTable.extend({
                 btnCancelText: self.$getConst('BTN_CANCEL'),
                 btnConfirmationText: self.$getConst('BTN_OK'),
             },
+            exportProps:{
+                id: '',
+                store: '',
+                fileName: '',
+                pagination: '',
+            },
             paramProps: {
                 idProps: '',
                 storeProps: '',
@@ -56,13 +63,37 @@ export default CustomTable.extend({
         DeleteModal,
         UserModal,
         ErrorModal,
+        ExportBtn
     },
-    computed: {},
+    computed: {
+        ...mapState({
+            pagination : state => state.roleStore.pagination,
+        })
+    },
     watch: {
     },
     created () {
     },
     methods:{
+        /**
+         *
+         */
+        setExport(){
+            let rowIds = [];
+            this.selected.forEach((element, index) => {
+                rowIds[index] = element.id;
+            });
+
+            this.exportProps.ids = rowIds;
+            this.exportProps.store = 'userStore';
+            this.exportProps.fileName = 'User';
+            this.exportProps.pagination = JSON.parse(JSON.stringify(this.pagination));
+            this.$refs.exportbtn.exportToCSV();
+        },
+        /**
+         * delete user
+         * @param id
+         */
         deleteItem (id) {
             this.paramProps.idProps = id;
             this.paramProps.storeProps = 'userStore';

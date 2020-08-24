@@ -16,7 +16,6 @@ const countryStore = {
         countryList:[],
         model: {
             name: '',
-            remark:'',
         },
         editId: 0,
 
@@ -111,7 +110,7 @@ const countryStore = {
         },
         export({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "countries-export" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy.column + "&order_by=" + (param.orderBy.ascending == 1 ? "asc" : "desc")).then(response => {
+                HTTP.get(baseUrl + "countries-export" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);

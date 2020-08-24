@@ -76,10 +76,15 @@ export default CustomTable.extend({
          *
          */
         setExport(){
-            this.exportProps.id = '';
+            let rowIds = [];
+            this.selected.forEach((element, index) => {
+                rowIds[index] = element.id;
+            });
+
+            this.exportProps.ids = rowIds;
             this.exportProps.store = 'roleStore';
             this.exportProps.fileName = 'Role';
-            this.exportProps.pagination = this.pagination;
+            this.exportProps.pagination = JSON.parse(JSON.stringify(this.pagination));
             this.$refs.exportbtn.exportToCSV();
         },
         /**

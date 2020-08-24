@@ -8,7 +8,7 @@ export default {
         return {
             errorMessage: '',
             validationMessages: {
-                "role": [{key: 'required', value: 'Enter role name'}]
+                "hobby": [{key: 'required', value: 'Enter hobby name'}]
             },
             loading: false
         }
@@ -22,8 +22,8 @@ export default {
     mixins: [CommonServices],
     computed: {
         ...mapState({
-            model: state => state.roleStore.model,
-            isEditMode: state => state.roleStore.editId > 0
+            model: state => state.hobbyStore.model,
+            isEditMode: state => state.hobbyStore.editId > 0
         }),
     },
     methods: {
@@ -38,15 +38,15 @@ export default {
                     var apiName = "add";
                     var editId = '';
                     var msgType=this.$getConst('CREATE_ACTION');
-                    if (this.$store.state.roleStore.editId > 0) {
+                    if (this.$store.state.hobbyStore.editId > 0) {
                         apiName = "edit";
-                        editId = this.$store.state.roleStore.editId;
+                        editId = this.$store.state.hobbyStore.editId;
                         msgType=this.$getConst('UPDATE_ACTION');
                     }
                     let sendData = {
                         name: this.model.name,
                     };
-                    this.$store.dispatch('roleStore/'+apiName, {model: sendData, editId: editId}).then(response => {
+                    this.$store.dispatch('hobbyStore/'+apiName, {model: sendData, editId: editId}).then(response => {
                         if (response.error) {
                             // loader disable if any error and display the error
                             this.loading =false;
@@ -69,7 +69,7 @@ export default {
         },
         onCancel() {
             // clear model
-            this.onModalClear('roleStore', 'clearStore');
+            this.onModalClear('hobbyStore', 'clearStore');
         },
     },
     mounted() {

@@ -8,7 +8,7 @@ export default {
         return {
             errorMessage: '',
             validationMessages: {
-                "role": [{key: 'required', value: 'Enter country name'}]
+                "role": [{key: 'required', value: 'Enter role name'}]
             },
             loading: false
         }
@@ -22,8 +22,8 @@ export default {
     mixins: [CommonServices],
     computed: {
         ...mapState({
-            model: state => state.countryStore.model,
-            isEditMode: state => state.countryStore.editId > 0
+            model: state => state.roleStore.model,
+            isEditMode: state => state.roleStore.editId > 0
         }),
     },
     methods: {
@@ -38,15 +38,15 @@ export default {
                     var apiName = "add";
                     var editId = '';
                     var msgType=this.$getConst('CREATE_ACTION');
-                    if (this.$store.state.countryStore.editId > 0) {
+                    if (this.$store.state.roleStore.editId > 0) {
                         apiName = "edit";
-                        editId = this.$store.state.countryStore.editId;
+                        editId = this.$store.state.roleStore.editId;
                         msgType=this.$getConst('UPDATE_ACTION');
                     }
                     let sendData = {
                         name: this.model.name,
                     };
-                    this.$store.dispatch('countryStore/'+apiName, {model: sendData, editId: editId}).then(response => {
+                    this.$store.dispatch('roleStore/'+apiName, {model: sendData, editId: editId}).then(response => {
                         if (response.error) {
                             // loader disable if any error and display the error
                             this.loading =false;
@@ -69,7 +69,7 @@ export default {
         },
         onCancel() {
             // clear model
-            this.onModalClear('countryStore', 'clearStore');
+            this.onModalClear('roleStore', 'clearStore');
         },
     },
     mounted() {

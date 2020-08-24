@@ -5,7 +5,7 @@
                 class="headline black-bg"
                 primary-title
             >
-                {{isEditMode ? 'Update' : 'Add'}} Country
+                {{isEditMode ? 'Update' : 'Add'}} State
             </v-card-title>
 
             <v-card-text>
@@ -24,11 +24,30 @@
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <p>Country Name</p>
+                            <p>Select Country</p>
+                        </v-flex>
+                        <v-flex xs12>
+                            <v-autocomplete
+                                    v-model="model.country_id
+"
+                                    name="country"
+                                    item-text="name"
+                                    item-value="id"
+                                    :items="setCountryList"
+                                    :error-messages="getErrorValue('country')"
+                                    v-validate="'required'"
+                                    dense
+                                    filled
+                                    label="Country"
+                                    solo
+                            ></v-autocomplete>
+                        </v-flex>
+                        <v-flex xs12>
+                            <p>State Name</p>
                         </v-flex>
                         <v-flex xs12>
                             <v-text-field
-                                label="Country" type="text"
+                                label="State" type="text"
                                 name="role"
                                 v-model="model.name"
                                 :error-messages="getErrorValue('role')"
@@ -59,4 +78,4 @@
     </v-dialog>
 </template>
 
-<script src="./addcountry.js"></script>
+<script src="./addstate.js"></script>
