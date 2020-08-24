@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
+import store from '../store/store';
+
 /* Create new instance of VueRouter */
 const router = new VueRouter({
     mode: 'history',
@@ -34,7 +36,10 @@ const router = new VueRouter({
                 {
                     path: "/users",
                     name: "users",
-                    component: () => import("../components/user/Users.vue")
+                    component: () => import("../components/user/Users.vue"),
+                    meta: {
+                        permission: 'my-users',
+                    }
                 },
                 {
                     path: '/role',
@@ -70,5 +75,32 @@ const router = new VueRouter({
         },
     ]
 });
+
+
+/*router.beforeResolve((to, from, next) => {
+    debugger;
+    var permissionData = store.state.permissionStore.userPermissions;
+    if (to.matched.some(record => record.meta.permission)) {
+        var permissionArray = permissionData.filter(permission => permission.name == to.meta.permission);
+        if (permissionArray.length > 0) {
+            next('/');
+            return
+        } else {
+            next('/');
+        }
+    } else {
+        next();
+    }
+});*/
+
+// Loading chunk error
+/*router.onError((error) => {
+    const pattern = /Loading chunk (\d)+ failed/g;
+    const isChunkLoadFailed = error.message.match(pattern);
+    const targetPath = router.history.pending.fullPath;
+    if (isChunkLoadFailed) {
+        router.replace(targetPath);
+    }
+});*/
 
 export default router

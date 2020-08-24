@@ -37,12 +37,20 @@ Vue.use(BootstrapVue);
 
 // Permission directives
 import {hasPermission} from "./common_services/permission/permission-directives";
-Vue.directive('can-access', hasPermission);
-Vue.directive('can-edit', hasPermission);
-Vue.directive('can-delete', hasPermission);
+Vue.directive('store', hasPermission);  // create
+Vue.directive('index', hasPermission); // display a listing
+Vue.directive('can-show', hasPermission); //  display a single row
+Vue.directive('update', hasPermission); //update
+Vue.directive('destroy', hasPermission); // delete
+Vue.directive('export', hasPermission); // export
+Vue.directive('importBulk', hasPermission); // import
+Vue.directive('delete_gallery', hasPermission);
 
 
 
+/*getPermissionsByRole
+setUnsetPermissionToRole
+changePassword*/
 
 const app = new Vue({
     router,

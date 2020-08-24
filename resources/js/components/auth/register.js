@@ -88,7 +88,6 @@ export default {
          * Register Submit Method
          */
         onSubmit() {
-            // debugger;
             console.log(self.model);
             this.$validator.validate().then(valid => {
                 var self = this;
@@ -99,51 +98,24 @@ export default {
                     var editId = '';
                     var msgType= self.$getConst('REGISTER_SUCCESS');
 
-                    // For Edit User
-                    if (this.$store.state.userStore.editId > 0) {
-                        // debugger;
-                        apiName = "edit";
-                        editId = this.$store.state.userStore.editId;
-                        msgType= self.$getConst('UPDATE_ACTION');
+                    formData = new FormData();
+                    for (var key in self.model) {
+                        formData.append(key, self.model[key]);
+                    }
 
+                    // for profile Image
+                    formData.delete('profile');
+                    if (self.model.profile_upload && self.model.profile_upload != null && self.model.profile_upload instanceof File) {
+                        formData.append('profile', self.model.profile_upload);
+                    }
+
+                    // For Edit User
+                    if (self.$store.state.userStore.editId > 0) {
+                        apiName = "edit";
+                        editId = self.$store.state.userStore.editId;
+                        msgType= self.$getConst('UPDATE_ACTION');
                         console.log(self.model);
 
-
-                        /*let formData = new FormData();
-                        formData.name = self.model.name;
-                        formData.email = self.model.email;
-                        formData.mobile_no = self.model.mobile_no;
-                        if (self.model.profile_upload && self.model.profile_upload != null && self.model.profile instanceof File) {
-                            formData.profile = self.model.profile;
-                        }
-                        formData.gender = self.model.gender;
-                        formData.dob = self.model.dob;
-                        formData.address = self.model.address;
-                        formData.country_id = self.model.country_id;
-                        formData.state_id = self.model.state_id;
-                        formData.city_id = self.model.city_id;*/
-                        /*formData.hobby = [];
-                        for (var index in self.model.hobby) {
-                            formData.hobby[parseInt(index)] = self.model.hobby[index];
-                        }
-                        formData.gallery = [];
-                        for (var index1 in self.model.gallery) {
-                            formData.gallery[parseInt(index1)] = self.model.gallery[index1];
-                        }*/
-
-                        // debugger;
-                        formData = new FormData();
-                        for (var key in self.model) {
-                            formData.append(key, self.model[key]);
-                        }
-
-                        // for profile Image
-                        formData.delete('profile');
-                        if (self.model.profile_upload && self.model.profile_upload != null && self.model.profile instanceof File) {
-                            formData.append('profile', self.model.profile);
-                        }
-
-                        // debugger;
                         for (var index in self.model.hobby) {
                             formData.append('hobby[' + parseInt(index) + ']', self.model.hobby[index]);
                         }
@@ -156,16 +128,6 @@ export default {
 
                     } else {
                         // Register
-                        formData = new FormData();
-                        for (var key in self.model) {
-                            formData.append(key, self.model[key]);
-                        }
-
-                        // for profile Image
-                        formData.delete('profile');
-                        if (self.model.profile_upload && self.model.profile_upload != null && self.model.profile instanceof File) {
-                            formData.append('profile', self.model.profile);
-                        }
 
                         // Multiple Gallery array
                         formData.delete('gallery');
@@ -194,10 +156,14 @@ export default {
                             self.errorMessage = response.data.error;
                         } else {
                             self.isSubmitting = false;
-                            // Success message
-                            self.$store.commit("snackbarStore/setMsg", msgType);
+                            if (self.$store.state.userStore.editId > 0) {
+                                self.$parent.getData();
+                            }
                             // Reset data
                             self.onModalDataPost('userStore');
+
+                            // Success message
+                            self.$store.commit("snackbarStore/setMsg", msgType);
                         }
                     }, error => {
                         self.isSubmitting = false;
@@ -213,7 +179,7 @@ export default {
         formatDate (date) {
             if (!date) return null
             const [year, month, day] = date.split('-')
-            return `${month}/${day}/${year}`
+            return `${day}/${month}/${year}`
         },
 
         /**

@@ -1,8 +1,12 @@
 function getFilteredArray(arr, byFilterValue) {
     if(arr && arr.length > 0) {
         return arr.filter(item => {
-
-            return item.name == byFilterValue;
+            // debugger;
+            item.name == byFilterValue;
+            if(item.name == 'show'){
+                item.name = 'can-show';
+            }
+            return item.name;
         }).reduce((a, c) => Object.assign(a, c), Object.create(null));
     }else {
         return {};

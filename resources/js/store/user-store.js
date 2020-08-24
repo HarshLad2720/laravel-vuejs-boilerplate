@@ -60,7 +60,6 @@ const userStore = {
             state.editId = payload;
         },
         setModel(state, param) {
-            // debugger;
             state.model = param.model;
             state.model.name = param.model.name;
             state.model.email = param.model.email;
@@ -80,7 +79,6 @@ const userStore = {
             for(var i=0; i< param.model.hobbies.length; i++){
                 state.model.hobby[i] = param.model.hobbies[i].id;
             }
-            // debugger;
             console.log(state.model);
         },
         setGalleryImageList(state, payload) {
