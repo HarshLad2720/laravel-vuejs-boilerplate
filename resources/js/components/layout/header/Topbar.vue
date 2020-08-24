@@ -25,7 +25,7 @@
     <!--end: Search -->
 
     <!--begin: Notifications -->
-    <b-dropdown
+    <!--<b-dropdown
       size="sm"
       variant="link"
       toggle-class="topbar-item text-decoration-none"
@@ -48,11 +48,11 @@
           <KTDropdownNotification></KTDropdownNotification>
         </form>
       </b-dropdown-text>
-    </b-dropdown>
+    </b-dropdown>-->
     <!--end: Notifications -->
 
     <!--begin: Quick Actions -->
-    <b-dropdown
+    <!--<b-dropdown
       size="sm"
       variant="link"
       toggle-class="topbar-item text-decoration-none"
@@ -70,11 +70,11 @@
       <b-dropdown-text tag="div" class="min-w-md-350px">
         <KTDropdownQuickAction></KTDropdownQuickAction>
       </b-dropdown-text>
-    </b-dropdown>
+    </b-dropdown>-->
     <!--end: Quick Actions -->
 
     <!--begin: My Cart -->
-    <b-dropdown
+    <!--<b-dropdown
       size="sm"
       variant="link"
       toggle-class="topbar-item text-decoration-none"
@@ -92,11 +92,11 @@
       <b-dropdown-text tag="div" class="min-w-md-350px">
         <KTDropdownMyCart></KTDropdownMyCart>
       </b-dropdown-text>
-    </b-dropdown>
+    </b-dropdown>-->
     <!--end: My Cart -->
 
     <!--begin: Quick panel toggle -->
-    <KTQuickPanel></KTQuickPanel>
+    <!--<KTQuickPanel></KTQuickPanel>-->
     <!--end: Quick panel toggle -->
 
     <!--begin: Language bar -->

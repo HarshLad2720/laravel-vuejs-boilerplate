@@ -14,6 +14,7 @@ const webpack = require('webpack');
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
 mix.copyDirectory('resources/assets/images', 'public/images');
+mix.copyDirectory('resources/assets/media', 'public/media');
 mix.webpackConfig({
     output: {
         chunkFilename: 'js/[name].[chunkhash].js'
