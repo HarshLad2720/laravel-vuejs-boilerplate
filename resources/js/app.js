@@ -33,11 +33,16 @@ Vue.use(PerfectScrollbar);
 // Install BootstrapVue
 Vue.use(BootstrapVue);
 
+
+
 // Permission directives
 import {hasPermission} from "./common_services/permission/permission-directives";
 Vue.directive('can-access', hasPermission);
 Vue.directive('can-edit', hasPermission);
 Vue.directive('can-delete', hasPermission);
+
+
+
 
 const app = new Vue({
     router,

@@ -29,6 +29,7 @@
       <v-form class="form" @submit.prevent="onSubmit"  method="POST" role="form" enctype="multipart/form-data" autocomplete="off">
           <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
           <v-layout row wrap class="display-block">
+
               <v-flex xs12>
                   <v-text-field
                       label="Username" type="text"
@@ -47,7 +48,6 @@
                       :error-messages="getErrorValue('email')"
                       v-validate="'required|email'" autocomplete="email"
                       solo
-                      :readonly="isEditMode?'readonly':''"
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -74,7 +74,7 @@
                   <v-flex lg6>
                       Existing Profile Image :
                   </v-flex><v-flex lg6>
-                  <a :href="model.profile" target="_blank"><img :src="model.profile" width="auto" height="100" class=""></a>
+                  <a :href="model.profile" target="_blank"><img :src="model.profile" width="auto" height="70" class="" style="margin-bottom: 15px"></a>
               </v-flex>
               </template>
               <v-flex xs12>
@@ -119,7 +119,7 @@
                               v-validate="'required'" name="dob"
                           ></v-text-field>
                       </template>
-                      <v-date-picker v-model="model.dob" :min="todayDate"
+                      <v-date-picker v-model="model.dob" :max="todayDate"
                                      @input="menu = false"></v-date-picker>
                   </v-menu>
               </v-flex>
@@ -172,6 +172,9 @@
                       solo
                   ></v-select>
               </v-flex>
+              <v-flex xs12 v-if="isEditMode">
+                  <a @click="onImageModal()">View Gallery Images</a>
+              </v-flex>
               <v-flex xs12>
                   <v-file-input multiple name="gallery" label="Gallery" v-model="model.gallery" solo :error-messages="getErrorValue('gallery')"
                                 v-validate="isEditMode ? '' :'required'"></v-file-input>
@@ -208,6 +211,7 @@
     </div>
     <!--end::Signup-->
       <snackbar v-model="snackbar"></snackbar>
+      <gallary-image-modal v-model="imageModal"></gallary-image-modal>
   </div>
 </template>
 

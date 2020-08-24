@@ -3,13 +3,15 @@ import ErrorBlockServer from "../../partials/ErrorBlockServer";
 import ErrorModal from "../../partials/ErrorModal";
 import {mapActions, mapState} from 'vuex'
 import Snackbar from "../../partials/Snackbar.vue"
+import gallaryImageModal from "../user/gallaryImageModal"
 
 export default {
     name: "register",
     components: {
         ErrorModal,
         ErrorBlockServer,
-        Snackbar
+        Snackbar,
+        gallaryImageModal
     },
     data() {
         return {
@@ -53,18 +55,7 @@ export default {
             isSubmitting: false,
             menu: false,
             todayDate: new Date().toISOString().slice(0,10),
-            /*countryList: [
-                { id: '1', name: 'India' },
-                { id: '2', name: 'US' },
-            ],
-            stateList: [
-                { id: '1', name: 'Gujarat' },
-                { id: '2', name: 'Maharastra' },
-            ],
-            cityList: [
-                { id: '1', name: 'Surat' },
-                { id: '2', name: 'US' },
-            ],*/
+            imageModal: false,
             /*"hobbyList": [
                 {
                     "id": "1",
@@ -97,47 +88,100 @@ export default {
          * Register Submit Method
          */
         onSubmit() {
-            var self = this;
-            debugger;
+            // debugger;
             console.log(self.model);
             this.$validator.validate().then(valid => {
+                var self = this;
                 if (valid) {
                     self.isSubmitting = true;
-                    let formData = new FormData();
-                    for (var key in self.model) {
-                        formData.append(key, self.model[key]);
-                    }
-                    // for profile
-                    formData.delete('profile');
-                    if (self.model.profile_upload && self.model.profile_upload != null && self.model.profile instanceof File) {
-                        formData.append('profile', self.model.profile);
-                    }
-
-                    // Multiple Gallery array
-                    formData.delete('gallery');
-                    if (self.model.gallery.length > 0) {
-                        self.model.gallery.map(function (g) {
-                            formData.append('gallery[]', g);
-                        });
-                    }
-
-                    debugger;
-                    // Multiple Hobby array
-                    formData.delete('hobby');
-                    if (self.model.hobby.length > 0) {
-                        self.model.hobby.map(function (h) {
-                            formData.append('hobby[]', h);
-                        });
-                    }
+                    let formData = '';
                     var apiName = "register";
                     var editId = '';
                     var msgType= self.$getConst('REGISTER_SUCCESS');
 
                     // For Edit User
                     if (this.$store.state.userStore.editId > 0) {
+                        // debugger;
                         apiName = "edit";
                         editId = this.$store.state.userStore.editId;
                         msgType= self.$getConst('UPDATE_ACTION');
+
+                        console.log(self.model);
+
+
+                        /*let formData = new FormData();
+                        formData.name = self.model.name;
+                        formData.email = self.model.email;
+                        formData.mobile_no = self.model.mobile_no;
+                        if (self.model.profile_upload && self.model.profile_upload != null && self.model.profile instanceof File) {
+                            formData.profile = self.model.profile;
+                        }
+                        formData.gender = self.model.gender;
+                        formData.dob = self.model.dob;
+                        formData.address = self.model.address;
+                        formData.country_id = self.model.country_id;
+                        formData.state_id = self.model.state_id;
+                        formData.city_id = self.model.city_id;*/
+                        /*formData.hobby = [];
+                        for (var index in self.model.hobby) {
+                            formData.hobby[parseInt(index)] = self.model.hobby[index];
+                        }
+                        formData.gallery = [];
+                        for (var index1 in self.model.gallery) {
+                            formData.gallery[parseInt(index1)] = self.model.gallery[index1];
+                        }*/
+
+                        // debugger;
+                        formData = new FormData();
+                        for (var key in self.model) {
+                            formData.append(key, self.model[key]);
+                        }
+
+                        // for profile Image
+                        formData.delete('profile');
+                        if (self.model.profile_upload && self.model.profile_upload != null && self.model.profile instanceof File) {
+                            formData.append('profile', self.model.profile);
+                        }
+
+                        // debugger;
+                        for (var index in self.model.hobby) {
+                            formData.append('hobby[' + parseInt(index) + ']', self.model.hobby[index]);
+                        }
+
+                        for (var index2 in self.model.gallery) {
+                            if (self.model.gallery[index2] instanceof File) {
+                                formData.append('gallery[' + parseInt(index2) + ']', self.model.gallery[index2]);
+                            }
+                        }
+
+                    } else {
+                        // Register
+                        formData = new FormData();
+                        for (var key in self.model) {
+                            formData.append(key, self.model[key]);
+                        }
+
+                        // for profile Image
+                        formData.delete('profile');
+                        if (self.model.profile_upload && self.model.profile_upload != null && self.model.profile instanceof File) {
+                            formData.append('profile', self.model.profile);
+                        }
+
+                        // Multiple Gallery array
+                        formData.delete('gallery');
+                        if (self.model.gallery.length > 0) {
+                            self.model.gallery.map(function (g) {
+                                formData.append('gallery[]', g);
+                            });
+                        }
+
+                        // Multiple Hobby array
+                        formData.delete('hobby');
+                        if (self.model.hobby.length > 0) {
+                            self.model.hobby.map(function (h) {
+                                formData.append('hobby[]', h);
+                            });
+                        }
                     }
                     self.$store.dispatch("userStore/" + apiName, {model: formData, editId: editId},
                         {
@@ -170,6 +214,13 @@ export default {
             if (!date) return null
             const [year, month, day] = date.split('-')
             return `${month}/${day}/${year}`
+        },
+
+        /**
+         * For view and delete Gallery image
+         */
+        onImageModal(){
+            this.imageModal = true;
         },
 
         /**

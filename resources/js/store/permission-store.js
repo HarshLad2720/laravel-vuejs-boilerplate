@@ -33,6 +33,7 @@ const permissionStore = {
             })
         },
         getById({commit, state}, param) {
+            // debugger;
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'get_role_by_permissions/' + param).then(response => {
                     commit('setPermissions', response.data.data);

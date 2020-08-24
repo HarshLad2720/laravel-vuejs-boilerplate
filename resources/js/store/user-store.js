@@ -35,6 +35,7 @@ function initialState() {
             hobby: [],
         },
         editId: 0,
+        galleryList:[],
     }
 }
 
@@ -59,10 +60,31 @@ const userStore = {
             state.editId = payload;
         },
         setModel(state, param) {
-            debugger;
+            // debugger;
             state.model = param.model;
+            state.model.name = param.model.name;
+            state.model.email = param.model.email;
+            state.model.mobile_no = param.model.mobile_no;
+            state.model.profile = param.model.profile;
             state.model.profile_upload = null;
-
+            state.model.gender = param.model.gender;
+            state.model.dob = param.model.dob;
+            state.model.address = param.model.address;
+            state.model.country_id = param.model.country_id;
+            state.model.state_id = param.model.state_id;
+            state.model.city_id = param.model.city_id;
+            state.galleryList = state.model.gallery;
+            state.model.gallery = null;
+            state.model.hobbies =param.model.hobby;
+            state.model.hobby = [];
+            for(var i=0; i< param.model.hobbies.length; i++){
+                state.model.hobby[i] = param.model.hobbies[i].id;
+            }
+            // debugger;
+            console.log(state.model);
+        },
+        setGalleryImageList(state, payload) {
+            state.galleryList = payload;
         },
         clearStore(state) {
             const s = initialState();
@@ -130,7 +152,16 @@ const userStore = {
                     reject(e);
                 })
             })
-        }
+        },
+        deleteImage({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.delete(baseUrl + "gallery/" + param).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
     }
 }
 
