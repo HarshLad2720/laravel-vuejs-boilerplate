@@ -47,6 +47,11 @@ const router = new VueRouter({
                     component: () => import('../components/country/Country.vue')
                 },
                 {
+                    path: '/state',
+                    name: 'state',
+                    component: () => import('../components/state/State.vue')
+                },
+                {
                     path: '/city',
                     name: 'city',
                     component: () => import('../components/city/City.vue')

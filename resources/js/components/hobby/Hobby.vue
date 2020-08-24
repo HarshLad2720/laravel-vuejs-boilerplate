@@ -1,6 +1,7 @@
 <template>
     <div>
         <v-data-table
+            v-model="selected"
             :headers="headers"
             :items="tableData"
             :loading="loading"
@@ -9,12 +10,12 @@
             :server-items-length="pageCount"
             @update:options="updateTable"
             class="elevation-1"
-            show-select
+            :show-select="true"
         >
             <template v-slot:top>
                 <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
                 <v-toolbar flat color="white">
-                    <v-toolbar-title>Roles</v-toolbar-title>
+                    <v-toolbar-title>Hobby</v-toolbar-title>
                     <v-divider
                         class="mx-4"
                         inset
@@ -24,9 +25,10 @@
                     <v-btn
                         color="primary"
                         dark
-                        class="mb-2"
-                        @click="addrole()"
-                    >Add Role</v-btn>
+                        class="mb-2 mr-2"
+                        @click="addhobby()"
+                    >Add Hobby</v-btn>
+                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps"></export-btn>
                 </v-toolbar>
             </template>
 
@@ -47,7 +49,7 @@
             </template>
 
         </v-data-table>
-        <add-country v-model="addRoleModal" :paramRole="paramRole"></add-country>
+        <add-hobby v-model="addCityModal" :paramRole="paramRole"></add-hobby>
         <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
     </div>
 </template>

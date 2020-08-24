@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn class="btn btn-grey m-l-10 m-t-0 float-right">Export</v-btn>
+        <v-btn color="error" class="mb-2 mr-2">Export</v-btn>
         <error-modal :errorArr="errorArr" v-model="errorDialog"></error-modal>
     </div>
 </template>
@@ -24,6 +24,9 @@
         mixins: [CommonServices],
         methods: {
             exportToCSV() {
+                let idfilter = JSON.stringify({id: this.exportProps.ids});
+                this.exportProps.pagination.filter = idfilter.replace(/\\/g, '');
+
                 this.$store.dispatch(this.exportProps.store+'/export',this.exportProps.pagination).then(response => {
                     if (response.error) {
                         this.errorArr = response.data.error;

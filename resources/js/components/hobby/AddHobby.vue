@@ -5,7 +5,7 @@
                 class="headline black-bg"
                 primary-title
             >
-                {{isEditMode ? 'Update' : 'Add'}} Role
+                {{isEditMode ? 'Update' : 'Add'}} Hobby
             </v-card-title>
 
             <v-card-text>
@@ -24,14 +24,14 @@
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <p>Role Name</p>
+                            <p>Hobby Name</p>
                         </v-flex>
                         <v-flex xs12>
                             <v-text-field
-                                label="Role" type="text"
-                                name="role"
+                                label="Hobby" type="text"
+                                name="hobby"
                                 v-model="model.name"
-                                :error-messages="getErrorValue('role')"
+                                :error-messages="getErrorValue('hobby')"
                                 v-validate="'required'"
                                 solo
                             ></v-text-field>

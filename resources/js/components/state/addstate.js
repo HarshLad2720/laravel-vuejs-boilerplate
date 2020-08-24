@@ -8,7 +8,8 @@ export default {
         return {
             errorMessage: '',
             validationMessages: {
-                "role": [{key: 'required', value: 'Enter country name'}]
+                "role": [{key: 'required', value: 'Enter state name'},],
+                "country": [{key: 'required', value: 'Please select a country'},]
             },
             loading: false
         }
@@ -22,8 +23,9 @@ export default {
     mixins: [CommonServices],
     computed: {
         ...mapState({
-            model: state => state.countryStore.model,
-            isEditMode: state => state.countryStore.editId > 0
+            setCountryList: state => state.countryStore.countryList,
+            model: state => state.stateStore.model,
+            isEditMode: state => state.stateStore.editId > 0
         }),
     },
     methods: {
@@ -38,15 +40,16 @@ export default {
                     var apiName = "add";
                     var editId = '';
                     var msgType=this.$getConst('CREATE_ACTION');
-                    if (this.$store.state.countryStore.editId > 0) {
+                    if (this.$store.state.stateStore.editId > 0) {
                         apiName = "edit";
-                        editId = this.$store.state.countryStore.editId;
+                        editId = this.$store.state.stateStore.editId;
                         msgType=this.$getConst('UPDATE_ACTION');
                     }
                     let sendData = {
+                        country_id: this.model.country_id,
                         name: this.model.name,
                     };
-                    this.$store.dispatch('countryStore/'+apiName, {model: sendData, editId: editId}).then(response => {
+                    this.$store.dispatch('stateStore/'+apiName, {model: sendData, editId: editId}).then(response => {
                         if (response.error) {
                             // loader disable if any error and display the error
                             this.loading =false;
@@ -69,10 +72,13 @@ export default {
         },
         onCancel() {
             // clear model
-            this.onModalClear('countryStore', 'clearStore');
+            this.onModalClear('stateStore', 'clearStore');
         },
     },
     mounted() {
+        this.$store.dispatch("countryStore/getCountryList").then((result) => {
+            // debugger
+        });
         // clear errorMessage
         this.errorMessage = '';
     }

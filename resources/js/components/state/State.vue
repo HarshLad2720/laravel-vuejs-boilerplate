@@ -15,7 +15,7 @@
             <template v-slot:top>
                 <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
                 <v-toolbar flat color="white">
-                    <v-toolbar-title>City</v-toolbar-title>
+                    <v-toolbar-title>State</v-toolbar-title>
                     <v-divider
                         class="mx-4"
                         inset
@@ -26,8 +26,8 @@
                         color="primary"
                         dark
                         class="mb-2 mr-2"
-                        @click="addCity()"
-                    >Add City</v-btn>
+                        @click="addSate()"
+                    >Add State</v-btn>
                     <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps"></export-btn>
                 </v-toolbar>
             </template>
@@ -49,9 +49,9 @@
             </template>
 
         </v-data-table>
-        <add-city v-model="addCityModal" :paramRole="paramRole"></add-city>
+        <add-state v-model="addSateModal"></add-state>
         <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
     </div>
 </template>
 
-<script src="./city.js"></script>
+<script src="./state.js"></script>

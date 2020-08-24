@@ -8,7 +8,8 @@ export default {
         return {
             errorMessage: '',
             validationMessages: {
-                "role": [{key: 'required', value: 'Enter role name'}]
+                "city": [{key: 'required', value: 'Enter city name'}],
+                "state": [{key: 'required', value: 'Please select a state'},]
             },
             loading: false
         }
@@ -22,8 +23,9 @@ export default {
     mixins: [CommonServices],
     computed: {
         ...mapState({
-            model: state => state.roleStore.model,
-            isEditMode: state => state.roleStore.editId > 0
+            setStateList: state => state.stateStore.stateList,
+            model: state => state.cityStore.model,
+            isEditMode: state => state.cityStore.editId > 0
         }),
     },
     methods: {
@@ -38,15 +40,16 @@ export default {
                     var apiName = "add";
                     var editId = '';
                     var msgType=this.$getConst('CREATE_ACTION');
-                    if (this.$store.state.roleStore.editId > 0) {
+                    if (this.$store.state.cityStore.editId > 0) {
                         apiName = "edit";
-                        editId = this.$store.state.roleStore.editId;
+                        editId = this.$store.state.cityStore.editId;
                         msgType=this.$getConst('UPDATE_ACTION');
                     }
                     let sendData = {
+                        state_id: this.model.state_id,
                         name: this.model.name,
                     };
-                    this.$store.dispatch('roleStore/'+apiName, {model: sendData, editId: editId}).then(response => {
+                    this.$store.dispatch('cityStore/'+apiName, {model: sendData, editId: editId}).then(response => {
                         if (response.error) {
                             // loader disable if any error and display the error
                             this.loading =false;
@@ -69,10 +72,13 @@ export default {
         },
         onCancel() {
             // clear model
-            this.onModalClear('roleStore', 'clearStore');
+            this.onModalClear('cityStore', 'clearStore');
         },
     },
     mounted() {
+        this.$store.dispatch("stateStore/getStateList").then((result) => {
+            // debugger
+        });
         // clear errorMessage
         this.errorMessage = '';
     }

@@ -3,9 +3,19 @@ var baseUrl='/api/v1/';
 const stateStore = {
     namespaced:true,
     state: {
+        pagination:{
+            query: '',
+            page: 1,
+            limit: 10,
+            orderBy: '',
+            ascending: true,
+            filter: ''
+        },
+        tableData:[],
         list: [],
         stateList:[],
         model: {
+            country_id:'',
             name: '',
             remark:'',
         },
@@ -13,6 +23,12 @@ const stateStore = {
 
     },
     mutations: {
+        setPagination(state,payload){
+            state.pagination = payload;
+        },
+        setTableData(state, payload) {
+            state.tableData = payload;
+        },
         setList(state, payload) {
             state.list = payload;
         },
@@ -96,7 +112,7 @@ const stateStore = {
         },
         export({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "states-export" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy.column + "&order_by=" + (param.orderBy.ascending == 1 ? "asc" : "desc")).then(response => {
+                HTTP.get(baseUrl + "states-export" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy + "&order_by=" + (param.orderBy.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);
