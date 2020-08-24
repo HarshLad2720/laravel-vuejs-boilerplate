@@ -92,6 +92,17 @@ class HobbiesAPIController extends Controller
     }
 
     /**
+     * Delete Hobby multiple
+     * @param Request $request
+     * @return DataTrueResource
+     */
+    public function deleteAll(Request $request)
+    {
+        Hobby::whereIn('id', $request->id)->delete();
+
+        return new DataTrueResource(true);
+    }
+    /**
      * Export Hobbies Data
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse

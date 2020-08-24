@@ -149,6 +149,17 @@ class UsersAPIController extends Controller
     }
 
     /**
+     * Delete User multiple
+     * @param Request $request
+     * @return DataTrueResource
+     */
+    public function deleteAll(Request $request)
+    {
+        User::whereIn('id', $request->id)->delete();
+
+        return new DataTrueResource(true);
+    }
+    /**
      * Export Users Data
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
