@@ -80,6 +80,7 @@ Route::group([
             Route::post('users/{user}', 'UsersAPIController@update');
             Route::apiResource('users', 'UsersAPIController');
             Route::get('users-export', 'UsersAPIController@export');
+            Route::post('users-import-bulk', 'UsersAPIController@importBulk');
 
             Route::apiResource('roles', 'RolesAPIController');
             Route::get('roles-export', 'RolesAPIController@export');
