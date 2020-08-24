@@ -78,8 +78,6 @@ class Permission extends Model
                 foreach ($rootPermissions As $root) {
 
                     $root = Self::commonPermissionCode($root, $isPermission, $isSubscription);
-                    $root['is_third_level'] = "0";
-
                     $firstPermission = [];
                     $firstPermissions = Self::getPermissionByGuardName($root['name']);// get permissions
 
@@ -87,19 +85,8 @@ class Permission extends Model
                         foreach ($firstPermissions As $first) {
 
                             $first = Self::commonPermissionCode($first, $isPermission, $isSubscription);
-                            $first['sub_permissions'] = [];
-
-                            $secondPermission = [];
-                            $secondPermissions = Self::getPermissionByGuardName($first['name']);// get permissions
-
-                            if (!$secondPermissions->isEmpty()) {// Check permissions is not empty
-                                $root['is_third_level'] = "1";
-                                foreach ($secondPermissions As $second)
-                                    $secondPermission[] = Self::commonPermissionCode($second, $isPermission, $isSubscription);
-
-                                $first['sub_permissions'] = $secondPermission;
-                            }
-
+                            $name = explode("-",$first['name']);
+                            $first['name'] = $name[0];
                             $firstPermission[] = $first;
                         }
                     }
@@ -126,11 +113,11 @@ class Permission extends Model
         if(in_array($array['name'],$isPermission))
                 $array['is_permission'] = config('constants.permission.has_permission');
 
+
         $name = str_replace("-", " ",$array['name']);
         $name = str_replace("and", "&",$name);
         $name = str_replace("slash", "/",$name);
         $array['display_name'] = ucwords($name);
-
         return $array;
     }
 
