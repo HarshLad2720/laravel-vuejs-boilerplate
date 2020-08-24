@@ -87,6 +87,17 @@ class PermissionsAPIController extends Controller
     }
 
     /**
+     * Delete Permission multiple
+     * @param Request $request
+     * @return DataTrueResource
+     */
+    public function deleteAll(Request $request)
+    {
+        Permission::whereIn('id', $request->id)->delete();
+
+        return new DataTrueResource(true);
+    }
+    /**
      * This method is used set/unset permission to role
      *
      * @param SetUnsetPermissionToRoleRequest $request

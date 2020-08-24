@@ -17,11 +17,10 @@ class CitiesResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => (string)$this->name,
+            'state_id' =>(string) $this->state_id,
             'state' => $this->state,
             'created_at' => (string)$this->created_at,
-            'created_by' => (string)$this->created_by,
             'updated_at' => (string)$this->updated_at,
-            'updated_by' => (string)$this->updated_by,
             'deleted_at' => (string)$this->deleted_at
         ];
     }

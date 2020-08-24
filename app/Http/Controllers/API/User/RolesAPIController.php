@@ -97,6 +97,17 @@ class RolesAPIController extends Controller
     }
 
     /**
+     * Delete Role multiple
+     * @param Request $request
+     * @return DataTrueResource
+     */
+    public function deleteAll(Request $request)
+    {
+        Role::whereIn('id', $request->id)->delete();
+
+        return new DataTrueResource(true);
+    }
+    /**
      * Export Roles Data
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse

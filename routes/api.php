@@ -53,6 +53,7 @@ Route::group([
             Route::resource('countries', 'CountriesAPIController', [
                 'only' => ['show', 'store', 'update', 'destroy']
             ]);
+            Route::post('countries-delete-multiple', 'CountriesAPIController@importBulk');
             Route::get('countries-export', 'CountriesAPIController@export');
             Route::post('countries-import-bulk', 'CountriesAPIController@importBulk');
 
@@ -60,6 +61,7 @@ Route::group([
             Route::resource('states', 'StatesAPIController', [
                 'only' => ['show', 'store', 'update', 'destroy']
             ]);
+            Route::post('states-delete-multiple', 'StatesAPIController@deleteAll');
             Route::get('states-export', 'StatesAPIController@export');
             Route::post('states-import-bulk', 'StatesAPIController@importBulk');
 
@@ -67,6 +69,7 @@ Route::group([
             Route::resource('cities', 'CitiesAPIController', [
                 'only' => ['show', 'store', 'update', 'destroy']
             ]);
+            Route::post('cities-delete-multiple', 'CitiesAPIController@deleteAll');
             Route::get('cities-export', 'CitiesAPIController@export');
             Route::post('cities-import-bulk', 'CitiesAPIController@importBulk');
 
@@ -74,18 +77,23 @@ Route::group([
             Route::resource('hobbies', 'HobbiesAPIController', [
                 'only' => ['show', 'store', 'update', 'destroy']
             ]);
+            Route::post('hobbies-delete-multiple', 'HobbiesAPIController@deleteAll');
             Route::get('hobbies-export', 'HobbiesAPIController@export');
             Route::post('hobbies-import-bulk', 'HobbiesAPIController@importBulk');
 
             Route::post('users/{user}', 'UsersAPIController@update');
             Route::apiResource('users', 'UsersAPIController');
             Route::get('users-export', 'UsersAPIController@export');
+            Route::post('users-delete-multiple', 'UsersAPIController@deleteAll');
+            Route::post('users-import-bulk', 'UsersAPIController@importBulk');
 
             Route::apiResource('roles', 'RolesAPIController');
             Route::get('roles-export', 'RolesAPIController@export');
             Route::get('get_role_by_permissions/{id}', 'RolesAPIController@getPermissionsByRole');
+            Route::post('roles-delete-multiple', 'RolesAPIController@deleteAll');
 
             Route::apiResource('permissions', 'PermissionsAPIController');
+            Route::post('permissions-delete-multiple', 'PermissionsAPIController@deleteAll');
             Route::get('permissions-export', 'PermissionsAPIController@export');
 
             Route::post('set_unset_permission_to_role', 'PermissionsAPIController@setUnsetPermissionToRole');

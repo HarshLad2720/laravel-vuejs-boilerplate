@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\User;
 use App\Exports\User\UsersExport;
+use App\Imports\User\UsersImport;
 use App\Http\Resources\DataTrueResource;
 use App\User;
 use App\Models\User\UserGallery;
@@ -149,6 +150,17 @@ class UsersAPIController extends Controller
     }
 
     /**
+     * Delete User multiple
+     * @param Request $request
+     * @return DataTrueResource
+     */
+    public function deleteAll(Request $request)
+    {
+        User::whereIn('id', $request->id)->delete();
+
+        return new DataTrueResource(true);
+    }
+    /**
      * Export Users Data
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
@@ -170,6 +182,29 @@ class UsersAPIController extends Controller
         $gallery->delete();
 
         return new DataTrueResource($gallery);
+    }
+
+    /**
+     * Import bulk
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function importBulk(Request $request)
+    {
+        if($request->hasfile('file')) {
+            $path1 = $request->file('file')->store('temp');
+            $path = storage_path('app') . '/' . $path1;
+            $import = new UsersImport;
+            $data = \Excel::import($import, $path);
+
+            if (count($import->getErrors()) > 0) {
+                return response()->json(['errors' => $import->getErrors()], 422);
+            }
+            return response()->json(['success' => true]);
+        }
+        else{
+            return response()->json(['errors' =>config('constants.messages.file_csv_error')], 422);
+        }
     }
 
 }

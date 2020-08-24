@@ -30,6 +30,7 @@ class CreatePermisssionsTable extends Migration
             array('name' => 'update-users','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
             array('name' => 'destroy-users','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
             array('name' => 'export-users','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'importBulk-hobbies','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
 
             array('name' => 'my-countries','guard_name' => 'root','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
 
@@ -96,6 +97,12 @@ class CreatePermisssionsTable extends Migration
 
             array('name' => 'changePassword-logincontroller','guard_name' => 'my-login','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
             array('name' => 'logout-logincontroller','guard_name' => 'my-login','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'deleteAll-countries','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'deleteAll-states','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'deleteAll-cities','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'deleteAll-roles','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'deleteAll-hobbies','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
+            array('name' => 'deleteAll-permissions','guard_name' => 'my-users','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
 
         ));
     }
