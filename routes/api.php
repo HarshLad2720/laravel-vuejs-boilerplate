@@ -85,6 +85,7 @@ Route::group([
             Route::apiResource('users', 'UsersAPIController');
             Route::get('users-export', 'UsersAPIController@export');
             Route::post('users-delete-multiple', 'UsersAPIController@deleteAll');
+            Route::post('users-import-bulk', 'UsersAPIController@importBulk');
 
             Route::apiResource('roles', 'RolesAPIController');
             Route::get('roles-export', 'RolesAPIController@export');
