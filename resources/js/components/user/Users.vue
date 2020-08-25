@@ -29,7 +29,7 @@
             :server-items-length="pageCount"
             @update:options="updateTable"
             class="elevation-1"
-            :show-select="true"+
+            :show-select="true"
         >
             <template v-slot:top>
                 <v-flex xs12 sm12 md12 lg12>
