@@ -2,6 +2,7 @@ import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
 import AddRole from "./AddRole";
 import ExportBtn from "../../partials/ExportBtn";
+import MultiDelete from "../../partials/MultiDelete";
 import {mapState} from "vuex";
 
 import {
@@ -38,6 +39,10 @@ export default CustomTable.extend({
                 fileName: '',
                 pagination: '',
             },
+            deleteProps:{
+                ids: '',
+                store: '',
+            },
             confirmation:{
                 title: '',
                 description: '',
@@ -57,7 +62,8 @@ export default CustomTable.extend({
     components: {
         DeleteModal,
         AddRole,
-        ExportBtn
+        ExportBtn,
+        MultiDelete
     },
     computed: {
        ...mapState({
@@ -119,6 +125,19 @@ export default CustomTable.extend({
             this.confirmation.title = this.$getConst('DELETE_TITLE');
             this.confirmation.description = this.$getConst('WARNING');
             this.modalOpen = true;
+        },
+        /**
+         * Multiple Delete
+         */
+        multipleDelete(){
+            let rowIds = [];
+            this.selected.forEach((element, index) => {
+                rowIds[index] = element.id;
+            });
+
+            this.deleteProps.ids = rowIds;
+            this.deleteProps.store = 'roleStore';
+            this.$refs.multipleDeleteBtn.deleteMulti();
         },
     },
     mounted(){}

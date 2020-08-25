@@ -29,6 +29,7 @@
                         @click="addrole()"
                     >Add Role</v-btn>
                     <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps"></export-btn>
+                    <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps"></multi-delete>
                 </v-toolbar>
             </template>
 

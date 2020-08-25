@@ -17,6 +17,7 @@ function initialState() {
         roledropdownlist: [],
         editId: 0,
         model:{
+            id:[],
             name:'',
             guard_name:'',
             landing_page:''
@@ -86,6 +87,15 @@ const roleStore = {
             return new Promise((resolve, reject) => {
                 HTTP.delete(baseUrl + "roles/"  + param, { _method: 'DELETE' }).then(response => {
                     resolve(response.data);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
+        multiDelete({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.post(baseUrl + "cities-delete-multiple", param).then(response => {
+                    resolve(response);
                 }).catch(e => {
                     reject(e);
                 })
