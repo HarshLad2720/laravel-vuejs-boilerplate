@@ -11,6 +11,7 @@
             @update:options="updateTable"
             class="elevation-1"
             :show-select="true"
+            v-index = "$getConst('HOBBY')"
         >
             <template v-slot:top>
                 <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
@@ -22,13 +23,13 @@
                         vertical
                     ></v-divider>
                     <v-spacer></v-spacer>
-                    <v-btn
+                    <v-btn v-store = "$getConst('HOBBY')"
                         color="primary"
                         dark
                         class="mb-2 mr-2"
                         @click="addhobby()"
                     >Add Hobby</v-btn>
-                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps"></export-btn>
+                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps" v-export = "$getConst('HOBBY')"></export-btn>
                 </v-toolbar>
             </template>
 
@@ -37,12 +38,14 @@
                     small
                     class="mr-2"
                     @click="editItem(item.id)"
+                    v-update = "$getConst('HOBBY')"
                 >
                     {{ icons.mdiPencil }}
                 </v-icon>
                 <v-icon
                     small
                     @click="deleteItem(item.id)"
+                    v-destroy = "$getConst('HOBBY')"
                 >
                     {{ icons.mdiDelete }}
                 </v-icon>

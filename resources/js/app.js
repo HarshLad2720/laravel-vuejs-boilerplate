@@ -33,8 +33,6 @@ Vue.use(PerfectScrollbar);
 // Install BootstrapVue
 Vue.use(BootstrapVue);
 
-
-
 // Permission directives
 import {hasPermission} from "./common_services/permission/permission-directives";
 Vue.directive('store', hasPermission);  // create
@@ -45,12 +43,10 @@ Vue.directive('destroy', hasPermission); // delete
 Vue.directive('export', hasPermission); // export
 Vue.directive('importBulk', hasPermission); // import
 Vue.directive('delete_gallery', hasPermission);
+Vue.directive('getPermissionsByRole', hasPermission);
+Vue.directive('setUnsetPermissionToRole', hasPermission);
+Vue.directive('changePassword', hasPermission);
 
-
-
-/*getPermissionsByRole
-setUnsetPermissionToRole
-changePassword*/
 
 const app = new Vue({
     router,

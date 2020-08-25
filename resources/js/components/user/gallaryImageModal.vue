@@ -29,7 +29,7 @@
                                         </a>
                                     </td>
                                     <td style="width:25%;">
-                                        <v-icon small @click="confirmDelete(galleryImage.id, index)">
+                                        <v-icon small @click="confirmDelete(galleryImage.id, index)" v-delete_gallery="$getConst('USER')">
                                             {{ icons.mdiDelete }}
                                         </v-icon>
                                     </td>

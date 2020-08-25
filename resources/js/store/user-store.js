@@ -79,7 +79,6 @@ const userStore = {
             for(var i=0; i< param.model.hobbies.length; i++){
                 state.model.hobby[i] = param.model.hobbies[i].id;
             }
-            console.log(state.model);
         },
         setGalleryImageList(state, payload) {
             state.galleryList = payload;

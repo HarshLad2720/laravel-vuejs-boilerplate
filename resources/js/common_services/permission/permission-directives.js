@@ -2,12 +2,16 @@ import {isPermission} from './permission-filters';
 
 export const hasPermission = {
     bind(el, {name, value}, vnode) {
+        if(name == 'can-show'){
+            name = 'show';
+        }
         let hasPermission =  isPermission(vnode.context.$store.state.permissionStore.userPermissions, value, name);
         if(!hasPermission) {
             el.style.display = 'none';
         }
     },
     update(el, {name, value}, vnode) {
+        // debugger;
         let hasPermission =  isPermission(vnode.context.$store.state.permissionStore.userPermissions, value, name);
         if(!hasPermission) {
             el.style.display = 'none';

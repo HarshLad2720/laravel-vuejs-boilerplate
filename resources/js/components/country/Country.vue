@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <v-data-table
             v-model="selected"
             :headers="headers"
@@ -11,6 +12,7 @@
             @update:options="updateTable"
             class="elevation-1"
             :show-select="true"
+            v-index="$getConst('COUNTRY')"
         >
             <template v-slot:top>
                 <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
@@ -22,13 +24,13 @@
                         vertical
                     ></v-divider>
                     <v-spacer></v-spacer>
-                    <v-btn
+                    <v-btn v-store="$getConst('COUNTRY')"
                         color="primary"
                         dark
                         class="mb-2 mr-2"
                         @click="addCountry()"
                     >Add Country</v-btn>
-                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps"></export-btn>
+                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps" v-export="$getConst('COUNTRY')"></export-btn>
                 </v-toolbar>
             </template>
 
@@ -37,12 +39,14 @@
                     small
                     class="mr-2"
                     @click="editItem(item.id)"
+                    v-update="$getConst('COUNTRY')"
                 >
                     {{ icons.mdiPencil }}
                 </v-icon>
                 <v-icon
                     small
                     @click="deleteItem(item.id)"
+                    v-destroy = "$getConst('COUNTRY')"
                 >
                     {{ icons.mdiDelete }}
                 </v-icon>

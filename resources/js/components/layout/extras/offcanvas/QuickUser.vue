@@ -85,7 +85,7 @@
             <button class="btn btn-light-primary btn-bold" @click="onLogout">
               Sign out
             </button>
-              <button class="btn btn-light-primary btn-bold" @click="changePasswordModal = true">
+              <button class="btn btn-light-primary btn-bold" @click="changePasswordModal = true" v-change-password="$getConst('USER')">
                   Change Password
               </button>
           </div>

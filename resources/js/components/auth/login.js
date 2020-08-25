@@ -51,6 +51,12 @@ export default {
                         this.errorMessage = '';
                         // Set Data of Current user in store
                         this.$store.commit('userStore/setCurrentUserData', response.data.data);
+
+                        // Set permission data
+                        if(response.data && response.data.data.permissions && response.data.data.permissions.length > 0) {
+                            this.$store.commit('permissionStore/setUserPermissions', response.data.data.permissions);
+                        }
+
                         // go to which page after successfully login
                         this.$router.push("/users");
                     })

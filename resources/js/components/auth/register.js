@@ -157,6 +157,7 @@ export default {
                         } else {
                             self.isSubmitting = false;
                             if (self.$store.state.userStore.editId > 0) {
+                                // debugger;
                                 self.$parent.getData();
                             }
                             // Reset data
@@ -190,6 +191,15 @@ export default {
         },
 
         /**
+         * State filter from country
+         */
+        getState(countryId) {
+            /*var obj = {...this.$store.state.stateStore.pagination, ...{filter: {"\"country_id\"":[countryId]} }};
+            this.$store.commit('stateStore/setPagination', obj);*/
+            // this.$store.dispatch('stateStore/getAll',{per_page:1000,filter:});
+        },
+
+        /**
          * Cancel button
          */
         onCancel() {
@@ -201,7 +211,7 @@ export default {
         // this.$store.commit('userStore/clearModel');
         this.$store.dispatch('countryStore/getCountryList');
         this.$store.dispatch('cityStore/getCityList');
-        this.$store.dispatch('stateStore/getStateList');
+        this.$store.dispatch('stateStore/getAll');
         this.$store.dispatch('hobbyStore/getHobbyList');
     },
 };

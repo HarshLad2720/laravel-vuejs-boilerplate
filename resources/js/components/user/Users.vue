@@ -14,7 +14,7 @@
                 class="mb-2"
                 @click="refresh()"
             >New Item</v-btn>-->
-            <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps"></export-btn>
+            <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps" v-export="$getConst('USER')"></export-btn>
         </v-toolbar>
         <!--<v-flex xs12 sm12 md12 lg12>
             <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
@@ -30,6 +30,7 @@
             @update:options="updateTable"
             class="elevation-1"
             :show-select="true"
+            v-index="$getConst('USER')"
         >
             <template v-slot:top>
                 <v-flex xs12 sm12 md12 lg12>
@@ -43,13 +44,14 @@
                     small
                     class="mr-2"
                     @click="onEdit(item.id)"
+                    v-update = "$getConst('USER')"
                 >
-<!--                     v-update = "$getConst('USER')"-->
                     {{ icons.mdiPencil }}
                 </v-icon>
                 <v-icon
                     small
                     @click="deleteItem(item.id)"
+                    v-destroy = "$getConst('USER')"
                 >
                     {{ icons.mdiDelete }}
                 </v-icon>

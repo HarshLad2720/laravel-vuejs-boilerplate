@@ -11,6 +11,7 @@
             @update:options="updateTable"
             class="elevation-1"
             :show-select="true"
+            v-index="$getConst('ROLE')"
         >
             <template v-slot:top>
                 <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
@@ -27,8 +28,9 @@
                         dark
                         class="mb-2 mr-2"
                         @click="addrole()"
+                        v-store="$getConst('ROLE')"
                     >Add Role</v-btn>
-                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps"></export-btn>
+                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps" v-export="$getConst('ROLE')"></export-btn>
                     <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps"></multi-delete>
                 </v-toolbar>
             </template>
@@ -38,12 +40,14 @@
                     small
                     class="mr-2"
                     @click="editItem(item.id)"
+                    v-update = "$getConst('ROLE')"
                 >
                     {{ icons.mdiPencil }}
                 </v-icon>
                 <v-icon
                     small
                     @click="deleteItem(item.id)"
+                    v-destroy = "$getConst('ROLE')"
                 >
                     {{ icons.mdiDelete }}
                 </v-icon>

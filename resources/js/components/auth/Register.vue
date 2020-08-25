@@ -144,6 +144,7 @@
                       :error-messages="getErrorValue('country_id')"
                       v-validate="'required'"
                       solo
+                      @change="getState(model.country_id)"
                   ></v-select>
               </v-flex>
               <v-flex xs12>
