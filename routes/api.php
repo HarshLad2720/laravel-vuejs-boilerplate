@@ -53,7 +53,7 @@ Route::group([
             Route::resource('countries', 'CountriesAPIController', [
                 'only' => ['show', 'store', 'update', 'destroy']
             ]);
-            Route::post('countries-delete-multiple', 'CountriesAPIController@importBulk');
+            Route::post('countries-delete-multiple', 'CountriesAPIController@deleteAll');
             Route::get('countries-export', 'CountriesAPIController@export');
             Route::post('countries-import-bulk', 'CountriesAPIController@importBulk');
 
