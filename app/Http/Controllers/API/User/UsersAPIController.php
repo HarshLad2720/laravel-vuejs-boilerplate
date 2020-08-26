@@ -6,6 +6,7 @@ use App\Imports\User\UsersImport;
 use App\Http\Resources\DataTrueResource;
 use App\User;
 use App\Models\User\UserGallery;
+use App\Models\User\Import_User_log;
 use App\Http\Requests\User\UsersRequest;
 use App\Http\Resources\User\UsersCollection;
 use App\Http\Resources\User\UsersResource;
@@ -201,8 +202,12 @@ class UsersAPIController extends Controller
             $path = storage_path('app') . '/' . $path1;
             $import = new UsersImport;
             $data = \Excel::import($import, $path);
-
             if (count($import->getErrors()) > 0) {
+                $error_jason = json_encode($import->getErrors());
+                Import_User_log::create([
+                    'filename' => $path1,
+                    'error_log' => $error_jason
+                ]);
                 return response()->json(['errors' => $import->getErrors()], 422);
             }
             return response()->json(['success' => true]);

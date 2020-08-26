@@ -3,6 +3,7 @@
 namespace App\Imports\User;
 
 use App\User;
+use App\Models\User\UserGallery;
 use App\Traits\Scopes;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -75,13 +76,12 @@ class UsersImport implements ToCollection, WithStartRow
 
     public function collection(Collection $collection)
     {
+
         $error = $this->validateBulk($collection);
         if($error){
             return;
         }else {
             foreach ($collection as $col) {
-
-                $hobby = explode(',', $col[10]);
                 $user =  User::create([
                     'name' => $col[0],
                     'email' => $col[1],
@@ -94,10 +94,35 @@ class UsersImport implements ToCollection, WithStartRow
                     'state_id' => $col[8],
                     'city_id' => $col[9],
                     'role_id' => config('constants.role.apply_role'),
+                    'status'  => config('constants.user.status_code.active'),
                 ]);
 
+                /* Insert Profile Images */
+                if($col[11]) {
+                    $profile_path = 'user/' . $user->id . '/' . $col[11];
+                    $date = date("Y-m-d g:i:s");
+                    $user->email_verified_at = $date;
+                    $user->profile = $profile_path;
+                    $user->save();
+                    //$user->update(['profile' => $profile_path,'email_verified_at'=> date("Y-m-d g:i:s")]);
+                }
+
+                /*Hobby insert-query */
+                $hobby = explode(',', $col[10]);
                 if($hobby) {
                     $user->hobbies()->attach($hobby); //this executes the insert-query
+                }
+
+                /* Insert Gallery Images */
+                $gallery = explode(',', $col[12]);
+                if($gallery) {
+                    foreach ($gallery as $image) {
+                        $real_path = 'gallery/' . $user->id . '/' . $image;
+                        UserGallery::create([
+                            'user_id' => $user->id,
+                            'filename' => $real_path
+                        ]);
+                    }
                 }
             }
         }
