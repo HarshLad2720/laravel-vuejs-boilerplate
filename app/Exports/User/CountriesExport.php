@@ -23,7 +23,10 @@ class CountriesExport implements FromCollection, WithHeadings
     {
         $model = new Country();
 
-        $query =  User::commonFunctionMethod($model::select('id','name'),$this->request, true, null, null, true);
+        $query =  User::commonFunctionMethod($model::select(
+            'id',
+            'name'),
+            $this->request, true, null, null, true);
 
         return $query;
     }

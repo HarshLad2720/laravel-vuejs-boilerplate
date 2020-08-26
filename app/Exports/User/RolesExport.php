@@ -24,7 +24,12 @@ class RolesExport implements FromCollection, WithHeadings
     {
         $model = new Role();
 
-        $query =  User::commonFunctionMethod($model::select('id','name','guard_name','landing_page'),$this->request, true, null, null, true);
+        $query =  User::commonFunctionMethod($model::select(
+            'id',
+            'name',
+            'guard_name',
+            'landing_page'),
+            $this->request, true, null, null, true);
 
         return $query;
     }

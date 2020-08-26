@@ -6,6 +6,7 @@ use App\Models\User\City;
 use App\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Support\Facades\DB;
 
 class CitiesExport implements FromCollection, WithHeadings
 {
@@ -23,7 +24,11 @@ class CitiesExport implements FromCollection, WithHeadings
     {
         $model = new City();
 
-        $query =  User::commonFunctionMethod($model::select('id','name'),$this->request, true, null, null, true);
+        $query =  User::commonFunctionMethod($model::select(
+            'id',
+            DB::raw('(SELECT name from states WHERE id = cities.state_id) AS state_name'),
+            'name'),
+            $this->request, true, null, null, true);
 
         return $query;
     }
@@ -32,7 +37,8 @@ class CitiesExport implements FromCollection, WithHeadings
     {
         return[
             'ID',
-            'Name'
+            'State Name',
+            'City Name'
         ];
     }
 }

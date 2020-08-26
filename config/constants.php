@@ -68,7 +68,10 @@ return [
             '0' => 'Female',
             '1' => 'Male',
         ],
-       // 'gender_enum' => ['0', '1'],
+        'gender_id' => [
+            'female' => '0',
+            'male' => '1',
+        ],
     ],
 
     'permission' => [
