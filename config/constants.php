@@ -45,6 +45,7 @@ return [
         'no_data_found' => 'No data found.',
         'token_amount_exceed' => 'Assign token total must be less or equal to ',
         'token_expire' => 'Invalid token id or token expired.',
+        'delete_multiple_error'=>'Please select records',
 
     ],
 

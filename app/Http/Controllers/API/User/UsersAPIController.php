@@ -156,9 +156,14 @@ class UsersAPIController extends Controller
      */
     public function deleteAll(Request $request)
     {
-        User::whereIn('id', $request->id)->delete();
+        if(!empty($request->id)) {
+            User::whereIn('id', $request->id)->delete();
 
-        return new DataTrueResource(true);
+            return new DataTrueResource(true);
+        }
+        else{
+            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], 422);
+        }
     }
     /**
      * Export Users Data
@@ -203,7 +208,7 @@ class UsersAPIController extends Controller
             return response()->json(['success' => true]);
         }
         else{
-            return response()->json(['errors' =>config('constants.messages.file_csv_error')], 422);
+            return response()->json(['error' =>config('constants.messages.file_csv_error')], 422);
         }
     }
 

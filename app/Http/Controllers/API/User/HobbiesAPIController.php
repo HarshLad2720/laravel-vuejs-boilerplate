@@ -98,9 +98,14 @@ class HobbiesAPIController extends Controller
      */
     public function deleteAll(Request $request)
     {
-        Hobby::whereIn('id', $request->id)->delete();
+        if(!empty($request->id)) {
+            Hobby::whereIn('id', $request->id)->delete();
 
-        return new DataTrueResource(true);
+            return new DataTrueResource(true);
+        }
+        else{
+            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], 422);
+        }
     }
     /**
      * Export Hobbies Data
@@ -123,7 +128,7 @@ class HobbiesAPIController extends Controller
             $path1 = $request->file('file')->store('temp');
             $path = storage_path('app') . '/' . $path1;
             $import = new HobbiesImport;
-            $data = \Excel::import($import, $path);
+            $data = Excel::import($import, $path);
 
             if (count($import->getErrors()) > 0) {
                 return response()->json(['errors' => $import->getErrors()], 422);
@@ -131,7 +136,7 @@ class HobbiesAPIController extends Controller
             return response()->json(['success' => true]);
         }
         else{
-            return response()->json(['errors' =>config('constants.messages.file_csv_error')], 422);
+            return response()->json(['error' =>config('constants.messages.file_csv_error')], 422);
         }
     }
 }
