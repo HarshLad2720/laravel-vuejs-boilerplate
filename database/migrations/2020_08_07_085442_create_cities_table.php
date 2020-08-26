@@ -18,10 +18,10 @@ class CreateCitiesTable extends Migration
             $table->unsignedInteger('state_id')->index()->comment('states table id');
             $table->foreign('state_id')->references('id')->on('states');
             $table->string('name',255)->nullable();
-            $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
-            $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
             $table->timestamps();
             $table->softDeletes();
+            $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
+            $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
         });
 
         DB::table('cities')->insert(array(

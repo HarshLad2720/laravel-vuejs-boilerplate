@@ -18,10 +18,10 @@ class CreateRolesTable extends Migration
             $table->string('name',255)->nullable();
             $table->string('guard_name',255)->nullable();
             $table->string('landing_page',255)->nullable();
-            $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
-            $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
             $table->timestamps();
             $table->softDeletes();
+            $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
+            $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
         });
 
         DB::table('roles')->insert(array(
