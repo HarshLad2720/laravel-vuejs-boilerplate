@@ -101,6 +101,8 @@ Route::group([
             Route::post('change-password','LoginController@changePassword');
 
             Route::delete('gallery/{gallery}', 'UsersAPIController@delete_gallery');
+
+            Route::get('logout','LoginController@logout');
         });
     });
 

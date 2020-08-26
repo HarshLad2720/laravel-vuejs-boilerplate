@@ -16,6 +16,8 @@ class CreateHobbiesTable extends Migration
         Schema::create('hobbies', function (Blueprint $table) {
             $table->increments('id')->index()->comment('AUTO_INCREMENT');
             $table->string('name',255)->nullable();
+            $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
+            $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
             $table->timestamps();
             $table->softDeletes();
         });

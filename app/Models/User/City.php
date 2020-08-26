@@ -4,6 +4,7 @@ namespace App\Models\User;
 use App\Traits\Scopes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
 
 class City extends Model
 {
@@ -81,6 +82,22 @@ class City extends Model
 
     public function state() {
         return $this->belongsTo(State::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function($model)
+        {
+            $user = Auth::user();
+            $model->created_by = $user->id;
+            $model->updated_by = $user->id;
+        });
+        static::updating(function($model)
+        {
+            $user = Auth::user();
+            $model->updated_by = $user->id;
+        });
     }
 
 
