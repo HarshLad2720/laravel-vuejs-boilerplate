@@ -7,6 +7,7 @@ use App\Models\User\Role;
 use App\Models\User\Permission_role;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
 
 class Permission extends Model
 {
@@ -166,4 +167,19 @@ class Permission extends Model
         return response()->json(['data' => true]);
     }
 
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function($model)
+        {
+            $user = Auth::user();
+            $model->created_by = $user->id;
+            $model->updated_by = $user->id;
+        });
+        static::updating(function($model)
+        {
+            $user = Auth::user();
+            $model->updated_by = $user->id;
+        });
+    }
 }
