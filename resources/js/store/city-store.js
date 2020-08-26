@@ -3,14 +3,6 @@ var baseUrl='/api/v1/';
 const cityStore = {
     namespaced:true,
     state: {
-        pagination:{
-            query: '',
-            page: 1,
-            limit: 10,
-            orderBy: '',
-            ascending: true,
-            filter: ''
-        },
         tableData:[],
         list: [],
         cityList:[],
@@ -23,9 +15,6 @@ const cityStore = {
 
     },
     mutations: {
-        setPagination(state,payload){
-            state.pagination = payload;
-        },
         setTableData(state, payload) {
             state.tableData = payload;
         },
@@ -71,7 +60,7 @@ const cityStore = {
         },
         getAll({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "cities" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
+                HTTP.get(baseUrl + "cities" + "?page=" + param.page + "&filter=" + param.filter + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
                     commit('setList', response.data);
                 }).catch(e => {

@@ -56,16 +56,6 @@ export default {
             menu: false,
             todayDate: new Date().toISOString().slice(0,10),
             imageModal: false,
-            /*"hobbyList": [
-                {
-                    "id": "1",
-                    "name": "Cooking",
-                },
-                {
-                    "id": "2",
-                    "name": "hobby1",
-                }
-            ],*/
         };
     },
     computed: {
@@ -193,10 +183,35 @@ export default {
         /**
          * State filter from country
          */
-        getState(countryId) {
-            /*var obj = {...this.$store.state.stateStore.pagination, ...{filter: {"\"country_id\"":[countryId]} }};
-            this.$store.commit('stateStore/setPagination', obj);*/
-            // this.$store.dispatch('stateStore/getAll',{per_page:1000,filter:});
+        getState() {
+            let filter = JSON.stringify({"country_id": [this.model.country_id]});
+            this.$store.dispatch('stateStore/getAll', {page:1, limit:1000, filter:filter,query:''}).then(response => {
+                if (response.error) {
+                    this.errorMessage = response.data.error;
+                } else {
+                    //set state list
+                    this.$store.commit("stateStore/setStateList", response.data.data);
+                }
+            }, function (error) {
+                this.errorMessage = this.getAPIErrorMessage(error.response);
+            });
+        },
+
+        /**
+         * City filter from state
+         */
+        getCity() {
+            let filter = JSON.stringify({"state_id": [this.model.state_id]});
+            this.$store.dispatch('cityStore/getAll', {page:1, limit:1000, filter:filter,query:''}).then(response => {
+                if (response.error) {
+                    this.errorMessage = response.data.error;
+                } else {
+                    //set city list
+                    this.$store.commit("cityStore/setCityList", response.data.data);
+                }
+            }, function (error) {
+                this.errorMessage = this.getAPIErrorMessage(error.response);
+            });
         },
 
         /**
@@ -208,10 +223,7 @@ export default {
         }
     },
     mounted() {
-        // this.$store.commit('userStore/clearModel');
         this.$store.dispatch('countryStore/getCountryList');
-        this.$store.dispatch('cityStore/getCityList');
-        this.$store.dispatch('stateStore/getAll');
         this.$store.dispatch('hobbyStore/getHobbyList');
     },
 };

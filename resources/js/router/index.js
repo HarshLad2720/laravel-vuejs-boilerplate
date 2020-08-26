@@ -22,7 +22,7 @@ const router = new VueRouter({
                     component: () => import("../components/auth/Register.vue")
                 },
                 {
-                    path: '/forgot-password/:id',
+                    path: '/api/password/reset/:id',
                     name: 'Reset Password',
                     component: () => import('../components/auth/ResetPassword.vue')
                 },

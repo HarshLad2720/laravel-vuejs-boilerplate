@@ -3,16 +3,6 @@ var baseUrl='/api/v1/';
 const stateStore = {
     namespaced:true,
     state: {
-        pagination:{
-            query: '',
-            page: 1,
-            limit: 10,
-            orderBy: '',
-            ascending: true,
-            filter: {
-                "country_id" :[]
-            }
-        },
         tableData:[],
         list: [],
         stateList:[],
@@ -25,10 +15,6 @@ const stateStore = {
 
     },
     mutations: {
-        setPagination(state,payload){
-            state.pagination = payload;
-            console.log("setpagination=>"+state.pagination);
-        },
         setTableData(state, payload) {
             state.tableData = payload;
         },
@@ -74,11 +60,9 @@ const stateStore = {
         },
         getAll({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "states" + "?page=" + param.page +  "&filter=" + param.filter + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
+                HTTP.get(baseUrl + "states" + "?page=" + param.page + "&filter=" + param.filter + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
-                    // debugger;
-                    commit('setList', response.data)
-                    commit('setStateList', response.data.data);
+                    commit('setList', response.data);
                 }).catch(e => {
                     reject(e);
                 })
@@ -88,7 +72,7 @@ const stateStore = {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "states").then(response => {
                     resolve(response);
-                    commit('setStateList', response.data.data);
+                    // commit('setStateList', response.data.data);
                 }).catch(e => {
                     reject(e);
                 })

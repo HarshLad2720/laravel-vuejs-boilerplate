@@ -25,6 +25,7 @@
                 <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                 <v-layout row wrap>
                     <v-flex lg12>
+<!--                        {{$route.params.id}}-->
                         <v-text-field solo
                             :type="show_new_password ? 'text' : 'password'"
                             @click:append="show_new_password = !show_new_password"
