@@ -28,16 +28,11 @@ class UsersRequest extends FormRequest
     {
         $uri = $request->path();
         $urlArr = explode("/",$uri);
-
+        $id=end($urlArr);
         $commonRule = [
             'name' => 'required | max:255',
-            'email' => [
-                'required',
-                'max:255',
-                Rule::unique('users')->ignore(end($urlArr)),
-            ],
             'mobile_no' => 'required | digits:10',
-            'gender' => ['required', Rule::in([0, 1,])],
+            'gender' => ['required', Rule::in([0, 1])],
             'dob' => 'required|date|date_format:Y-m-d',
             'address' => 'required|max:500',
             'country_id' => 'required|integer|exists:countries,id,deleted_at,NULL',
@@ -48,14 +43,14 @@ class UsersRequest extends FormRequest
         ];
 
         if($uri == 'api/v1/register'){
-
+            $commonRule['email'] = 'required|max:255|unique:users,email,NULL,id,deleted_at,NULL';
             $commonRule['password'] = 'required |nullable| min:6 | max:255';
             $commonRule['profile'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096';
             $commonRule['gallery'] = 'required|array';
             $commonRule['gallery.*'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096';
 
         }else{
-
+            $commonRule['email'] = 'required|max:255|unique:users,email,' . $id.',id,deleted_at,NULL';
             $commonRule['profile'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096';
             $commonRule['gallery'] = 'nullable|array';
             $commonRule['gallery.*'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096';
