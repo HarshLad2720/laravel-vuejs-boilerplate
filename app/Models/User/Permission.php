@@ -3,15 +3,15 @@
 namespace App\Models\User;
 
 use App\Traits\Scopes;
+use App\Traits\CreatedbyUpdatedby;
 use App\Models\User\Role;
 use App\Models\User\Permission_role;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Auth;
 
 class Permission extends Model
 {
-    use Scopes,SoftDeletes;
+    use Scopes,SoftDeletes,CreatedbyUpdatedby;
 
     public $sortable=[
         'name','guard_name',
@@ -167,19 +167,4 @@ class Permission extends Model
         return response()->json(['data' => true]);
     }
 
-    public static function boot()
-    {
-        parent::boot();
-        static::creating(function($model)
-        {
-            $user = Auth::user();
-            $model->created_by = $user->id;
-            $model->updated_by = $user->id;
-        });
-        static::updating(function($model)
-        {
-            $user = Auth::user();
-            $model->updated_by = $user->id;
-        });
-    }
 }

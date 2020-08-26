@@ -2,13 +2,13 @@
 
 namespace App\Models\User;
 use App\Traits\Scopes;
+use App\Traits\CreatedbyUpdatedby;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Auth;
 
 class Country extends Model
 {
-    use SoftDeletes, Scopes;
+    use SoftDeletes, Scopes,CreatedbyUpdatedby;
     /**
      * The attributes that are mass assignable.
      *
@@ -52,19 +52,5 @@ class Country extends Model
         'name'=>'string'
     ];
 
-    public static function boot()
-    {
-        parent::boot();
-        static::creating(function($model)
-        {
-            $user = Auth::user();
-            $model->created_by = $user->id;
-            $model->updated_by = $user->id;
-        });
-        static::updating(function($model)
-        {
-            $user = Auth::user();
-            $model->updated_by = $user->id;
-        });
-    }
+
 }

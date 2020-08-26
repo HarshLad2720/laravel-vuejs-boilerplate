@@ -17,10 +17,10 @@ class CreatePermisssionsTable extends Migration
             $table->increments('id')->index()->comment('AUTO_INCREMENT');
             $table->string('name',255)->nullable();
             $table->string('guard_name',255)->nullable();
-            $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
-            $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
             $table->timestamps();
             $table->softDeletes();
+            $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
+            $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
         });
 
         DB::table('permissions')->insert(array(

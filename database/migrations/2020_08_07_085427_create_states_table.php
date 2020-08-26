@@ -18,10 +18,10 @@ class CreateStatesTable extends Migration
             $table->unsignedInteger('country_id')->index()->comment('countries table id');
             $table->foreign('country_id')->references('id')->on('countries');
             $table->string('name',255)->nullable();
-            $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
-            $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
             $table->timestamps();
             $table->softDeletes();
+            $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
+            $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
         });
 
         DB::table('states')->insert(array(
