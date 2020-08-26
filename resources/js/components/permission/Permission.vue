@@ -11,7 +11,7 @@
                           id="permission_form">
                         <v-layout row wrap class="pl-5 pr-5">
                             <v-flex lg12 md12 sm12 xs12>
-                                <v-select solo style="margin-top: 30px;margin-bottom: 20px;  " v-get-permissions-by-role="$getConst('PERMISSION')"
+                                <v-select solo class="mb-5 mt-7" v-getPermissionsByRole="$getConst('ROLE')"
                                           :items="roleList"
                                           item-value="id"
                                           item-text="name"
@@ -74,7 +74,6 @@
                                                 <td v-for="subPermission in permission.sub_permissions"
                                                     :key="subPermission.id">
                                                     <v-checkbox
-                                                        v-set-unset-permission-to-role="$getConst('PERMISSION')"
                                                         type="checkbox"
                                                         v-model="subPermission.is_permission"
                                                         @change="editPermission(subPermission)"
@@ -82,6 +81,7 @@
                                                         false-value="0"
                                                         :label="subPermission.display_name"
                                                     ></v-checkbox>
+<!--                                                    v-set-unset-permission-to-role="$getConst('PERMISSION')"-->
                                                 </td>
                                             </template>
                                         </tr>

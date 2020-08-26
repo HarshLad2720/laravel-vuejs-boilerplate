@@ -46,7 +46,7 @@ Vue.directive('delete_gallery', hasPermission);
 Vue.directive('getPermissionsByRole', hasPermission);
 Vue.directive('setUnsetPermissionToRole', hasPermission);
 Vue.directive('changePassword', hasPermission);
-
+Vue.directive('logout', hasPermission);
 
 const app = new Vue({
     router,
