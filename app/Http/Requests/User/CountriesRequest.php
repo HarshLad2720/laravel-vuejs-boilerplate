@@ -4,6 +4,7 @@ namespace App\Http\Requests\User;
 
 //use Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 
@@ -24,10 +25,21 @@ class CountriesRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-            'name' => 'required|max:255|unique:countries,name'
-        ];
+
+        $uri = $request->path();
+        $urlArr = explode("/",$uri);
+        $id=end($urlArr);
+        if ($this->method() == 'POST') {
+            return [
+                'name' => 'required|max:255|unique:countries,name,NULL,id,deleted_at,NULL',
+            ];
+        }
+        else{
+            return [
+                'name' => 'required|max:255|unique:countries,name,' . $id.',id,deleted_at,NULL',
+            ];
+        }
     }
 }
