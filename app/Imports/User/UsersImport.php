@@ -29,7 +29,7 @@ class UsersImport implements ToCollection, WithStartRow
     {
         return [
             '0' => 'required | max:255',
-            '1' => 'required|unique:users,email| max:255',
+            '1' => 'required|max:255|unique:users,email,NULL,id,deleted_at,NULL',
             '2' => 'required |nullable| min:6 | max:255',
             '3' => 'required | digits:10',
             '4' => ['required', Rule::in([0, 1,])],

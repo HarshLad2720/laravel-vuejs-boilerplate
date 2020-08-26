@@ -28,7 +28,7 @@ class CitiesImport implements ToCollection, WithStartRow
     {
         return [
             '0' => 'required|numeric|exists:states,id,deleted_at,NULL',
-            '1' => 'required|unique:cities,name'
+            '1' => 'required|max:255|unique:cities,name,NULL,id,deleted_at,NULL'
         ];
     }
 
