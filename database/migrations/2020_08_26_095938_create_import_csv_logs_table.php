@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImportUserLogsTable extends Migration
+class CreateImportCsvLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateImportUserLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('import_user_logs', function (Blueprint $table) {
+        Schema::create('import_csv_logs', function (Blueprint $table) {
             $table->increments('id')->index()->comment('AUTO_INCREMENT');
             $table->string('filename',255)->nullable();
+            $table->string('file_path',255)->nullable();
+            $table->string('model_name',255)->nullable();
             $table->longText('error_log')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -29,6 +31,6 @@ class CreateImportUserLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('import_user_logs');
+        Schema::dropIfExists('import_csv_logs');
     }
 }

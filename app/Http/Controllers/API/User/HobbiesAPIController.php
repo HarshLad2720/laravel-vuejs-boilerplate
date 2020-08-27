@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\User;
 use App\Exports\User\HobbiesExport;
 use App\Http\Resources\DataTrueResource;
 use App\Imports\User\HobbiesImport;
+use App\Models\User\Import_csv_log;
 use App\User;
 use App\Models\User\Hobby;
 use App\Http\Requests\User\HobbiesRequest;
@@ -120,7 +121,7 @@ class HobbiesAPIController extends Controller
     /**
      * Import bulk
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function importBulk(Request $request)
     {
@@ -131,6 +132,14 @@ class HobbiesAPIController extends Controller
             $data = Excel::import($import, $path);
 
             if (count($import->getErrors()) > 0) {
+                $file = $request->file('file')->getClientOriginalName();
+                $error_jason = json_encode($import->getErrors());
+                Import_csv_log::create([
+                    'file_path' => $path1,
+                    'filename' => $file,
+                    'model_name' => config('constants.models.hobby_model'),
+                    'error_log' => $error_jason
+                ]);
                 return response()->json(['errors' => $import->getErrors()], 422);
             }
             return response()->json(['success' => true]);
