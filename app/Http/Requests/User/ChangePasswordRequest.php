@@ -31,8 +31,9 @@ class ChangePasswordRequest extends FormRequest
                     return $fail(__('The Old password is incorrect.'));
                 }
             }],
-            'new_password' => 'required|required_with:confirm_password|same:confirm_password|min:6|different:old_password',
-            'confirm_password' => 'required',
+            'new_password' => 'required|required_with:confirm_password|same:confirm_password|min:6|max:255|different:old_password',
+            'confirm_password' => 'required|min:6|max:255',
         ];
     }
 }
+

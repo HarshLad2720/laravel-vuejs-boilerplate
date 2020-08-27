@@ -6,6 +6,7 @@ use App\Models\User\State;
 use App\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Support\Facades\DB;
 
 class StatesExport implements FromCollection, WithHeadings
 {
@@ -23,7 +24,11 @@ class StatesExport implements FromCollection, WithHeadings
     {
         $model = new State();
 
-        $query =  User::commonFunctionMethod($model::select('id','name'),$this->request, true, null, null, true);
+        $query =  User::commonFunctionMethod($model::select(
+            'id',
+            DB::raw('(SELECT name from countries WHERE id = states.country_id) AS country_name'),
+            'name'),
+            $this->request, true, null, null, true);
 
         return $query;
     }
@@ -32,7 +37,8 @@ class StatesExport implements FromCollection, WithHeadings
     {
         return[
             'ID',
-            'Name'
+            'Country Name',
+            'State Name',
         ];
     }
 }

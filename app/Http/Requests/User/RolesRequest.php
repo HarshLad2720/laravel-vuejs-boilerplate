@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class RolesRequest extends FormRequest
 {
@@ -19,12 +20,24 @@ class RolesRequest extends FormRequest
      * Get the validation rules that apply to the request.
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-            'name'=> 'required|max:255',
-            'guard_name' => 'nullable|max:255',
-            'landing_page' => 'nullable|max:255',
-        ];
+        $uri = $request->path();
+        $urlArr = explode("/",$uri);
+        $id=end($urlArr);
+        if ($this->method() == 'POST') {
+            return [
+                'name' => 'required|max:255|unique:roles,name,NULL,id,deleted_at,NULL',
+                'guard_name' => 'nullable|max:255',
+                'landing_page' => 'nullable|max:255',
+            ];
+        }
+        else{
+            return [
+                'name' => 'required|max:255|unique:roles,name,' . $id.',id,deleted_at,NULL',
+                'guard_name' => 'nullable|max:255',
+                'landing_page' => 'nullable|max:255',
+            ];
+        }
     }
 }

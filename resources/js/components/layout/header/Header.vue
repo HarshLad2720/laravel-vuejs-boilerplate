@@ -28,6 +28,7 @@
       <!-- end:: Header Menu -->
       <KTTopbar></KTTopbar>
     </div>
+      <snackbar v-model="snackbar"></snackbar>
   </div>
   <!-- end:: Header -->
 </template>

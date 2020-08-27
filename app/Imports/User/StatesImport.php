@@ -28,7 +28,7 @@ class StatesImport implements ToCollection, WithStartRow
     {
         return [
             '0' => 'required|numeric|exists:countries,id,deleted_at,NULL',
-            '1' => 'required|unique:states,name'
+            '1' => 'required|max:255|unique:states,name,NULL,id,deleted_at,NULL'
         ];
     }
 

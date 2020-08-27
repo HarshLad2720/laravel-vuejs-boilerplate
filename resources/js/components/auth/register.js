@@ -52,18 +52,29 @@ export default {
             },
             isSubmitting: false,
             menu: false,
-            country_items: [
+            todayDate: new Date().toISOString().slice(0,10),
+            countryList: [
                 { id: '1', name: 'India' },
                 { id: '2', name: 'US' },
             ],
-            state_items: [
+            stateList: [
                 { id: '1', name: 'Gujarat' },
                 { id: '2', name: 'Maharastra' },
             ],
-            city_items: [
+            cityList: [
                 { id: '1', name: 'Surat' },
                 { id: '2', name: 'US' },
-            ]
+            ],
+            /*"hobbyList": [
+                {
+                    "id": "1",
+                    "name": "Cooking",
+                },
+                {
+                    "id": "2",
+                    "name": "hobby1",
+                }
+            ],*/
         };
     },
     computed: {
@@ -71,6 +82,10 @@ export default {
             model: state => state.userStore.model,
             isEditMode: state => state.userStore.editId > 0,
             snackbar: state => state.snackbarStore.snackbar,
+            /*countryList: state => state.countryStore.countryList,
+            cityList: state => state.cityStore.cityList,
+            stateList: state => state.stateStore.stateList,*/
+            hobbyList: state => state.hobbyStore.hobbyList,
         }),
         computedDateFormatted () {
             return this.formatDate(this.model.dob)
@@ -132,9 +147,10 @@ export default {
                             self.errorMessage = response.data.error;
                         } else {
                             self.isSubmitting = false;
+                            // Success message
                             self.$store.commit("snackbarStore/setMsg", msgType);
+                            // Reset data
                             self.onModalDataPost('userStore');
-                            this.$router.push("/");
                         }
                     }, error => {
                         self.isSubmitting = false;
@@ -143,11 +159,29 @@ export default {
                 }
             });
         },
+
+        /**
+         * Format DOB
+         */
         formatDate (date) {
             if (!date) return null
-
             const [year, month, day] = date.split('-')
             return `${month}/${day}/${year}`
         },
+
+        /**
+         * Cancel button
+         */
+        onCancel() {
+            // this.onModalCancelPref('userStore');
+            this.$emit('input');
+        }
+    },
+    mounted() {
+        // this.$store.commit('userStore/clearModel');
+        /*this.$store.dispatch('countryStore/getCountryList');
+        this.$store.dispatch('cityStore/getCityList');
+        this.$store.dispatch('stateStore/getStateList');*/
+        // this.$store.dispatch('hobbyStore/getHobbyList');
     },
 };

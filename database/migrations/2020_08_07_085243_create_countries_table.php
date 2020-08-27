@@ -18,6 +18,8 @@ class CreateCountriesTable extends Migration
             $table->string('name',255)->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
+            $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
 
         });
 

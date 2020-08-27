@@ -5,22 +5,6 @@ Vue.use(VueRouter);
 const router = new VueRouter({
     mode: 'history',
     routes: [
-        /*{
-            path: '/users',
-            name: 'users',
-            component: () => import('../components/user/Users.vue')
-        },
-        {
-            path: '/role',
-            name: 'role',
-            component: () => import('../components/role/Role.vue')
-        },
-        /*{
-            path: '/',
-            name: 'login',
-            component: () => import('../components/auth/Login')
-        },*/
-
         {
             path: "/",
             component: () => import("../components/auth/Auth"),
@@ -57,11 +41,11 @@ const router = new VueRouter({
                     name: 'role',
                     component: () => import('../components/role/Role.vue')
                 },
-                /*{
+                {
                     path: '/permission',
                     name: 'permission',
                     component: () => import('../components/permission/permission.vue')
-                },*/
+                },
             ]
         },
     ]

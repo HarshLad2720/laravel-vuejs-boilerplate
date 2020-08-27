@@ -2,12 +2,13 @@
 
 namespace App\Models\User;
 use App\Traits\Scopes;
+use App\Traits\CreatedbyUpdatedby;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Hobby extends Model
 {
-    use SoftDeletes, Scopes;
+    use SoftDeletes, Scopes,CreatedbyUpdatedby;
     /**
      * The attributes that are mass assignable.
      *
@@ -21,7 +22,7 @@ class Hobby extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'created_by','updated_by'
+        'id', 'name'
     ];
 
     /**
@@ -50,8 +51,5 @@ class Hobby extends Model
         'id'=>'string',
         'name'=>'string',
     ];
-
-
-
 
 }

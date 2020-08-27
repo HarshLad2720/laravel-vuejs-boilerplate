@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserHobbiesTable extends Migration
+class CreateImportUserLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateUserHobbiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_hobby', function (Blueprint $table) {
+        Schema::create('import_user_logs', function (Blueprint $table) {
             $table->increments('id')->index()->comment('AUTO_INCREMENT');
-            $table->unsignedInteger('user_id')->index()->comment('Users table ID');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->string('hobby_id');
+            $table->string('filename',255)->nullable();
+            $table->longText('error_log')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +29,6 @@ class CreateUserHobbiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_hobbies');
+        Schema::dropIfExists('import_user_logs');
     }
 }

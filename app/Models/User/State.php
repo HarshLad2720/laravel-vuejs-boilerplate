@@ -2,12 +2,13 @@
 
 namespace App\Models\User;
 use App\Traits\Scopes;
+use App\Traits\CreatedbyUpdatedby;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class State extends Model
 {
-    use SoftDeletes, Scopes;
+    use SoftDeletes, Scopes,CreatedbyUpdatedby;
     /**
      * The attributes that are mass assignable.
      *
@@ -15,7 +16,7 @@ class State extends Model
      */
 
     protected $fillable = [
-        'id', 'name','country_id', 'created_by','updated_by'
+        'id', 'name','country_id'
     ];
 
     /**

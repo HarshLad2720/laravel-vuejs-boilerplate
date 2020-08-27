@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserGalleriesTable extends Migration
+class CreateUserHobbiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateUserGalleriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_gallery', function (Blueprint $table) {
-            $table->increments('id')->index()->comment('AUTO_INCREMENT');
-            $table->unsignedInteger('user_id')->index()->comment('Users table ID');
+        Schema::create('hobby_user', function (Blueprint $table) {
+            $table->unsignedInteger('user_id')->comment('users table ID');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('filename');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->unsignedInteger('hobby_id')->comment('hobbies table ID');
+            $table->foreign('hobby_id')->references('id')->on('hobbies');
         });
     }
 
@@ -30,6 +28,6 @@ class CreateUserGalleriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('galleries');
+        Schema::dropIfExists('hobby_user');
     }
 }

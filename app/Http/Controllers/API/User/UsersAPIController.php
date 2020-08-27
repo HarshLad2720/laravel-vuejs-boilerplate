@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API\User;
 use App\Exports\User\UsersExport;
+use App\Imports\User\UsersImport;
 use App\Http\Resources\DataTrueResource;
 use App\User;
 use App\Models\User\UserGallery;
+use App\Models\User\Import_User_log;
 use App\Http\Requests\User\UsersRequest;
 use App\Http\Resources\User\UsersCollection;
 use App\Http\Resources\User\UsersResource;
@@ -60,7 +62,7 @@ class UsersAPIController extends Controller
         }
 
         if($data['hobby']) {
-            $user->hobbies()->attach($data['hobby']);
+            $user->hobbies()->attach($data['hobby']); //this executes the insert-query
         }
 
         $user->sendEmailVerificationNotification();
@@ -124,6 +126,7 @@ class UsersAPIController extends Controller
             $user->hobbies()->detach(); //this executes the delete-query
             $user->hobbies()->attach($data['hobby']); //this executes the insert-query
         }
+
         $user->update($data);
         return new UsersResource($user);
     }
@@ -142,6 +145,22 @@ class UsersAPIController extends Controller
     }
 
     /**
+     * Delete User multiple
+     * @param Request $request
+     * @return DataTrueResource
+     */
+    public function deleteAll(Request $request)
+    {
+        if(!empty($request->id)) {
+            User::whereIn('id', $request->id)->delete();
+
+            return new DataTrueResource(true);
+        }
+        else{
+            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], 422);
+        }
+    }
+    /**
      * Export Users Data
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
@@ -150,4 +169,46 @@ class UsersAPIController extends Controller
     {
         return Excel::download(new UsersExport($request), 'user.csv');
     }
+
+    /**
+     * Delete gallery
+     * @param Request $request
+     * @param User $user
+     * @return DataTrueResource
+     * @throws \Exception
+     */
+    public function delete_gallery(Request $request, UserGallery $gallery)
+    {
+        $gallery->delete();
+
+        return new DataTrueResource($gallery);
+    }
+
+    /**
+     * Import bulk
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function importBulk(Request $request)
+    {
+        if($request->hasfile('file')) {
+            $path1 = $request->file('file')->store('temp');
+            $path = storage_path('app') . '/' . $path1;
+            $import = new UsersImport;
+            $data = \Excel::import($import, $path);
+            if (count($import->getErrors()) > 0) {
+                $error_jason = json_encode($import->getErrors());
+                Import_User_log::create([
+                    'filename' => $path1,
+                    'error_log' => $error_jason
+                ]);
+                return response()->json(['errors' => $import->getErrors()], 422);
+            }
+            return response()->json(['success' => true]);
+        }
+        else{
+            return response()->json(['error' =>config('constants.messages.file_csv_error')], 422);
+        }
+    }
+
 }

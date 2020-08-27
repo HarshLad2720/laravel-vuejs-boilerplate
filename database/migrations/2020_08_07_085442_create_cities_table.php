@@ -15,11 +15,13 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id')->index()->comment('AUTO_INCREMENT');
-            $table->unsignedInteger('state_id')->index()->comment('State table ID');
+            $table->unsignedInteger('state_id')->index()->comment('states table id');
             $table->foreign('state_id')->references('id')->on('states');
             $table->string('name',255)->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
+            $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
         });
 
         DB::table('cities')->insert(array(

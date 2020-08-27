@@ -1,19 +1,20 @@
 <?php
 
 namespace App\Models\User;
+use App\Traits\CreatedbyUpdatedby;
 use App\Traits\Scopes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class City extends Model
 {
-    use SoftDeletes, Scopes;
+    use SoftDeletes, Scopes,CreatedbyUpdatedby;
 
     /**
      * @var array
      */
     protected $fillable = [
-        'id', 'name','state_id', 'created_by','updated_by'
+        'id', 'name','state_id'
     ];
 
     /**
@@ -82,6 +83,5 @@ class City extends Model
     public function state() {
         return $this->belongsTo(State::class);
     }
-
 
 }
