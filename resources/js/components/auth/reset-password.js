@@ -40,8 +40,6 @@ export default {
             this.$validator.validate().then(valid => {
                 if (valid) {
                     let sendParams = JSON.parse(JSON.stringify(this.model));
-                    //token
-                    // debugger;
                     sendParams.token = this.$route.params.id;
                     this.isSubmitting = true;
                     this.$store.dispatch("forgotPasswordStore/resetPassword", sendParams).then(response => {

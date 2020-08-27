@@ -28,8 +28,8 @@
 
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <v-btn color="success" class="btn btn-theme" :loading="isSubmitting" type="submit">Submit</v-btn>
-                            <v-btn color="secondary" class="btn btn-grey m-l-10" @click="onCancel()">Cancel</v-btn>
+                            <v-btn color="primary" class="btn btn-theme" :loading="isSubmitting" type="submit">Submit</v-btn>
+                            <v-btn color="" class="btn btn-grey m-l-10" @click="onCancel()">Cancel</v-btn>
                         </v-flex>
                     </v-layout>
                 </form>

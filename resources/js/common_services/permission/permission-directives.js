@@ -11,7 +11,6 @@ export const hasPermission = {
         }
     },
     update(el, {name, value}, vnode) {
-        // debugger;
         let hasPermission =  isPermission(vnode.context.$store.state.permissionStore.userPermissions, value, name);
         if(!hasPermission) {
             el.style.display = 'none';
