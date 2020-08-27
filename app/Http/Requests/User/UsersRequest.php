@@ -28,27 +28,55 @@ class UsersRequest extends FormRequest
     {
         $uri = $request->path();
         $urlArr = explode("/",$uri);
-
-        return [
-            'name' => 'required | max:255',
-            'email' => [
-                'required',
-                'max:255',
-                Rule::unique('users')->ignore(end($urlArr)),
-            ],
-            'password' => 'required | min:6 | max:255',
-            'mobile_no' => 'required | digits:10',
-            'profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:255',
-            'gender' => ['required', Rule::in([0, 1,])],
-            'dob' => 'required|date|date_format:Y-m-d',
-            'address' => 'required|max:500',
-            'country_id' => 'required|integer|exists:countries,id,deleted_at,NULL',
-            'state_id' => 'required|integer|exists:states,id,deleted_at,NULL',
-            'city_id' => 'required|integer|exists:cities,id,deleted_at,NULL',
-            'gallery' => 'required|array',
-            'gallery.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-            'hobby' => 'required|exists:hobbies,id,deleted_at,NULL|array',
-            'hobby.*' => 'required|integer',
-        ];
+        switch ($this->method()) {
+            case 'GET':
+            case 'DELETE': {
+                return [];
+            }
+            case 'POST': {
+                return [
+                    'name' => 'required | max:255',
+                    'email' => [
+                        'required','max:255','email',
+                        Rule::unique('users')->ignore(end($urlArr)),
+                    ],
+                    'password' => 'required | min:6 | max:255',
+                    'mobile_no' => 'required | digits:10',
+                    'profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:255',
+                    'gender' => ['required', Rule::in([0, 1,])],
+                    'dob' => 'required|date|date_format:Y-m-d',
+                    'address' => 'required|max:500',
+                    'country_id' => 'required|integer|exists:countries,id,deleted_at,NULL',
+                    'state_id' => 'required|integer|exists:states,id,deleted_at,NULL',
+                    'city_id' => 'required|integer|exists:cities,id,deleted_at,NULL',
+                    'gallery' => 'required|array',
+                    'gallery.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+                    'hobby' => 'required|exists:hobbies,id,deleted_at,NULL|array',
+                    'hobby.*' => 'required|integer',
+                ];
+            }
+            case 'PATCH':
+            case 'PUT': {
+                return [
+                    'name' => 'required | max:255',
+                    'email' => [
+                        'required','max:255','email',
+                        Rule::unique('users')->ignore(end($urlArr)),
+                    ],
+                    'mobile_no' => 'required | digits:10',
+                    'profile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:255',
+                    'gender' => ['required', Rule::in([0,1])],
+                    'dob' => 'required|date|date_format:Y-m-d',
+                    'address' => 'required|max:500',
+                    'country_id' => 'required|integer|exists:countries,id,deleted_at,NULL',
+                    'state_id' => 'required|integer|exists:states,id,deleted_at,NULL',
+                    'city_id' => 'required|integer|exists:cities,id,deleted_at,NULL',
+                    'gallery' => 'required|array',
+                    'gallery.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+                    'hobby' => 'required|exists:hobbies,id,deleted_at,NULL|array',
+                    'hobby.*' => 'required|integer',
+                ];
+            }
+        }
     }
 }

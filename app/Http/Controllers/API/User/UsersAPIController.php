@@ -5,20 +5,20 @@ use App\Exports\User\UsersExport;
 use App\Http\Resources\DataTrueResource;
 use App\User;
 use App\Models\User\UserGallery;
-use App\Models\User\UserHobby;
 use App\Http\Requests\User\UsersRequest;
 use App\Http\Resources\User\UsersCollection;
 use App\Http\Resources\User\UsersResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-use Illuminate\Foundation\Auth\VerifiesEmails;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Traits\UploadTrait;
 
 
 class UsersAPIController extends Controller
 {
 
+    use UploadTrait;
     /*
    |--------------------------------------------------------------------------
    | Users Controller
@@ -48,32 +48,19 @@ class UsersAPIController extends Controller
         $user = User::create($data);
 
         if($request->hasfile('profile')) {
-            $real_path = 'user/' . $user->id . '/';
-            $file_data = $request->file('profile')->store('/public/' . $real_path);
-            $user->profile = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+            $path = $this->uploadOne($request->file('profile'), '/public/user/'. $user->id);
+            $user->update(['profile' => $path]);
         }
 
         if($request->hasfile('gallery')) {
-
-            foreach ($request->gallery as $photo) {
-                $real_path = 'gallery/'.$user->id.'/';
-                $file_data = $photo->store('/public/' . $real_path);
-                $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
-                UserGallery::create([
-                    'user_id' => $user->id,
-                    'filename' => $filename
-                ]);
+            foreach ($request->file('gallery') as $photo) {
+                $path = $this->uploadOne($photo,'/public/gallery/'. $user->id);
+                UserGallery::create(['user_id' => $user->id, 'filename' => $path]);
             }
         }
 
         if($data['hobby']) {
-
-            foreach ($data['hobby'] as $hobby) {
-                UserHobby::create([
-                    'user_id' => $user->id,
-                    'hobby_id' => $hobby
-                ]);
-            }
+            $user->hobbies()->attach($data['hobby']);
         }
 
         $user->sendEmailVerificationNotification();
@@ -109,37 +96,35 @@ class UsersAPIController extends Controller
      */
     public function update(UsersRequest $request, User $user)
     {
-        $data = $request->all();
+        $data = $request->except(['profile']);
         if($request->hasfile('profile')) {
-            $real_path = 'user/' . $user->id . '/';
-            $file_data = $request->file('profile')->store('/public/' . $real_path);
-            $user->profile = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+            $this->deleteOne([$user->profile]);
+            $path = $this->uploadOne($request->file('profile'), '/public/user/'. $user->id);
+            $user->update(['profile' => $path]);
         }
 
         if($request->hasfile('gallery')) {
+            $ids = $paths = [];
+            foreach ($user->user_galleries as $user_galleries) {
+                $ids[] = $user_galleries->id;
+                $paths[] = $user_galleries->filename;
+            }
+            UserGallery::destroy($ids);
+            $this->deleteOne($paths);
 
-            foreach ($request->gallery as $photo) {
-                $real_path = 'gallery/'.$user->id.'/';
-                $file_data = $photo->store('/public/' . $real_path);
-                $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
-                UserGallery::create([
-                    'user_id' => $user->id,
-                    'filename' => $filename
-                ]);
+            if($request->hasfile('gallery')) {
+                foreach ($request->file('gallery') as $photo) {
+                    $path = $this->uploadOne($photo,'/public/gallery/'. $user->id);
+                    UserGallery::create(['user_id' => $user->id, 'filename' => $path]);
+                }
             }
         }
 
         if($data['hobby']) {
-
-            foreach ($data['hobby'] as $hobby) {
-                UserHobby::create([
-                    'user_id' => $user->id,
-                    'hobby_id' => $hobby
-                ]);
-            }
+            $user->hobbies()->detach(); //this executes the delete-query
+            $user->hobbies()->attach($data['hobby']); //this executes the insert-query
         }
         $user->update($data);
-
         return new UsersResource($user);
     }
 
@@ -153,7 +138,6 @@ class UsersAPIController extends Controller
     public function destroy(Request $request, User $user)
     {
         $user->delete();
-
         return new DataTrueResource($user);
     }
 
@@ -166,5 +150,4 @@ class UsersAPIController extends Controller
     {
         return Excel::download(new UsersExport($request), 'user.csv');
     }
-
 }
