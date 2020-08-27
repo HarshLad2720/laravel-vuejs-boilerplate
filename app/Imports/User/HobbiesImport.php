@@ -27,7 +27,7 @@ class HobbiesImport implements ToCollection, WithStartRow
     public function rules(): array
     {
         return [
-            '0' => 'required|unique:hobbies,name'
+            '0' => 'required|max:255|unique:hobbies,name,NULL,id,deleted_at,NULL'
         ];
     }
 

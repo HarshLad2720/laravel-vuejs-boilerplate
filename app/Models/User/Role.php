@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use App\Traits\Scopes;
+use App\Traits\CreatedbyUpdatedby;
 use App\User;
 use App\Models\User\Permission;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {
-    use Scopes,SoftDeletes;
+    use Scopes,SoftDeletes,CreatedbyUpdatedby;
 
     //public $timestamps = false;
     public $sortable=[
@@ -67,6 +68,5 @@ class Role extends Model
     {
         return $this->belongsToMany(Permission::class,"permission_role","role_id","permission_id");
     }
-
 
 }

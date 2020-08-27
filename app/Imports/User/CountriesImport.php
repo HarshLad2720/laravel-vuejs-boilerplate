@@ -27,7 +27,7 @@ class CountriesImport implements ToCollection, WithStartRow
     public function rules(): array
     {
         return [
-            '0' => 'required|unique:countries,name'
+            '0' => 'required|max:255|unique:countries,name,NULL,id,deleted_at,NULL'
         ];
     }
 

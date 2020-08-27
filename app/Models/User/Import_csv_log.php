@@ -1,29 +1,25 @@
 <?php
-
 namespace App\Models\User;
-use App\Traits\Scopes;
-use App\Traits\CreatedbyUpdatedby;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\Scopes;
 
-class Hobby extends Model
+class Import_csv_log extends Model
 {
-    use SoftDeletes, Scopes,CreatedbyUpdatedby;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    use Scopes,SoftDeletes;
+    protected $table = 'import_csv_logs';
+
+
+    //public $timestamps = false;
     public $sortable=[
-        'id','name',
+        'filename','file_path','model_name','error_log'
     ];
 
     /**
      * @var array
      */
-    protected $fillable = [
-        'id', 'name'
-    ];
+
+    protected $fillable = ['filename','file_path','model_name','error_log'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -33,15 +29,6 @@ class Hobby extends Model
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        //
-    ];
-
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -49,7 +36,13 @@ class Hobby extends Model
     protected $casts = [
         //
         'id'=>'string',
-        'name'=>'string',
+        'filename'=>'string',
+        'file_path'=>'string',
+        'model_name'=>'string',
+        'created_at'=>'string',
+        'updated_at'=>'string',
+        'deleted_at'=>'string',
     ];
+
 
 }

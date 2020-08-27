@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use App\Traits\Scopes;
+use App\Traits\CreatedbyUpdatedby;
 use App\Models\User\Role;
 use App\Models\User\Permission_role;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Permission extends Model
 {
-    use Scopes,SoftDeletes;
+    use Scopes,SoftDeletes,CreatedbyUpdatedby;
 
     public $sortable=[
         'name','guard_name',

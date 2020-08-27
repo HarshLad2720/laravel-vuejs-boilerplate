@@ -24,7 +24,11 @@ class PermissionsExport implements FromCollection, WithHeadings
     {
         $model = new Permission();
 
-        $query =  User::commonFunctionMethod($model::select('id','name','guard_name'),$this->request, true, null, null, true);
+        $query =  User::commonFunctionMethod($model::select(
+            'id',
+            'name',
+            'guard_name'),
+            $this->request, true, null, null, true);
 
         return $query;
     }

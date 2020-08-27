@@ -3,6 +3,7 @@
 namespace App\Imports\User;
 
 use App\User;
+use App\Models\User\UserGallery;
 use App\Traits\Scopes;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -29,7 +30,7 @@ class UsersImport implements ToCollection, WithStartRow
     {
         return [
             '0' => 'required | max:255',
-            '1' => 'required|unique:users,email| max:255',
+            '1' => 'required|max:255|unique:users,email,NULL,id,deleted_at,NULL',
             '2' => 'required |nullable| min:6 | max:255',
             '3' => 'required | digits:10',
             '4' => ['required', Rule::in([0, 1,])],
@@ -39,6 +40,8 @@ class UsersImport implements ToCollection, WithStartRow
             '8' => 'required|integer|exists:states,id,deleted_at,NULL',
             '9' => 'required|integer|exists:cities,id,deleted_at,NULL',
         ];
+
+
     }
 
     public function validationMessages()
@@ -75,29 +78,52 @@ class UsersImport implements ToCollection, WithStartRow
 
     public function collection(Collection $collection)
     {
+
         $error = $this->validateBulk($collection);
         if($error){
             return;
         }else {
             foreach ($collection as $col) {
-
-                $hobby = explode(',', $col[10]);
                 $user =  User::create([
                     'name' => $col[0],
                     'email' => $col[1],
                     'password' => bcrypt($col[2]),
                     'mobile_no' => $col[3],
-                    'gender' => $col[4],
+                    'gender' => (string)$col[4],
                     'dob' => $col[5],
                     'address' => $col[6],
                     'country_id' => $col[7],
                     'state_id' => $col[8],
                     'city_id' => $col[9],
                     'role_id' => config('constants.role.apply_role'),
+                    'status'  => config('constants.user.status_code.active'),
                 ]);
 
+                /* Insert Profile Images */
+                if($col[11]) {
+                    $profile_path = 'user/' . $user->id . '/' . $col[11];
+                    $date = date("Y-m-d g:i:s");
+                    $user->email_verified_at = $date;
+                    $user->profile = $profile_path;
+                    $user->save();
+                }
+
+                /*Hobby insert-query */
+                $hobby = explode(',', $col[10]);
                 if($hobby) {
                     $user->hobbies()->attach($hobby); //this executes the insert-query
+                }
+
+                /* Insert Gallery Images */
+                $gallery = explode(',', $col[12]);
+                if($gallery) {
+                    foreach ($gallery as $image) {
+                        $real_path = 'gallery/' . $user->id . '/' . $image;
+                        UserGallery::create([
+                            'user_id' => $user->id,
+                            'filename' => $real_path
+                        ]);
+                    }
                 }
             }
         }

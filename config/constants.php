@@ -45,6 +45,7 @@ return [
         'no_data_found' => 'No data found.',
         'token_amount_exceed' => 'Assign token total must be less or equal to ',
         'token_expire' => 'Invalid token id or token expired.',
+        'delete_multiple_error'=>'Please select records',
 
     ],
 
@@ -67,7 +68,10 @@ return [
             '0' => 'Female',
             '1' => 'Male',
         ],
-       // 'gender_enum' => ['0', '1'],
+        'gender_id' => [
+            'female' => '0',
+            'male' => '1',
+        ],
     ],
 
     'permission' => [
@@ -95,5 +99,13 @@ return [
         'dir_path' => '/storage/',
         'default_types' => 'gif|jpg|png|jpeg',
         'user_default_img' => 'images/default.jpg',
+    ],
+
+    'models'=>[
+        'user_model' => 'user',
+        'city_model' => 'city',
+        'hobby_model' => 'hobby',
+        'country_model' => 'country',
+        'state_model' => 'state',
     ],
 ];

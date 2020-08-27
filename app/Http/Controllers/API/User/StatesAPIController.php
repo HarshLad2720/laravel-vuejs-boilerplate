@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\User;
 use App\Exports\User\StatesExport;
 use App\Http\Resources\DataTrueResource;
 use App\Imports\User\StatesImport;
+use App\Models\User\Import_csv_log;
 use App\User;
 use App\Models\User\State;
 use App\Http\Requests\User\StatesRequest;
@@ -98,9 +99,14 @@ class StatesAPIController extends Controller
      */
     public function deleteAll(Request $request)
     {
-        State::whereIn('id', $request->id)->delete();
+        if(!empty($request->id)) {
+            State::whereIn('id', $request->id)->delete();
 
-        return new DataTrueResource(true);
+            return new DataTrueResource(true);
+        }
+        else{
+            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], 422);
+        }
     }
     /**
      * Export States Data
@@ -115,7 +121,7 @@ class StatesAPIController extends Controller
     /**
      * Import bulk
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function importBulk(Request $request)
     {
@@ -126,6 +132,14 @@ class StatesAPIController extends Controller
             $data = \Excel::import($import, $path);
 
             if (count($import->getErrors()) > 0) {
+                $file = $request->file('file')->getClientOriginalName();
+                $error_jason = json_encode($import->getErrors());
+                Import_csv_log::create([
+                    'file_path' => $path1,
+                    'filename' => $file,
+                    'model_name' => config('constants.models.state_model'),
+                    'error_log' => $error_jason
+                ]);
                 return response()->json(['errors' => $import->getErrors()], 422);
             }
             return response()->json(['success' => true]);
