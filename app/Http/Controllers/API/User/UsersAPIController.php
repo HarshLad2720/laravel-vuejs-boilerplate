@@ -6,7 +6,7 @@ use App\Imports\User\UsersImport;
 use App\Http\Resources\DataTrueResource;
 use App\User;
 use App\Models\User\UserGallery;
-use App\Models\User\Import_User_log;
+use App\Models\User\Import_csv_log;
 use App\Http\Requests\User\UsersRequest;
 use App\Http\Resources\User\UsersCollection;
 use App\Http\Resources\User\UsersResource;
@@ -132,7 +132,6 @@ class UsersAPIController extends Controller
         }
 
         $user->update($data);
-
         return new UsersResource($user);
     }
 
@@ -146,7 +145,6 @@ class UsersAPIController extends Controller
     public function destroy(Request $request, User $user)
     {
         $user->delete();
-
         return new DataTrueResource($user);
     }
 
@@ -159,7 +157,6 @@ class UsersAPIController extends Controller
     {
         if(!empty($request->id)) {
             User::whereIn('id', $request->id)->delete();
-
             return new DataTrueResource(true);
         }
         else{
@@ -186,7 +183,6 @@ class UsersAPIController extends Controller
     public function delete_gallery(Request $request, UserGallery $gallery)
     {
         $gallery->delete();
-
         return new DataTrueResource($gallery);
     }
 
@@ -203,9 +199,12 @@ class UsersAPIController extends Controller
             $import = new UsersImport;
             $data = \Excel::import($import, $path);
             if (count($import->getErrors()) > 0) {
+                $file = $request->file('file')->getClientOriginalName();
                 $error_jason = json_encode($import->getErrors());
-                Import_User_log::create([
-                    'filename' => $path1,
+                Import_csv_log::create([
+                    'file_path' => $path1,
+                    'filename' => $file,
+                    'model_name' => config('constants.models.user_model'),
                     'error_log' => $error_jason
                 ]);
                 return response()->json(['errors' => $import->getErrors()], 422);

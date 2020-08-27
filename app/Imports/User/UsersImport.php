@@ -40,6 +40,8 @@ class UsersImport implements ToCollection, WithStartRow
             '8' => 'required|integer|exists:states,id,deleted_at,NULL',
             '9' => 'required|integer|exists:cities,id,deleted_at,NULL',
         ];
+
+
     }
 
     public function validationMessages()
@@ -87,7 +89,7 @@ class UsersImport implements ToCollection, WithStartRow
                     'email' => $col[1],
                     'password' => bcrypt($col[2]),
                     'mobile_no' => $col[3],
-                    'gender' => $col[4],
+                    'gender' => (string)$col[4],
                     'dob' => $col[5],
                     'address' => $col[6],
                     'country_id' => $col[7],
@@ -104,7 +106,6 @@ class UsersImport implements ToCollection, WithStartRow
                     $user->email_verified_at = $date;
                     $user->profile = $profile_path;
                     $user->save();
-                    //$user->update(['profile' => $profile_path,'email_verified_at'=> date("Y-m-d g:i:s")]);
                 }
 
                 /*Hobby insert-query */

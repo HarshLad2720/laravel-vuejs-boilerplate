@@ -100,4 +100,12 @@ return [
         'default_types' => 'gif|jpg|png|jpeg',
         'user_default_img' => 'images/default.jpg',
     ],
+
+    'models'=>[
+        'user_model' => 'user',
+        'city_model' => 'city',
+        'hobby_model' => 'hobby',
+        'country_model' => 'country',
+        'state_model' => 'state',
+    ],
 ];
