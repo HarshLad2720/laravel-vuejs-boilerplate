@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 
+/*header('Access-Control-Allow-Origin:  *');
+header('Access-Control-Allow-Methods:  POST, GET, PATCH, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');*/
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,7 +20,6 @@ use Illuminate\Routing\Router;
 /*
 * Snippet for a quick route reference
 */
-
 
 Auth::routes(['verify' => true]);
 
@@ -34,8 +36,7 @@ Route::group([
         Route::get('email/verify/{id}', 'VerificationAPIController@verify')->name('verification.verify');
         Route::get('email/resend', 'VerificationAPIController@resend')->name('verification.resend');
 
-        Route::post('password/email','ForgotPasswordAPIController@sendResetLinkEmail');
-        Route::post('reset-password','ResetPasswordAPIController@resetPassword');
+        Route::post('forgot-passsword','ForgotPasswordAPIController@sendResetLinkEmail');
 
         Route::post('register', 'UsersAPIController@register');
         Route::post('login','LoginController@login');
