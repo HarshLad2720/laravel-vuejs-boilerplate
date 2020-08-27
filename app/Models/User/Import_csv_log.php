@@ -44,5 +44,15 @@ class Import_csv_log extends Model
         'deleted_at'=>'string',
     ];
 
+    /**
+     * @param $value
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function getFilePathAttribute($value){
+        if ($value == NULL)
+            return "";
+        return url(config('constants.image.dir_path') . $value);
+    }
+
 
 }
