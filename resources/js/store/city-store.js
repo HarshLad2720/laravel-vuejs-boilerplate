@@ -62,7 +62,6 @@ const cityStore = {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "cities" + "?page=" + param.page + "&filter=" + param.filter + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
-                    commit('setList', response.data);
                 }).catch(e => {
                     reject(e);
                 })
@@ -72,7 +71,6 @@ const cityStore = {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "cities").then(response => {
                     resolve(response);
-                    commit('setCityList', response.data.data);
                 }).catch(e => {
                     reject(e);
                 })

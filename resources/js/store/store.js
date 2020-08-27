@@ -15,7 +15,7 @@ import cityStore from './city-store';
 import stateStore from './state-store';
 import hobbyStore from './hobby-store';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const vuexPersist = new VuexPersist({
     key: 'demo',

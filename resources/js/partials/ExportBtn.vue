@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn color="error" class="mb-2 mr-2">Export</v-btn>
+        <v-btn color="warning" class="mb-2 mr-2">Export</v-btn>
         <error-modal :errorArr="errorArr" v-model="errorDialog"></error-modal>
     </div>
 </template>
@@ -24,20 +24,21 @@
         mixins: [CommonServices],
         methods: {
             exportToCSV() {
-                let idfilter = JSON.stringify({id: this.exportProps.ids});
-                this.exportProps.pagination.filter = idfilter.replace(/\\/g, '');
-
-                this.$store.dispatch(this.exportProps.store+'/export',this.exportProps.pagination).then(response => {
-                    if (response.error) {
-                        this.errorArr = response.data.error;
+                if(this.exportProps.ids.length > 0) {
+                    let idfilter = JSON.stringify({id: this.exportProps.ids});
+                    this.exportProps.pagination.filter = idfilter.replace(/\\/g, '');
+                }
+                    this.$store.dispatch(this.exportProps.store+'/export',this.exportProps.pagination).then(response => {
+                        if (response.error) {
+                            this.errorArr = response.data.error;
+                            this.errorDialog = true;
+                        } else {
+                            this.convertToCSV(this.exportProps.fileName, response.data)
+                        }
+                    }, error => {
+                        this.errorArr = this.getModalAPIerrorMessage(error);
                         this.errorDialog = true;
-                    } else {
-                        this.convertToCSV(this.exportProps.fileName, response.data)
-                    }
-                }, error => {
-                    this.errorArr = this.getModalAPIerrorMessage(error);
-                    this.errorDialog = true;
-                });
+                    });
             },
         },
         mounted() {

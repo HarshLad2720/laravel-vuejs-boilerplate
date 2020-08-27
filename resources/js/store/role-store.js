@@ -104,7 +104,6 @@ const roleStore = {
         getById({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'roles' + "/" + state.editId).then(response => {
-                    commit('setModel', {model: response.data.data})
                     resolve(response.data);
                 })
                     .catch(e => {
@@ -116,7 +115,6 @@ const roleStore = {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "roles?per_page=1000").then(response => {
                     resolve(response);
-                    commit('setRoleList', response.data.data);
                 }).catch(e => {
                     reject(e);
                 })

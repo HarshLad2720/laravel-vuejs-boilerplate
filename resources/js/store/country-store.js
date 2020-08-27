@@ -71,7 +71,6 @@ const countryStore = {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "countries" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
-                    commit('setList', response.data);
                 }).catch(e => {
                     reject(e);
                 })
@@ -81,7 +80,6 @@ const countryStore = {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "countries").then(response => {
                     resolve(response);
-                    commit('setCountryList', response.data.data);
                 }).catch(e => {
                     reject(e);
                 })
@@ -100,7 +98,6 @@ const countryStore = {
         getById({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'countries' + "/" + state.editId).then(response => {
-                    commit('setModel', {model: response.data.data})
                     resolve(response.data);
                 })
                     .catch(e => {

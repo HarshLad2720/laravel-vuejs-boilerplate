@@ -72,7 +72,6 @@ const hobbyStore = {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "hobbies" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
-                    commit('setList', response.data);
                 }).catch(e => {
                     reject(e);
                 })
@@ -82,7 +81,6 @@ const hobbyStore = {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "hobbies").then(response => {
                     resolve(response);
-                    commit('setHobbyList', response.data.data);
                 }).catch(e => {
                     reject(e);
                 })
@@ -101,7 +99,6 @@ const hobbyStore = {
         getById({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'hobbies' + "/" + state.editId).then(response => {
-                    commit('setModel', {model: response.data.data})
                     resolve(response.data);
                 })
                     .catch(e => {

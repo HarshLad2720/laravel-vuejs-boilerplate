@@ -103,6 +103,7 @@ export default CustomTable.extend({
                     this.errorArr = response.data.error;
                     this.errorDialog = true;
                 } else {
+                    this.$store.commit('hobbyStore/setModel', {model: response.data});
                     this.addCityModal = true;
                 }
             }, error => {

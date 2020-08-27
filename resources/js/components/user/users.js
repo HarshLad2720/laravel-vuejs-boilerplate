@@ -6,11 +6,14 @@ import UserModal from "./UserModal.vue";
 import {mapState} from "vuex";
 import CommonServices from '../../common_services/common.js';
 import ErrorModal from "../../partials/ErrorModal";
+import MultiDelete from "../../partials/MultiDelete";
 
 import {
     mdiPencil,
     mdiDelete,
+    mdiFilter,
 } from '@mdi/js'
+import cityStore from "../../store/city-store";
 
 export default CustomTable.extend({
     name: "Users",
@@ -24,9 +27,12 @@ export default CustomTable.extend({
                 { text: 'DOB', value: 'dob'},
                 { text: 'Gender', value: 'gender_text'},
                 { text: 'Address', value: 'address'},
+                { text: 'Country', value: 'country.name'},
+                { text: 'State', value: 'state.name'},
+                { text: 'City', value: 'city.name'},
                 { text: 'Mobile', value: 'mobile_no' },
                 { text: 'Email', value: 'email' },
-                { text: 'Role', value: 'role_id' },
+                { text: 'Role', value: 'role.name' },
                 { text: 'status', value: 'status_text' },
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
@@ -36,12 +42,17 @@ export default CustomTable.extend({
             icons: {
                 mdiPencil,
                 mdiDelete,
+                mdiFilter
             },
             confirmation: {
                 title: '',
                 description: '',
                 btnCancelText: self.$getConst('BTN_CANCEL'),
                 btnConfirmationText: self.$getConst('BTN_OK'),
+            },
+            deleteProps:{
+                ids: '',
+                store: '',
             },
             exportProps:{
                 id: '',
@@ -56,6 +67,10 @@ export default CustomTable.extend({
             userDialogue: false,
             errorArr: [],
             errorDialog: false,
+            country_id:'',
+            city_id:'',
+            state_id:'',
+            role_id:'',
         }
     },
     mixins: [CommonServices],
@@ -63,10 +78,15 @@ export default CustomTable.extend({
         DeleteModal,
         UserModal,
         ErrorModal,
-        ExportBtn
+        ExportBtn,
+        MultiDelete
     },
     computed: {
         ...mapState({
+            setCountryList: state => state.countryStore.countryList,
+            setStateList: state => state.stateStore.stateList,
+            setCityList: state => state.cityStore.cityList,
+            setRoleList: state => state.roleStore.roledropdownlist,
             pagination : state => state.roleStore.pagination,
         })
     },
@@ -101,7 +121,19 @@ export default CustomTable.extend({
             this.confirmation.description = this.$getConst('WARNING');
             this.modalOpen = true;
         },
+        /**
+         * Multiple Delete
+         */
+        multipleDelete(){
+            let rowIds = [];
+            this.selected.forEach((element, index) => {
+                rowIds[index] = element.id;
+            });
 
+            this.deleteProps.ids = rowIds;
+            this.deleteProps.store = 'roleStore';
+            this.$refs.multipleDeleteBtn.deleteMulti();
+        },
         /* Edit User */
         onEdit(id) {
             this.$store.commit('userStore/setEditId', id);
@@ -118,8 +150,50 @@ export default CustomTable.extend({
                 this.errorDialog = true;
             });
         },
+        /**
+         * Filter
+         */
+        changeFilter(){
+            //this.options.filter = {};
+            let filter = {};
+            /*if(this.country_id != ''){
+                filter.country_id = [this.country_id];
+            }
+            if(this.state_id != ''){
+                filter.state_id = [this.state_id];
+            }
+            if(this.city_id != ''){
+                filter.city_id = [this.city_id];
+            }*/
+            if(this.role_id != ''){
+                filter.role_id = [this.role_id];
+            }
+            this.options.filter =filter;
+        },
+        /**
+         * Reset Filter
+         */
+        resetFilter(){
+            /*this.country_id = ''
+            this.state_id = ''
+            this.city_id = ''*/
+            this.role_id = ''
+            this.options.filter = {}
+        }
+
     },
     mounted(){
-
+        /*this.$store.dispatch("countryStore/getCountryList").then((result) => {
+            // debugger
+        });
+        this.$store.dispatch("stateStore/getStateList").then((result) => {
+            // debugger
+        });
+        this.$store.dispatch("cityStore/getCityList").then((result) => {
+            // debugger
+        });*/
+        this.$store.dispatch("roleStore/getRoleList").then((result) => {
+            this.$store.commit('roleStore/setRoleList', result.data.data);
+        });
     }
 });

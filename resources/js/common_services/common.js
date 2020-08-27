@@ -37,7 +37,7 @@ export default {
     },
     computed: {
         ...mapState({
-            UserData: state => state.userStore.currentUser,
+            UserData: state => state.userStore.currentUserData,
         }),
         ...mapGetters({
             /*userFullName: 'userStore/userFullName',

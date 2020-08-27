@@ -1,10 +1,12 @@
 import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
 import ExportBtn from "../../partials/ExportBtn";
+import MultiDelete from "../../partials/MultiDelete";
 import AddCity from "./AddCity";
 import {
     mdiPencil,
     mdiDelete,
+    mdiFilter
 } from '@mdi/js'
 import {mapState} from "vuex";
 
@@ -19,8 +21,8 @@ export default CustomTable.extend({
             addCityModal: false,
             statename:'cityStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
             headers: [
-                { text: 'State', value: 'state.name'},
                 { text: 'City', value: 'name'},
+                { text: 'State', value: 'state.name'},
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
             options:{
@@ -29,6 +31,7 @@ export default CustomTable.extend({
             icons: {
                 mdiPencil,
                 mdiDelete,
+                mdiFilter
             },
             paramProps:{
                 idProps: '',
@@ -39,6 +42,10 @@ export default CustomTable.extend({
                 description: '',
                 btnCancelText: self.$getConst('BTN_CANCEL'),
                 btnConfirmationText: self.$getConst('BTN_OK'),
+            },
+            deleteProps:{
+                ids: '',
+                store: '',
             },
             exportProps:{
                 id: '',
@@ -54,15 +61,18 @@ export default CustomTable.extend({
                 idProps: '',
                 storeProps: '',
             },
+            state_id:'',
         }
     },
     components: {
         DeleteModal,
         AddCity,
-        ExportBtn
+        ExportBtn,
+        MultiDelete
     },
     computed: {
         ...mapState({
+            setStateList: state => state.stateStore.stateList,
             pagination : state => state.roleStore.pagination,
         })
     },
@@ -104,6 +114,7 @@ export default CustomTable.extend({
                     this.errorArr = response.data.error;
                     this.errorDialog = true;
                 } else {
+                    this.$store.commit('cityStore/setList', response.data);
                     this.addCityModal = true;
                 }
             }, error => {
@@ -118,6 +129,41 @@ export default CustomTable.extend({
             this.confirmation.description = this.$getConst('WARNING');
             this.modalOpen = true;
         },
+        /**
+         * Multiple Delete
+         */
+        multipleDelete(){
+            let rowIds = [];
+            this.selected.forEach((element, index) => {
+                rowIds[index] = element.id;
+            });
+
+            this.deleteProps.ids = rowIds;
+            this.deleteProps.store = 'roleStore';
+            this.$refs.multipleDeleteBtn.deleteMulti();
+        },
+        /**
+         * Filter
+         */
+        changeFilter(){
+            //this.options.filter = {};
+            let filter = {};
+            if(this.city_id != ''){
+                filter.city_id = [this.city_id];
+            }
+            this.options.filter =filter;
+        },
+        /**
+         * Reset Filter
+         */
+        resetFilter(){
+            this.city_id = ''
+            this.options.filter = {}
+        }
     },
-    mounted(){}
+    mounted(){
+        this.$store.dispatch("stateStore/getStateList").then((result) => {
+            this.$store.commit('stateStore/setStateList', result.data.data);
+        });
+    }
 });

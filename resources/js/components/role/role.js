@@ -8,6 +8,7 @@ import {mapState} from "vuex";
 import {
     mdiPencil,
     mdiDelete,
+    mdiFilter
 } from '@mdi/js'
 
 export default CustomTable.extend({
@@ -28,6 +29,7 @@ export default CustomTable.extend({
             icons: {
                 mdiPencil,
                 mdiDelete,
+                mdiFilter
             },
             paramProps:{
                 idProps: '',
@@ -57,6 +59,7 @@ export default CustomTable.extend({
                 idProps: '',
                 storeProps: '',
             },
+            role_id:'',
         }
     },
     components: {
@@ -67,8 +70,9 @@ export default CustomTable.extend({
     },
     computed: {
        ...mapState({
-                    pagination : state => state.roleStore.pagination,
-                })
+           pagination : state => state.roleStore.pagination,
+           setRoleList: state => state.roleStore.roledropdownlist,
+       })
 
 
 
@@ -112,6 +116,7 @@ export default CustomTable.extend({
                     this.errorArr = response.data.error;
                     this.errorDialog = true;
                 } else {
+                    this.$store.commit('roleStore/setModel', {model: response.data});
                     this.addRoleModal = true;
                 }
             }, error => {
@@ -139,6 +144,28 @@ export default CustomTable.extend({
             this.deleteProps.store = 'roleStore';
             this.$refs.multipleDeleteBtn.deleteMulti();
         },
+        /**
+         * Filter
+         */
+        changeFilter(){
+            //this.options.filter = {};
+            let filter = {};
+            if(this.role_id != ''){
+                filter.role_id = [this.role_id];
+            }
+            this.options.filter =filter;
+        },
+        /**
+         * Reset Filter
+         */
+        resetFilter(){
+            this.role_id = ''
+            this.options.filter = {}
+        }
     },
-    mounted(){}
+    mounted(){
+        this.$store.dispatch("roleStore/getRoleList").then((result) => {
+            this.$store.commit('roleStore/setRoleList', result.data.data);
+        });
+    }
 });

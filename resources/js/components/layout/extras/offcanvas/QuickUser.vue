@@ -178,7 +178,7 @@ export default {
 
     }),
     picture() {
-      return process.env.BASE_URL + "media/users/300_21.jpg";
+      return this.$store.state.userStore.currentUserData.profile;
     }
   },
 };

@@ -24,6 +24,20 @@
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                     <v-layout row wrap>
                         <v-flex xs12>
+                            <p>City Name</p>
+                        </v-flex>
+                        <v-flex xs12>
+                            <v-text-field
+                                label="City" type="text"
+                                name="city"
+                                v-model="model.name"
+                                :error-messages="getErrorValue('city')"
+                                v-validate="'required'"
+                                solo
+                            ></v-text-field>
+
+                        </v-flex>
+                        <v-flex xs12>
                             <p>Select State</p>
                         </v-flex>
                         <v-flex xs12>
@@ -40,20 +54,6 @@
                                     label="state"
                                     solo
                             ></v-autocomplete>
-                        </v-flex>
-                        <v-flex xs12>
-                            <p>City Name</p>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field
-                                label="City" type="text"
-                                name="city"
-                                v-model="model.name"
-                                :error-messages="getErrorValue('city')"
-                                v-validate="'required'"
-                                solo
-                            ></v-text-field>
-
                         </v-flex>
                     </v-layout>
 

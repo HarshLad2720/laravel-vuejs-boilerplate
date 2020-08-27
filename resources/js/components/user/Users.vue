@@ -15,10 +15,50 @@
                 @click="refresh()"
             >New Item</v-btn>-->
             <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps" v-export="$getConst('USER')"></export-btn>
+            <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps"></multi-delete>
         </v-toolbar>
-        <!--<v-flex xs12 sm12 md12 lg12>
-            <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
-        </v-flex>-->
+        <v-flex xs12 sm12 md12 lg12 class="mx-4">
+            <v-layout row wrap>
+                <!--<v-flex xs3 sm3 md3 lg3 class="p-4">
+                    <v-select
+                            v-model="country_id"
+                            name="country"
+                            item-text="name"
+                            item-value="id"
+                            :items="setCountryList"
+                            @change="changeFilter()"
+                            label="Country"
+                    ></v-select>
+                </v-flex>
+                <v-flex xs3 sm3 md3 lg3 class="p-4">
+                    <v-select
+                            v-model="state_id"
+                            name="state"
+                            item-text="name"
+                            item-value="id"
+                            :items="setStateList"
+                            @change="changeFilter()"
+                            label="State"
+                    ></v-select>
+                </v-flex>-->
+                <v-flex xs3 sm3 md3 lg3 class="p-4">
+                    <v-select
+                            v-model="role_id"
+                            name="role"
+                            item-text="name"
+                            item-value="id"
+                            :items="setRoleList"
+                            @change="changeFilter()"
+                            label="Role"
+                    ></v-select>
+                </v-flex>
+                <v-flex xs3 sm3 md3 lg3 class="p-4">
+                    <v-btn class="ma-2" tile outlined @click="resetFilter()">
+                        <v-icon left>{{ icons.mdiFilter }}</v-icon> Reset Filter
+                    </v-btn>
+                </v-flex>
+            </v-layout>
+        </v-flex>
         <v-data-table
             v-model="selected"
             :headers="headers"

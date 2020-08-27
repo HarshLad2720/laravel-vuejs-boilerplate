@@ -2,6 +2,7 @@ import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
 import ExportBtn from "../../partials/ExportBtn";
 import AddCountry from "./AddCountry";
+import MultiDelete from "../../partials/MultiDelete";
 import {
     mdiPencil,
     mdiDelete,
@@ -33,6 +34,10 @@ export default CustomTable.extend({
                 idProps: '',
                 storeProps: '',
             },
+            deleteProps:{
+                ids: '',
+                store: '',
+            },
             exportProps:{
                 id: '',
                 store: '',
@@ -50,7 +55,8 @@ export default CustomTable.extend({
     components: {
         DeleteModal,
         AddCountry,
-        ExportBtn
+        ExportBtn,
+        MultiDelete
     },
     computed: {
         ...mapState({
@@ -95,6 +101,7 @@ export default CustomTable.extend({
                     this.errorArr = response.data.error;
                     this.errorDialog = true;
                 } else {
+                    this.$store.commit('countryStore/setModel', {model: response.data});
                     this.addCountryModal = true;
                 }
             }, error => {
@@ -108,6 +115,19 @@ export default CustomTable.extend({
             this.confirmation.title = this.$getConst('DELETE_TITLE');
             this.confirmation.description = this.$getConst('WARNING');
             this.modalOpen = true;
+        },
+        /**
+         * Multiple Delete
+         */
+        multipleDelete(){
+            let rowIds = [];
+            this.selected.forEach((element, index) => {
+                rowIds[index] = element.id;
+            });
+
+            this.deleteProps.ids = rowIds;
+            this.deleteProps.store = 'roleStore';
+            this.$refs.multipleDeleteBtn.deleteMulti();
         },
     },
     mounted(){}
