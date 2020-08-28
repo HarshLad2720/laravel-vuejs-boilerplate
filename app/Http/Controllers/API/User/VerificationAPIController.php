@@ -47,7 +47,7 @@ class VerificationAPIController extends Controller
     public function resend(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return response()->json('User already have verified email!', 422);
+            return response()->json('User already have verified email!', config('constants.validation_codes.422'));
         }
         $request->user()->sendEmailVerificationNotification();
         return response()->json('The notification has been resubmitted');

@@ -2,10 +2,9 @@
 
 namespace App\Models\User;
 
+use App\Http\Resources\DataTrueResource;
 use App\Traits\Scopes;
 use App\Traits\CreatedbyUpdatedby;
-use App\Models\User\Role;
-use App\Models\User\Permission_role;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -165,6 +164,23 @@ class Permission extends Model
         }
 
         return response()->json(['data' => true]);
+    }
+
+    /**
+     * Multiple Delete
+     * @param $query
+     * @param $request
+     * @return DataTrueResource|\Illuminate\Http\JsonResponse
+     */
+    public function scopeDeleteAll($query,$request){
+        if(!empty($request->id)) {
+            Permission::whereIn('id', $request->id)->delete();
+
+            return new DataTrueResource(true);
+        }
+        else{
+            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], config('constants.validation_codes.422'));
+        }
     }
 
 }

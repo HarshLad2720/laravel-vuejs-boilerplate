@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API\User;
 
 use App\User;
 use App\Models\User\Import_csv_log;
-use App\Http\Requests\User\UsersRequest;
 use App\Http\Resources\User\ImportCsvLogsCollection;
 use App\Http\Resources\User\ImportCsvLogsResource;
 use Illuminate\Http\Request;
