@@ -1,8 +1,8 @@
 <?php
 
 namespace App;
+use App\Http\Resources\DataTrueResource;
 use App\Http\Resources\User\UsersResource;
-use App\Imports\User\StatesImport;
 use App\Imports\User\UsersImport;
 use App\Models\User\Country;
 use App\Models\User\Hobby;
@@ -14,10 +14,9 @@ use App\Models\User\UserGallery;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\Scopes;
 use Laravel\Passport\HasApiTokens;
-use Illuminate\Support\Facades\Schema;
+use Maatwebsite\Excel\Facades\Excel;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -218,6 +217,29 @@ class User extends Authenticatable implements MustVerifyEmail
         return response()->json(['success' => config('constants.messages.registration_success')],200);
     }
 
+    /**
+     * Multiple Delete
+     * @param $query
+     * @param $request
+     * @return DataTrueResource|\Illuminate\Http\JsonResponse
+     */
+    public function scopeDeleteAll($query,$request){
+        if(!empty($request->id)) {
+            User::whereIn('id', $request->id)->delete();
+            return new DataTrueResource(true);
+        }
+        else{
+            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], config('constants.validation_codes.422'));
+        }
+    }
+
+    /**
+     * update User
+     * @param $query
+     * @param $request
+     * @param $user
+     * @return UsersResource
+     */
     public function scopeUpdateUser($query,$request,$user){
         $data = $request->all();
         if($request->hasfile('profile')) {
@@ -261,7 +283,7 @@ class User extends Authenticatable implements MustVerifyEmail
             $path1 = $request->file('file')->store('temp');
             $path = storage_path('app') . '/' . $path1;
             $import = new UsersImport;
-            $data = \Excel::import($import, $path);
+            $data = Excel::import($import, $path);
             if (count($import->getErrors()) > 0) {
                 $file = $request->file('file')->getClientOriginalName();
                 $error_jason = json_encode($import->getErrors());

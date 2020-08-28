@@ -96,13 +96,7 @@ class UsersAPIController extends Controller
      */
     public function deleteAll(Request $request)
     {
-        if(!empty($request->id)) {
-            User::whereIn('id', $request->id)->delete();
-            return new DataTrueResource(true);
-        }
-        else{
-            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], config('constants.validation_codes.422'));
-        }
+        return User::DeleteAll($request);
     }
     /**
      * Export Users Data
