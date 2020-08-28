@@ -41,7 +41,7 @@ class Authenticate extends Middleware
         }
 
         catch (Exception $e) {
-            return \Illuminate\Support\Facades\Response::make("Authorization Token not found", 401);
+            return \Illuminate\Support\Facades\Response::make("Authorization Token not found", config('constants.validation_codes.401'));
         }
     }
 

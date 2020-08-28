@@ -44,7 +44,7 @@ class LoginController extends Controller
             ->first();
 
         if ((isset($user) && $user->status != config('constants.user.status_code.active'))) {
-            return response()->json(['error' => config('constants.messages.login.unverified_account')],422);
+            return response()->json(['error' => config('constants.messages.login.unverified_account')],config('constants.validation_codes.422'));
         }
 
         $credentials = request(['email', 'password']);
@@ -65,7 +65,7 @@ class LoginController extends Controller
             $user->authorization = $tokenResult->accessToken;
             return new UsersResource($user);
         }else{
-            return response("No User found.", 422 );
+            return response("No User found.", config('constants.validation_codes.422') );
         }
 
     }
@@ -87,9 +87,9 @@ class LoginController extends Controller
             if ($masterUser->update($masterData)) {
                 return new DataTrueResource($masterUser);
             }else
-                return response()->json(['error' => config("constants.messages.something_wrong")],422);
+                return response()->json(['error' => config("constants.messages.something_wrong")],config('constants.validation_codes.422'));
         } else {
-            return response()->json(['error' => config("constants.messages.invalid_old_password")],422);
+            return response()->json(['error' => config("constants.messages.invalid_old_password")],config('constants.validation_codes.422'));
         }
     }
 

@@ -103,14 +103,7 @@ class RolesAPIController extends Controller
      */
     public function deleteAll(Request $request)
     {
-        if(!empty($request->id)) {
-            Role::whereIn('id', $request->id)->delete();
-
-            return new DataTrueResource(true);
-        }
-        else{
-            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], 422);
-        }
+        return Role::DeleteAll($request);
     }
     /**
      * Export Roles Data
@@ -130,7 +123,6 @@ class RolesAPIController extends Controller
 
     public function getPermissionsByRole(Request $request)
     {
-        //return new RolesResource($role->load([]));
         $role = Role::findorfail($request->id);//get role details
         $allPermission = Permission::getPermissions($role);
         return response()->json(['data' => $allPermission]);
