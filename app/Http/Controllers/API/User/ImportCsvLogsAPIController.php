@@ -44,7 +44,7 @@ class ImportCsvLogsAPIController extends Controller
     public function show(import_csv_log $import_csv_log)
     {
         $Import_csv_log = Import_csv_log::where('id', $import_csv_log->id)->first();
-        return response()->json(['errors' => \GuzzleHttp\json_decode($Import_csv_log->error_log)], 200);
+        return response()->json(['errors' => \GuzzleHttp\json_decode($Import_csv_log->error_log)], config('constants.validation_codes.200'));
     }
 
 }

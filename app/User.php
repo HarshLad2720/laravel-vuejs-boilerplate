@@ -214,7 +214,7 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         $user->sendEmailVerificationNotification();
-        return response()->json(['success' => config('constants.messages.registration_success')],200);
+        return response()->json(['success' => config('constants.messages.registration_success')], config('constants.validation_codes.200'));
     }
 
     /**
