@@ -1,6 +1,12 @@
 import {mapGetters, mapState} from 'vuex';
 
 import moment from 'moment-timezone';
+import {
+    mdiPencil,
+    mdiDelete,
+    mdiFilter,
+    mdiPaperclip,
+} from '@mdi/js'
 var timeConst = 'hh:mm A';
 var dateConst = 'DD-MM-YYYY';
 var datePickerFormatConst = 'YYYY-MM-DD';
@@ -33,6 +39,12 @@ export default {
                 value => !!value || 'E-mail is required',
                 value => /.+@.+\..+/.test(value.email) || /.+@.+\..+/.test(value) || 'E-mail must be valid',
             ],
+            icons: {
+                mdiPencil,
+                mdiDelete,
+                mdiFilter,
+                mdiPaperclip
+            },
         }
     },
     computed: {

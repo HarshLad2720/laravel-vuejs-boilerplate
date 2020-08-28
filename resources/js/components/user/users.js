@@ -20,6 +20,8 @@ export default CustomTable.extend({
     data: function () {
         var self = this;
         return {
+            tab: null,
+            files: [],
             modalOpen: false,
             statename:'userStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
             headers: [
@@ -33,7 +35,7 @@ export default CustomTable.extend({
                 { text: 'Mobile', value: 'mobile_no' },
                 { text: 'Email', value: 'email' },
                 { text: 'Role', value: 'role.name' },
-                { text: 'status', value: 'status_text' },
+                { text: 'Status', value: 'status_text' },
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
             options:{
