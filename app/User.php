@@ -7,9 +7,10 @@ use App\Models\User\State;
 use App\Models\User\City;
 use App\Models\User\Role;
 use App\Models\User\UserGallery;
-use App\Models\User\UserHobby;
+use App\Models\User\Hobby_user;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Schema;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable,Scopes,HasApiTokens;
+    use Notifiable,Scopes,HasApiTokens, SoftDeletes;
 
     protected $table = 'users';
 

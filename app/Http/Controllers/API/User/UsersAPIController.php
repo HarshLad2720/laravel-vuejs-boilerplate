@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\User;
 use App\Exports\User\UsersExport;
 use App\Imports\User\UsersImport;
 use App\Http\Resources\DataTrueResource;
+use App\Models\User\Hobby_user;
+use Illuminate\Filesystem\Filesystem;
 use App\User;
 use App\Models\User\UserGallery;
 use App\Models\User\Import_User_log;
@@ -13,6 +15,7 @@ use App\Http\Resources\User\UsersResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\UploadTrait;
 
@@ -50,13 +53,13 @@ class UsersAPIController extends Controller
         $user = User::create($data);
 
         if($request->hasfile('profile')) {
-            $path = $this->uploadOne($request->file('profile'), '/public/user/'. $user->id);
+            $path = $this->uploadOne($request->file('profile'), '/user/'. $user->id);
             $user->update(['profile' => $path]);
         }
 
         if($request->hasfile('gallery')) {
             foreach ($request->file('gallery') as $photo) {
-                $path = $this->uploadOne($photo,'/public/gallery/'. $user->id);
+                $path = $this->uploadOne($photo,'/gallery/'. $user->id);
                 UserGallery::create(['user_id' => $user->id, 'filename' => $path]);
             }
         }
@@ -100,23 +103,15 @@ class UsersAPIController extends Controller
     {
         $data = $request->except(['profile']);
         if($request->hasfile('profile')) {
-            $this->deleteOne([$user->profile]);
-            $path = $this->uploadOne($request->file('profile'), '/public/user/'. $user->id);
+            $this->deleteOne('/user/' . $user->id . '/' . basename($user->profile));
+            $path = $this->uploadOne($request->file('profile'), '/user/'. $user->id);
             $user->update(['profile' => $path]);
         }
 
         if($request->hasfile('gallery')) {
-            $ids = $paths = [];
-            foreach ($user->user_galleries as $user_galleries) {
-                $ids[] = $user_galleries->id;
-                $paths[] = $user_galleries->filename;
-            }
-            UserGallery::destroy($ids);
-            $this->deleteOne($paths);
-
             if($request->hasfile('gallery')) {
                 foreach ($request->file('gallery') as $photo) {
-                    $path = $this->uploadOne($photo,'/public/gallery/'. $user->id);
+                    $path = $this->uploadOne($photo,'/gallery/'. $user->id);
                     UserGallery::create(['user_id' => $user->id, 'filename' => $path]);
                 }
             }
@@ -140,6 +135,12 @@ class UsersAPIController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
+        $user->hobbies()->detach();
+
+        Storage::deleteDirectory('/gallery/' . $user->id);
+        UserGallery::where('user_id', $user->id)->delete();
+
+        Storage::deleteDirectory('/user/' . $user->id);
         $user->delete();
         return new DataTrueResource($user);
     }
@@ -155,8 +156,7 @@ class UsersAPIController extends Controller
             User::whereIn('id', $request->id)->delete();
 
             return new DataTrueResource(true);
-        }
-        else{
+        } else{
             return response()->json(['error' =>config('constants.messages.delete_multiple_error')], 422);
         }
     }
@@ -173,14 +173,14 @@ class UsersAPIController extends Controller
     /**
      * Delete gallery
      * @param Request $request
-     * @param User $user
+     * @param UserGallery $gallery
      * @return DataTrueResource
      * @throws \Exception
      */
     public function delete_gallery(Request $request, UserGallery $gallery)
     {
+        $this->deleteOne('/gallery/' . $gallery->user_id . '/' . basename($gallery->filename));
         $gallery->delete();
-
         return new DataTrueResource($gallery);
     }
 
@@ -205,10 +205,8 @@ class UsersAPIController extends Controller
                 return response()->json(['errors' => $import->getErrors()], 422);
             }
             return response()->json(['success' => true]);
-        }
-        else{
+        }  else {
             return response()->json(['error' =>config('constants.messages.file_csv_error')], 422);
         }
     }
-
 }
