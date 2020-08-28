@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\User;
 use App\Exports\User\UsersExport;
 use App\Imports\User\UsersImport;
 use App\Http\Resources\DataTrueResource;
+use App\Models\User\Hobby_user;
+use Illuminate\Filesystem\Filesystem;
 use App\User;
 use App\Models\User\UserGallery;
 use App\Models\User\Import_csv_log;
@@ -13,13 +15,15 @@ use App\Http\Resources\User\UsersResource;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
-use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Traits\UploadTrait;
 
 
 class UsersAPIController extends Controller
 {
 
+    use UploadTrait;
     /*
    |--------------------------------------------------------------------------
    | Users Controller
@@ -49,22 +53,14 @@ class UsersAPIController extends Controller
         $user = User::create($data);
 
         if($request->hasfile('profile')) {
-            $real_path = 'user/' . $user->id . '/';
-            $file_data = $request->file('profile')->store('/public/' . $real_path);
-            $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
-            $user->update(['profile' => $filename]);
+            $path = $this->uploadOne($request->file('profile'), '/user/'. $user->id);
+            $user->update(['profile' => $path]);
         }
 
         if($request->hasfile('gallery')) {
-
-            foreach ($request->gallery as $image) {
-                $real_path = 'gallery/'.$user->id.'/';
-                $file_data = $image->store('/public/' . $real_path);
-                $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
-                UserGallery::create([
-                    'user_id' => $user->id,
-                    'filename' => $filename
-                ]);
+            foreach ($request->file('gallery') as $photo) {
+                $path = $this->uploadOne($photo,'/gallery/'. $user->id);
+                UserGallery::create(['user_id' => $user->id, 'filename' => $path]);
             }
         }
 
@@ -105,24 +101,19 @@ class UsersAPIController extends Controller
      */
     public function update(UsersRequest $request, User $user)
     {
-        $data = $request->all();
+        $data = $request->except(['profile']);
         if($request->hasfile('profile')) {
-            $real_path = 'user/' . $user->id . '/';
-            $file_data = $request->file('profile')->store('/public/' . $real_path);
-            $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
-            $data['profile'] = $filename;
+            $this->deleteOne('/user/' . $user->id . '/' . basename($user->profile));
+            $path = $this->uploadOne($request->file('profile'), '/user/'. $user->id);
+            $user->update(['profile' => $path]);
         }
 
         if($request->hasfile('gallery')) {
-
-            foreach ($request->gallery as $image) {
-                $real_path = 'gallery/'.$user->id.'/';
-                $file_data = $image->store('/public/' . $real_path);
-                $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
-                UserGallery::create([
-                    'user_id' => $user->id,
-                    'filename' => $filename
-                ]);
+            if($request->hasfile('gallery')) {
+                foreach ($request->file('gallery') as $photo) {
+                    $path = $this->uploadOne($photo,'/gallery/'. $user->id);
+                    UserGallery::create(['user_id' => $user->id, 'filename' => $path]);
+                }
             }
         }
 
@@ -132,6 +123,7 @@ class UsersAPIController extends Controller
         }
 
         $user->update($data);
+
         return new UsersResource($user);
     }
 
@@ -144,7 +136,14 @@ class UsersAPIController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
+        $user->hobbies()->detach();
+
+        Storage::deleteDirectory('/gallery/' . $user->id);
+        UserGallery::where('user_id', $user->id)->delete();
+
+        Storage::deleteDirectory('/user/' . $user->id);
         $user->delete();
+
         return new DataTrueResource($user);
     }
 
@@ -157,9 +156,9 @@ class UsersAPIController extends Controller
     {
         if(!empty($request->id)) {
             User::whereIn('id', $request->id)->delete();
+
             return new DataTrueResource(true);
-        }
-        else{
+        } else{
             return response()->json(['error' =>config('constants.messages.delete_multiple_error')], 422);
         }
     }
@@ -176,13 +175,15 @@ class UsersAPIController extends Controller
     /**
      * Delete gallery
      * @param Request $request
-     * @param User $user
+     * @param UserGallery $gallery
      * @return DataTrueResource
      * @throws \Exception
      */
     public function delete_gallery(Request $request, UserGallery $gallery)
     {
+        $this->deleteOne('/gallery/' . $gallery->user_id . '/' . basename($gallery->filename));
         $gallery->delete();
+
         return new DataTrueResource($gallery);
     }
 
