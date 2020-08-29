@@ -13,7 +13,7 @@
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                     <v-layout row wrap>
                         <v-flex lg10>
-                            <v-text-field solo
+                            <v-text-field
                                 :type="show_old_password ? 'text' : 'password'"
                                 @click:append="show_old_password = !show_old_password"
                                 :append-icon="show_old_password ? 'visibility' : 'visibility_off'"
@@ -28,7 +28,7 @@
                             ></v-text-field>
                         </v-flex>
                         <v-flex lg10>
-                            <v-text-field solo
+                            <v-text-field
                                 :type="show_new_password ? 'text' : 'password'"
                                 @click:append="show_new_password = !show_new_password"
                                 :append-icon="show_new_password ? 'visibility' : 'visibility_off'"
@@ -46,7 +46,7 @@
                     </v-layout>
                     <v-layout row wrap>
                         <v-flex lg10>
-                            <v-text-field solo
+                            <v-text-field
                                 :type="show_new_confirmation_password ? 'text' : 'password'"
                                 @click:append="show_new_confirmation_password = !show_new_confirmation_password"
                                 :append-icon="show_new_confirmation_password ? 'visibility' : 'visibility_off'"

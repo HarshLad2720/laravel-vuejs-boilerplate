@@ -24,18 +24,13 @@
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <p>Hobby Name</p>
-                        </v-flex>
-                        <v-flex xs12>
                             <v-text-field
                                 label="Hobby" type="text"
                                 name="hobby"
                                 v-model="model.name"
                                 :error-messages="getErrorValue('hobby')"
                                 v-validate="'required'"
-                                solo
                             ></v-text-field>
-
                         </v-flex>
                     </v-layout>
 

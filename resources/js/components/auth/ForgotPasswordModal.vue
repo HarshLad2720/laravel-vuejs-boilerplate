@@ -19,7 +19,6 @@
                                 name="email"
                                 type="email"
                                 maxlength="50"
-                                solo
                                 v-validate="'required|email'"
                             ></v-text-field>
                     <v-btn class="btn btn-primary" :loading="isSubmitting" type="submit">Submit</v-btn>

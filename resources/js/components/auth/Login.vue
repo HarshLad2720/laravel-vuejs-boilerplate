@@ -38,7 +38,6 @@
                             v-model="loginDetail.email"
                             :error-messages="getErrorValue('email')"
                             v-validate="'required|email'"
-                            solo
                         ></v-text-field>
                     </v-flex>
                     <v-flex xs12>
@@ -48,7 +47,6 @@
                             v-model="loginDetail.password"
                             :error-messages="getErrorValue('password')"
                             v-validate="'required|min:6'"
-                            solo
                         ></v-text-field>
                     </v-flex>
                 </v-layout>

@@ -5,7 +5,7 @@
                 class="headline black-bg"
                 primary-title
             >
-                {{isEditMode ? 'Update' : 'Add'}} Role
+                {{isEditMode ? 'Update' : 'Add'}} City
             </v-card-title>
 
             <v-card-text>
@@ -24,21 +24,13 @@
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <p>City Name</p>
-                        </v-flex>
-                        <v-flex xs12>
                             <v-text-field
                                 label="City" type="text"
                                 name="city"
                                 v-model="model.name"
                                 :error-messages="getErrorValue('city')"
                                 v-validate="'required'"
-                                solo
                             ></v-text-field>
-
-                        </v-flex>
-                        <v-flex xs12>
-                            <p>Select State</p>
                         </v-flex>
                         <v-flex xs12>
                             <v-autocomplete
@@ -49,10 +41,7 @@
                                     :items="setStateList"
                                     :error-messages="getErrorValue('state')"
                                     v-validate="'required'"
-                                    dense
-                                    filled
                                     label="state"
-                                    solo
                             ></v-autocomplete>
                         </v-flex>
                     </v-layout>

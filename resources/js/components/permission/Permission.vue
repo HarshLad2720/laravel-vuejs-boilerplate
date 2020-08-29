@@ -11,7 +11,7 @@
                           id="permission_form">
                         <v-layout row wrap class="pl-5 pr-5">
                             <v-flex lg12 md12 sm12 xs12>
-                                <v-select solo class="mb-5 mt-7" v-getPermissionsByRole="$getConst('ROLE')"
+                                <v-select class="mb-5 mt-7" v-getPermissionsByRole="$getConst('ROLE')"
                                           :items="roleList"
                                           item-value="id"
                                           item-text="name"

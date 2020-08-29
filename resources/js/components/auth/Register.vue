@@ -37,7 +37,6 @@
                       v-model="model.name"
                       :error-messages="getErrorValue('name')"
                       v-validate="'required'"
-                      solo
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -48,7 +47,6 @@
                       :error-messages="getErrorValue('email')"
                       :disabled="isEditMode"
                       v-validate="'required|email'" autocomplete="email"
-                      solo
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -57,8 +55,7 @@
                       name="password"
                       v-model="model.password"
                       :error-messages="getErrorValue('password')"
-                      v-validate="isEditMode ? '' :'required|min:6'" autocomplete="new-password"
-                      solo v-if="!isEditMode"
+                      v-validate="isEditMode ? '' :'required|min:6'" autocomplete="new-password" v-if="!isEditMode"
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -69,7 +66,6 @@
                       v-model="model.mobile_no"
                       :error-messages="getErrorValue('mobile_no')"
                       v-validate="'required|min:10|max:10'"
-                      solo
                   ></v-text-field>
               </v-flex>
               <template row wrap v-if="model.profile != ''">
@@ -82,7 +78,7 @@
               <v-flex xs12>
                   <label>Profile Image<span class="red--text" v-if="!isEditMode">*</span></label>
                   <v-file-input
-                      attach solo
+                      attach
                       v-model="model.profile_upload"
                       :rules="rules"
                       @click:clear="model.profile_upload=null"
@@ -116,7 +112,6 @@
                               readonly
                               v-on="on"
                               single-line
-                              solo
                               v-model="computedDateFormatted"
                               :error-messages="getErrorValue('dob')"
                               v-validate="'required'" name="dob"
@@ -133,7 +128,6 @@
                       v-model="model.address"
                       :error-messages="getErrorValue('address')"
                       v-validate="'required'"
-                      solo
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
@@ -146,7 +140,6 @@
                       item-value="id"
                       :error-messages="getErrorValue('country_id')"
                       v-validate="'required'"
-                      solo
                       @change="getState()"
                   ></v-select>
               </v-flex>
@@ -161,7 +154,6 @@
                       :error-messages="getErrorValue('state_id')"
                       v-validate="'required'"
                       @change="getCity()"
-                      solo
                   ></v-select>
               </v-flex>
               <v-flex xs12>
@@ -174,7 +166,6 @@
                       item-value="id"
                       :error-messages="getErrorValue('city_id')"
                       v-validate="'required'"
-                      solo
                   ></v-select>
               </v-flex>
               <v-flex xs12 v-if="isEditMode" class="mb-3">
@@ -182,7 +173,7 @@
               </v-flex>
               <v-flex xs12>
                   <label>Gallery<span class="red--text" v-if="!isEditMode">*</span></label>
-                  <v-file-input multiple name="gallery" v-model="model.gallery" solo :error-messages="getErrorValue('gallery')"
+                  <v-file-input multiple name="gallery" v-model="model.gallery" :error-messages="getErrorValue('gallery')"
                                 v-validate="isEditMode ? '' :'required'"></v-file-input>
               </v-flex>
               <v-flex xs12>

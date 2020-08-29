@@ -26,7 +26,7 @@
                 <v-layout row wrap>
                     <v-flex lg12>
 <!--                        {{$route.params.id}}-->
-                        <v-text-field solo
+                        <v-text-field
                             :type="show_new_password ? 'text' : 'password'"
                             @click:append="show_new_password = !show_new_password"
                             :append-icon="show_new_password ? 'visibility' : 'visibility_off'"
@@ -44,7 +44,7 @@
                 </v-layout>
                 <v-layout row wrap>
                     <v-flex lg12>
-                        <v-text-field solo
+                        <v-text-field
                             :type="show_new_confirmation_password ? 'text' : 'password'"
                             @click:append="show_new_confirmation_password = !show_new_confirmation_password"
                             :append-icon="show_new_confirmation_password ? 'visibility' : 'visibility_off'"
