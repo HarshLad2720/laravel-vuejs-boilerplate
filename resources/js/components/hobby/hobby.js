@@ -13,8 +13,8 @@ export default CustomTable.extend({
     data: function () {
         var self = this;
         return {
-
-
+            tab: null,
+            files: [],
             modalOpen: false,
             addCityModal: false,
             statename:'hobbyStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
