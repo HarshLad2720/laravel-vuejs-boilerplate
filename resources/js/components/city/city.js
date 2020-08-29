@@ -2,12 +2,8 @@ import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
 import ExportBtn from "../../partials/ExportBtn";
 import MultiDelete from "../../partials/MultiDelete";
-import AddCity from "./AddCity";
-import {
-    mdiPencil,
-    mdiDelete,
-    mdiFilter
-} from '@mdi/js'
+import AddCity from "./AddCity.vue";
+import CommonServices from '../../common_services/common.js';
 import {mapState} from "vuex";
 
 export default CustomTable.extend({
@@ -27,11 +23,6 @@ export default CustomTable.extend({
             ],
             options:{
                 filter:{},
-            },
-            icons: {
-                mdiPencil,
-                mdiDelete,
-                mdiFilter
             },
             paramProps:{
                 idProps: '',
@@ -62,8 +53,10 @@ export default CustomTable.extend({
                 storeProps: '',
             },
             state_id:'',
+            filtermenu: false,
         }
     },
+    mixins: [CommonServices],
     components: {
         DeleteModal,
         AddCity,
@@ -152,6 +145,7 @@ export default CustomTable.extend({
                 filter.city_id = [this.city_id];
             }
             this.options.filter =filter;
+            this.filtermenu= false;
         },
         /**
          * Reset Filter

@@ -25,23 +25,29 @@
                         v-index = "$getConst('HOBBY')"
                 >
                     <template v-slot:top>
-                        <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
-                        <v-toolbar flat color="white">
-                            <v-toolbar-title>Hobby</v-toolbar-title>
-                            <v-divider
-                                    class="mx-4"
-                                    inset
-                                    vertical
-                            ></v-divider>
-                            <v-spacer></v-spacer>
-                            <v-btn v-store = "$getConst('HOBBY')"
-                                   color="primary"
-                                   dark
-                                   class="mb-2 mr-2"
-                                   @click="addhobby()"
-                            >Add Hobby</v-btn>
-                            <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps" v-export = "$getConst('HOBBY')"></export-btn>
-                        </v-toolbar>
+
+                        <v-layout>
+                            <v-flex xs12 sm12 md4 lg4>
+                                <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm12 md8 lg8>
+                                <div class="float-right mt-4">
+                                    <v-tooltip bottom>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn v-store = "$getConst('HOBBY')"
+                                                   color="primary"
+                                                   dark
+                                                   class="mb-2 mr-2" v-on="on"
+                                                   @click="addhobby()"
+                                            ><v-icon small>{{ icons.mdiPlus }}</v-icon></v-btn>
+                                        </template>
+                                        <span>Add Hobby</span>
+                                    </v-tooltip>
+
+                                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps" v-export = "$getConst('HOBBY')"></export-btn>
+                                </div>
+                            </v-flex>
+                        </v-layout>
                     </template>
 
                     <template v-slot:item.actions="{ item }">

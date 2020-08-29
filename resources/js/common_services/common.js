@@ -7,7 +7,8 @@ import {
     mdiFilter,
     mdiPaperclip,
     mdiExport,
-    mdiClose
+    mdiClose,
+    mdiPlus
 } from '@mdi/js'
 var timeConst = 'hh:mm A';
 var dateConst = 'DD-MM-YYYY';
@@ -33,7 +34,8 @@ export default {
                 mdiFilter,
                 mdiPaperclip,
                 mdiExport,
-                mdiClose
+                mdiClose,
+                mdiPlus,
             },
         }
     },

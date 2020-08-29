@@ -10,43 +10,6 @@
         </v-tabs>
         <v-tabs-items v-model="tab">
             <v-tab-item key="Tab1">
-                <v-toolbar flat color="white">
-                    <v-toolbar-title>State</v-toolbar-title>
-                    <v-divider
-                            class="mx-4"
-                            inset
-                            vertical
-                    ></v-divider>
-                    <v-spacer></v-spacer>
-                    <v-btn  v-store = "$getConst('STATE')"
-                            color="primary"
-                            dark
-                            class="mb-2 mr-2"
-                            @click="addSate()"
-                    >Add State</v-btn>
-                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps"  v-export = "$getConst('STATE')"></export-btn>
-                    <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps"></multi-delete>
-                </v-toolbar>
-                <v-flex xs12 sm12 md12 lg12 class="mx-4">
-                    <v-layout row wrap>
-                        <v-flex xs3 sm3 md3 lg3 class="p-4">
-                            <v-select
-                                    v-model="country_id"
-                                    name="country"
-                                    item-text="name"
-                                    item-value="id"
-                                    :items="setCountryList"
-                                    @change="changeFilter()"
-                                    label="Country"
-                            ></v-select>
-                        </v-flex>
-                        <v-flex xs3 sm3 md3 lg3 class="p-4">
-                            <v-btn class="ma-2" tile outlined @click="resetFilter()">
-                                <v-icon left>{{ icons.mdiFilter }}</v-icon> Reset Filter
-                            </v-btn>
-                        </v-flex>
-                    </v-layout>
-                </v-flex>
                 <v-data-table
                         v-model="selected"
                         :headers="headers"
@@ -62,7 +25,65 @@
                         v-index = "$getConst('STATE')"
                 >
                     <template v-slot:top>
-                        <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
+                        <v-layout>
+                            <v-flex xs12 sm12 md4 lg4>
+                                <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm12 md8 lg8>
+                                <div class="float-right mt-4">
+                                    <v-menu
+                                        v-model="filtermenu"
+                                        :close-on-content-click="false"
+                                        :nudge-width="200"
+                                        offset-y
+                                    >
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn class="mb-2 mr-2"
+                                                   color="indigo"
+                                                   dark
+                                                   v-bind="attrs"
+                                                   v-on="on"
+                                            >
+                                                <v-icon small>{{ icons.mdiFilter }}</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <v-card class="p-4">
+                                            <v-list>
+                                                <v-btn text @click="filtermenu = false" class="float-right filter-close-btn"><v-icon small>{{ icons.mdiClose }}</v-icon></v-btn>
+                                                <v-select
+                                                    v-model="country_id"
+                                                    name="country"
+                                                    item-text="name"
+                                                    item-value="id"
+                                                    :items="setCountryList"
+                                                    label="Country"
+                                                ></v-select>
+                                            </v-list>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn text @click="resetFilter()">Reset Filter</v-btn>
+                                                <v-btn color="primary" text @click="changeFilter()">Apply Filter</v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-menu>
+
+                                    <v-tooltip bottom>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn  v-store = "$getConst('STATE')"
+                                                    color="primary"
+                                                    dark
+                                                    class="mb-2 mr-2"
+                                                    v-on="on"
+                                                    @click="addSate()"
+                                            ><v-icon small>{{ icons.mdiPlus }}</v-icon></v-btn>
+                                        </template>
+                                        <span>Add Role</span>
+                                    </v-tooltip>
+                                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps"  v-export = "$getConst('STATE')"></export-btn>
+                                    <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps"></multi-delete>
+                                </div>
+                            </v-flex>
+                        </v-layout>
                     </template>
 
                     <template v-slot:item.actions="{ item }">

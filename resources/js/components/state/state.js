@@ -2,21 +2,16 @@ import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
 import ExportBtn from "../../partials/ExportBtn";
 import MultiDelete from "../../partials/MultiDelete";
-import AddState from "./AddState";
-import {
-    mdiPencil,
-    mdiDelete,
-    mdiFilter
-} from '@mdi/js'
+import AddState from "./AddState.vue";
 import {mapState} from "vuex";
+import CommonServices from '../../common_services/common.js';
 
 export default CustomTable.extend({
     name: "Country",
     data: function () {
         var self = this;
         return {
-
-
+            tab: null,
             modalOpen: false,
             addSateModal: false,
             statename:'stateStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
@@ -27,11 +22,6 @@ export default CustomTable.extend({
             ],
             options:{
                 filter:{},
-            },
-            icons: {
-                mdiPencil,
-                mdiDelete,
-                mdiFilter
             },
             paramProps:{
                 idProps: '',
@@ -54,8 +44,10 @@ export default CustomTable.extend({
                 btnConfirmationText: self.$getConst('BTN_OK'),
             },
             country_id:'',
+            filtermenu: false,
         }
     },
+    mixins: [CommonServices],
     components: {
         DeleteModal,
         AddState,
@@ -144,6 +136,7 @@ export default CustomTable.extend({
                 filter.country_id = [this.country_id];
             }
             this.options.filter =filter;
+            this.filtermenu= false;
         },
         /**
          * Reset Filter

@@ -145,7 +145,6 @@ export default CustomTable.extend({
          * Filter
          */
         changeFilter(){
-            debugger;
             //this.options.filter = {};
             let filter = {};
             if(this.role_id != ''){

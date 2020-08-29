@@ -1,11 +1,8 @@
 import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
 import ExportBtn from "../../partials/ExportBtn";
-import AddHobby from "./AddHobby";
-import {
-    mdiPencil,
-    mdiDelete,
-} from '@mdi/js'
+import AddHobby from "./AddHobby.vue";
+import CommonServices from '../../common_services/common.js';
 import {mapState} from "vuex";
 
 export default CustomTable.extend({
@@ -24,10 +21,6 @@ export default CustomTable.extend({
             ],
             options:{
                 filter:{},
-            },
-            icons: {
-                mdiPencil,
-                mdiDelete,
             },
             paramProps:{
                 idProps: '',
@@ -55,6 +48,7 @@ export default CustomTable.extend({
             },
         }
     },
+    mixins: [CommonServices],
     components: {
         DeleteModal,
         AddHobby,

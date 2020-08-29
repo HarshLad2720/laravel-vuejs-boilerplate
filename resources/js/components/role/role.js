@@ -1,15 +1,10 @@
 import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
-import AddRole from "./AddRole";
+import AddRole from "./AddRole.vue";
 import ExportBtn from "../../partials/ExportBtn";
 import MultiDelete from "../../partials/MultiDelete";
 import {mapState} from "vuex";
-
-import {
-    mdiPencil,
-    mdiDelete,
-    mdiFilter
-} from '@mdi/js'
+import CommonServices from '../../common_services/common.js';
 
 export default CustomTable.extend({
     name: "Role",
@@ -27,11 +22,6 @@ export default CustomTable.extend({
             ],
             options:{
                 filter:{},
-            },
-            icons: {
-                mdiPencil,
-                mdiDelete,
-                mdiFilter
             },
             paramProps:{
                 idProps: '',
@@ -62,8 +52,10 @@ export default CustomTable.extend({
                 storeProps: '',
             },
             role_id:'',
+            filtermenu: false,
         }
     },
+    mixins: [CommonServices],
     components: {
         DeleteModal,
         AddRole,
@@ -156,6 +148,7 @@ export default CustomTable.extend({
                 filter.role_id = [this.role_id];
             }
             this.options.filter =filter;
+            this.filtermenu= false;
         },
         /**
          * Reset Filter

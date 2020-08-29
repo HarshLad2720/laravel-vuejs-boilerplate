@@ -1,13 +1,10 @@
 import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
 import ExportBtn from "../../partials/ExportBtn";
-import AddCountry from "./AddCountry";
+import AddCountry from "./AddCountry.vue";
 import MultiDelete from "../../partials/MultiDelete";
-import {
-    mdiPencil,
-    mdiDelete,
-} from '@mdi/js'
 import {mapState} from "vuex";
+import CommonServices from '../../common_services/common.js';
 
 export default CustomTable.extend({
     name: "Country",
@@ -25,10 +22,6 @@ export default CustomTable.extend({
             ],
             options:{
                 filter:{},
-            },
-            icons: {
-                mdiPencil,
-                mdiDelete,
             },
             paramProps:{
                 idProps: '',
@@ -52,6 +45,7 @@ export default CustomTable.extend({
             },
         }
     },
+    mixins: [CommonServices],
     components: {
         DeleteModal,
         AddCountry,

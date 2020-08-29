@@ -10,23 +10,6 @@
         </v-tabs>
         <v-tabs-items v-model="tab">
             <v-tab-item key="Tab1">
-                <v-toolbar flat color="white">
-                    <v-toolbar-title>Country</v-toolbar-title>
-                    <v-divider
-                            class="mx-4"
-                            inset
-                            vertical
-                    ></v-divider>
-                    <v-spacer></v-spacer>
-                    <v-btn v-store="$getConst('COUNTRY')"
-                           color="primary"
-                           dark
-                           class="mb-2 mr-2"
-                           @click="addCountry()"
-                    >Add Country</v-btn>
-                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps" v-export="$getConst('COUNTRY')"></export-btn>
-                    <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps"></multi-delete>
-                </v-toolbar>
                 <v-data-table
                         v-model="selected"
                         :headers="headers"
@@ -42,7 +25,30 @@
                         v-index="$getConst('COUNTRY')"
                 >
                     <template v-slot:top>
-                        <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
+                        <v-layout>
+                            <v-flex xs12 sm12 md4 lg4>
+                                <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm12 md8 lg8>
+                                <div class="float-right mt-4">
+                                    <v-tooltip bottom>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn v-store="$getConst('COUNTRY')"
+                                                   color="primary"
+                                                   dark
+                                                   class="mb-2 mr-2"
+                                                   v-on="on"
+                                                   @click="addCountry()"
+                                            ><v-icon small>{{ icons.mdiPlus }}</v-icon></v-btn>
+                                        </template>
+                                        <span>Add Country</span>
+                                    </v-tooltip>
+                                    <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps" v-export="$getConst('COUNTRY')"></export-btn>
+                                    <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps"></multi-delete>
+
+                                </div>
+                            </v-flex>
+                        </v-layout>
                     </template>
 
                     <template v-slot:item.actions="{ item }">

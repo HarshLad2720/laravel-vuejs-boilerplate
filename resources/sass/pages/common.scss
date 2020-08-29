@@ -3,9 +3,6 @@
         padding-left: 0px !important;
     }
 }
-
-
 .v-input--selection-controls .v-input__slot>.v-label, .v-input--selection-controls .v-radio>.v-label { margin-bottom: 0 !important; }
-
 .theme--light.v-data-table>.v-data-table__wrapper>table>thead>tr>th { color: #000 !important; }
-
+.v-data-table table tbody tr td.text-start:last-child { width: 8% }
