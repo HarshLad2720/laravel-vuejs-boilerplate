@@ -218,12 +218,31 @@ export default {
          * Cancel button
          */
         onCancel() {
+            debugger;
             // this.onModalCancelPref('userStore');
             this.$emit('input');
         }
     },
     mounted() {
-        this.$store.dispatch('countryStore/getCountryList');
-        this.$store.dispatch('hobbyStore/getHobbyList');
+        this.$store.dispatch('countryStore/getCountryList').then(response => {
+            if (response.error) {
+                this.errorMessage = response.data.error;
+            } else {
+                //set Country list
+                this.$store.commit("countryStore/setCountryList", response.data.data);
+            }
+        }, function (error) {
+            this.errorMessage = this.getAPIErrorMessage(error.response);
+        });
+        this.$store.dispatch('hobbyStore/getHobbyList').then(response => {
+            if (response.error) {
+                this.errorMessage = response.data.error;
+            } else {
+                //set Hobby list
+                this.$store.commit("hobbyStore/setHobbyList", response.data.data);
+            }
+        }, function (error) {
+            this.errorMessage = this.getAPIErrorMessage(error.response);
+        });
     },
 };

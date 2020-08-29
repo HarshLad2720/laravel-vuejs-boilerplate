@@ -3,6 +3,14 @@ var baseUrl='/api/v1/';
 const cityStore = {
     namespaced:true,
     state: {
+        pagination:{
+            query: '',
+            page: 1,
+            limit: 10,
+            orderBy: '',
+            ascending: true,
+            filter: ''
+        },
         tableData:[],
         list: [],
         cityList:[],
@@ -15,6 +23,9 @@ const cityStore = {
 
     },
     mutations: {
+        setPagination(state,payload){
+            state.pagination = payload;
+        },
         setTableData(state, payload) {
             state.tableData = payload;
         },

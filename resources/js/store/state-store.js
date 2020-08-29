@@ -9,9 +9,7 @@ const stateStore = {
             limit: 10,
             orderBy: '',
             ascending: true,
-            filter: {
-                "country_id" :[]
-            }
+            filter: {}
         },
         tableData:[],
         list: [],
@@ -27,7 +25,6 @@ const stateStore = {
     mutations: {
         setPagination(state,payload){
             state.pagination = payload;
-            console.log("setpagination=>"+state.pagination);
         },
         setTableData(state, payload) {
             state.tableData = payload;

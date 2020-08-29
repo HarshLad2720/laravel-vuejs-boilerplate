@@ -33,7 +33,6 @@
       >
         <h3 class="font-weight-bold m-0">
           User Profile
-          <small class="text-muted font-size-sm ml-2">12 messages</small>
         </h3>
         <a
           href="#"
@@ -63,7 +62,6 @@
             >
               {{username}}
             </a>
-            <div class="text-muted mt-1">Application Developer</div>
             <div class="navi mt-2">
               <a href="#" class="navi-item">
                 <span class="navi-link p-0 pb-2">
@@ -82,12 +80,13 @@
                 </span>
               </a>
             </div>
-            <button class="btn btn-light-primary btn-bold mb-2" @click="onLogout" v-logout="$getConst('LOGIN')">
-              Sign out
-            </button>
-              <button class="btn btn-light-primary btn-bold" @click="changePasswordModal = true" v-changePassword="$getConst('LOGIN')">
+              <button class="btn btn-light-primary btn-bold mb-2" @click="changePasswordModal = true" v-changePassword="$getConst('LOGIN')">
                   Change Password
               </button>
+            <button class="btn btn-light-primary btn-bold " @click="onLogout" v-logout="$getConst('LOGIN')">
+              Sign out
+            </button>
+
           </div>
         </div>
         <!--end::Header-->

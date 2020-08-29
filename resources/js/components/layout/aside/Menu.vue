@@ -168,7 +168,7 @@
                               <i class="menu-bullet menu-bullet-dot">
                                   <span></span>
                               </i>
-                              <span class="menu-text">hobby</span>
+                              <span class="menu-text">Hobby</span>
                           </a>
                       </li>
                   </router-link>

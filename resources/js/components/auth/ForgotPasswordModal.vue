@@ -12,9 +12,8 @@
             <v-card-text>
                 <form method="POST" name="forgotPassword" role="form" @submit.prevent="onSubmit">
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
-                    <v-layout row wrap>
-                        <v-flex xs12>
-                            <v-text-field
+                    <v-text-field
+                                class="mt-4"
                                 label="Enter Your Registered Email ID" v-model="email"
                                 :error-messages="getErrorValue('email')"
                                 name="email"
@@ -23,15 +22,8 @@
                                 solo
                                 v-validate="'required|email'"
                             ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-
-                    <v-layout row wrap>
-                        <v-flex xs12>
-                            <v-btn color="primary" class="btn btn-theme" :loading="isSubmitting" type="submit">Submit</v-btn>
-                            <v-btn color="" class="btn btn-grey m-l-10" @click="onCancel()">Cancel</v-btn>
-                        </v-flex>
-                    </v-layout>
+                    <v-btn class="btn btn-primary" :loading="isSubmitting" type="submit">Submit</v-btn>
+                    <v-btn color="" class="btn btn-grey ml-3" @click="onCancel()">Cancel</v-btn>
                 </form>
             </v-card-text>
         </v-card>

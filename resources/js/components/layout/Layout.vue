@@ -20,16 +20,16 @@
         <!-- begin:: Content -->
         <div
           id="kt_content"
-          class="content d-flex flex-column flex-column-fluid"
+          class="content d-flex flex-column flex-column-fluid pt-0"
         >
           <!-- begin:: Content Head -->
 
           <!-- begin:: Content Head -->
-          <KTSubheader
+          <!--<KTSubheader
             v-if="subheaderDisplay"
             v-bind:breadcrumbs="breadcrumbs"
             v-bind:title="pageTitle"
-          />
+          />-->
           <!-- end:: Content Head -->
 
           <!-- begin:: Content Body -->

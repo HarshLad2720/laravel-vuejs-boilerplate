@@ -28,11 +28,11 @@
       <!--begin::Form-->
       <v-form class="form" @submit.prevent="onSubmit"  method="POST" role="form" enctype="multipart/form-data" autocomplete="off">
           <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
-          <v-layout row wrap class="display-block">
+          <v-layout row wrap class="display-block m-0 ">
 
               <v-flex xs12>
-                  <v-text-field
-                      label="Username" type="text"
+                  <label>Name<span class="red--text">*</span></label>
+                  <v-text-field type="text"
                       name="name"
                       v-model="model.name"
                       :error-messages="getErrorValue('name')"
@@ -41,18 +41,19 @@
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
-                  <v-text-field
-                      label="Email" type="text"
+                  <label>Email<span class="red--text">*</span></label>
+                  <v-text-field type="text"
                       name="email"
                       v-model="model.email"
                       :error-messages="getErrorValue('email')"
+                      :disabled="isEditMode"
                       v-validate="'required|email'" autocomplete="email"
                       solo
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
-                  <v-text-field
-                      label="Password" type="password"
+                  <label v-if="!isEditMode">Password<span class="red--text">*</span></label>
+                  <v-text-field type="password"
                       name="password"
                       v-model="model.password"
                       :error-messages="getErrorValue('password')"
@@ -61,8 +62,9 @@
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
+                  <label>Mobile No<span class="red--text">*</span></label>
                   <v-text-field
-                      label="Mobile No" type="text"
+                      type="text"
                       name="mobile_no"
                       v-model="model.mobile_no"
                       :error-messages="getErrorValue('mobile_no')"
@@ -74,15 +76,15 @@
                   <v-flex lg6>
                       Existing Profile Image :
                   </v-flex><v-flex lg6>
-                  <a :href="model.profile" target="_blank"><img :src="model.profile" width="auto" height="70" class="" style="margin-bottom: 15px"></a>
+                  <a :href="model.profile" target="_blank"><img :src="model.profile" width="auto" height="70" class="mb-4"></a>
               </v-flex>
               </template>
               <v-flex xs12>
+                  <label>Profile Image<span class="red--text" v-if="!isEditMode">*</span></label>
                   <v-file-input
                       attach solo
                       v-model="model.profile_upload"
                       :rules="rules"
-                      label="Profile Image"
                       @click:clear="model.profile_upload=null"
                       id="profile" name="profile" ref="profile"
                       :error-messages="getErrorValue('profile')"
@@ -90,6 +92,7 @@
                   </v-file-input>
               </v-flex>
               <v-flex xs12>
+                  <label>Gender<span class="red--text">*</span></label>
                   <v-radio-group row v-model="model.gender"
                                  name="gender"
                                  :error-messages="getErrorValue('gender')"
@@ -99,6 +102,7 @@
                   </v-radio-group>
               </v-flex>
               <v-flex xs12>
+                  <label>DOB<span class="red--text">*</span></label>
                   <v-menu
                       v-model="menu"
                       :close-on-content-click="false"
@@ -109,7 +113,6 @@
                   >
                       <template v-slot:activator="{ on }">
                           <v-text-field
-                              label="DOB"
                               readonly
                               v-on="on"
                               single-line
@@ -124,8 +127,8 @@
                   </v-menu>
               </v-flex>
               <v-flex xs12>
-                  <v-text-field
-                      label="Address" type="text"
+                  <label>Address<span class="red--text">*</span></label>
+                  <v-text-field type="text"
                       name="address"
                       v-model="model.address"
                       :error-messages="getErrorValue('address')"
@@ -134,11 +137,11 @@
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
+                  <label>Country<span class="red--text">*</span></label>
                   <v-select
                       name="country_id"
                       v-model="model.country_id"
                       :items="countryList"
-                      label="Country"
                       item-text="name"
                       item-value="id"
                       :error-messages="getErrorValue('country_id')"
@@ -148,11 +151,11 @@
                   ></v-select>
               </v-flex>
               <v-flex xs12>
+                  <label>State<span class="red--text">*</span></label>
                   <v-select
                       name="state_id"
                       v-model="model.state_id"
                       :items="stateList"
-                      label="State"
                       item-text="name"
                       item-value="id"
                       :error-messages="getErrorValue('state_id')"
@@ -162,11 +165,11 @@
                   ></v-select>
               </v-flex>
               <v-flex xs12>
+                  <label>City<span class="red--text">*</span></label>
                   <v-select
                       name="city_id"
                       v-model="model.city_id"
                       :items="cityList"
-                      label="City"
                       item-text="name"
                       item-value="id"
                       :error-messages="getErrorValue('city_id')"
@@ -174,14 +177,16 @@
                       solo
                   ></v-select>
               </v-flex>
-              <v-flex xs12 v-if="isEditMode">
+              <v-flex xs12 v-if="isEditMode" class="mb-3">
                   <a @click="onImageModal()">View Gallery Images</a>
               </v-flex>
               <v-flex xs12>
-                  <v-file-input multiple name="gallery" label="Gallery" v-model="model.gallery" solo :error-messages="getErrorValue('gallery')"
+                  <label>Gallery<span class="red--text" v-if="!isEditMode">*</span></label>
+                  <v-file-input multiple name="gallery" v-model="model.gallery" solo :error-messages="getErrorValue('gallery')"
                                 v-validate="isEditMode ? '' :'required'"></v-file-input>
               </v-flex>
               <v-flex xs12>
+                  <label>Hobby<span class="red--text">*</span></label>
                   <v-row justify="space-around">
                       <template v-for="(hList,index) in hobbyList" >
                       <v-checkbox :id="'hobby'+hList.id"
@@ -200,12 +205,12 @@
         <div class="form-group d-flex flex-wrap flex-center">
             <v-btn class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4" type="submit"
                    :loading="isSubmitting" ref="submitBtn">Submit</v-btn>
-          <button v-if="isEditMode"
-            v-on:click="onCancel()"
+          <v-btn v-if="isEditMode"
+            @click="onCancel()"
             class="btn btn-light-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4"
           >
             Cancel
-          </button>
+          </v-btn>
         </div>
         <!--end::Action-->
       </v-form>

@@ -8,13 +8,6 @@ import CommonServices from '../../common_services/common.js';
 import ErrorModal from "../../partials/ErrorModal";
 import MultiDelete from "../../partials/MultiDelete";
 
-import {
-    mdiPencil,
-    mdiDelete,
-    mdiFilter,
-} from '@mdi/js'
-import cityStore from "../../store/city-store";
-
 export default CustomTable.extend({
     name: "Users",
     data: function () {
@@ -40,11 +33,6 @@ export default CustomTable.extend({
             ],
             options:{
                 filter:{},
-            },
-            icons: {
-                mdiPencil,
-                mdiDelete,
-                mdiFilter
             },
             confirmation: {
                 title: '',
@@ -73,6 +61,7 @@ export default CustomTable.extend({
             city_id:'',
             state_id:'',
             role_id:'',
+            filtermenu: false,
         }
     },
     mixins: [CommonServices],
@@ -156,44 +145,25 @@ export default CustomTable.extend({
          * Filter
          */
         changeFilter(){
+            debugger;
             //this.options.filter = {};
             let filter = {};
-            /*if(this.country_id != ''){
-                filter.country_id = [this.country_id];
-            }
-            if(this.state_id != ''){
-                filter.state_id = [this.state_id];
-            }
-            if(this.city_id != ''){
-                filter.city_id = [this.city_id];
-            }*/
             if(this.role_id != ''){
                 filter.role_id = [this.role_id];
             }
             this.options.filter =filter;
+            this.filtermenu= false;
         },
         /**
          * Reset Filter
          */
         resetFilter(){
-            /*this.country_id = ''
-            this.state_id = ''
-            this.city_id = ''*/
             this.role_id = ''
             this.options.filter = {}
         }
 
     },
     mounted(){
-        /*this.$store.dispatch("countryStore/getCountryList").then((result) => {
-            // debugger
-        });
-        this.$store.dispatch("stateStore/getStateList").then((result) => {
-            // debugger
-        });
-        this.$store.dispatch("cityStore/getCityList").then((result) => {
-            // debugger
-        });*/
         this.$store.dispatch("roleStore/getRoleList").then((result) => {
             this.$store.commit('roleStore/setRoleList', result.data.data);
         });

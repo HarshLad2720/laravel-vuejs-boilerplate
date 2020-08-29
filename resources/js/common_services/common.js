@@ -6,24 +6,12 @@ import {
     mdiDelete,
     mdiFilter,
     mdiPaperclip,
+    mdiExport,
+    mdiClose
 } from '@mdi/js'
 var timeConst = 'hh:mm A';
 var dateConst = 'DD-MM-YYYY';
-var datePickerFormatConst = 'YYYY-MM-DD';
-var monthConst = 'MM-YYYY';
-var monthStringConst = 'MMMM YYYY';
-var yearConst = 'YYYY';
-var monthSlashConst = 'MM/YYYY';
-var monthSlashShortYearConst = 'MM/YY';
-var humanReadableDateConst = "MMMM Do, YYYY";
-var humanReadableDayAndDateConst = "dddd MMMM Do YYYY";
-var humanReadableFullDateConst = "dddd DD MMMM YYYY";
-var dayConst = "dddd";
-var dateSlashConst = 'DD/MM/YYYY';
-var dateStringConst = 'DD MMM YYYY';
-var dateLongStringConst = 'LLLL';
-var dateTimeConst = dateConst + ' ' + timeConst;
-var dateTimeSlashConst = dateSlashConst + ' ' + timeConst;
+
 export default {
     data() {
         return {
@@ -43,7 +31,9 @@ export default {
                 mdiPencil,
                 mdiDelete,
                 mdiFilter,
-                mdiPaperclip
+                mdiPaperclip,
+                mdiExport,
+                mdiClose
             },
         }
     },
@@ -52,8 +42,7 @@ export default {
             UserData: state => state.userStore.currentUserData,
         }),
         ...mapGetters({
-            /*userFullName: 'userStore/userFullName',
-            userProfilePicture: 'userStore/userProfilePicture',*/
+
         }),
     },
     methods: {
@@ -62,11 +51,6 @@ export default {
                 delete object[key];
             });
         },
-        /*logout() {
-            this.$store.commit('userStore/clearUserData'); //Remove user data to logout.
-            this.$router.push('/login');
-            localStorage.clear();
-        },*/
         onModalCancelPref(storeName) {
             this.$validator.reset();
             this.isSubmitting = false;
@@ -87,29 +71,7 @@ export default {
             this.errorMessage = '';
             this.$store.commit(storeName + '/clearStore');
         },
-        /**
-         * This is used to get timestamp in EPOCH of UTC i.e. removing the timezone offset
-         * @param date
-         * @returns {number}
-         */
-        getUTCDateEpoch(date) {
-            if (date) {
-                return parseInt(moment.utc(date).valueOf() / 1000);
-            }
-            return '';
-        },
-        /**
-         * Calculate Age when you have time in epoch format
-         * @param time - Epoch timestamp in seconds
-         * @returns {number}
-         */
-        calculateAgeUnix(time) {
-            if (time) {
-                var ageDate = new Date(Date.now() - moment.unix(time)); // miliseconds from epoch
-                return Math.abs(ageDate.getUTCFullYear() - 1970);
-            }
-            return 'N/A';
-        },
+
         getErrorRule(field) {
             var error = this.errors.items.find(function (item) {
                 if (item.scope) {
@@ -235,94 +197,7 @@ export default {
             var current = parseInt(moment.utc().valueOf() / 1000);
             return moment.unix(current).format(dateConst);
         },
-        currentDateStartOfDay() {
-            return moment().startOf('day').toString();
-        },
-        currentDateSlashFormat() {
-            var current = parseInt(moment.utc().valueOf() / 1000);
-            return moment.unix(current).format(dateSlashConst);
-        },
-        dateToTimestamp(date) {
-            return parseInt(moment.utc(date).valueOf() / 1000);
-        },
-        computedDateFormattedMomentjs(date) {
-            return date ? moment(date).format(dateConst) : ''
-        },
-        computedUnixDateFormattedMomentjs(date) {
-            return date ? moment.unix(date).format(datePickerFormatConst) : ''
-        },
-        computedUnixTimestampToDate(date) {
-            return date ? moment.unix(parseInt(date)).format(datePickerFormatConst) : ''
-        },
-        computedSlashDateFormattedMomentjs(date) {
-            return date ? moment(date).format(dateSlashConst) : ''
-        },
-        computedMonthFormattedMomentjs(date) {
-            return date ? moment(date).format(monthConst) : ''
-        },
-        computedMonthtringFormattedMomentjs(date) {
-            return date ? moment(date).format(monthStringConst) : ''
-        },
-        computedMonthUnixFormattedMomentjs(date) {
-            return date ? moment.unix(date).format(monthConst) : ''
-        },
-        computedMonthUnixSlashShortYearFormat(date) {
-            return date ? moment(date).format(monthSlashShortYearConst) : ''
-        },
-        computedYearFormat(date) {
-            return date ? moment(date).format(yearConst) : ''
-        },
-        computedYearUnixYearFormat(date) {
-            return date ? moment.unix(date).format(yearConst) : ''
-        },
-        convertTimeTo24Hrs(time) {
-            return time ? moment(time, ["hh:mm A"]).format("HH:mm") : '';
-        },
-        convertTimeTo24HrsInChunks(time) {
-            return time ? {
-                hour: moment(time, ["hh:mm A"]).format("HH"),
-                minute: moment(time, ["hh:mm A"]).format("mm"),
-                time_type: moment(time, ["hh:mm A"]).format("A"),
-            } : '';
-        },
-        convertTimeTo12Hrs(time, inChunks) {
-            if (time && inChunks) {
-                return {
-                    hour: moment(time, ["HH:mm"]).format("hh"),
-                    minute: moment(time, ["HH:mm"]).format("mm"),
-                    time_type: moment(time, ["HH:mm"]).format("A"),
-                }
-            }
-            if (time && !inChunks) {
-                return moment(time, ["HH:mm"]).format("hh:mm A");
-            }
-            return '';
-        },
-        convertTimestampWithTimezoneIntoDate(timeStamp) {
-            return timeStamp ? moment.tz(parseInt(timeStamp) * 1000, this.currentClinicTimezone).format(dateTimeSlashConst) : '';
-        },
-        convertTimestampWithTimezoneIntoDynamicFormat(timeStamp, formatConst) {
-            return timeStamp ? moment.tz(parseInt(timeStamp) * 1000, this.currentClinicTimezone).format(formatConst) : '';
-        },
-        compareTimes(startTime, endTime, timeFormat) {
-            startTime = moment(startTime, timeFormat); //time format -> h:mma
-            endTime = moment(endTime, timeFormat);
-            return startTime.isBefore(endTime);
-        },
-        compareMultipleTimes(comparableTime, startTime, endTime, timeFormat) {
-            comparableTime = moment(comparableTime, timeFormat);
-            startTime = moment(startTime, timeFormat); //time format -> h:mma
-            endTime = moment(endTime, timeFormat);
-            return comparableTime.isBetween(startTime, endTime);
-        },
-        isDeletable(object) {
-            if (this.isSuperAdmin) {
-                return true;
-            } else {
-                var endDate = moment.unix(object.created_at).add(1, 'day');
-                return moment(moment.now()).isSameOrBefore(endDate);
-            }
-        },
+
         /**
          * @objectData Object of data from which we need to filter
          * @param Object of filter condition {key : value}
@@ -339,26 +214,6 @@ export default {
             });
             return filterData;
         },
-        /**
-         * @response API resopnse for print
-         * convert arraybuffer streamed data to pdf file and open print window
-         * @returns {number}
-         */
-        printResponse(response) {
-            //Create a Blob from the PDF Stream
-            let file = new Blob(
-                [response],
-                {type: 'application/pdf'});
-            //Build a URL from the file
-            let fileURL = window.URL.createObjectURL(file);
-            //Open the URL on new Window
-            let tab = window.open(fileURL);
-            tab.print();
-        },
-        /**
-         * @param Object which we need to covert in json
-         * @returns {json data}
-         */
         objToJson(param) {
             let filter = JSON.stringify(param);
             filter = filter.replace(/\\/g, '');
@@ -383,109 +238,20 @@ export default {
                 }
             }
         },
-        refreshInfiniteList(refName) {
-            this.resetParams();
-            if (this.$refs[refName]) {
-                this.$refs[refName].stateChanger.reset();
-            }
-        },
     },
     beforeCreate() {
         this.$store.commit('snackbarStore/clearStore');
     },
     created() { },
     filters: {
-        getHumanReadableDate(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment(value).format(humanReadableDateConst);
-            }
-            return date;
-        },
-        getHumanReadableDayAndDateConst(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(value).format(humanReadableDayAndDateConst);
-            }
-            return date;
-        },
-        getHumanReadableFullDate(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment(value).format(humanReadableFullDateConst);
-            }
-            return date;
-        },
-        getDayName(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment(value).format(dayConst);
-            }
-            return date;
-        },
-        getDateUnixFormat(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(value).format(dateConst);
-            }
-            return date;
-        },
+        /* Format Date */
         getDateFormat(value) {
             let date = "";
             if (value != "" && value != null) {
-                date = moment.unix(parseInt(value)).format(dateConst);
+                date = moment(String(value)).format(dateConst);
             }
             return date;
         },
-        getTimeFormat(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(parseInt(value)).format(timeConst);
-            }
-            return date;
-        },
-        getDatetimeFormat(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(parseInt(value)).format(dateTimeConst);
-            }
-            return date;
-        },
-        getDateSlashFormat(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(parseInt(value)).format(dateSlashConst);
-            }
-            return date;
-        },
-        getMonthSlashFormat(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(parseInt(value)).format(dateSlashConst);
-            }
-            return date;
-        },
-        getDateFormatString(value) {
-            //e.x. 01 JUN 2019
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(parseInt(value)).format(dateStringConst);
-            }
-            return date;
-        },
-
-        /**
-         * Format number
-         * @param value
-         */
-        formatNumber(value) {
-            if (value || value == '0') {
-                return parseFloat(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            }else {
-                return '0.00';
-            }
-        },
-
         /**
          * Truncate no of character from the text
          * @param value - text

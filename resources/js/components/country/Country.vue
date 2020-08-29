@@ -24,6 +24,7 @@
             :loading="loading"
             :options.sync="options"
             :items-per-page="limit"
+            :footer-props="footerProps"
             :server-items-length="pageCount"
             @update:options="updateTable"
             class="elevation-1"

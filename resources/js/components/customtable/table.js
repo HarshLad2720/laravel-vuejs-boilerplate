@@ -12,6 +12,9 @@ export default Vue.extend({
             options: {
                 search:"",
             },
+            footerProps: {
+                'items-per-page-options': [10, 20, 30, 50, 100]
+            },
         }
     },
     computed: {
