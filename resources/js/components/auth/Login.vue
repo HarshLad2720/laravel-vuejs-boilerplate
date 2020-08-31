@@ -56,10 +56,10 @@
                     <a class="text-dark-60 text-hover-primary my-3 mr-2" id="kt_login_forgot" @click="fpdialog = true">
                         Forgot Password ?
                     </a>
-                    <!--<v-btn ref="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4" type="submit">
+                    <v-btn ref="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4" type="submit">
                         Submit
-                    </v-btn>-->
-                    <v-btn ref="kt_login_signin_submit" class="btn btn-primary" type="submit" :loading="isSubmitting">{{$getConst('BTN_SUBMIT')}}</v-btn>
+                    </v-btn>
+<!--                    <v-btn class="btn btn-primary" type="submit" :loading="isSubmitting">{{// $getConst('BTN_SUBMIT')}}</v-btn>-->
                 </div>
                 <!--end::Action-->
             </v-form>

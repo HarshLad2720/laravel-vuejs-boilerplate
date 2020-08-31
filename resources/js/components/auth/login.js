@@ -45,7 +45,7 @@ export default {
             submitButton.classList.add("spinner", "spinner-light", "spinner-right");*/
             this.$validator.validate().then(valid => {
                 if (valid) {
-                    this.isSubmitting = true;
+                    // this.isSubmitting = true;
                     this.$store.dispatch("userStore/login",
                         {
                             loginDetail: this.loginDetail
@@ -63,7 +63,7 @@ export default {
                         // go to which page after successfully login
                         this.$router.push("/users");
 
-                        this.isSubmitting = false;
+                        // this.isSubmitting = false;
                     })
                     // If Login has Error
                         .catch(err => {
@@ -73,7 +73,7 @@ export default {
                                 "spinner-light",
                                 "spinner-right"
                             );*/
-                            this.isSubmitting = false;
+                            // this.isSubmitting = false;
                             this.errorMessage = err.response.data.error;
                         });
                 }

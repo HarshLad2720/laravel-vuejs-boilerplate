@@ -104,17 +104,22 @@ export default {
                         apiName = "edit";
                         editId = self.$store.state.userStore.editId;
                         msgType= self.$getConst('UPDATE_ACTION');
-                        console.log(self.model);
+                        // console.log(self.model);
 
                         for (var index in self.model.hobby) {
                             formData.append('hobby[' + parseInt(index) + ']', self.model.hobby[index]);
                         }
 
-                        for (var index2 in self.model.gallery) {
-                            if (self.model.gallery[index2] instanceof File) {
-                                formData.append('gallery[' + parseInt(index2) + ']', self.model.gallery[index2]);
+                        if (self.model.gallery.length > 0) {
+                            for (var index2 in self.model.gallery) {
+                                if (self.model.gallery[index2] instanceof File) {
+                                    formData.append('gallery[' + parseInt(index2) + ']', self.model.gallery[index2]);
+                                }
                             }
+                        } else {
+                            formData.delete('gallery');
                         }
+
 
                     } else {
                         // Register
