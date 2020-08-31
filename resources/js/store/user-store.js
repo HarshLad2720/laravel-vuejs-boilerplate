@@ -150,6 +150,15 @@ const userStore = {
                 })
             })
         },
+        multiDelete({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.post(baseUrl + "users-delete-multiple", param).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
         deleteImage({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.delete(baseUrl + "gallery/" + param).then(response => {

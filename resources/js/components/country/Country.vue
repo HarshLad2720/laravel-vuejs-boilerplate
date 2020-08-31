@@ -2,7 +2,7 @@
     <div>
         <v-tabs v-model="tab" class="mb-5">
             <v-tab key="Tab1">
-                <p>User</p>
+                <p>Country</p>
             </v-tab>
             <v-tab key="Tab2">
                 <p>Import</p>
@@ -76,7 +76,9 @@
             </v-tab-item>
             <v-tab-item key="Tab2">
                 <v-card flat>
-                    <v-card-text><p>Priyanka</p></v-card-text>
+                    <v-card-text>
+                        <import></import>
+                    </v-card-text>
                 </v-card>
             </v-tab-item>
         </v-tabs-items>

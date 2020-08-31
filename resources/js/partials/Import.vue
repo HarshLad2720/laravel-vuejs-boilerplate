@@ -13,6 +13,8 @@
                                             placeholder="Upload your file"
                                             accept="csv"
                                             label="File input"
+                                            show-size
+                                            counter
                                             :prepend-icon="icons.mdiPaperclip"
                                             v-validate="'required|size:4000|ext:csv'"
                                             :error-messages="getErrorValue('import_file')"
@@ -23,15 +25,13 @@
                                         </template>
                                     </v-file-input>
                                 </v-flex>
-                                <v-flex xs12 sm12 md4 lg4 class="p-4">
-                                    <v-btn @click.native="uploadCsv()" large color="primary">Upload</v-btn>
+                                <v-flex xs12 sm12 md6 lg6 class="p-4">
+                                    <v-btn @click.native="uploadCsv()" large color="primary"><v-icon small>{{icons.mdiUpload}}</v-icon>Upload</v-btn>
+                                    <v-btn large color="primary"><v-icon small>{{icons.mdiDownload}}</v-icon>Download Sample CSV</v-btn>
                                 </v-flex>
                             </v-layout>
                         </v-row>
                     </v-container>
-                    <v-flex xs12 sm12 md4 lg4 class="p-4">
-                        <v-btn large color="primary">Download Sample CSV</v-btn>
-                    </v-flex>
                 </v-row>
             </v-container>
         </v-card>
@@ -52,7 +52,7 @@
             <template v-slot:top>
                 <v-layout>
                     <v-flex xs12 sm12 md4 lg4>
-                        <v-text-field v-model="options.search" label="Search" class="mx-4 mt-4"></v-text-field>
+                        <v-text-field v-model="options.search" label="Search" class="mx-4 mt-4" prepend-inner-icon="search"></v-text-field>
                     </v-flex>
                 </v-layout>
             </template>
@@ -98,10 +98,11 @@
                 errorArr: [],
                 errorDialog: false,
                 validationMessages: {
-                    "import_file": [{key: 'required', value: 'File required'},{key: 'size', value: 'File size should be less than 4 MB!'}, {
-                        key: 'ext',
-                        value: 'Invalid file'
-                    }],
+                    "import_file": [
+                        {key: 'required', value: 'File required'},
+                        {key: 'size', value: 'File size should be less than 4 MB!'},
+                        {key: 'ext', value: 'Only CSV Files'}
+                        ],
                 }
             }
         },
@@ -115,16 +116,12 @@
             uploadCsv(){
                 this.$validator.validate().then(valid => {
                     if (valid) {
+                        debugger
                         var formData = new FormData();
                         if (this.file != null && this.file instanceof File) {
                             formData.append('file', this.file);
                         }
-                        this.$store.dispatch(this.statename + '/import', formData,
-                            {
-                                headers: {
-                                    'Content-Type': 'multipart/form-data'
-                                }
-                            }).then(response => {
+                        this.$store.dispatch(this.statename + '/import', formData).then(response => {
                             if (response.error) {
                                 this.errorArr = response.data.error;
                                 this.errorDialog = true;
@@ -134,6 +131,7 @@
                                 this.onCancel();
                                 this.$parent.getData();
                                 this.loading = false;
+                                this.file = null;
                             }
                         }, error => {
                             this.errorArr = this.getAPIErrorMessage(error);

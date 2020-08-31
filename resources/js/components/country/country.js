@@ -5,6 +5,7 @@ import AddCountry from "./AddCountry.vue";
 import MultiDelete from "../../partials/MultiDelete";
 import {mapState} from "vuex";
 import CommonServices from '../../common_services/common.js';
+import Import from "../../partials/Import";
 
 export default CustomTable.extend({
     name: "Country",
@@ -50,7 +51,8 @@ export default CustomTable.extend({
         DeleteModal,
         AddCountry,
         ExportBtn,
-        MultiDelete
+        MultiDelete,
+        Import
     },
     computed: {
         ...mapState({
@@ -120,7 +122,7 @@ export default CustomTable.extend({
             });
 
             this.deleteProps.ids = rowIds;
-            this.deleteProps.store = 'roleStore';
+            this.deleteProps.store = 'countryStore';
             this.$refs.multipleDeleteBtn.deleteMulti();
         },
     },

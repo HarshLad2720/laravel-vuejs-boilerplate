@@ -5,9 +5,10 @@ import MultiDelete from "../../partials/MultiDelete";
 import AddState from "./AddState.vue";
 import {mapState} from "vuex";
 import CommonServices from '../../common_services/common.js';
+import Import from "../../partials/Import";
 
 export default CustomTable.extend({
-    name: "Country",
+    name: "State",
     data: function () {
         var self = this;
         return {
@@ -52,7 +53,8 @@ export default CustomTable.extend({
         DeleteModal,
         AddState,
         ExportBtn,
-        MultiDelete
+        MultiDelete,
+        Import
     },
     computed: {
         ...mapState({
@@ -123,7 +125,7 @@ export default CustomTable.extend({
             });
 
             this.deleteProps.ids = rowIds;
-            this.deleteProps.store = 'roleStore';
+            this.deleteProps.store = 'stateStore';
             this.$refs.multipleDeleteBtn.deleteMulti();
         },
         /**

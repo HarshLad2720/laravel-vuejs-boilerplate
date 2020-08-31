@@ -97,6 +97,15 @@ const cityStore = {
                 })
             })
         },
+        multiDelete({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.post(baseUrl + "cities-delete-multiple", param).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
         getById({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'cities' + "/" + state.editId).then(response => {
@@ -116,7 +125,25 @@ const cityStore = {
                     reject(e);
                 })
             })
-        }
+        },
+        import({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.post(baseUrl + "cities-import-bulk", param).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
+        getAllImport({ commit }, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.get(baseUrl + "import-csv-log" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
     },
     getters: {
 

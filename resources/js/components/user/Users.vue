@@ -22,7 +22,6 @@
                         @update:options="updateTable"
                         class="elevation-1"
                         :show-select="true"
-                        ref="rajath"
                         v-index="$getConst('USER')"
                 >
                     <template v-slot:top>

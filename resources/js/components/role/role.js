@@ -5,6 +5,7 @@ import ExportBtn from "../../partials/ExportBtn";
 import MultiDelete from "../../partials/MultiDelete";
 import {mapState} from "vuex";
 import CommonServices from '../../common_services/common.js';
+import Import from "../../partials/Import";
 
 export default CustomTable.extend({
     name: "Role",
@@ -60,7 +61,8 @@ export default CustomTable.extend({
         DeleteModal,
         AddRole,
         ExportBtn,
-        MultiDelete
+        MultiDelete,
+        Import
     },
     computed: {
        ...mapState({
@@ -129,7 +131,6 @@ export default CustomTable.extend({
          * Multiple Delete
          */
         multipleDelete(){
-            debugger;
             let rowIds = [];
             this.selected.forEach((element, index) => {
                 rowIds[index] = element.id;

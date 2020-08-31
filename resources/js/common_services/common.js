@@ -10,6 +10,8 @@ import {
     mdiClose,
     mdiPlus,
     mdiEye,
+    mdiDownload,
+    mdiUpload
 } from '@mdi/js'
 var timeConst = 'hh:mm A';
 var dateConst = 'DD-MM-YYYY';
@@ -38,6 +40,8 @@ export default {
                 mdiClose,
                 mdiPlus,
                 mdiEye,
+                mdiDownload,
+                mdiUpload,
             },
         }
     },
@@ -136,11 +140,9 @@ export default {
         },
         getAPIErrorMessage(response) {
             var error = "Something went wrong. Please try again later.";
-            debugger
             if (!response)
                 return error;
             if (response.status == 422) {
-                debugger
                 error = response.data.errors;
                 var error_string = '';
                 for (var key in error) {

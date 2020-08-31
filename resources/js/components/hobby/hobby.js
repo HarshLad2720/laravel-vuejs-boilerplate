@@ -2,8 +2,10 @@ import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
 import ExportBtn from "../../partials/ExportBtn";
 import AddHobby from "./AddHobby.vue";
+import MultiDelete from "../../partials/MultiDelete";
 import CommonServices from '../../common_services/common.js';
 import {mapState} from "vuex";
+import Import from "../../partials/Import";
 
 export default CustomTable.extend({
     name: "Hobby",
@@ -38,6 +40,10 @@ export default CustomTable.extend({
                 fileName: '',
                 pagination: '',
             },
+            deleteProps:{
+                ids: '',
+                store: '',
+            },
             paramRole: {
                 title: '',
                 description: '',
@@ -52,7 +58,9 @@ export default CustomTable.extend({
     components: {
         DeleteModal,
         AddHobby,
-        ExportBtn
+        ExportBtn,
+        MultiDelete,
+        Import
     },
     computed: {
         ...mapState({
@@ -111,6 +119,21 @@ export default CustomTable.extend({
             this.confirmation.title = this.$getConst('DELETE_TITLE');
             this.confirmation.description = this.$getConst('WARNING');
             this.modalOpen = true;
+        },
+        /**
+         * Multiple Delete
+         */
+        multipleDelete(){
+            let rowIds = [];
+            this.selected.forEach((element, index) => {
+                rowIds[index] = element.id;
+            });
+
+            console.log(rowIds);
+
+            this.deleteProps.ids = rowIds;
+            this.deleteProps.store = 'hobbyStore';
+            this.$refs.multipleDeleteBtn.deleteMulti();
         },
     },
     mounted(){}

@@ -59,9 +59,6 @@ export default CustomTable.extend({
             userDialogue: false,
             errorArr: [],
             errorDialog: false,
-            country_id:'',
-            city_id:'',
-            state_id:'',
             role_id:'',
             filtermenu: false,
         }
@@ -125,7 +122,7 @@ export default CustomTable.extend({
             });
 
             this.deleteProps.ids = rowIds;
-            this.deleteProps.store = 'roleStore';
+            this.deleteProps.store = 'userStore';
             this.$refs.multipleDeleteBtn.deleteMulti();
         },
         /* Edit User */
