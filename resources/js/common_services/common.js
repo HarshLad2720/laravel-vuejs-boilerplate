@@ -74,6 +74,13 @@ export default {
             this.$store.commit(storeName + '/clearStore');
         },
 
+        /* Logout */
+        logout() {
+            localStorage.clear();
+            this.$store.commit("userStore/clearUserData");
+            this.$router.push("/");
+        },
+
         getErrorRule(field) {
             var error = this.errors.items.find(function (item) {
                 if (item.scope) {

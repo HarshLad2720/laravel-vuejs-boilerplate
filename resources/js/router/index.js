@@ -38,47 +38,93 @@ const router = new VueRouter({
                     name: "users",
                     component: () => import("../components/user/Users.vue"),
                     meta: {
+                        requiresAuth: true,
                         permission: 'my-users',
                     }
                 },
                 {
                     path: '/role',
                     name: 'role',
-                    component: () => import('../components/role/Role.vue')
+                    component: () => import('../components/role/Role.vue'),
+                    meta: {
+                        requiresAuth: true,
+                        permission: 'my-roles',
+                    }
                 },
                 {
                     path: '/country',
                     name: 'country',
-                    component: () => import('../components/country/Country.vue')
+                    component: () => import('../components/country/Country.vue'),
+                    meta: {
+                        requiresAuth: true,
+                        permission: 'my-countries',
+                    }
                 },
                 {
                     path: '/state',
                     name: 'state',
-                    component: () => import('../components/state/State.vue')
+                    component: () => import('../components/state/State.vue'),
+                    meta: {
+                        requiresAuth: true,
+                        permission: 'my-states',
+                    }
                 },
                 {
                     path: '/city',
                     name: 'city',
-                    component: () => import('../components/city/City.vue')
+                    component: () => import('../components/city/City.vue'),
+                    meta: {
+                        requiresAuth: true,
+                        permission: 'my-cities',
+                    }
                 },
                 {
                     path: '/hobby',
                     name: 'hobby',
-                    component: () => import('../components/hobby/Hobby.vue')
+                    component: () => import('../components/hobby/Hobby.vue'),
+                    meta: {
+                        requiresAuth: true,
+                        permission: 'my-hobbies',
+                    }
                 },
                 {
                     path: '/permission',
                     name: 'permission',
-                    component: () => import('../components/permission/Permission.vue')
+                    component: () => import('../components/permission/Permission.vue'),
+                    meta: {
+                        requiresAuth: true,
+                        permission: 'my-permissions',
+                    }
                 },
             ]
         },
     ]
 });
 
-
-/*router.beforeResolve((to, from, next) => {
-    debugger;
+/*router.beforeEach((to, from, next) => {
+    // debugger;
+    var authorization = store.state.userStore.currentUser.authorization;
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (authorization) {
+            next()
+        } else if (authorization == '') {
+            next('/logoff')
+            return
+        } else {
+            next('/login')
+        }
+    } else {
+        if (to.path == "/" && authorization) {
+            next('/users')
+        } else if (to.path != "/logoff" && authorization == '') {
+            next('/logoff')
+            return
+        } else {
+            next()
+        }
+    }
+})
+router.beforeResolve((to, from, next) => {
     var permissionData = store.state.permissionStore.userPermissions;
     if (to.matched.some(record => record.meta.permission)) {
         var permissionArray = permissionData.filter(permission => permission.name == to.meta.permission);

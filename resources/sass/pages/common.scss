@@ -6,7 +6,7 @@
 .v-input--selection-controls .v-input__slot>.v-label, .v-input--selection-controls .v-radio>.v-label { margin-bottom: 0 !important; }
 .theme--light.v-data-table>.v-data-table__wrapper>table>thead>tr>th { color: #000 !important; }
 .v-data-table table tbody tr td.text-start:last-child { width: 8% }
-.v-text-field .v-label, .v-text-field input, .v-input, .v-input .v-label {
+.v-text-field .v-label, .v-text-field input, .v-input, .v-input .v-label, .v-select__selections,.v-file-input .v-file-input__text {
     font-size: 13px;
 }
 

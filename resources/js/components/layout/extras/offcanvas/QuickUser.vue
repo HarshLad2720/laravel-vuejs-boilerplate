@@ -83,7 +83,7 @@
               <button class="btn btn-light-primary btn-bold mb-2" @click="changePasswordModal = true" v-changePassword="$getConst('LOGIN')">
                   Change Password
               </button>
-            <button class="btn btn-light-primary btn-bold " @click="onLogout" v-logout="$getConst('LOGIN')">
+            <button class="btn btn-light-primary btn-bold " @click="logout" v-logout="$getConst('LOGIN')">
               Sign out
             </button>
 
@@ -112,6 +112,7 @@ import KTLayoutQuickUser from "../../../../../assets/js/layout/extended/quick-us
 import KTOffcanvas from "../../../../../assets/js/components/offcanvas.js";
 import ChangePassword from "../../../auth/ChangePassword.vue";
 import { mapGetters, mapState} from 'vuex';
+import CommonServices from '../../../../common_services/common.js';
 
 export default {
   name: "KTQuickUser",
@@ -153,6 +154,7 @@ export default {
       userEmail: '',
     };
   },
+  mixins: [CommonServices],
   components:{ChangePassword},
   mounted() {
     this.userEmail = this.$store.state.userStore.currentUserData.email;
@@ -162,11 +164,6 @@ export default {
     KTLayoutQuickUser.init(this.$refs["kt_quick_user"]);
   },
   methods: {
-    onLogout() {
-      localStorage.clear();
-      this.$store.commit("userStore/clearUserData");
-      this.$router.push("/");
-    },
     closeOffcanvas() {
       new KTOffcanvas(KTLayoutQuickUser.getElement()).hide();
     }
