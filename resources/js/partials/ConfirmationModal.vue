@@ -8,15 +8,15 @@
             </v-card-title>
 
             <v-card-text>
-                    <v-layout row wrap>
+                    <v-layout row wrap class="display-block m-0 ">
                         <v-flex xs12>
                             <span v-html="confirmation.description"></span>
                         </v-flex>
                     </v-layout>
 
-                    <v-layout row wrap>
+                    <v-layout row wrap class="display-block m-0 ">
                         <v-flex xs12>
-                            <v-btn color="success" class="btn btn-black m-b-10 m-t-10" @click.native="$emit('input')">
+                            <v-btn class="btn btn-black m-b-10 m-t-10" @click.native="$emit('input')">
                                 {{confirmation.btnConfirmationText}}
                             </v-btn>
                             <v-btn color="success" class="btn btn-black m-b-10 m-t-10" @click=""> {{confirmation.btnCancelText}}

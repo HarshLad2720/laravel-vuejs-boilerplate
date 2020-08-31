@@ -129,10 +129,13 @@ export default CustomTable.extend({
          * Multiple Delete
          */
         multipleDelete(){
+            debugger;
             let rowIds = [];
             this.selected.forEach((element, index) => {
                 rowIds[index] = element.id;
             });
+
+            console.log(rowIds);
 
             this.deleteProps.ids = rowIds;
             this.deleteProps.store = 'roleStore';

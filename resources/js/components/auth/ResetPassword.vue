@@ -42,7 +42,7 @@
                         ></v-text-field>
                     </v-flex>
                 </v-layout>
-                <v-layout row wrap>
+                <v-layout row wrap class="display-block m-0 ">
                     <v-flex lg12>
                         <v-text-field
                             :type="show_new_confirmation_password ? 'text' : 'password'"

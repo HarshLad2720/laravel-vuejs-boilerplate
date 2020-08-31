@@ -11,7 +11,7 @@
 
             <v-card-text>
                 <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
-                <v-layout row wrap>
+                <v-layout row wrap class="display-block m-0 ">
                     <v-flex xs12>
                         <table class="table">
                             <thead>
