@@ -13,6 +13,7 @@ const YOUR_CONSTS = {
     BTN_UPDATE: 'Update',
     BTN_OK: 'Ok',
     DELETE_TITLE: 'Delete Confirmation',
+    UPLOAD_CSV: 'CSV uploaded successively',
     ROLE_TITLE: 'Add Role',
     ROLE_DESC: 'Please Enter Your Role',
     WARNING: 'Are you sure you want to delete this record',

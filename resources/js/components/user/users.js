@@ -7,6 +7,7 @@ import {mapState} from "vuex";
 import CommonServices from '../../common_services/common.js';
 import ErrorModal from "../../partials/ErrorModal";
 import MultiDelete from "../../partials/MultiDelete";
+import Import from "../../partials/Import";
 
 export default CustomTable.extend({
     name: "Users",
@@ -17,6 +18,7 @@ export default CustomTable.extend({
             files: [],
             modalOpen: false,
             statename:'userStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
+            url:'getAll',
             headers: [
                 { text: 'Name', value: 'name'},
                 { text: 'DOB', value: 'dob'},
@@ -70,7 +72,8 @@ export default CustomTable.extend({
         UserModal,
         ErrorModal,
         ExportBtn,
-        MultiDelete
+        MultiDelete,
+        Import,
     },
     computed: {
         ...mapState({
@@ -159,6 +162,9 @@ export default CustomTable.extend({
         resetFilter(){
             this.role_id = ''
             this.options.filter = {}
+        },
+        refreshData(){
+            this.refresh();
         }
 
     },

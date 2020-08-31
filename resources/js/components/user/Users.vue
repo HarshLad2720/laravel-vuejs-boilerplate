@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-tabs v-model="tab" class="mb-5">
-            <v-tab key="Tab1">
+            <v-tab @click.native="refreshData()" key="Tab1">
                 <p>User</p>
             </v-tab>
             <v-tab key="Tab2">
@@ -22,6 +22,7 @@
                         @update:options="updateTable"
                         class="elevation-1"
                         :show-select="true"
+                        ref="rajath"
                         v-index="$getConst('USER')"
                 >
                     <template v-slot:top>
@@ -104,7 +105,9 @@
             </v-tab-item>
             <v-tab-item key="Tab2">
                 <v-card flat>
-                    <v-card-text><p>Priyanka</p></v-card-text>
+                    <v-card-text>
+                        <import></import>
+                    </v-card-text>
                 </v-card>
             </v-tab-item>
         </v-tabs-items>

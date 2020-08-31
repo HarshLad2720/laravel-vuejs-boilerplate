@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 import store from '../store/store';
 
+var siteName = " - Admin Panel";
 /* Create new instance of VueRouter */
 const router = new VueRouter({
     mode: 'history',
@@ -14,17 +15,26 @@ const router = new VueRouter({
                 {
                     name: "login",
                     path: "/",
-                    component: () => import("../components/auth/Login.vue")
+                    component: () => import("../components/auth/Login.vue"),
+                    meta: {
+                        title: "Login" + siteName
+                    }
                 },
                 {
                     name: "register",
                     path: "/register",
-                    component: () => import("../components/auth/Register.vue")
+                    component: () => import("../components/auth/Register.vue"),
+                    meta: {
+                        title: "Register" + siteName
+                    }
                 },
                 {
                     path: '/api/password/reset/:id',
                     name: 'Reset Password',
-                    component: () => import('../components/auth/ResetPassword.vue')
+                    component: () => import('../components/auth/ResetPassword.vue'),
+                    meta: {
+                        title: "Reset Password" + siteName
+                    }
                 },
             ]
         },
@@ -40,6 +50,7 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true,
                         permission: 'my-users',
+                        title: "Users" + siteName
                     }
                 },
                 {
@@ -49,6 +60,7 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true,
                         permission: 'my-roles',
+                        title: "Role" + siteName
                     }
                 },
                 {
@@ -58,6 +70,7 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true,
                         permission: 'my-countries',
+                        title: "Country" + siteName
                     }
                 },
                 {
@@ -67,6 +80,7 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true,
                         permission: 'my-states',
+                        title: "State" + siteName
                     }
                 },
                 {
@@ -76,6 +90,7 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true,
                         permission: 'my-cities',
+                        title: "City" + siteName
                     }
                 },
                 {
@@ -85,6 +100,7 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true,
                         permission: 'my-hobbies',
+                        title: "Hobby" + siteName
                     }
                 },
                 {
@@ -94,6 +110,7 @@ const router = new VueRouter({
                     meta: {
                         requiresAuth: true,
                         permission: 'my-permissions',
+                        title: "Permission" + siteName
                     }
                 },
             ]
@@ -139,14 +156,19 @@ router.beforeResolve((to, from, next) => {
     }
 });*/
 
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title;
+    next();
+});
+
 // Loading chunk error
-/*router.onError((error) => {
+router.onError((error) => {
     const pattern = /Loading chunk (\d)+ failed/g;
     const isChunkLoadFailed = error.message.match(pattern);
     const targetPath = router.history.pending.fullPath;
     if (isChunkLoadFailed) {
         router.replace(targetPath);
     }
-});*/
+});
 
 export default router

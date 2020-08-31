@@ -8,6 +8,7 @@ export default Vue.extend({
             singleSelect: false,
             selected: [],
             statename:"",
+            url:"",
             headers:[],
             options: {
                 search:"",
@@ -103,7 +104,7 @@ export default Vue.extend({
          * call api to get data
          */
         getData(){
-            this.$store.dispatch(this.statename+'/getAll',this.state.pagination).then(response => {
+            this.$store.dispatch(this.statename+'/'+this.url,this.state.pagination).then(response => {
                 this.$store.commit(this.statename+'/setTableData', response.data);
                 }, error => {
                 this.$store.commit(this.statename+'/setTableData', []);
