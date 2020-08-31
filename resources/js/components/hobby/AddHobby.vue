@@ -25,19 +25,19 @@
                     <v-layout row wrap class="display-block m-0 ">
                         <v-flex xs12>
                             <v-text-field
-                                label="Hobby" type="text"
+                                label="Hobby*" type="text"
                                 name="hobby"
                                 v-model="model.name"
                                 :error-messages="getErrorValue('hobby')"
                                 v-validate="'required'"
                             ></v-text-field>
                         </v-flex>
-                        <v-flex xs12>
-                            <v-btn color="secondary" class="btn btn-grey m-b-10 m-t-10" @click.native="onCancel">
-                                {{ $getConst('BTN_CANCEL') }}
-                            </v-btn>
-                            <v-btn color="success" class="btn btn-black m-b-10 m-t-10" @click.native="addAction">
+                        <v-flex xs12 class="mt-4">
+                            <v-btn class="btn btn-primary" @click.native="addAction">
                                 {{isEditMode ?  $getConst('BTN_UPDATE') : $getConst('BTN_SUBMIT') }}
+                            </v-btn>
+                            <v-btn class="btn btn-grey" @click.native="onCancel">
+                                {{ $getConst('BTN_CANCEL') }}
                             </v-btn>
                         </v-flex>
                     </v-layout>

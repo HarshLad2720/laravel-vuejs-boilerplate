@@ -2,7 +2,7 @@
     <div>
         <v-container fluid class="">
             <v-card class="m-b-20">
-                <v-toolbar>
+                <v-toolbar dark>
                     <v-toolbar-title>Permission</v-toolbar-title>
                     <v-spacer></v-spacer>
                 </v-toolbar>

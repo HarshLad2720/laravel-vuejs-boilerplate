@@ -41,7 +41,7 @@
                             </tbody>
                         </table>
                     </v-flex>
-                    <v-btn color="secondary" class="btn btn-grey m-l-10" @click="onCancel()">{{ $getConst('BTN_CANCEL') }}</v-btn>
+                    <v-btn class="btn btn-grey m-l-10" @click="onCancel()">{{ $getConst('BTN_CANCEL') }}</v-btn>
                 </v-layout>
             </v-card-text>
         </v-card>

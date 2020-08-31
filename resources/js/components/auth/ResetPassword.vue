@@ -30,7 +30,7 @@
                             :type="show_new_password ? 'text' : 'password'"
                             @click:append="show_new_password = !show_new_password"
                             :append-icon="show_new_password ? 'visibility' : 'visibility_off'"
-                            label="New Password"
+                            label="New Password*"
                             id='password'
                             class=""
                             name="password"
@@ -48,7 +48,7 @@
                             :type="show_new_confirmation_password ? 'text' : 'password'"
                             @click:append="show_new_confirmation_password = !show_new_confirmation_password"
                             :append-icon="show_new_confirmation_password ? 'visibility' : 'visibility_off'"
-                            label="Confirm New Password"
+                            label="Confirm New Password*"
                             id='password_confirmation'
                             class="" autocomplete="off"
                             name="password_confirmation"
@@ -62,9 +62,9 @@
                 <!--begin::Action-->
                 <div class="form-group d-flex flex-wrap flex-center">
                     <v-btn class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4" type="submit"
-                           :loading="isSubmitting" ref="submitBtn">Submit</v-btn>
+                           :loading="isSubmitting" ref="submitBtn">{{$getConst('BTN_SUBMIT')}}</v-btn>
                     <button
-                        class="btn btn-light-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4"
+                        class="btn btn-grey font-weight-bold px-9 py-4 my-3 font-size-3 mx-4"
                     >
                         {{ $getConst('BTN_CANCEL') }}
                     </button>

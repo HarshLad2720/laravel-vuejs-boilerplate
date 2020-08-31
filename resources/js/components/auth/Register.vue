@@ -177,14 +177,14 @@
               </v-flex>
               <v-flex xs12 class="mt-3">
                   <label>Hobby*</label>
-                  <v-row justify="space-around" class="ml-0">
+                  <v-row class="ml-0">
                       <template v-for="(hList,index) in hobbyList" >
                       <v-checkbox :id="'hobby'+hList.id"
                                   :key="'hobby'+index"
                                   :label="hList.name"
                                   :name="'hobby'+hList.id"
                                   :value="hList.id"
-                                  v-model="model.hobby" class="mt-0"
+                                  v-model="model.hobby" class="mt-0 mr-2"
                                   v-validate="isEditMode ? '' :'required'" :error="getErrorCount('hobby' +hList.id)"></v-checkbox>
                       </template>
                   </v-row>
@@ -194,10 +194,10 @@
         <!--begin::Action-->
         <div class="form-group d-flex flex-wrap flex-center">
             <v-btn class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4" type="submit"
-                   :loading="isSubmitting" ref="submitBtn">Submit</v-btn>
+                   :loading="isSubmitting" ref="submitBtn">{{isEditMode ?  $getConst('BTN_UPDATE') : $getConst('BTN_SUBMIT') }}</v-btn>
           <v-btn v-if="isEditMode"
             @click="onCancel()"
-            class="btn btn-light-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4"
+            class="btn btn-grey font-weight-bold px-9 py-4 my-3 font-size-3 mx-4"
           >
               {{ $getConst('BTN_CANCEL') }}
           </v-btn>

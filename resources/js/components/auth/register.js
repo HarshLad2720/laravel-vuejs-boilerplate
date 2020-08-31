@@ -218,7 +218,6 @@ export default {
          * Cancel button
          */
         onCancel() {
-            debugger;
             // this.onModalCancelPref('userStore');
             this.$emit('input');
         }

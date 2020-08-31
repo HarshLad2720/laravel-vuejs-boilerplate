@@ -19,10 +19,10 @@
 
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <v-btn color="secondary" class="btn btn-grey m-b-10 m-t-10" @click.native="onCancel">
+                            <v-btn class="btn btn-grey m-b-10 m-t-10" @click.native="onCancel">
                                 {{confirmation.btnCancelText}}
                             </v-btn>
-                            <v-btn color="success" class="btn btn-black m-b-10 m-t-10" @click.native="deleteAction">{{confirmation.btnConfirmationText}}
+                            <v-btn class="btn btn-black m-b-10 m-t-10" @click.native="deleteAction">{{confirmation.btnConfirmationText}}
                             </v-btn>
                         </v-flex>
                     </v-layout>

@@ -77,7 +77,6 @@ export default {
     },
     mounted() {
         this.$store.dispatch("stateStore/getStateList").then((result) => {
-            // debugger
         });
         // clear errorMessage
         this.errorMessage = '';

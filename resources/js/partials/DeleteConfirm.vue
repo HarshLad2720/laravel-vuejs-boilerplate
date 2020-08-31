@@ -17,7 +17,7 @@
 
                     <v-layout row wrap>
                         <v-flex xs12>
-                            <v-btn color="secondary" class="btn btn-grey m-b-10 m-t-10" @click.native="$emit('input')">
+                            <v-btn class="btn btn-grey m-b-10 m-t-10" @click.native="$emit('input')">
                                 {{ $getConst('BTN_CANCEL') }}
                             </v-btn>
                             <v-btn color="success" class="btn btn-black m-b-10 m-t-10" @click="deleteAction">Delete

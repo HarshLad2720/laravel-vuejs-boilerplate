@@ -124,41 +124,6 @@
 }
 
 /*Custom CSS*/
-.login-form {
-    form {
-        /*.v-input.v-text-field {
-            .v-input__slot {
-                background-color: #F3F6F9 !important;
-                border-color: #F3F6F9;
-                color: #3F4254;
-                transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-                .v-text-field__slot, .v-select__slot  { label, input, .v-select__selection, .v-file-input__text { font-size: 13px } }
-            }
-        }*/
-        .btn.btn-primary {
-            background-color: #3699FF !important;
-            height: auto;
-            color: #fff
-        }
-    }
-}
-
-form {
-    /*.v-input.v-text-field {
-        .v-input__slot {
-            background-color: #F3F6F9 !important;
-            border-color: #F3F6F9;
-            color: #3F4254;
-            transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-            .v-text-field__slot, .v-select__slot  { label, input, .v-select__selection, .v-file-input__text { font-size: 13px } }
-        }
-    }*/
-    .btn.btn-primary {
-        background-color: #3699FF !important;
-        height: auto;
-        color: #fff
-    }
-}
 
 .spinner.spinner-right {
     padding-right: 3.5rem !important;

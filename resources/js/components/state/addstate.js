@@ -77,7 +77,6 @@ export default {
     },
     mounted() {
         this.$store.dispatch("countryStore/getCountryList").then((result) => {
-            // debugger
         });
         // clear errorMessage
         this.errorMessage = '';

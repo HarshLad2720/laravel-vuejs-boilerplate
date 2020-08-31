@@ -28,7 +28,7 @@
 
                         <v-layout>
                             <v-flex xs12 sm12 md4 lg4>
-                                <v-text-field v-model="options.search" label="Search" class="mx-4"></v-text-field>
+                                <v-text-field v-model="options.search" label="Search" class="mx-4" prepend-inner-icon="search"></v-text-field>
                             </v-flex>
                             <v-flex xs12 sm12 md8 lg8>
                                 <div class="float-right mt-4">
