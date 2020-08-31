@@ -30,8 +30,8 @@ class UsersRequest extends FormRequest
         $urlArr = explode("/",$uri);
         $id=end($urlArr);
         $commonRule = [
-            'name' => 'required | max:255',
-            'mobile_no' => 'required | digits:10',
+            'name' => 'required | regex:/^[a-zA-Z_ ]*$/ | max:255',
+            'mobile_no' => 'required | regex:/^[6-9]\d{9}$/ | digits:10',
             'gender' => ['required', Rule::in([0, 1])],
             'dob' => 'required|date|date_format:Y-m-d',
             'address' => 'required|max:500',

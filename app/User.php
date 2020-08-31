@@ -1,23 +1,32 @@
 <?php
 
 namespace App;
+use App\Http\Resources\DataTrueResource;
+use App\Http\Resources\User\UsersResource;
+use App\Imports\User\UsersImport;
 use App\Models\User\Country;
 use App\Models\User\Hobby;
+use App\Models\User\Import_csv_log;
 use App\Models\User\State;
 use App\Models\User\City;
 use App\Models\User\Role;
 use App\Models\User\UserGallery;
+use App\Models\User\Hobby_user;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Scopes;
 use Laravel\Passport\HasApiTokens;
-use Illuminate\Support\Facades\Schema;
+use Maatwebsite\Excel\Facades\Excel;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable,Scopes,HasApiTokens;
+    use Notifiable,Scopes,HasApiTokens, SoftDeletes;
+
+    protected $table = 'users';
 
     public function scopeCommonFunctionMethod($query,$model, $request, $preQuery = null, $tablename = null, $groupBy = null, $export_select = false, $no_paginate = false)
     {
@@ -27,22 +36,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function getCommonFunctionMethod($model, $request, $preQuery = null, $tablename = null, $groupBy = null, $export_select = false, $no_paginate = false)
     {
         if (is_null($preQuery)) {
-            $model_name = new $model;
-            $table = $model_name->getTable();
+
+
             $mainQuery = $model::withSearch($request->get('search'), $export_select);
         }else {
-            $table = $model->getModel()->getTable();
+
             $mainQuery = $model->withSearch($request->get('search'), $export_select);
         }
-
-        $clinic_id_exists = Schema::hasColumn($table, 'clinic_id');
-        $patient_id_exists = Schema::hasColumn($table, 'patient_id');
-
-        if($request->has('clinic_id') && $request->get('show_all_clinic') != "1" && !$request->has('show_all_branches') && $clinic_id_exists)
-            $mainQuery = $mainQuery->where($table.'.clinic_id',$request->get('clinic_id'));
-
-        if ( $request->has('patient_id') && $request->get('show_all_patient') != "1" && $patient_id_exists)
-            $mainQuery = $mainQuery->where($table.'.patient_id',$request->get('patient_id'));
 
         if($request->filled('filter') != '')
             $mainQuery = $mainQuery->withFilter($request->get('filter'));
@@ -71,7 +71,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     public $sortable=[
-        'id','name','country_id','state_id','city_id'
+        'id','name'
     ];
 
     public $foreign_sortable = [
@@ -189,5 +189,123 @@ class User extends Authenticatable implements MustVerifyEmail
         return url(config('constants.image.dir_path') . $value);
     }
 
+    public function scopeRegister($query,$request){
+        $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
+        $data['role_id'] = config('constants.role.apply_role');
+        $user = User::create($data);
+
+        if($request->hasfile('profile')) {
+            $real_path = 'user/' . $user->id . '/';
+            $file_data = $request->file('profile')->store('/public/' . $real_path);
+            $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+            $user->update(['profile' => $filename]);
+        }
+
+        if($request->hasfile('gallery')) {
+
+            foreach ($request->gallery as $image) {
+                $real_path = 'gallery/'.$user->id.'/';
+                $file_data = $image->store('/public/' . $real_path);
+                $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+                UserGallery::create([
+                    'user_id' => $user->id,
+                    'filename' => $filename
+                ]);
+            }
+        }
+
+        if($data['hobby']) {
+            $user->hobbies()->attach($data['hobby']); //this executes the insert-query
+        }
+
+        $user->sendEmailVerificationNotification();
+        return response()->json(['success' => config('constants.messages.registration_success')], config('constants.validation_codes.200'));
+    }
+
+    /**
+     * Multiple Delete
+     * @param $query
+     * @param $request
+     * @return DataTrueResource|\Illuminate\Http\JsonResponse
+     */
+    public function scopeDeleteAll($query,$request){
+        if(!empty($request->id)) {
+            User::whereIn('id', $request->id)->delete();
+            return new DataTrueResource(true);
+        }
+        else{
+            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], config('constants.validation_codes.422'));
+        }
+    }
+
+    /**
+     * update User
+     * @param $query
+     * @param $request
+     * @param $user
+     * @return UsersResource
+     */
+    public function scopeUpdateUser($query,$request,$user){
+        $data = $request->all();
+        if($request->hasfile('profile')) {
+            $real_path = 'user/' . $user->id . '/';
+            $file_data = $request->file('profile')->store('/public/' . $real_path);
+            $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+            $data['profile'] = $filename;
+        }
+
+        if($request->hasfile('gallery')) {
+
+            foreach ($request->gallery as $image) {
+                $real_path = 'gallery/'.$user->id.'/';
+                $file_data = $image->store('/public/' . $real_path);
+                $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
+                UserGallery::create([
+                    'user_id' => $user->id,
+                    'filename' => $filename
+                ]);
+            }
+        }
+
+        if($data['hobby']) {
+            $user->hobbies()->detach(); //this executes the delete-query
+            $user->hobbies()->attach($data['hobby']); //this executes the insert-query
+        }
+
+        $user->update($data);
+        return new UsersResource($user);
+    }
+
+    /**
+     * Import csv
+     * @param $query
+     * @param $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function scopeImportBulk($query,$request)
+    {
+        if($request->hasfile('file')) {
+            $path1 = $request->file('file')->store('temp');
+            $path = storage_path('app') . '/' . $path1;
+            $import = new UsersImport;
+            $data = Excel::import($import, $path);
+            if (count($import->getErrors()) > 0) {
+                $file = $request->file('file')->getClientOriginalName();
+                $error_jason = json_encode($import->getErrors());
+                Import_csv_log::create([
+                    'file_path' => $path1,
+                    'filename' => $file,
+                    'model_name' => config('constants.models.user_model'),
+                    'error_log' => $error_jason
+                ]);
+                return response()->json(['errors' => $import->getErrors()], config('constants.validation_codes.422'));
+            }
+            return response()->json(['success' => true]);
+        }
+        else{
+            return response()->json(['error' =>config('constants.messages.file_csv_error')], config('constants.validation_codes.422'));
+        }
+    }
 
 }
