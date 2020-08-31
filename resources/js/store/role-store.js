@@ -94,7 +94,7 @@ const roleStore = {
         },
         multiDelete({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.post(baseUrl + "cities-delete-multiple", param).then(response => {
+                HTTP.post(baseUrl + "roles-delete-multiple", param).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);

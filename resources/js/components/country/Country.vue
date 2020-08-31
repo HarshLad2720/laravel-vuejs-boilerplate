@@ -44,8 +44,9 @@
                                         <span>Add Country</span>
                                     </v-tooltip>
                                     <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps" v-export="$getConst('COUNTRY')"></export-btn>
+                                    <template v-if="selected.length>1">
                                     <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps"></multi-delete>
-
+                                    </template>
                                 </div>
                             </v-flex>
                         </v-layout>
