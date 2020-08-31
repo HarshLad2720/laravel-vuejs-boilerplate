@@ -17,8 +17,7 @@ export default CustomTable.extend({
             tab: null,
             files: [],
             modalOpen: false,
-            statename:'userStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
-            url:'getAll',
+            urlApi: 'userStore/getAll',// set store name here to set/get pagination data and for access of actions/mutation via custom table
             headers: [
                 { text: 'Name', value: 'name'},
                 { text: 'DOB', value: 'dob'},
@@ -33,9 +32,6 @@ export default CustomTable.extend({
                 { text: 'Status', value: 'status_text' },
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
-            options:{
-                filter:{},
-            },
             confirmation: {
                 title: '',
                 description: '',
@@ -145,23 +141,23 @@ export default CustomTable.extend({
          * Filter
          */
         changeFilter(){
-            //this.options.filter = {};
             let filter = {};
             if(this.role_id != ''){
                 filter.role_id = [this.role_id];
             }
-            this.options.filter =filter;
+            this.filterModel =filter;
+            this.refresh();
             this.filtermenu= false;
         },
         /**
          * Reset Filter
          */
         resetFilter(){
-            this.role_id = ''
-            this.options.filter = {}
+            this.role_id = '';
+            this.changeFilter();
         },
         refreshData(){
-            this.refresh();
+            //this.refresh();
         }
 
     },

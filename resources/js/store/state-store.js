@@ -127,7 +127,7 @@ const stateStore = {
         },
         import({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.post(baseUrl + "states-import-bulk, param).then(response => {
+                HTTP.post(baseUrl + "states-import-bulk", param).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);
