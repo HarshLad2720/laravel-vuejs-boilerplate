@@ -22,7 +22,7 @@
                                 v-validate="'required|email'"
                             ></v-text-field>
                     <v-btn class="btn btn-primary" :loading="isSubmitting" type="submit">Submit</v-btn>
-                    <v-btn color="" class="btn btn-grey ml-3" @click="onCancel()">Cancel</v-btn>
+                    <v-btn color="" class="btn btn-grey ml-3" @click="onCancel()">{{ $getConst('BTN_CANCEL') }}</v-btn>
                 </form>
             </v-card-text>
         </v-card>

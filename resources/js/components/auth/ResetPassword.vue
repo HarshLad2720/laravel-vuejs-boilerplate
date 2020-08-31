@@ -23,7 +23,7 @@
             <!--begin::Form-->
             <v-form class="form" @submit.prevent="onSubmit"  method="POST" role="form" enctype="multipart/form-data">
                 <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
-                <v-layout row wrap>
+                <v-layout row wrap class="display-block m-0 ">
                     <v-flex lg12>
 <!--                        {{$route.params.id}}-->
                         <v-text-field
@@ -66,7 +66,7 @@
                     <button
                         class="btn btn-light-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4"
                     >
-                        Cancel
+                        {{ $getConst('BTN_CANCEL') }}
                     </button>
                 </div>
                 <!--end::Action-->

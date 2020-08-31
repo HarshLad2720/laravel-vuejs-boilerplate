@@ -11,7 +11,7 @@
             <v-card-text>
                 <form method="POST" name="changePassword" role="form" @submit.prevent="onSubmit">
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
-                    <v-layout row wrap>
+                    <v-layout row wrap class="display-block m-0 ">
                         <v-flex lg10>
                             <v-text-field
                                 :type="show_old_password ? 'text' : 'password'"
@@ -43,8 +43,6 @@
                                 ref="password"
                             ></v-text-field>
                         </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
                         <v-flex lg10>
                             <v-text-field
                                 :type="show_new_confirmation_password ? 'text' : 'password'"
@@ -60,11 +58,9 @@
                                 v-validate="'required|min:6|confirmed:password'"
                             ></v-text-field>
                         </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
                         <v-flex xs12>
                             <v-btn class="btn btn-theme m-b-10 m-t-10" type="submit" :loading="isSubmitting">Submit</v-btn>
-                            <v-btn color="secondary" class="btn btn-grey m-b-10 m-t-10" @click="onCancel">Cancel</v-btn>
+                            <v-btn color="secondary" class="btn btn-grey m-b-10 m-t-10" @click="onCancel">{{ $getConst('BTN_CANCEL') }}</v-btn>
                         </v-flex>
                     </v-layout>
                 </form>

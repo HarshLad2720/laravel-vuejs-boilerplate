@@ -22,7 +22,7 @@
                 <!--the form will load once the loader is loaded-->
                 <form v-if ="!loading" method="POST" name="" role="form">
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
-                    <v-layout row wrap>
+                    <v-layout row wrap class="display-block m-0 ">
                         <v-flex xs12>
                             <v-text-field
                                 label="Hobby" type="text"
@@ -32,9 +32,6 @@
                                 v-validate="'required'"
                             ></v-text-field>
                         </v-flex>
-                    </v-layout>
-
-                    <v-layout row wrap>
                         <v-flex xs12>
                             <v-btn color="secondary" class="btn btn-grey m-b-10 m-t-10" @click.native="onCancel">
                                 {{ $getConst('BTN_CANCEL') }}
