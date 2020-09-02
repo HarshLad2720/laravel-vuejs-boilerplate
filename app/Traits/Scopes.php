@@ -2,8 +2,10 @@
 
 namespace App\Traits;
 
+use App\Models\User\Import_csv_log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Maatwebsite\Excel\Facades\Excel;
 use function is_array;
 use function is_null;
 use Carbon\Carbon;
@@ -340,34 +342,6 @@ trait Scopes
             return false;
     }
 
-//    public function scopeWithFilter($query, $filters)
-//    {
-//        if (!is_null($filters)) {
-//            foreach ($filters as $filter_name => $filterColumn) {
-//                if ( $filter_name == 'single' ) {
-//                    $query->where(function ($query) use ($filterColumn, $filter_name) {
-//                        foreach ($filterColumn as $filter_key => $filterValue) {
-//                            if ($filterColumn != '') {
-//                                $query->whereIn($filter_key, $filterValue);
-//                            }
-//                        }
-//                    });
-//                }
-//                if ( $filter_name == 'pivots' ) {
-//                    foreach ($filterColumn as $pivots_func => $filterValue) {
-//                        $query->whereHas($pivots_func, function ($query) use ($filterValue) {
-//                            if ($filterValue != '') {
-//                                $query->whereIn('id', $filterValue);
-//                            }
-//                        });
-//                    }
-//                }
-//            }
-//            return $query;
-//        }
-//        return $query;
-//    }
-
     /**
      * Export Common for the Type enums.
      *
@@ -394,59 +368,36 @@ trait Scopes
         $type_text = DB::raw('(CASE ' . $logic . ' ELSE "" END) AS '.$sort.'_text');
         return $type_text;
     }
-
     /**
-     * Convert timestamp to start date format 'Y-m-d 00:00:00'.
-     *
+     * Import csv
      * @param $query
-     * @param $timestamp        - timestamp for startdate.
-     * @return false|string
+     * @param $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function scopeStartTimestampToDateConverter($query, $timestamp){
-        return date('Y-m-d 00:00:00', $timestamp );
-    }
-
-    /**
-     * Convert timestamp to end date format 'Y-m-d 23:59:59.999'.
-     *
-     * @param $query
-     * @param $timestamp
-     * @return false|string
-     */
-    public function scopeEndTimestampToDateConverter($query, $timestamp){
-        return date('Y-m-d 23:59:59.999', $timestamp );
-    }
-
-    /**
-     * Get start date of year 'Y-01-01 00:00:00'.
-     *
-     * @param $query
-     * @param $year        - year value.
-     * @return false|string
-     */
-    public function scopeStartDateOfYear($query, $year){
-        return $year.'-01-01 00:00:00';
-    }
-
-    /**
-     * Get end date of year 'Y-12-31 23:59:59.999'.
-     *
-     * @param $query
-     * @param $year        - year value.
-     * @return false|string
-     */
-    public function scopeEndDateOfYear($query, $year){
-        return $year.'-12-31 23:59:59.999';
-    }
-
-    public function scopeClinicFilter($query, $request)
+    public function scopeImportBulk($query,$request,$model,$modelType,$folderName)
     {
-        $table = $query->getModel()->getTable();
-        if (!is_null($request)) {
-            $clinicIdExists = Schema::hasColumn($table, 'clinic_id');
-            if ($request->has('clinic_id') && $request->get('show_all_clinic') != "1" && !$request->has('show_all_branches') && $clinicIdExists)
-                $query = $query->where($table . '.clinic_id', $request->get('clinic_id'));
+
+        if($request->hasfile('file')) {
+            $file_name = config('constants.date_format.import_date')."_".$request->file('file')->getClientOriginalName();
+            $path = $request->file('file')->storeAs('/public/' . $folderName, $file_name);
+            $filename = $folderName . pathinfo($path, PATHINFO_BASENAME);
+
+            $data = Excel::import($model, $path);
+            if (count($model->getErrors()) > 0) {
+                $file = $request->file('file')->getClientOriginalName();
+                $error_json = json_encode($model->getErrors());
+                Import_csv_log::create([
+                    'file_path' => $filename,
+                    'filename' => $file,
+                    'model_name' => $modelType,
+                    'error_log' => $error_json
+                ]);
+                return response()->json(['errors' => $model->getErrors()], config('constants.validation_codes.unprocessable_entity'));
+            }
+            return response()->json(['success' => true]);
         }
-        return $query;
+        else{
+            return response()->json(['error' =>config('constants.messages.file_csv_error')], config('constants.validation_codes.unprocessable_entity'));
+        }
     }
 }

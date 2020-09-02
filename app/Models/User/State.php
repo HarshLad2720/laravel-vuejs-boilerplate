@@ -108,36 +108,4 @@ class State extends Model
             return response()->json(['error' =>config('constants.messages.delete_multiple_error')], config('constants.validation_codes.unprocessable_entity'));
         }
     }
-
-    /**
-     * Import csv
-     * @param $query
-     * @param $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function scopeImportBulk($query,$request)
-    {
-        if($request->hasfile('file')) {
-            $path1 = $request->file('file')->store('temp');
-            $path = storage_path('app') . '/' . $path1;
-            $import = new StatesImport;
-            $data = Excel::import($import, $path);
-
-            if (count($import->getErrors()) > 0) {
-                $file = $request->file('file')->getClientOriginalName();
-                $error_jason = json_encode($import->getErrors());
-                Import_csv_log::create([
-                    'file_path' => $path1,
-                    'filename' => $file,
-                    'model_name' => config('constants.models.state_model'),
-                    'error_log' => $error_jason
-                ]);
-                return response()->json(['errors' => $import->getErrors()], config('constants.validation_codes.unprocessable_entity'));
-            }
-            return response()->json(['success' => true]);
-        }
-        else{
-            return response()->json(['errors' =>config('constants.messages.file_csv_error')], config('constants.validation_codes.unprocessable_entity'));
-        }
-    }
 }

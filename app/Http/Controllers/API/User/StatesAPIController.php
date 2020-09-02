@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Exports\User\StatesExport;
+use App\Http\Requests\User\CsvRequest;
 use App\Http\Resources\DataTrueResource;
+use App\Imports\User\StatesImport;
 use App\User;
 use App\Models\User\State;
 use App\Http\Requests\User\StatesRequest;
@@ -113,8 +115,8 @@ class StatesAPIController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function importBulk(Request $request)
+    public function importBulk(CsvRequest $request)
     {
-        return State::importBulk($request);
+        return User::importBulk($request,new StatesImport(),config('constants.models.state_model'),config('constants.import_dir_path.state_dir_path'));
     }
 }

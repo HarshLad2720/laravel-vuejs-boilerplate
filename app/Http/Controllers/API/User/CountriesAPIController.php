@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Exports\User\CountriesExport;
+use App\Http\Requests\User\CsvRequest;
 use App\Http\Resources\DataTrueResource;
+use App\Imports\User\CountriesImport;
 use App\User;
 use App\Models\User\Country;
 use App\Http\Requests\User\CountriesRequest;
@@ -112,8 +114,8 @@ class CountriesAPIController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function importBulk(Request $request)
+    public function importBulk(CsvRequest $request)
     {
-        return Country::importBulk($request);
+        return User::importBulk($request,new CountriesImport(),config('constants.models.country_model'),config('constants.import_dir_path.country_dir_path'));
     }
 }
