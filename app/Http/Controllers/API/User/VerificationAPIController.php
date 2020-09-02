@@ -6,12 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 
-
-class VerificationAPIController extends Controller
-{
-
-
-    /*
+/*
     |--------------------------------------------------------------------------
     | Verification Controller
     |--------------------------------------------------------------------------
@@ -22,19 +17,19 @@ class VerificationAPIController extends Controller
     |
     */
 
+class VerificationAPIController extends Controller
+{
+
     /**
      * Email Verification
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function verify(Request $request) {
-        $userID = $request['id'];
-        $user = User::find($userID);
-        $date = date("Y-m-d g:i:s");
-        $user->email_verified_at = $date; // to enable the “email_verified_at field of that user be a current time stamp user must verify email feature
+        $user = User::find($request['id']);
+        $user->email_verified_at = date("Y-m-d g:i:s");; // to enable the “email_verified_at field of that user be a current time stamp user must verify email feature
         $user->status = config('constants.user.status_code.active');
         $user->save();
-
         return redirect('home');
 
     }
@@ -47,7 +42,7 @@ class VerificationAPIController extends Controller
     public function resend(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return response()->json('User already have verified email!', config('constants.validation_codes.422'));
+            return response()->json('User already have verified email!', config('constants.validation_codes.unprocessable_entity'));
         }
         $request->user()->sendEmailVerificationNotification();
         return response()->json('The notification has been resubmitted');

@@ -266,7 +266,7 @@ trait Scopes
     public function scopeWithFilter($query, $filters, $request = null)
     {
         // get filters from request in JSON format.
-        $filters = json_decode($filters);
+        $filters = json_decode(urldecode($filters));
         // Apply filter if it is not null
         if (!is_null($filters)) {
             $query->where(function ($query) use ($filters,$request) {

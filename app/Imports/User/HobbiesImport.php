@@ -16,12 +16,12 @@ class HobbiesImport implements ToCollection, WithStartRow
 
     public function startRow(): int
     {
-        return 2; // fetch record from second row at import bulk order time.
+        return 2;
     }
 
     public function getErrors()
     {
-        return $this->errors; // return all errors
+        return $this->errors;
     }
 
     public function rules(): array

@@ -13,25 +13,24 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
+/*
+   |--------------------------------------------------------------------------
+   | States Controller
+   |--------------------------------------------------------------------------
+   |
+   | This controller handles the Roles of
+       index,
+       show,
+       store,
+       update,
+       destroy,
+       export and
+       importBulk Methods.
+   |
+   */
+
 class StatesAPIController extends Controller
 {
-
-    /*
-    |--------------------------------------------------------------------------
-    | States Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the Roles of
-        index,
-        show,
-        store,
-        update,
-        destroy,
-        export and
-        importBulk Methods.
-    |
-    */
-
     /**
      * List States
      * @param Request $request
@@ -97,7 +96,7 @@ class StatesAPIController extends Controller
      */
     public function deleteAll(Request $request)
     {
-        return State::DeleteAll($request);
+        return State::deleteAll($request);
     }
     /**
      * Export States Data
@@ -116,6 +115,6 @@ class StatesAPIController extends Controller
      */
     public function importBulk(Request $request)
     {
-        return State::ImportBulk($request);
+        return State::importBulk($request);
     }
 }

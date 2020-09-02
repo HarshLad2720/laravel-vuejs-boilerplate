@@ -179,7 +179,7 @@ class Permission extends Model
             return new DataTrueResource(true);
         }
         else{
-            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], config('constants.validation_codes.422'));
+            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], config('constants.validation_codes.unprocessable_entity'));
         }
     }
 

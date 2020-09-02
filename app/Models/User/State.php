@@ -105,7 +105,7 @@ class State extends Model
             return new DataTrueResource(true);
         }
         else{
-            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], config('constants.validation_codes.422'));
+            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], config('constants.validation_codes.unprocessable_entity'));
         }
     }
 
@@ -132,12 +132,12 @@ class State extends Model
                     'model_name' => config('constants.models.state_model'),
                     'error_log' => $error_jason
                 ]);
-                return response()->json(['errors' => $import->getErrors()], config('constants.validation_codes.422'));
+                return response()->json(['errors' => $import->getErrors()], config('constants.validation_codes.unprocessable_entity'));
             }
             return response()->json(['success' => true]);
         }
         else{
-            return response()->json(['errors' =>config('constants.messages.file_csv_error')], config('constants.validation_codes.422'));
+            return response()->json(['errors' =>config('constants.messages.file_csv_error')], config('constants.validation_codes.unprocessable_entity'));
         }
     }
 }

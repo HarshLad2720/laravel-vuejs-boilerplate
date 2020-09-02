@@ -13,25 +13,24 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
+/*
+   |--------------------------------------------------------------------------
+   | Hobbies Controller
+   |--------------------------------------------------------------------------
+   |
+   | This controller handles the Roles of
+       index,
+       show,
+       store,
+       update,
+       destroy,
+       export and
+       importBulk Methods.
+   |
+   */
+
 class HobbiesAPIController extends Controller
 {
-
-    /*
-    |--------------------------------------------------------------------------
-    | Hobbies Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the Roles of
-        index,
-        show,
-        store,
-        update,
-        destroy,
-        export and
-        importBulk Methods.
-    |
-    */
-
     /**
      * Hobbies List
      * @param Request $request
@@ -97,7 +96,7 @@ class HobbiesAPIController extends Controller
      */
     public function deleteAll(Request $request)
     {
-        return Hobby::DeleteAll($request);
+        return Hobby::deleteAll($request);
     }
     /**
      * Export Hobbies Data
@@ -116,6 +115,6 @@ class HobbiesAPIController extends Controller
      */
     public function importBulk(Request $request)
     {
-        return Hobby::ImportBulk($request);
+        return Hobby::importBulk($request);
     }
 }

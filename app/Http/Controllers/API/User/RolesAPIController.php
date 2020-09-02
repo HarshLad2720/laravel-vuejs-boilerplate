@@ -14,10 +14,7 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\User\RolesExport;
 
-class RolesAPIController extends Controller
-{
-
-    /*
+/*
    |--------------------------------------------------------------------------
    | Roles Controller
    |--------------------------------------------------------------------------
@@ -33,6 +30,8 @@ class RolesAPIController extends Controller
    |
    */
 
+class RolesAPIController extends Controller
+{
 
     /**
     * Roles List
@@ -103,7 +102,7 @@ class RolesAPIController extends Controller
      */
     public function deleteAll(Request $request)
     {
-        return Role::DeleteAll($request);
+        return Role::deleteAll($request);
     }
     /**
      * Export Roles Data

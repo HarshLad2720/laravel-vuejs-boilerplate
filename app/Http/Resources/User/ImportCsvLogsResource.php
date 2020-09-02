@@ -16,12 +16,11 @@ class ImportCsvLogsResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'filename' => (string)$this->filename,
-            'file_path' =>(string) $this->file_path,
+            'filename' => $this->filename,
+            'file_path' =>$this->file_path,
             'model_name' => $this->model_name,
-            'created_at' => (string)$this->created_at,
-            'updated_at' => (string)$this->updated_at,
-            'deleted_at' => (string)$this->deleted_at
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

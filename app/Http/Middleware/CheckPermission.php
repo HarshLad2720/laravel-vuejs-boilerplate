@@ -39,6 +39,6 @@ class CheckPermission
         else if($request->user()->tokenCan($permission))//check user permission with his token
             return $next($request); //redirect to requested uri if permitted
         else//reject the requested uri
-            return \Illuminate\Support\Facades\Response::make(config('constants.permission.user_has_not_permission'), config('constants.validation_codes.403'));
+            return \Illuminate\Support\Facades\Response::make(config('constants.permission.user_has_not_permission'), config('constants.validation_codes.forbidden'));
     }
 }

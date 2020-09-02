@@ -18,10 +18,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Hash;
 
-class LoginController extends Controller
-{
-
-    /*
+/*
     |--------------------------------------------------------------------------
     | Login Controller
     |--------------------------------------------------------------------------
@@ -30,6 +27,8 @@ class LoginController extends Controller
     |
     */
 
+class LoginController extends Controller
+{
     /**
      * Login user and create token
      * @param LoginRequest $request
@@ -44,7 +43,7 @@ class LoginController extends Controller
             ->first();
 
         if ((isset($user) && $user->status != config('constants.user.status_code.active'))) {
-            return response()->json(['error' => config('constants.messages.login.unverified_account')],config('constants.validation_codes.422'));
+            return response()->json(['error' => config('constants.messages.login.unverified_account')],config('constants.validation_codes.unprocessable_entity'));
         }
 
         $credentials = request(['email', 'password']);
@@ -65,7 +64,7 @@ class LoginController extends Controller
             $user->authorization = $tokenResult->accessToken;
             return new UsersResource($user);
         }else{
-            return response("No User found.", config('constants.validation_codes.422') );
+            return response("No User found.", config('constants.validation_codes.unprocessable_entity') );
         }
 
     }
@@ -87,9 +86,9 @@ class LoginController extends Controller
             if ($masterUser->update($masterData)) {
                 return new DataTrueResource($masterUser);
             }else
-                return response()->json(['error' => config("constants.messages.something_wrong")],config('constants.validation_codes.422'));
+                return response()->json(['error' => config("constants.messages.something_wrong")],config('constants.validation_codes.unprocessable_entity'));
         } else {
-            return response()->json(['error' => config("constants.messages.invalid_old_password")],config('constants.validation_codes.422'));
+            return response()->json(['error' => config("constants.messages.invalid_old_password")],config('constants.validation_codes.unprocessable_entity'));
         }
     }
 

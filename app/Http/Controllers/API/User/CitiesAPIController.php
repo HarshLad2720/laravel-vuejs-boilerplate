@@ -13,10 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
-class CitiesAPIController extends Controller
-{
-
-    /*
+/*
    |--------------------------------------------------------------------------
    | Cities Controller
    |--------------------------------------------------------------------------
@@ -32,6 +29,8 @@ class CitiesAPIController extends Controller
    |
    */
 
+class CitiesAPIController extends Controller
+{
     /**
      * list Cities
      * @param Request $request
@@ -97,7 +96,7 @@ class CitiesAPIController extends Controller
      */
     public function deleteAll(Request $request)
     {
-        return City::DeleteAll($request);
+        return City::deleteAll($request);
     }
 
     /**
@@ -117,6 +116,6 @@ class CitiesAPIController extends Controller
      */
     public function importBulk(Request $request)
     {
-        return City::ImportBulk($request);
+        return City::importBulk($request);
     }
 }

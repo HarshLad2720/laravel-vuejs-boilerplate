@@ -16,10 +16,9 @@ class CountriesResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => (string)$this->name,
-            'created_at' => (string)$this->created_at,
-            'updated_at' => (string)$this->updated_at,
-            'deleted_at' => (string)$this->deleted_at
+            'name' => $this->name,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

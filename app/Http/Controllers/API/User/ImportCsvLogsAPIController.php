@@ -10,11 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 
-
-class ImportCsvLogsAPIController extends Controller
-{
-
-    /*
+/*
    |--------------------------------------------------------------------------
    | ImportCsvLogs Controller
    |--------------------------------------------------------------------------
@@ -24,7 +20,8 @@ class ImportCsvLogsAPIController extends Controller
        show,
    |
    */
-
+class ImportCsvLogsAPIController extends Controller
+{
     /**
      * List All Users
      * @param Request $request

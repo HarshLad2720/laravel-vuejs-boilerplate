@@ -17,27 +17,24 @@ use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\UploadTrait;
 
-
+/*
+ |--------------------------------------------------------------------------
+ | Users Controller
+ |--------------------------------------------------------------------------
+ |
+ | This controller handles the Roles of
+     register,
+     index,
+     show,
+     store,
+     update,
+     destroy,
+     export Methods.
+ |
+ */
 class UsersAPIController extends Controller
 {
-
     use UploadTrait;
-    /*
-   |--------------------------------------------------------------------------
-   | Users Controller
-   |--------------------------------------------------------------------------
-   |
-   | This controller handles the Roles of
-       register,
-       index,
-       show,
-       store,
-       update,
-       destroy,
-       export Methods.
-   |
-   */
-
     /***
      * Register New User
      * @param UsersRequest $request
@@ -108,7 +105,7 @@ class UsersAPIController extends Controller
      */
     public function deleteAll(Request $request)
     {
-        return User::DeleteAll($request);
+        return User::deleteAll($request);
     }
     /**
      * Export Users Data
@@ -142,7 +139,7 @@ class UsersAPIController extends Controller
      */
     public function importBulk(Request $request)
     {
-        return User::ImportBulk($request);
+        return User::importBulk($request);
     }
 
 }

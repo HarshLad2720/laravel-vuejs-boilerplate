@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class UsersExport implements FromCollection, WithHeadings
 {
-    protected $request;// defined private $request variable
+    protected $request;
 
-    public function __construct($request)// constructor method
+    public function __construct($request)
     {
-        $this->request = $request;// assign $request $this variable
+        $this->request = $request;
     }
 
     /**
@@ -21,9 +21,7 @@ class UsersExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $model = new User();
-
-        $query =  User::commonFunctionMethod($model::select(
+        return  User::commonFunctionMethod(User::select(
                 'id',
                 'name',
                 'email',
@@ -37,8 +35,6 @@ class UsersExport implements FromCollection, WithHeadings
                 'address',
                 DB::raw('(CASE WHEN status = "' . config('constants.user.status_code.inactive') . '" THEN "' . config('constants.user.status.0').'" ELSE "'.config('constants.user.status.1').'"  END) AS status')),
                  $this->request, true, null, null, true);
-
-        return $query;
     }
 
     public function headings():array

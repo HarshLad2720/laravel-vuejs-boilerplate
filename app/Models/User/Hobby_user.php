@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hobby_user extends Model
 {
-    public $table = 'hobby_user';
     public $timestamps = false;
     /**
      * @var array

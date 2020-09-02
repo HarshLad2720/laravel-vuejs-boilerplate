@@ -6,19 +6,19 @@ use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
+/*
+   |--------------------------------------------------------------------------
+   | Password Reset Controller
+   |--------------------------------------------------------------------------
+   |
+   | This controller is responsible for handling password reset emails and
+   | includes a trait which assists in sending these notifications from
+   | your application to your users. Feel free to explore this trait.
+   |
+   */
+
 class ForgotPasswordAPIController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset emails and
-    | includes a trait which assists in sending these notifications from
-    | your application to your users. Feel free to explore this trait.
-    |
-    */
-
     use SendsPasswordResetEmails;
 
     protected function validateEmail()
@@ -36,7 +36,7 @@ class ForgotPasswordAPIController extends Controller
      */
     protected function sendResetLinkResponse(Request $request,$response)
     {
-        return response()->json(['success' => config('constants.messages.forgotpassword_success')],200);
+        return response()->json(['success' => config('constants.messages.forgotpassword_success')],config('constants.validation_codes.ok'));
     }
 
     /**
@@ -56,6 +56,6 @@ class ForgotPasswordAPIController extends Controller
        /* return back()
             ->withInput($request->only('email'))
             ->withErrors(['email' => trans($response)]);*/
-        return response()->json(['error' => trans($response)], config('constants.validation_codes.422'));
+        return response()->json(['error' => trans($response)], config('constants.validation_codes.unprocessable_entity'));
     }
 }

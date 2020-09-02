@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\DB;
 
 class CitiesExport implements FromCollection, WithHeadings
 {
-    protected $request;// defined private $request variable
+    protected $request;
 
-    public function __construct($request)// constructor method
+    public function __construct($request)
     {
-        $this->request = $request;// assign $request $this variable
+        $this->request = $request;
     }
 
     /**
@@ -22,15 +22,11 @@ class CitiesExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $model = new City();
-
-        $query =  User::commonFunctionMethod($model::select(
+        return  User::commonFunctionMethod(City::select(
             'id',
             DB::raw('(SELECT name from states WHERE id = cities.state_id) AS state_name'),
             'name'),
             $this->request, true, null, null, true);
-
-        return $query;
     }
 
     public function headings():array

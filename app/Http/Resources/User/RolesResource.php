@@ -16,11 +16,11 @@ class RolesResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => (string)$this->name,
-            'guard_name' => (string)$this->guard_name,
-            'landing_page' => (string)$this->landing_page,
-            'created_at' => (string)$this->created_at,
-            'updated_at' => (string)$this->updated_at
+            'name' => $this->name,
+            'guard_name' => $this->guard_name,
+            'landing_page' => $this->landing_page,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

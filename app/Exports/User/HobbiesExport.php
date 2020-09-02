@@ -10,11 +10,11 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class HobbiesExport implements FromCollection, WithHeadings
 {
-    protected $request;// defined private $request variable
+    protected $request;
 
-    public function __construct($request)// constructor method
+    public function __construct($request)
     {
-        $this->request = $request;// assign $request $this variable
+        $this->request = $request;
     }
 
     /**
@@ -22,14 +22,10 @@ class HobbiesExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $model = new Hobby();
-
-        $query =  User::commonFunctionMethod($model::select(
+        return User::commonFunctionMethod(Hobby::select(
             'id',
             'name'),
             $this->request, true, null, null, true);
-
-        return $query;
     }
 
     public function headings():array

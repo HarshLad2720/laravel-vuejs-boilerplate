@@ -14,17 +14,17 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\User\PermissionsExport;
 
+/*
+   |--------------------------------------------------------------------------
+   | Permission Controller
+   |--------------------------------------------------------------------------
+   |
+   | This controller handles the Permissions of index, show, store, update, destroy, setUnsetPermissionToRole and Export Methods.
+   |
+   */
+
 class PermissionsAPIController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Permission Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the Permissions of index, show, store, update, destroy, setUnsetPermissionToRole and Export Methods.
-    |
-    */
-
     /**
      * Permissions List
      * @param Request $request
@@ -93,7 +93,7 @@ class PermissionsAPIController extends Controller
      */
     public function deleteAll(Request $request)
     {
-        return Permission::DeleteAll($request);
+        return Permission::deleteAll($request);
     }
     /**
      * This method is used set/unset permission to role

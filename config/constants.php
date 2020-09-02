@@ -3,18 +3,7 @@
 
 return [
 
-    /* 'project_name' => 'Laravel Project',
-     'project_url' => 'http://127.0.0.1:8000/',
-     'project_img' => 'storage/logo-facelab.png',
-     'project_img2' => 'images/logo.png',
-     'image' => [
-         'dir_path' => '/storage/',
-         'default_types' => 'gif|jpg|png|jpeg',
-         'user_default_img' => 'images/default.jpg',
-     ],
 
-
- */
     'messages' => [
         'user' => [
             'invalid' => 'Invalid credentials',
@@ -50,10 +39,10 @@ return [
     ],
 
     'validation_codes' => [
-        '401' => 401,
-        '403' => 403,
-        '422' => 422,
-        '200' => 200,
+        'unauthorized' => 401,
+        'forbidden' => 403,
+        'unprocessable_entity' => 422,
+        'ok' => 200,
     ],
 
     'user'=>[
@@ -65,7 +54,6 @@ return [
             'inactive' => '0',
             'active' => '1',
         ],
-        //'status_enum' => ['0', '1'],
 
         'gender' => [
             '0' => 'Female',

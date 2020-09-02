@@ -10,11 +10,11 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class RolesExport implements FromCollection, WithHeadings
 {
-    protected $request;// defined private $request variable
+    protected $request;
 
-    public function __construct($request)// constructor method
+    public function __construct($request)
     {
-        $this->request = $request;// assign $request $this variable
+        $this->request = $request;
     }
 
     /**
@@ -22,16 +22,12 @@ class RolesExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $model = new Role();
-
-        $query =  User::commonFunctionMethod($model::select(
+        return  User::commonFunctionMethod(Role::select(
             'id',
             'name',
             'guard_name',
             'landing_page'),
             $this->request, true, null, null, true);
-
-        return $query;
     }
 
     public function headings():array

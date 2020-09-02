@@ -16,12 +16,11 @@ class StatesResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => (string)$this->name,
-            'country_id' =>(string) $this->country_id,
+            'name' => $this->name,
+            'country_id' =>$this->country_id,
             'country' => $this->country,
-            'created_at' => (string)$this->created_at,
-            'updated_at' => (string)$this->updated_at,
-            'deleted_at' => (string)$this->deleted_at
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }

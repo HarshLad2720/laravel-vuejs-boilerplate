@@ -10,11 +10,11 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class PermissionsExport implements FromCollection, WithHeadings
 {
-    protected $request;// defined private $request variable
+    protected $request;
 
-    public function __construct($request)// constructor method
+    public function __construct($request)
     {
-        $this->request = $request;// assign $request $this variable
+        $this->request = $request;
     }
 
     /**
@@ -22,15 +22,11 @@ class PermissionsExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $model = new Permission();
-
-        $query =  User::commonFunctionMethod($model::select(
+        return  User::commonFunctionMethod(Permission::select(
             'id',
             'name',
             'guard_name'),
             $this->request, true, null, null, true);
-
-        return $query;
     }
 
     public function headings():array

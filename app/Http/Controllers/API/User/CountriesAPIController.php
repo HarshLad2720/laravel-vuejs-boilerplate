@@ -13,24 +13,23 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 
+/*
+ |--------------------------------------------------------------------------
+ | Countries Controller
+ |--------------------------------------------------------------------------
+ |
+ | This controller handles the Roles of
+   index,
+   show,
+   store,
+   update,
+   destroy,
+   export and
+   importBulk Methods.
+ |
+ */
 class CountriesAPIController extends Controller
 {
-    /*
-  |--------------------------------------------------------------------------
-  | Countries Controller
-  |--------------------------------------------------------------------------
-  |
-  | This controller handles the Roles of
-    index,
-    show,
-    store,
-    update,
-    destroy,
-    export and
-    importBulk Methods.
-  |
-  */
-
     /**
      * list Countires
      * @param Request $request
@@ -96,7 +95,7 @@ class CountriesAPIController extends Controller
      */
     public function deleteAll(Request $request)
     {
-        return Country::DeleteAll($request);
+        return Country::deleteAll($request);
     }
     /**
      * Export Country Data
@@ -115,6 +114,6 @@ class CountriesAPIController extends Controller
      */
     public function importBulk(Request $request)
     {
-        return Country::ImportBulk($request);
+        return Country::importBulk($request);
     }
 }
