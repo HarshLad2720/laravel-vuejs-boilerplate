@@ -22,7 +22,7 @@ const forgotPasswordStore = {
     actions: {
         sendForgotPasswordEmail({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.post(baseUrl + "password/email", param).then(response => {
+                HTTP.post(baseUrl + "forgot-passsword", param).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);

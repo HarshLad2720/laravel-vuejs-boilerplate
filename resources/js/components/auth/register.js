@@ -3,13 +3,15 @@ import ErrorBlockServer from "../../partials/ErrorBlockServer";
 import ErrorModal from "../../partials/ErrorModal";
 import {mapActions, mapState} from 'vuex'
 import Snackbar from "../../partials/Snackbar.vue"
+import gallaryImageModal from "../user/gallaryImageModal"
 
 export default {
     name: "register",
     components: {
         ErrorModal,
         ErrorBlockServer,
-        Snackbar
+        Snackbar,
+        gallaryImageModal
     },
     data() {
         return {
@@ -53,28 +55,7 @@ export default {
             isSubmitting: false,
             menu: false,
             todayDate: new Date().toISOString().slice(0,10),
-            countryList: [
-                { id: '1', name: 'India' },
-                { id: '2', name: 'US' },
-            ],
-            stateList: [
-                { id: '1', name: 'Gujarat' },
-                { id: '2', name: 'Maharastra' },
-            ],
-            cityList: [
-                { id: '1', name: 'Surat' },
-                { id: '2', name: 'US' },
-            ],
-            /*"hobbyList": [
-                {
-                    "id": "1",
-                    "name": "Cooking",
-                },
-                {
-                    "id": "2",
-                    "name": "hobby1",
-                }
-            ],*/
+            imageModal: false,
         };
     },
     computed: {
@@ -82,9 +63,9 @@ export default {
             model: state => state.userStore.model,
             isEditMode: state => state.userStore.editId > 0,
             snackbar: state => state.snackbarStore.snackbar,
-            /*countryList: state => state.countryStore.countryList,
+            countryList: state => state.countryStore.countryList,
             cityList: state => state.cityStore.cityList,
-            stateList: state => state.stateStore.stateList,*/
+            stateList: state => state.stateStore.stateList,
             hobbyList: state => state.hobbyStore.hobbyList,
         }),
         computedDateFormatted () {
@@ -97,44 +78,67 @@ export default {
          * Register Submit Method
          */
         onSubmit() {
-            var self = this;
+            console.log(self.model);
             this.$validator.validate().then(valid => {
+                var self = this;
                 if (valid) {
                     self.isSubmitting = true;
-                    let formData = new FormData();
-                    for (var key in self.model) {
-                        formData.append(key, self.model[key]);
-                    }
-                    // for profile
-                    formData.delete('profile');
-                    if (self.model.profile && self.model.profile != null && self.model.profile instanceof File) {
-                        formData.append('profile', self.model.profile);
-                    }
-
-                    // Multiple Gallery array
-                    formData.delete('gallery');
-                    if (self.model.gallery.length > 0) {
-                        self.model.gallery.map(function (g) {
-                            formData.append('gallery[]', g);
-                        });
-                    }
-
-                    // Multiple Hobby array
-                    formData.delete('hobby');
-                    if (self.model.hobby.length > 0) {
-                        self.model.hobby.map(function (h) {
-                            formData.append('hobby[]', h);
-                        });
-                    }
+                    let formData = '';
                     var apiName = "register";
                     var editId = '';
                     var msgType= self.$getConst('REGISTER_SUCCESS');
 
+                    formData = new FormData();
+                    for (var key in self.model) {
+                        formData.append(key, self.model[key]);
+                    }
+
+                    // for profile Image
+                    formData.delete('profile');
+                    if (self.model.profile_upload && self.model.profile_upload != null && self.model.profile_upload instanceof File) {
+                        formData.append('profile', self.model.profile_upload);
+                    }
+
                     // For Edit User
-                    if (this.$store.state.userStore.editId > 0) {
+                    if (self.$store.state.userStore.editId > 0) {
                         apiName = "edit";
-                        editId = this.$store.state.userStore.editId;
-                        msgType=2;
+                        editId = self.$store.state.userStore.editId;
+                        msgType= self.$getConst('UPDATE_ACTION');
+                        // console.log(self.model);
+
+                        for (var index in self.model.hobby) {
+                            formData.append('hobby[' + parseInt(index) + ']', self.model.hobby[index]);
+                        }
+
+                        if (self.model.gallery.length > 0) {
+                            for (var index2 in self.model.gallery) {
+                                if (self.model.gallery[index2] instanceof File) {
+                                    formData.append('gallery[' + parseInt(index2) + ']', self.model.gallery[index2]);
+                                }
+                            }
+                        } else {
+                            formData.delete('gallery');
+                        }
+
+
+                    } else {
+                        // Register
+
+                        // Multiple Gallery array
+                        formData.delete('gallery');
+                        if (self.model.gallery.length > 0) {
+                            self.model.gallery.map(function (g) {
+                                formData.append('gallery[]', g);
+                            });
+                        }
+
+                        // Multiple Hobby array
+                        formData.delete('hobby');
+                        if (self.model.hobby.length > 0) {
+                            self.model.hobby.map(function (h) {
+                                formData.append('hobby[]', h);
+                            });
+                        }
                     }
                     self.$store.dispatch("userStore/" + apiName, {model: formData, editId: editId},
                         {
@@ -147,10 +151,15 @@ export default {
                             self.errorMessage = response.data.error;
                         } else {
                             self.isSubmitting = false;
-                            // Success message
-                            self.$store.commit("snackbarStore/setMsg", msgType);
+                            if (self.$store.state.userStore.editId > 0) {
+                                // debugger;
+                                self.$parent.getData();
+                            }
                             // Reset data
                             self.onModalDataPost('userStore');
+
+                            // Success message
+                            self.$store.commit("snackbarStore/setMsg", msgType);
                         }
                     }, error => {
                         self.isSubmitting = false;
@@ -166,7 +175,48 @@ export default {
         formatDate (date) {
             if (!date) return null
             const [year, month, day] = date.split('-')
-            return `${month}/${day}/${year}`
+            return `${day}/${month}/${year}`
+        },
+
+        /**
+         * For view and delete Gallery image
+         */
+        onImageModal(){
+            this.imageModal = true;
+        },
+
+        /**
+         * State filter from country
+         */
+        getState() {
+            let filter = encodeURIComponent(JSON.stringify({"country_id": [this.model.country_id]}));
+            this.$store.dispatch('stateStore/getAll', {page:1, limit:1000, filter:filter,query:''}).then(response => {
+                if (response.error) {
+                    this.errorMessage = response.data.error;
+                } else {
+                    //set state list
+                    this.$store.commit("stateStore/setStateList", response.data.data);
+                }
+            }, function (error) {
+                this.errorMessage = this.getAPIErrorMessage(error.response);
+            });
+        },
+
+        /**
+         * City filter from state
+         */
+        getCity() {
+            let filter = encodeURIComponent(JSON.stringify({"state_id": [this.model.state_id]}));
+            this.$store.dispatch('cityStore/getAll', {page:1, limit:1000, filter:filter,query:''}).then(response => {
+                if (response.error) {
+                    this.errorMessage = response.data.error;
+                } else {
+                    //set city list
+                    this.$store.commit("cityStore/setCityList", response.data.data);
+                }
+            }, function (error) {
+                this.errorMessage = this.getAPIErrorMessage(error.response);
+            });
         },
 
         /**
@@ -178,10 +228,25 @@ export default {
         }
     },
     mounted() {
-        // this.$store.commit('userStore/clearModel');
-        /*this.$store.dispatch('countryStore/getCountryList');
-        this.$store.dispatch('cityStore/getCityList');
-        this.$store.dispatch('stateStore/getStateList');*/
-        // this.$store.dispatch('hobbyStore/getHobbyList');
+        this.$store.dispatch('countryStore/getCountryList').then(response => {
+            if (response.error) {
+                this.errorMessage = response.data.error;
+            } else {
+                //set Country list
+                this.$store.commit("countryStore/setCountryList", response.data.data);
+            }
+        }, function (error) {
+            this.errorMessage = this.getAPIErrorMessage(error.response);
+        });
+        this.$store.dispatch('hobbyStore/getHobbyList').then(response => {
+            if (response.error) {
+                this.errorMessage = response.data.error;
+            } else {
+                //set Hobby list
+                this.$store.commit("hobbyStore/setHobbyList", response.data.data);
+            }
+        }, function (error) {
+            this.errorMessage = this.getAPIErrorMessage(error.response);
+        });
     },
 };

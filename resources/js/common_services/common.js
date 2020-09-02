@@ -1,23 +1,22 @@
 import {mapGetters, mapState} from 'vuex';
-
+import constantPlugin from './constantPlugin';
 import moment from 'moment-timezone';
-var timeConst = 'hh:mm A';
-var dateConst = 'DD-MM-YYYY';
-var datePickerFormatConst = 'YYYY-MM-DD';
-var monthConst = 'MM-YYYY';
-var monthStringConst = 'MMMM YYYY';
-var yearConst = 'YYYY';
-var monthSlashConst = 'MM/YYYY';
-var monthSlashShortYearConst = 'MM/YY';
-var humanReadableDateConst = "MMMM Do, YYYY";
-var humanReadableDayAndDateConst = "dddd MMMM Do YYYY";
-var humanReadableFullDateConst = "dddd DD MMMM YYYY";
-var dayConst = "dddd";
-var dateSlashConst = 'DD/MM/YYYY';
-var dateStringConst = 'DD MMM YYYY';
-var dateLongStringConst = 'LLLL';
-var dateTimeConst = dateConst + ' ' + timeConst;
-var dateTimeSlashConst = dateSlashConst + ' ' + timeConst;
+
+
+import {
+    mdiPencil,
+    mdiDelete,
+    mdiFilter,
+    mdiPaperclip,
+    mdiExport,
+    mdiClose,
+    mdiPlus,
+    mdiEye,
+    mdiDownload,
+    mdiUpload
+} from '@mdi/js'
+import Vue from "vue";
+
 export default {
     data() {
         return {
@@ -33,15 +32,27 @@ export default {
                 value => !!value || 'E-mail is required',
                 value => /.+@.+\..+/.test(value.email) || /.+@.+\..+/.test(value) || 'E-mail must be valid',
             ],
+            icons: {
+                mdiPencil,
+                mdiDelete,
+                mdiFilter,
+                mdiPaperclip,
+                mdiExport,
+                mdiClose,
+                mdiPlus,
+                mdiEye,
+                mdiDownload,
+                mdiUpload,
+            },
         }
     },
+    mixins: [constantPlugin],
     computed: {
         ...mapState({
-            UserData: state => state.userStore.currentUser,
+            UserData: state => state.userStore.currentUserData,
         }),
         ...mapGetters({
-            /*userFullName: 'userStore/userFullName',
-            userProfilePicture: 'userStore/userProfilePicture',*/
+
         }),
     },
     methods: {
@@ -50,11 +61,6 @@ export default {
                 delete object[key];
             });
         },
-        /*logout() {
-            this.$store.commit('userStore/clearUserData'); //Remove user data to logout.
-            this.$router.push('/login');
-            localStorage.clear();
-        },*/
         onModalCancelPref(storeName) {
             this.$validator.reset();
             this.isSubmitting = false;
@@ -75,29 +81,14 @@ export default {
             this.errorMessage = '';
             this.$store.commit(storeName + '/clearStore');
         },
-        /**
-         * This is used to get timestamp in EPOCH of UTC i.e. removing the timezone offset
-         * @param date
-         * @returns {number}
-         */
-        getUTCDateEpoch(date) {
-            if (date) {
-                return parseInt(moment.utc(date).valueOf() / 1000);
-            }
-            return '';
+
+        /* Logout */
+        logout() {
+            localStorage.clear();
+            this.$store.commit("userStore/clearUserData");
+            this.$router.push("/");
         },
-        /**
-         * Calculate Age when you have time in epoch format
-         * @param time - Epoch timestamp in seconds
-         * @returns {number}
-         */
-        calculateAgeUnix(time) {
-            if (time) {
-                var ageDate = new Date(Date.now() - moment.unix(time)); // miliseconds from epoch
-                return Math.abs(ageDate.getUTCFullYear() - 1970);
-            }
-            return 'N/A';
-        },
+
         getErrorRule(field) {
             var error = this.errors.items.find(function (item) {
                 if (item.scope) {
@@ -215,102 +206,53 @@ export default {
         pageReset(storeName, variableName) {
             this.$store.commit(storeName + '' + variableName, 2);
         },
+
+        /* Current Time */
         currentTime() {
             var current = parseInt(moment.utc().valueOf() / 1000);
-            return moment.unix(current).format(timeConst);
+            return moment.unix(current).format(this.$getConst('TIME_CONST'));
         },
+
+        /* Current Date */
         currentDate() {
             var current = parseInt(moment.utc().valueOf() / 1000);
-            return moment.unix(current).format(dateConst);
+            return moment.unix(current).format(this.$getConst('DATE_CONST'));
         },
-        currentDateStartOfDay() {
-            return moment().startOf('day').toString();
-        },
-        currentDateSlashFormat() {
+
+        /* Current Date Time */
+        currentDateTime() {
             var current = parseInt(moment.utc().valueOf() / 1000);
-            return moment.unix(current).format(dateSlashConst);
+            return moment.unix(current).format(this.$getConst('DATE_TIME_CONST'));
         },
-        dateToTimestamp(date) {
-            return parseInt(moment.utc(date).valueOf() / 1000);
-        },
-        computedDateFormattedMomentjs(date) {
-            return date ? moment(date).format(dateConst) : ''
-        },
-        computedUnixDateFormattedMomentjs(date) {
-            return date ? moment.unix(date).format(datePickerFormatConst) : ''
-        },
-        computedUnixTimestampToDate(date) {
-            return date ? moment.unix(parseInt(date)).format(datePickerFormatConst) : ''
-        },
-        computedSlashDateFormattedMomentjs(date) {
-            return date ? moment(date).format(dateSlashConst) : ''
-        },
-        computedMonthFormattedMomentjs(date) {
-            return date ? moment(date).format(monthConst) : ''
-        },
-        computedMonthtringFormattedMomentjs(date) {
-            return date ? moment(date).format(monthStringConst) : ''
-        },
-        computedMonthUnixFormattedMomentjs(date) {
-            return date ? moment.unix(date).format(monthConst) : ''
-        },
-        computedMonthUnixSlashShortYearFormat(date) {
-            return date ? moment(date).format(monthSlashShortYearConst) : ''
-        },
-        computedYearFormat(date) {
-            return date ? moment(date).format(yearConst) : ''
-        },
-        computedYearUnixYearFormat(date) {
-            return date ? moment.unix(date).format(yearConst) : ''
-        },
-        convertTimeTo24Hrs(time) {
-            return time ? moment(time, ["hh:mm A"]).format("HH:mm") : '';
-        },
-        convertTimeTo24HrsInChunks(time) {
-            return time ? {
-                hour: moment(time, ["hh:mm A"]).format("HH"),
-                minute: moment(time, ["hh:mm A"]).format("mm"),
-                time_type: moment(time, ["hh:mm A"]).format("A"),
-            } : '';
-        },
-        convertTimeTo12Hrs(time, inChunks) {
-            if (time && inChunks) {
-                return {
-                    hour: moment(time, ["HH:mm"]).format("hh"),
-                    minute: moment(time, ["HH:mm"]).format("mm"),
-                    time_type: moment(time, ["HH:mm"]).format("A"),
-                }
+
+        /* Format Date */
+        getDateFormat(value) {
+            let date = "";
+            if (value != "" && value != null) {
+                date = moment(String(value)).format(this.$getConst('DATE_CONST'));
             }
-            if (time && !inChunks) {
-                return moment(time, ["HH:mm"]).format("hh:mm A");
+            return date;
+        },
+
+        /* Format Time */
+        getTimeFormat(value) {
+            let date = "";
+            if (value != "" && value != null) {
+                date = moment(String(value)).format(this.$getConst('TIME_CONST'));
             }
-            return '';
+            return date;
         },
-        convertTimestampWithTimezoneIntoDate(timeStamp) {
-            return timeStamp ? moment.tz(parseInt(timeStamp) * 1000, this.currentClinicTimezone).format(dateTimeSlashConst) : '';
-        },
-        convertTimestampWithTimezoneIntoDynamicFormat(timeStamp, formatConst) {
-            return timeStamp ? moment.tz(parseInt(timeStamp) * 1000, this.currentClinicTimezone).format(formatConst) : '';
-        },
-        compareTimes(startTime, endTime, timeFormat) {
-            startTime = moment(startTime, timeFormat); //time format -> h:mma
-            endTime = moment(endTime, timeFormat);
-            return startTime.isBefore(endTime);
-        },
-        compareMultipleTimes(comparableTime, startTime, endTime, timeFormat) {
-            comparableTime = moment(comparableTime, timeFormat);
-            startTime = moment(startTime, timeFormat); //time format -> h:mma
-            endTime = moment(endTime, timeFormat);
-            return comparableTime.isBetween(startTime, endTime);
-        },
-        isDeletable(object) {
-            if (this.isSuperAdmin) {
-                return true;
-            } else {
-                var endDate = moment.unix(object.created_at).add(1, 'day');
-                return moment(moment.now()).isSameOrBefore(endDate);
+
+        /* Format Date Time */
+        getDateTimeFormat(value) {
+            let date = "";
+            if (value != "" && value != null) {
+                date = moment(String(value)).format(this.$getConst('DATE_TIME_CONST'));
             }
+            return date;
         },
+
+
         /**
          * @objectData Object of data from which we need to filter
          * @param Object of filter condition {key : value}
@@ -327,33 +269,13 @@ export default {
             });
             return filterData;
         },
-        /**
-         * @response API resopnse for print
-         * convert arraybuffer streamed data to pdf file and open print window
-         * @returns {number}
-         */
-        printResponse(response) {
-            //Create a Blob from the PDF Stream
-            let file = new Blob(
-                [response],
-                {type: 'application/pdf'});
-            //Build a URL from the file
-            let fileURL = window.URL.createObjectURL(file);
-            //Open the URL on new Window
-            let tab = window.open(fileURL);
-            tab.print();
-        },
-        /**
-         * @param Object which we need to covert in json
-         * @returns {json data}
-         */
         objToJson(param) {
-            let filter = JSON.stringify(param);
+            let filter = encodeURIComponent(JSON.stringify(param));
             filter = filter.replace(/\\/g, '');
             return filter;
         },
         convertToCSV(filename, data, type = 'text/csv;charset=utf-8;', extension = '.csv') {
-            var exportedFilename = filename + new Date() + extension;
+            var exportedFilename = filename + '' + new Date() + extension;
             var blob = new Blob([data], {type: type});
             if (navigator.msSaveBlob) { // IE 10+
                 navigator.msSaveBlob(blob, exportedFilename);
@@ -371,108 +293,12 @@ export default {
                 }
             }
         },
-        refreshInfiniteList(refName) {
-            this.resetParams();
-            if (this.$refs[refName]) {
-                this.$refs[refName].stateChanger.reset();
-            }
-        },
     },
     beforeCreate() {
         this.$store.commit('snackbarStore/clearStore');
     },
     created() { },
     filters: {
-        getHumanReadableDate(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment(value).format(humanReadableDateConst);
-            }
-            return date;
-        },
-        getHumanReadableDayAndDateConst(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(value).format(humanReadableDayAndDateConst);
-            }
-            return date;
-        },
-        getHumanReadableFullDate(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment(value).format(humanReadableFullDateConst);
-            }
-            return date;
-        },
-        getDayName(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment(value).format(dayConst);
-            }
-            return date;
-        },
-        getDateUnixFormat(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(value).format(dateConst);
-            }
-            return date;
-        },
-        getDateFormat(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(parseInt(value)).format(dateConst);
-            }
-            return date;
-        },
-        getTimeFormat(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(parseInt(value)).format(timeConst);
-            }
-            return date;
-        },
-        getDatetimeFormat(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(parseInt(value)).format(dateTimeConst);
-            }
-            return date;
-        },
-        getDateSlashFormat(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(parseInt(value)).format(dateSlashConst);
-            }
-            return date;
-        },
-        getMonthSlashFormat(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(parseInt(value)).format(dateSlashConst);
-            }
-            return date;
-        },
-        getDateFormatString(value) {
-            //e.x. 01 JUN 2019
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment.unix(parseInt(value)).format(dateStringConst);
-            }
-            return date;
-        },
-
-        /**
-         * Format number
-         * @param value
-         */
-        formatNumber(value) {
-            if (value || value == '0') {
-                return parseFloat(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            }else {
-                return '0.00';
-            }
-        },
 
         /**
          * Truncate no of character from the text

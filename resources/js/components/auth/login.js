@@ -29,7 +29,8 @@ export default {
                 email: '',
                 password: '',
             },
-            fpdialog : false
+            fpdialog : false,
+            isSubmitting: false,
         };
     },
     components:{ForgotPasswordModal, Snackbar, ErrorBlockServer, ErrorModal},
@@ -44,15 +45,25 @@ export default {
             submitButton.classList.add("spinner", "spinner-light", "spinner-right");*/
             this.$validator.validate().then(valid => {
                 if (valid) {
+                    // this.isSubmitting = true;
                     this.$store.dispatch("userStore/login",
                         {
                             loginDetail: this.loginDetail
                         }).then(response => {
                         this.errorMessage = '';
+
                         // Set Data of Current user in store
                         this.$store.commit('userStore/setCurrentUserData', response.data.data);
+
+                        // Set permission data
+                        if(response.data && response.data.data.permissions && response.data.data.permissions.length > 0) {
+                            this.$store.commit('permissionStore/setUserPermissions', response.data.data.permissions);
+                        }
+
                         // go to which page after successfully login
                         this.$router.push("/users");
+
+                        // this.isSubmitting = false;
                     })
                     // If Login has Error
                         .catch(err => {
@@ -62,6 +73,7 @@ export default {
                                 "spinner-light",
                                 "spinner-right"
                             );*/
+                            // this.isSubmitting = false;
                             this.errorMessage = err.response.data.error;
                         });
                 }

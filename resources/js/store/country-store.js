@@ -3,16 +3,30 @@ var baseUrl='/api/v1/';
 const countryStore = {
     namespaced:true,
     state: {
+        pagination:{
+            query: '',
+            page: 1,
+            limit: 10,
+            orderBy: '',
+            ascending: true,
+            filter: ''
+        },
+        tableData:[],
         list: [],
         countryList:[],
         model: {
             name: '',
-            remark:'',
         },
         editId: 0,
 
     },
     mutations: {
+        setPagination(state,payload){
+            state.pagination = payload;
+        },
+        setTableData(state, payload) {
+            state.tableData = payload;
+        },
         setList(state, payload) {
             state.list = payload;
         },
@@ -55,19 +69,8 @@ const countryStore = {
         },
         getAll({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "countries" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
+                HTTP.get(baseUrl + "countries" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + (param.query ? param.query : "") + "&filter=" + (param.filter ? param.filter : "") +"&sort=" + (param.orderBy ? param.orderBy : "") + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
-                    commit('setList', response.data);
-                }).catch(e => {
-                    reject(e);
-                })
-            })
-        },
-        getCountryList({commit}, param) {
-            return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "countries").then(response => {
-                    resolve(response);
-                    commit('setCountryList', response.data.data);
                 }).catch(e => {
                     reject(e);
                 })
@@ -83,10 +86,18 @@ const countryStore = {
                 })
             })
         },
+        multiDelete({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.post(baseUrl + "countries-delete-multiple", param).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
         getById({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'countries' + "/" + state.editId).then(response => {
-                    commit('setModel', {model: response.data.data})
                     resolve(response.data);
                 })
                     .catch(e => {
@@ -96,13 +107,41 @@ const countryStore = {
         },
         export({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "countries-export" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy.column + "&order_by=" + (param.orderBy.ascending == 1 ? "asc" : "desc")).then(response => {
+                HTTP.get(baseUrl + "countries-export" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);
                 })
             })
-        }
+        },
+        import({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.post(baseUrl + "countries-import-bulk", param).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
+        getAllImport({ commit }, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.get(baseUrl + "import-csv-log" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
+        getByImportId({commit, state}) {
+            return new Promise((resolve, reject) => {
+                HTTP.get(baseUrl + 'import-csv-log' + "/" + state.editId).then(response => {
+                    resolve(response.data);
+                })
+                    .catch(e => {
+                        reject(e);
+                    })
+            })
+        },
     },
     getters: {
 

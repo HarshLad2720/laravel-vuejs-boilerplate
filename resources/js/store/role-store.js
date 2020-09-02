@@ -17,6 +17,7 @@ function initialState() {
         roledropdownlist: [],
         editId: 0,
         model:{
+            id:[],
             name:'',
             guard_name:'',
             landing_page:''
@@ -57,7 +58,7 @@ const roleStore = {
     actions: {
         getAll({ commit }, param) {
             return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "roles" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
+                HTTP.get(baseUrl + "roles" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + (param.query ? param.query : "") + "&filter=" + (param.filter ? param.filter : "" ) + "&sort=" + (param.orderBy ? param.orderBy : "") + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);
@@ -91,10 +92,18 @@ const roleStore = {
                 })
             })
         },
+        multiDelete({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.post(baseUrl + "roles-delete-multiple", param).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
         getById({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'roles' + "/" + state.editId).then(response => {
-                    commit('setModel', {model: response.data.data})
                     resolve(response.data);
                 })
                     .catch(e => {
@@ -102,16 +111,42 @@ const roleStore = {
                     })
             })
         },
-        getRoleList({commit}, param) {
+        export({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "roles?per_page=1000").then(response => {
+                HTTP.get(baseUrl + "roles-export" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
-                    commit('setRoleList', response.data.data);
                 }).catch(e => {
                     reject(e);
                 })
             })
-
+        },
+        import({commit}, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.post(baseUrl + "roles-import-bulk", param).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
+        getAllImport({ commit }, param) {
+            return new Promise((resolve, reject) => {
+                HTTP.get(baseUrl + "import-csv-log" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
+                    resolve(response);
+                }).catch(e => {
+                    reject(e);
+                })
+            })
+        },
+        getByImportId({commit, state}) {
+            return new Promise((resolve, reject) => {
+                HTTP.get(baseUrl + 'import-csv-log' + "/" + state.editId).then(response => {
+                    resolve(response.data);
+                })
+                    .catch(e => {
+                        reject(e);
+                    })
+            })
         },
     }
 }

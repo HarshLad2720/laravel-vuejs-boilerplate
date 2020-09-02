@@ -14,7 +14,7 @@
           target="_blank"
           class="text-dark-75 text-hover-primary"
         >
-          Eastern Techno solutions
+          Eastern Techno Solutions
         </a>
       </div>
       <div class="nav nav-dark">

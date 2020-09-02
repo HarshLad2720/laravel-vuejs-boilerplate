@@ -660,6 +660,7 @@ var KTMenu = function(elementId, options) {
          * @returns {KTMenu}
          */
         getBreadcrumbs: function(item) {
+            debugger;
             var query;
             var breadcrumbs = [];
             var link = KTUtil.child(item, '.menu-link');
@@ -689,6 +690,7 @@ var KTMenu = function(elementId, options) {
          * @returns {KTMenu}
          */
         getPageTitle: function(item) {
+            debugger;
             var query;
 
             return (query = KTUtil.child(item, '.menu-text') ? query.innerHTML : '');
@@ -781,6 +783,7 @@ var KTMenu = function(elementId, options) {
      * Set breadcrumb for menu item
      */
     the.getBreadcrumbs = function(item) {
+        debugger;
         return Plugin.getBreadcrumbs(item);
     };
 

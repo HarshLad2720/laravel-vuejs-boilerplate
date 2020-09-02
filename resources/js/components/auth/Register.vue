@@ -28,57 +28,71 @@
       <!--begin::Form-->
       <v-form class="form" @submit.prevent="onSubmit"  method="POST" role="form" enctype="multipart/form-data" autocomplete="off">
           <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
-          <v-layout row wrap class="display-block">
+          <v-layout row wrap class="display-block m-0 ">
+
               <v-flex xs12>
-                  <v-text-field
-                      label="Username" type="text"
+                  <v-text-field type="text"
                       name="name"
+                      label="Name*"
                       v-model="model.name"
                       :error-messages="getErrorValue('name')"
                       v-validate="'required'"
-                      solo
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
-                  <v-text-field
-                      label="Email" type="text"
+                  <v-text-field type="text"
                       name="email"
                       v-model="model.email"
+                      label="Email*"
                       :error-messages="getErrorValue('email')"
+                      :disabled="isEditMode"
                       v-validate="'required|email'" autocomplete="email"
-                      solo
-                      :readonly="isEditMode?'readonly':''"
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
-                  <v-text-field
-                      label="Password" type="password"
+                  <v-text-field type="password"
                       name="password"
+                      label="Password*"
                       v-model="model.password"
                       :error-messages="getErrorValue('password')"
-                      v-validate="isEditMode ? '' :'required|min:6'" autocomplete="new-password"
-                      solo v-if="!isEditMode"
+                      v-validate="isEditMode ? '' :'required|min:6'" autocomplete="new-password" v-if="!isEditMode"
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
                   <v-text-field
-                      label="Mobile No" type="text"
+                      label="Mobile No*"
+                      type="text"
                       name="mobile_no"
                       v-model="model.mobile_no"
                       :error-messages="getErrorValue('mobile_no')"
                       v-validate="'required|min:10|max:10'"
-                      solo
                   ></v-text-field>
               </v-flex>
-              <v-flex xs12>
-                  <v-file-input label="Profile" name="profile" v-model="model.profile" solo :error-messages="getErrorValue('profile')"
-                                v-validate="isEditMode ? '' :'required'"></v-file-input>
+              <template row wrap v-if="model.profile != ''">
+                  <v-flex lg6>
+                      Existing Profile Image :
+                  </v-flex><v-flex lg6>
+                  <a :href="model.profile" target="_blank"><img :src="model.profile" width="auto" height="70" class="mb-4"></a>
               </v-flex>
+              </template>
               <v-flex xs12>
+                  <v-file-input
+                      attach
+                      v-model="model.profile_upload"
+                      :rules="rules"
+                      :label="!isEditMode ? 'Profile Image*' : 'Profile Image'"
+                      @click:clear="model.profile_upload=null"
+                      id="profile" name="profile" ref="profile"
+                      :error-messages="getErrorValue('profile')"
+                      v-validate="!isEditMode ? 'required' : ''">
+                  </v-file-input>
+              </v-flex>
+              <v-flex xs12 class="mt-3">
+                  <label>Gender*</label>
                   <v-radio-group row v-model="model.gender"
                                  name="gender"
                                  :error-messages="getErrorValue('gender')"
-                                 v-validate="'required'">
+                                 v-validate="'required'" class="p-0 mt-1">
                       <v-radio label="Male" value="1"></v-radio>
                       <v-radio label="Female" value="0"></v-radio>
                   </v-radio-group>
@@ -94,82 +108,84 @@
                   >
                       <template v-slot:activator="{ on }">
                           <v-text-field
-                              label="DOB"
+                              label="DOB*"
                               readonly
                               v-on="on"
                               single-line
-                              solo
                               v-model="computedDateFormatted"
                               :error-messages="getErrorValue('dob')"
                               v-validate="'required'" name="dob"
                           ></v-text-field>
                       </template>
-                      <v-date-picker v-model="model.dob" :min="todayDate"
+                      <v-date-picker v-model="model.dob" :max="todayDate"
                                      @input="menu = false"></v-date-picker>
                   </v-menu>
               </v-flex>
               <v-flex xs12>
-                  <v-text-field
-                      label="Address" type="text"
+                  <v-text-field type="text"
                       name="address"
+                      label="Address*"
                       v-model="model.address"
                       :error-messages="getErrorValue('address')"
                       v-validate="'required'"
-                      solo
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
                   <v-select
+                      label="Country*"
                       name="country_id"
                       v-model="model.country_id"
                       :items="countryList"
-                      label="Country"
                       item-text="name"
                       item-value="id"
                       :error-messages="getErrorValue('country_id')"
                       v-validate="'required'"
-                      solo
+                      @change="getState()"
                   ></v-select>
               </v-flex>
               <v-flex xs12>
                   <v-select
+                      label="State*"
                       name="state_id"
                       v-model="model.state_id"
                       :items="stateList"
-                      label="State"
                       item-text="name"
                       item-value="id"
                       :error-messages="getErrorValue('state_id')"
                       v-validate="'required'"
-                      solo
+                      @change="getCity()"
                   ></v-select>
               </v-flex>
               <v-flex xs12>
                   <v-select
+                      label="City*"
                       name="city_id"
                       v-model="model.city_id"
                       :items="cityList"
-                      label="City"
                       item-text="name"
                       item-value="id"
                       :error-messages="getErrorValue('city_id')"
                       v-validate="'required'"
-                      solo
                   ></v-select>
               </v-flex>
-              <v-flex xs12>
-                  <v-file-input multiple name="gallery" label="Gallery" v-model="model.gallery" solo :error-messages="getErrorValue('gallery')"
-                                v-validate="isEditMode ? '' :'required'"></v-file-input>
+              <v-flex xs12 v-if="isEditMode" class="mb-3">
+                  <a @click="onImageModal()">View Gallery Images</a>
               </v-flex>
               <v-flex xs12>
-                  <v-row justify="space-around">
-                      <template v-for="(hList,index) in hobbyList">
+                  <v-file-input multiple name="gallery" v-model="model.gallery" :error-messages="getErrorValue('gallery')"
+                                v-validate="isEditMode ? '' :'required'" :label="!isEditMode ? 'Gallery*' : 'Gallery'"></v-file-input>
+              </v-flex>
+              <v-flex xs12 class="mt-3">
+                  <label>Hobby*</label>
+                  <v-row class="ml-0">
+                      <template v-for="(hList,index) in hobbyList" >
                       <v-checkbox :id="'hobby'+hList.id"
+                                  :key="'hobby'+index"
                                   :label="hList.name"
                                   :name="'hobby'+hList.id"
                                   :value="hList.id"
-                                  v-model="model.hobby"
-                                  v-validate="isEditMode ? '' :'required'" :error="getErrorCount('hobby1' +hList.id)"></v-checkbox>
+                                  v-model="model.hobby" class="mt-0 mr-2"
+                                  v-validate="'required'" :error="getErrorCount('hobby' +hList.id)"></v-checkbox>
                       </template>
                   </v-row>
               </v-flex>
@@ -178,13 +194,13 @@
         <!--begin::Action-->
         <div class="form-group d-flex flex-wrap flex-center">
             <v-btn class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4" type="submit"
-                   :loading="isSubmitting" ref="submitBtn">Submit</v-btn>
-          <button v-if="isEditMode"
-            v-on:click="onCancel()"
-            class="btn btn-light-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4"
+                   :loading="isSubmitting" ref="submitBtn">{{isEditMode ?  $getConst('BTN_UPDATE') : $getConst('BTN_SUBMIT') }}</v-btn>
+          <v-btn v-if="isEditMode"
+            @click="onCancel()"
+            class="btn btn-grey font-weight-bold px-9 py-4 my-3 font-size-3 mx-4"
           >
-            Cancel
-          </button>
+              {{ $getConst('BTN_CANCEL') }}
+          </v-btn>
         </div>
         <!--end::Action-->
       </v-form>
@@ -192,6 +208,7 @@
     </div>
     <!--end::Signup-->
       <snackbar v-model="snackbar"></snackbar>
+      <gallary-image-modal v-model="imageModal"></gallary-image-modal>
   </div>
 </template>
 
