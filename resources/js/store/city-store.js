@@ -78,15 +78,6 @@ const cityStore = {
                 })
             })
         },
-        getCityList({commit}, param) {
-            return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "cities").then(response => {
-                    resolve(response);
-                }).catch(e => {
-                    reject(e);
-                })
-            })
-        },
         delete({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.delete(baseUrl + "cities" + "/" + param,

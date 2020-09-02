@@ -77,15 +77,6 @@ const hobbyStore = {
                 })
             })
         },
-        getHobbyList({commit}, param) {
-            return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "hobbies").then(response => {
-                    resolve(response);
-                }).catch(e => {
-                    reject(e);
-                })
-            })
-        },
         delete({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.delete(baseUrl + "hobbies" + "/" + param,

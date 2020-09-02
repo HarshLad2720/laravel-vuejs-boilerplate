@@ -165,8 +165,17 @@ export default CustomTable.extend({
         },
     },
     mounted(){
-        this.$store.dispatch("stateStore/getStateList").then((result) => {
-            this.$store.commit('stateStore/setStateList', result.data.data);
+        this.$store.dispatch("stateStore/getAll",{page:1,limit:5000}).then((result) => {
+            if (response.error) {
+                this.errorArr = response.data.error;
+                this.errorDialog = true;
+            } else {
+                this.$store.commit('stateStore/setStateList', result.data.data);
+            }
+
+        }, error => {
+            this.errorArr = this.getModalAPIerrorMessage(error);
+            this.errorDialog = true;
         });
     }
 });

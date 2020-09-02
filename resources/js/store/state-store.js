@@ -78,15 +78,6 @@ const stateStore = {
                 })
             })
         },
-        getStateList({commit}, param) {
-            return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "states").then(response => {
-                    resolve(response);
-                }).catch(e => {
-                    reject(e);
-                })
-            })
-        },
         delete({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.delete(baseUrl + "states" + "/" + param,
