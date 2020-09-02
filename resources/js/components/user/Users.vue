@@ -4,7 +4,7 @@
             <v-tab @click.native="refreshData()" key="Tab1">
                 <p>User</p>
             </v-tab>
-            <v-tab key="Tab2">
+            <v-tab key="Tab2" v-importBulk="$getConst('USER')">
                 <p>Import</p>
             </v-tab>
         </v-tabs>
@@ -78,7 +78,7 @@
                         </v-layout>
                     </template>
                     <template v-slot:item.dob="{ item }">
-                        <span>{{item.dob | getDateFormat(item.dob) }}</span>
+                        <span>{{ getDateFormat(item.dob) }}</span>
                     </template>
 
                     <template v-slot:item.actions="{ item }">
@@ -103,7 +103,7 @@
                 <user-modal :paramProps="paramProps" v-model="userDialogue"></user-modal>
                 <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
             </v-tab-item>
-            <v-tab-item key="Tab2">
+            <v-tab-item key="Tab2" v-im>
                 <v-card flat>
                     <v-card-text>
                         <import></import>

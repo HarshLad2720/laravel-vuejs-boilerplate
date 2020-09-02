@@ -19,6 +19,13 @@ import "../js/plugins/metronic";
 import PerfectScrollbar from "vue2-perfect-scrollbar";
 window.PerfectScrollbar = PerfectScrollbar;
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import bugsnagVue from '@bugsnag/plugin-vue'
+if(process.env.MIX_MODE == 'production') {
+    var bugsnagClient = bugsnag({
+        apiKey: process.env.MIX_BUGSNAG_API_KEY,
+    })
+    bugsnagClient.use(bugsnagVue, Vue);
+}
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);

@@ -1,5 +1,5 @@
 <template>
-    <div class="d-inline-block">
+    <span>
         <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
                 <v-btn color="error" class="mb-2 mr-2" v-on="on"><v-icon small>{{ icons.mdiDelete }}</v-icon> </v-btn>
@@ -7,7 +7,7 @@
             <span>Multiple Delete</span>
         </v-tooltip>
         <error-modal :errorArr="errorArr" v-model="errorDialog"></error-modal>
-    </div>
+    </span>
 </template>
 
 <script>

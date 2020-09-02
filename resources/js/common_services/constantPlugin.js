@@ -3,6 +3,8 @@
 import {PERMISSION_CONSTANTS} from './permission/permission-constants'
 const YOUR_CONSTS = {
     DATE_CONST: 'DD-MM-YYYY',
+    TIME_CONST: 'hh:mm A',
+    DATE_TIME_CONST: 'DD/MM/YYYY hh:mm A',
     CREATE_ACTION: 'Inserted Successfully',
     UPDATE_ACTION: 'Edited Successfully',
     DELETE_ACTION: "Deleted Successfully",

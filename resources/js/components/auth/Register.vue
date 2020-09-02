@@ -185,7 +185,7 @@
                                   :name="'hobby'+hList.id"
                                   :value="hList.id"
                                   v-model="model.hobby" class="mt-0 mr-2"
-                                  v-validate="isEditMode ? '' :'required'" :error="getErrorCount('hobby' +hList.id)"></v-checkbox>
+                                  v-validate="'required'" :error="getErrorCount('hobby' +hList.id)"></v-checkbox>
                       </template>
                   </v-row>
               </v-flex>

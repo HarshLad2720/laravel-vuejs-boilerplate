@@ -27,47 +27,11 @@
                             <v-flex xs12 sm12 md12 lg12 class="">
                                 <div class="permission-table">
                                     <table class="table borderless table-responsive" v-if="permissions.length > 0">
-                                        <!-- <thead>
-                                         <tr>
-                                             <th></th>
-                                             <th>Can Access</th>
-                                             <th>Can Edit</th>
-                                             <th>Can Delete</th>
-                                         </tr>
-                                         </thead>-->
                                         <tbody>
 <!--                                        {{permissions}}-->
                                         <tr v-for="permission in permissions" :key="permission.id">
                                             <td :colspan="permission.is_third_level && permission.is_third_level == '1' ? '4' : ''">
                                                 <label class="main-permission-label">{{permission.display_name}}</label>
-                                                <!--<v-tooltip bottom>
-                                                    <template v-slot:activator="{ on }">
-                                                        <v-icon v-on="on">
-                                                            help
-                                                        </v-icon>
-                                                    </template>
-                                                    <span>{{permission.display_name}}</span>
-                                                </v-tooltip>-->
-                                                <table class="table borderless" v-if="permission.is_third_level == '1'">
-                                                    <tbody>
-                                                    <!--<tr v-for="subPermission in permission.sub_permissions"
-                                                        :key="subPermission.id">
-                                                        <td class="pl-10">{{subPermission.display_name}}</td>
-                                                        <td v-for="third_level_permission in subPermission.sub_permissions"
-                                                            :key="third_level_permission.id">
-                                                            <v-checkbox
-                                                                type="checkbox"
-                                                                v-model="third_level_permission.is_permission"
-                                                                @change="editPermission(third_level_permission)"
-                                                                true-value="1"
-                                                                false-value="0"
-                                                                :label=""
-                                                                v-can-edit="$getConst('MY_PREFERENCE_BUSINESS')"
-                                                            ></v-checkbox>
-                                                        </td>
-                                                    </tr>-->
-                                                    </tbody>
-                                                </table>
                                             </td>
                                             <template
                                                 v-if="!permission.is_third_level || permission.is_third_level != '1'">

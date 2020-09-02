@@ -7,7 +7,7 @@
             </v-card-title>
 
             <v-card-text>
-                <register-form></register-form>
+                <register-form ></register-form>
             </v-card-text>
         </v-card>
     </v-dialog>

@@ -1,6 +1,8 @@
 import {mapGetters, mapState} from 'vuex';
-
+import constantPlugin from './constantPlugin';
 import moment from 'moment-timezone';
+
+
 import {
     mdiPencil,
     mdiDelete,
@@ -13,8 +15,7 @@ import {
     mdiDownload,
     mdiUpload
 } from '@mdi/js'
-var timeConst = 'hh:mm A';
-var dateConst = 'DD-MM-YYYY';
+import Vue from "vue";
 
 export default {
     data() {
@@ -45,6 +46,7 @@ export default {
             },
         }
     },
+    mixins: [constantPlugin],
     computed: {
         ...mapState({
             UserData: state => state.userStore.currentUserData,
@@ -204,14 +206,52 @@ export default {
         pageReset(storeName, variableName) {
             this.$store.commit(storeName + '' + variableName, 2);
         },
+
+        /* Current Time */
         currentTime() {
             var current = parseInt(moment.utc().valueOf() / 1000);
-            return moment.unix(current).format(timeConst);
+            return moment.unix(current).format(this.$getConst('TIME_CONST'));
         },
+
+        /* Current Date */
         currentDate() {
             var current = parseInt(moment.utc().valueOf() / 1000);
-            return moment.unix(current).format(dateConst);
+            return moment.unix(current).format(this.$getConst('DATE_CONST'));
         },
+
+        /* Current Date Time */
+        currentDateTime() {
+            var current = parseInt(moment.utc().valueOf() / 1000);
+            return moment.unix(current).format(this.$getConst('DATE_TIME_CONST'));
+        },
+
+        /* Format Date */
+        getDateFormat(value) {
+            let date = "";
+            if (value != "" && value != null) {
+                date = moment(String(value)).format(this.$getConst('DATE_CONST'));
+            }
+            return date;
+        },
+
+        /* Format Time */
+        getTimeFormat(value) {
+            let date = "";
+            if (value != "" && value != null) {
+                date = moment(String(value)).format(this.$getConst('TIME_CONST'));
+            }
+            return date;
+        },
+
+        /* Format Date Time */
+        getDateTimeFormat(value) {
+            let date = "";
+            if (value != "" && value != null) {
+                date = moment(String(value)).format(this.$getConst('DATE_TIME_CONST'));
+            }
+            return date;
+        },
+
 
         /**
          * @objectData Object of data from which we need to filter
@@ -259,14 +299,7 @@ export default {
     },
     created() { },
     filters: {
-        /* Format Date */
-        getDateFormat(value) {
-            let date = "";
-            if (value != "" && value != null) {
-                date = moment(String(value)).format(dateConst);
-            }
-            return date;
-        },
+
         /**
          * Truncate no of character from the text
          * @param value - text
