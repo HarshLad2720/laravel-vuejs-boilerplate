@@ -30,8 +30,7 @@ class VerificationAPIController extends Controller
     public function verify(Request $request) {
         $userID = $request['id'];
         $user = User::find($userID);
-        $date = date("Y-m-d g:i:s");
-        $user->email_verified_at = $date; // to enable the “email_verified_at field of that user be a current time stamp user must verify email feature
+        $user->email_verified_at = config('constants.calender.date_time');; // to enable the “email_verified_at field of that user be a current time stamp user must verify email feature
         $user->status = config('constants.user.status_code.active');
         $user->save();
 
