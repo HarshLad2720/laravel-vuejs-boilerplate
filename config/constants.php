@@ -1,6 +1,8 @@
 <?php
 
 
+use Carbon\Carbon;
+
 return [
 
 
@@ -99,4 +101,18 @@ return [
         'country_model' => 'country',
         'state_model' => 'state',
     ],
+
+    'import_dir_path'=>[
+        'user_dir_path' => 'import/user/',
+        'city_dir_path' => 'import/city/',
+        'hobby_dir_path' => 'import/hobby/',
+        'country_dir_path' => 'import/country/',
+        'state_dir_path' => 'import/state/',
+    ],
+
+    'date_format'=>[
+        'import_date' => Carbon::createFromFormat('Y-m-d G:i:s',Carbon::now())->format('Y-m-d_h_i_s')
+    ],
+
+
 ];

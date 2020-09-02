@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Exports\User\HobbiesExport;
+use App\Http\Requests\User\CsvRequest;
 use App\Http\Resources\DataTrueResource;
+use App\Imports\User\HobbiesImport;
 use App\User;
 use App\Models\User\Hobby;
 use App\Http\Requests\User\HobbiesRequest;
@@ -113,8 +115,8 @@ class HobbiesAPIController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function importBulk(Request $request)
+    public function importBulk(CsvRequest $request)
     {
-        return Hobby::importBulk($request);
+        return User::importBulk($request,new HobbiesImport(),config('constants.models.hobby_model'),config('constants.import_dir_path.hobby_dir_path'));
     }
 }
