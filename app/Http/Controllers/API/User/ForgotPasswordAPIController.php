@@ -21,11 +21,16 @@ class ForgotPasswordAPIController extends Controller
 {
     use SendsPasswordResetEmails;
 
-    protected function validateEmail()
+    /**
+     * Validate the email for the given request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+
+    protected function validateEmail(Request $request)
     {
-        return [
-            'email' => 'required|exists:users,email'
-        ];
+        $request->validate(['email' => 'required|email|max:255|exists:users,email,deleted_at,NULL']);
     }
 
     /**
