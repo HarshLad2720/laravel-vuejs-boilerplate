@@ -22,12 +22,6 @@ class CreateCountriesTable extends Migration
             $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
 
         });
-
-        DB::table('countries')->insert(array(
-            array('name' => 'India','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
-            array('name' => 'Australia','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
-            array('name' => 'Canada','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'))
-        ));
     }
 
     /**

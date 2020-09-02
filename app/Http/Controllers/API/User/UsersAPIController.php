@@ -92,10 +92,10 @@ class UsersAPIController extends Controller
     {
         $user->hobbies()->detach();
 
-        Storage::deleteDirectory('/gallery/' . $user->id);
+        Storage::deleteDirectory('/public/user/' . $user->id);
         UserGallery::where('user_id', $user->id)->delete();
 
-        Storage::deleteDirectory('/user/' . $user->id);
+        Storage::deleteDirectory('/public/user/' . $user->id);
         $user->delete();
 
         return new DataTrueResource($user);
@@ -129,7 +129,7 @@ class UsersAPIController extends Controller
      */
     public function delete_gallery(Request $request, UserGallery $gallery)
     {
-        $this->deleteOne('/gallery/' . $gallery->user_id . '/' . basename($gallery->filename));
+        $this->deleteOne('/public/user/' . $gallery->user_id . '/' . basename($gallery->filename));
         $gallery->delete();
 
         return new DataTrueResource($gallery);

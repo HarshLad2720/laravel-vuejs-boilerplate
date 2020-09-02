@@ -87,12 +87,12 @@ class Hobby extends Model
 
             if (count($import->getErrors()) > 0) {
                 $file = $request->file('file')->getClientOriginalName();
-                $error_jason = json_encode($import->getErrors());
+                $error_json = json_encode($import->getErrors());
                 Import_csv_log::create([
                     'file_path' => $path1,
                     'filename' => $file,
                     'model_name' => config('constants.models.hobby_model'),
-                    'error_log' => $error_jason
+                    'error_log' => $error_json
                 ]);
                 return response()->json(['errors' => $import->getErrors()], config('constants.validation_codes.422'));
             }
