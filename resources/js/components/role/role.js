@@ -16,14 +16,11 @@ export default CustomTable.extend({
             files: [],
             modalOpen: false,
             addRoleModal: false,
-            statename:'roleStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
+            urlApi: 'roleStore/getAll',// set store name here to set/get pagination data and for access of actions/mutation via custom table
             headers: [
                 { text: 'Role', value: 'name'},
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
-            options:{
-                filter:{},
-            },
             paramProps:{
                 idProps: '',
                 storeProps: ''
@@ -146,12 +143,12 @@ export default CustomTable.extend({
          * Filter
          */
         changeFilter(){
-            //this.options.filter = {};
             let filter = {};
             if(this.role_id != ''){
-                filter.role_id = [this.role_id];
+                filter.id = [this.role_id];
             }
-            this.options.filter =filter;
+            this.filterModel =filter;
+            this.refresh();
             this.filtermenu= false;
         },
         /**
@@ -159,7 +156,7 @@ export default CustomTable.extend({
          */
         resetFilter(){
             this.role_id = ''
-            this.options.filter = {}
+            this.changeFilter();
         }
     },
     mounted(){

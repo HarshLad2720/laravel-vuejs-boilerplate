@@ -16,14 +16,11 @@ export default CustomTable.extend({
             files: [],
             modalOpen: false,
             addCityModal: false,
-            statename:'hobbyStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
+            urlApi: 'hobbyStore/getAll',// set store name here to set/get pagination data and for access of actions/mutation via custom table
             headers: [
                 { text: 'Hobby', value: 'name'},
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
-            options:{
-                filter:{},
-            },
             paramProps:{
                 idProps: '',
                 storeProps: '',

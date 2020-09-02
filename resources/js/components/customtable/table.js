@@ -114,7 +114,6 @@ export default Vue.extend({
          * call api to get data
          */
         getData(){
-            debugger
             if(this.$refs.table && this.urlApi && this.urlApi != '') {
                 this.$store.dispatch(this.urlApi, this.state.pagination).then(response => {
                     this.$store.commit(this.stateName + '/setTableData', response.data);
@@ -128,7 +127,6 @@ export default Vue.extend({
          * reset pagination data but except filter and get data
          */
         refresh(){
-            debugger
             if(this.$refs.table && this.urlApi && this.urlApi != '') {
                 this.resetPagination();
                 this.getData();

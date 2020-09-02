@@ -16,14 +16,11 @@ export default CustomTable.extend({
             files: [],
             modalOpen: false,
             addCountryModal: false,
-            statename:'countryStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
+            urlApi: 'countryStore/getAll',// set store name here to set/get pagination data and for access of actions/mutation via custom table
             headers: [
                 { text: 'Country', value: 'name'},
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
-            options:{
-                filter:{},
-            },
             paramProps:{
                 idProps: '',
                 storeProps: '',

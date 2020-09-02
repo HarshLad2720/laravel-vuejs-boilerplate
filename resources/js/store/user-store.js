@@ -1,5 +1,5 @@
 import { HTTP } from '../common_services/api-services.js';
-var baseUrl = ''; // set url here e.g.'/api/v1/mypreferences/business/user/'
+/*var baseUrl = '';*/ // set url here e.g.'/api/v1/mypreferences/business/user/'
 var loginUrl = '/api/v1/login';
 var baseUrl ='/api/v1/';
 
@@ -97,6 +97,7 @@ const userStore = {
         login({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(loginUrl , param.loginDetail).then(response => {
+                    debugger
                     resolve(response);
                 }).catch(e => {
                     reject(e);

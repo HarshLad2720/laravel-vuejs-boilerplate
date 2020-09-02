@@ -15,15 +15,12 @@ export default CustomTable.extend({
             tab: null,
             modalOpen: false,
             addSateModal: false,
-            statename:'stateStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
+            urlApi: 'stateStore/getAll',// set store name here to set/get pagination data and for access of actions/mutation via custom table
             headers: [
                 { text: 'State', value: 'name'},
                 { text: 'Country', value: 'country.name'},
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
-            options:{
-                filter:{},
-            },
             paramProps:{
                 idProps: '',
                 storeProps: '',
@@ -132,20 +129,20 @@ export default CustomTable.extend({
          * Filter
          */
         changeFilter(){
-            //this.options.filter = {};
             let filter = {};
             if(this.country_id != ''){
                 filter.country_id = [this.country_id];
             }
-            this.options.filter =filter;
+            this.filterModel =filter;
+            this.refresh();
             this.filtermenu= false;
         },
         /**
          * Reset Filter
          */
         resetFilter(){
-            this.country_id = ''
-            this.options.filter = {}
+            this.country_id = '';
+            this.changeFilter();
         }
     },
     mounted(){

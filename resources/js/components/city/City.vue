@@ -19,15 +19,16 @@
                         :items-per-page="limit"
                         :footer-props="footerProps"
                         :server-items-length="pageCount"
-                        @update:options="updateTable"
+                        @update:options="onUpdateOptions"
                         class="elevation-1"
                         :show-select="true"
                         v-index = "$getConst('CITY')"
+                        ref="table"
                 >
                     <template v-slot:top>
                         <v-layout>
                             <v-flex xs12 sm12 md4 lg4>
-                                <v-text-field v-model="options.search" label="Search" class="mx-4" prepend-inner-icon="search"></v-text-field>
+                                <v-text-field v-model="searchModel" @input="onSearch" label="Search" class="mx-4" prepend-inner-icon="search"></v-text-field>
                             </v-flex>
                             <v-flex xs12 sm12 md8 lg8>
                                 <div class="float-right mt-4">

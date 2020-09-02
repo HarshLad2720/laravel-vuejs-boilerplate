@@ -44,15 +44,16 @@
                 :items-per-page="limit"
                 :server-items-length="pageCount"
                 :footer-props="footerProps"
-                @update:options="updateTable"
+                @update:options="onUpdateOptions"
                 class="elevation-1"
                 :show-select="true"
                 v-index="$getConst('USER')"
+                ref="table"
         >
             <template v-slot:top>
                 <v-layout>
                     <v-flex xs12 sm12 md4 lg4>
-                        <v-text-field v-model="options.search" label="Search" class="mx-4 mt-4" prepend-inner-icon="search"></v-text-field>
+                        <v-text-field v-model="searchModel" @input="onSearch" label="Search" class="mx-4 mt-4" prepend-inner-icon="search"></v-text-field>
                     </v-flex>
                 </v-layout>
             </template>
@@ -85,16 +86,12 @@
         data() {
             return {
                 file: null,
-                statename:'userStore',// set store name here to set/get pagination data and for access of actions/mutation via custom table
-                url:'getAllImport',
+                urlApi: 'userStore/getAllImport',// set store name here to set/get pagination data and for access of actions/mutation via custom table
                 headers: [
                     { text: 'Error File', value: 'filename'},
                     { text: 'Date', value: 'created_at'},
                     { text: 'Actions', value: 'actions', sortable: false },
                 ],
-                options:{
-                    filter:{},
-                },
                 errorArr: [],
                 errorDialog: false,
                 validationMessages: {
