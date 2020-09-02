@@ -76,7 +76,16 @@ export default {
         },
     },
     mounted() {
-        this.$store.dispatch("stateStore/getStateList").then((result) => {
+        this.$store.dispatch("stateStore/getAll",{page:1,limit:5000}).then((response) => {
+            if (response.error) {
+                this.errorArr = response.data.error;
+                this.errorDialog = true;
+            } else {
+                this.$store.commit('stateStore/setStateList', response.data.data);
+            }
+        }, error => {
+            this.errorArr = this.getModalAPIerrorMessage(error);
+            this.errorDialog = true;
         });
         // clear errorMessage
         this.errorMessage = '';

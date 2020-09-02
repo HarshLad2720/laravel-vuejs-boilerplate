@@ -71,7 +71,7 @@ const stateStore = {
         },
         getAll({commit}, param) {
             return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "states" + "?page=" + param.page + "&filter=" + param.filter + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
+                HTTP.get(baseUrl + "states" + "?page=" + param.page + "&filter=" + (param.filter ? param.filter : "") + "&per_page=" + param.limit + "&search=" + (param.query ? param.query : "") + "&sort=" + (param.orderBy ? param.orderBy : "") + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
                     resolve(response);
                 }).catch(e => {
                     reject(e);
