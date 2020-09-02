@@ -111,7 +111,7 @@ return [
     ],
 
     'date_format'=>[
-        'import_date' => Carbon::createFromFormat('Y-m-d G:i:s',Carbon::now())->format('Y-m-d_h_i_s')
+        'import_date' => Carbon::now()->format('Y-m-d_g_i_s')
     ],
 
 
