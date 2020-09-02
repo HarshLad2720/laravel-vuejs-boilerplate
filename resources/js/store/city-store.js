@@ -144,6 +144,16 @@ const cityStore = {
                 })
             })
         },
+        getByImportId({commit, state}) {
+            return new Promise((resolve, reject) => {
+                HTTP.get(baseUrl + 'import-csv-log' + "/" + state.editId).then(response => {
+                    resolve(response.data);
+                })
+                    .catch(e => {
+                        reject(e);
+                    })
+            })
+        },
     },
     getters: {
 

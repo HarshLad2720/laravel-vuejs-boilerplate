@@ -111,16 +111,6 @@ const roleStore = {
                     })
             })
         },
-        getRoleList({commit}, param) {
-            return new Promise((resolve, reject) => {
-                HTTP.get(baseUrl + "roles?per_page=1000").then(response => {
-                    resolve(response);
-                }).catch(e => {
-                    reject(e);
-                })
-            })
-
-        },
         export({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "roles-export" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -146,6 +136,16 @@ const roleStore = {
                 }).catch(e => {
                     reject(e);
                 })
+            })
+        },
+        getByImportId({commit, state}) {
+            return new Promise((resolve, reject) => {
+                HTTP.get(baseUrl + 'import-csv-log' + "/" + state.editId).then(response => {
+                    resolve(response.data);
+                })
+                    .catch(e => {
+                        reject(e);
+                    })
             })
         },
     }

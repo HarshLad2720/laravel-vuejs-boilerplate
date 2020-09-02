@@ -1,12 +1,12 @@
 <template>
     <div>
         <v-tabs v-model="tab" class="mb-5">
-            <v-tab key="Tab1">
+            <v-tab key="Tab1" @click.native="refreshData()">
                 <p>Role</p>
             </v-tab>
-            <v-tab key="Tab2">
+            <!--<v-tab key="Tab2" @click.native="importDataTable()">
                 <p>Import</p>
-            </v-tab>
+            </v-tab>-->
         </v-tabs>
         <v-tabs-items v-model="tab">
             <v-tab-item key="Tab1">
@@ -32,41 +32,6 @@
                             </v-flex>
                             <v-flex xs12 sm12 md8 lg8>
                                 <div class="float-right mt-4">
-                                    <v-menu
-                                        v-model="filtermenu"
-                                        :close-on-content-click="false"
-                                        :nudge-width="200"
-                                        offset-y
-                                    >
-                                        <template v-slot:activator="{ on, attrs }">
-                                            <v-btn class="mb-2 mr-2"
-                                                   color="indigo"
-                                                   dark
-                                                   v-bind="attrs"
-                                                   v-on="on"
-                                            >
-                                                <v-icon small>{{ icons.mdiFilter }}</v-icon>
-                                            </v-btn>
-                                        </template>
-                                        <v-card class="p-4">
-                                            <v-list>
-                                                <v-btn text @click="filtermenu = false" class="float-right filter-close-btn"><v-icon small>{{ icons.mdiClose }}</v-icon></v-btn>
-                                                <v-select
-                                                    v-model="role_id"
-                                                    name="role"
-                                                    item-text="name"
-                                                    item-value="id"
-                                                    :items="setRoleList"
-                                                    label="Role"
-                                                ></v-select>
-                                            </v-list>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn text @click="resetFilter()">Reset Filter</v-btn>
-                                                <v-btn color="primary" text @click="changeFilter()">Apply Filter</v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-menu>
 
                                     <v-tooltip bottom>
                                         <template v-slot:activator="{ on, attrs }">
@@ -106,13 +71,13 @@
                 <add-role v-model="addRoleModal" :paramRole="paramRole"></add-role>
                 <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
             </v-tab-item>
-            <v-tab-item key="Tab2">
+            <!--<v-tab-item key="Tab2">
                 <v-card flat>
                     <v-card-text>
-                        <import></import>
+                        <import ref="importdata" :importProps="importProps"></import>
                     </v-card-text>
                 </v-card>
-            </v-tab-item>
+            </v-tab-item>-->
         </v-tabs-items>
     </div>
 </template>

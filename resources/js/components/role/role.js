@@ -5,7 +5,7 @@ import ExportBtn from "../../partials/ExportBtn";
 import MultiDelete from "../../partials/MultiDelete";
 import {mapState} from "vuex";
 import CommonServices from '../../common_services/common.js';
-import Import from "../../partials/Import";
+// import Import from "../../partials/Import";
 
 export default CustomTable.extend({
     name: "Role",
@@ -50,7 +50,6 @@ export default CustomTable.extend({
                 storeProps: '',
             },
             role_id:'',
-            filtermenu: false,
         }
     },
     mixins: [CommonServices],
@@ -59,7 +58,7 @@ export default CustomTable.extend({
         AddRole,
         ExportBtn,
         MultiDelete,
-        Import
+        // Import
     },
     computed: {
        ...mapState({
@@ -139,29 +138,6 @@ export default CustomTable.extend({
             this.deleteProps.store = 'roleStore';
             this.$refs.multipleDeleteBtn.deleteMulti();
         },
-        /**
-         * Filter
-         */
-        changeFilter(){
-            let filter = {};
-            if(this.role_id != ''){
-                filter.id = [this.role_id];
-            }
-            this.filterModel =filter;
-            this.refresh();
-            this.filtermenu= false;
-        },
-        /**
-         * Reset Filter
-         */
-        resetFilter(){
-            this.role_id = ''
-            this.changeFilter();
-        }
     },
-    mounted(){
-        this.$store.dispatch("roleStore/getRoleList").then((result) => {
-            this.$store.commit('roleStore/setRoleList', result.data.data);
-        });
-    }
+    mounted(){}
 });

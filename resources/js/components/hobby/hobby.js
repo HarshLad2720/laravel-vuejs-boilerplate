@@ -37,6 +37,10 @@ export default CustomTable.extend({
                 fileName: '',
                 pagination: '',
             },
+            importProps:{
+                store: 'hobbyStore',
+                modelName: 'hobby',
+            },
             deleteProps:{
                 ids: '',
                 store: '',
@@ -131,6 +135,12 @@ export default CustomTable.extend({
             this.deleteProps.ids = rowIds;
             this.deleteProps.store = 'hobbyStore';
             this.$refs.multipleDeleteBtn.deleteMulti();
+        },
+        refreshData(){
+            this.refresh();
+        },
+        importDataTable(){
+            this.$refs.importdata.refreshImport();
         },
     },
     mounted(){}

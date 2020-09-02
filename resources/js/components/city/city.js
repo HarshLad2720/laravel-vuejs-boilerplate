@@ -42,6 +42,10 @@ export default CustomTable.extend({
                 fileName: '',
                 pagination: '',
             },
+            importProps:{
+                store: 'cityStore',
+                modelName: 'city',
+            },
             paramRole: {
                 title: '',
                 description: '',
@@ -139,8 +143,8 @@ export default CustomTable.extend({
          */
         changeFilter(){
             let filter = {};
-            if(this.city_id != ''){
-                filter.city_id = [this.city_id];
+            if(this.state_id != ''){
+                filter.state_id = [this.state_id];
             }
             this.filterModel =filter;
             this.refresh();
@@ -150,9 +154,15 @@ export default CustomTable.extend({
          * Reset Filter
          */
         resetFilter(){
-            this.city_id = '';
+            this.state_id = '';
             this.changeFilter();
-        }
+        },
+        refreshData(){
+            this.refresh();
+        },
+        importDataTable(){
+            this.$refs.importdata.refreshImport();
+        },
     },
     mounted(){
         this.$store.dispatch("stateStore/getStateList").then((result) => {

@@ -35,6 +35,10 @@ export default CustomTable.extend({
                 fileName: '',
                 pagination: '',
             },
+            importProps:{
+                store: 'countryStore',
+                modelName: 'country',
+            },
             confirmation:{
                 title: '',
                 description: '',
@@ -121,6 +125,12 @@ export default CustomTable.extend({
             this.deleteProps.ids = rowIds;
             this.deleteProps.store = 'countryStore';
             this.$refs.multipleDeleteBtn.deleteMulti();
+        },
+        refreshData(){
+            this.refresh();
+        },
+        importDataTable(){
+            this.$refs.importdata.refreshImport();
         },
     },
     mounted(){}

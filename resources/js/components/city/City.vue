@@ -1,10 +1,10 @@
 <template>
     <div>
         <v-tabs v-model="tab" class="mb-5">
-            <v-tab key="Tab1">
+            <v-tab key="Tab1" @click.native="refreshData()">
                 <p>City</p>
             </v-tab>
-            <v-tab key="Tab2">
+            <v-tab key="Tab2" @click.native="importDataTable()">
                 <p>Import</p>
             </v-tab>
         </v-tabs>
@@ -32,7 +32,7 @@
                             </v-flex>
                             <v-flex xs12 sm12 md8 lg8>
                                 <div class="float-right mt-4">
-                                    <!--<v-menu
+                                    <v-menu
                                         v-model="filtermenu"
                                         :close-on-content-click="false"
                                         :nudge-width="200"
@@ -66,7 +66,7 @@
                                                 <v-btn color="primary" text @click="changeFilter()">Apply Filter</v-btn>
                                             </v-card-actions>
                                         </v-card>
-                                    </v-menu>-->
+                                    </v-menu>
                                     <v-tooltip bottom>
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-btn v-store = "$getConst('CITY')"
@@ -114,7 +114,7 @@
             <v-tab-item key="Tab2">
                 <v-card flat>
                     <v-card-text>
-                        <import></import>
+                        <import ref="importdata" :importProps="importProps"></import>
                     </v-card-text>
                 </v-card>
             </v-tab-item>

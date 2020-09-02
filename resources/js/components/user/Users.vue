@@ -4,7 +4,7 @@
             <v-tab @click.native="refreshData()" key="Tab1">
                 <p>User</p>
             </v-tab>
-            <v-tab key="Tab2" v-importBulk="$getConst('USER')">
+            <v-tab key="Tab2" v-importBulk="$getConst('USER')" @click.native="importDataTable()">
                 <p>Import</p>
             </v-tab>
         </v-tabs>
@@ -103,10 +103,10 @@
                 <user-modal :paramProps="paramProps" v-model="userDialogue"></user-modal>
                 <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
             </v-tab-item>
-            <v-tab-item key="Tab2" v-im>
+            <v-tab-item key="Tab2">
                 <v-card flat>
                     <v-card-text>
-                        <import></import>
+                        <import  ref="importdata" :importProps="importProps"></import>
                     </v-card-text>
                 </v-card>
             </v-tab-item>

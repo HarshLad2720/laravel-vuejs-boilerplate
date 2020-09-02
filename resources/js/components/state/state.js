@@ -31,6 +31,10 @@ export default CustomTable.extend({
                 fileName: '',
                 pagination: '',
             },
+            importProps:{
+                store: 'stateStore',
+                modelName: 'state',
+            },
             deleteProps:{
                 ids: '',
                 store: '',
@@ -143,7 +147,13 @@ export default CustomTable.extend({
         resetFilter(){
             this.country_id = '';
             this.changeFilter();
-        }
+        },
+        refreshData(){
+            this.refresh();
+        },
+        importDataTable(){
+            this.$refs.importdata.refreshImport();
+        },
     },
     mounted(){
         this.$store.dispatch("countryStore/getCountryList").then((result) => {

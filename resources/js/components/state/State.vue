@@ -1,10 +1,10 @@
 <template>
     <div>
         <v-tabs v-model="tab" class="mb-5">
-            <v-tab key="Tab1">
+            <v-tab @click.native="refreshData()" key="Tab1">
                 <p>State</p>
             </v-tab>
-            <v-tab key="Tab2">
+            <v-tab key="Tab2" @click.native="importDataTable()">
                 <p>Import</p>
             </v-tab>
         </v-tabs>
@@ -114,7 +114,7 @@
             <v-tab-item key="Tab2">
                 <v-card flat>
                     <v-card-text>
-                        <import></import>
+                        <import ref="importdata" :importProps="importProps"></import>
                     </v-card-text>
                 </v-card>
             </v-tab-item>

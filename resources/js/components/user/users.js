@@ -42,6 +42,10 @@ export default CustomTable.extend({
                 ids: '',
                 store: '',
             },
+            importProps:{
+                store: 'userStore',
+                modelName: 'user',
+            },
             exportProps:{
                 id: '',
                 store: '',
@@ -157,13 +161,24 @@ export default CustomTable.extend({
             this.changeFilter();
         },
         refreshData(){
-            //this.refresh();
-        }
+            this.refresh();
+        },
+        importDataTable(){
+            this.$refs.importdata.refreshImport();
+        },
 
     },
     mounted(){
-        this.$store.dispatch("roleStore/getRoleList").then((result) => {
-            this.$store.commit('roleStore/setRoleList', result.data.data);
+        this.$store.dispatch("roleStore/getAll",{page:1,limit:5000}).then(response => {
+            if (response.error) {
+                this.errorArr = response.data.error;
+                this.errorDialog = true;
+            } else {
+                this.$store.commit('roleStore/setRoleList', response.data.data);
+            }
+        }, error => {
+            this.errorArr = this.getModalAPIerrorMessage(error);
+            this.errorDialog = true;
         });
     }
 });
