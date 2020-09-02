@@ -30,7 +30,7 @@
         methods: {
             exportToCSV() {
                 if(this.exportProps.ids.length > 0) {
-                    let idfilter = JSON.stringify({id: this.exportProps.ids});
+                    let idfilter = encodeURIComponent(JSON.stringify({id: this.exportProps.ids}));
                     this.exportProps.pagination.filter = idfilter.replace(/\\/g, '');
                 }
                     this.$store.dispatch(this.exportProps.store+'/export',this.exportProps.pagination).then(response => {

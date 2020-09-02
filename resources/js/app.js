@@ -4,6 +4,7 @@ import Vue from 'vue';
 import App from './components/App.vue';
 import vuetify from './plugins/vuetify'
 import store from './store/store';
+import IdleVue from 'idle-vue';
 import VueRouter from 'vue-router';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
@@ -42,6 +43,7 @@ Vue.use(PerfectScrollbar);
 // Install BootstrapVue
 Vue.use(BootstrapVue);
 
+
 // Permission directives
 import {hasPermission} from "./common_services/permission/permission-directives";
 Vue.directive('store', hasPermission);  // create
@@ -63,6 +65,11 @@ const app = new Vue({
     store,
     render: h => h(App)
 }).$mount('#appMain');
+
+/****Screen off after certain time****/
+const eventsHub = new Vue();
+Vue.use(IdleVue, {eventEmitter: eventsHub, idleTime: 600000});
+/****Screen off after certain time****/
 
 const version = "__VERSION__";
 export {version};

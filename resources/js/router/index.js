@@ -21,6 +21,14 @@ const router = new VueRouter({
                     }
                 },
                 {
+                    name: "Logoff",
+                    path: "/logoff",
+                    component: () => import("../components/auth/Logoff.vue"),
+                    meta: {
+                        title: "Logoff" + siteName
+                    }
+                },
+                {
                     name: "register",
                     path: "/register",
                     component: () => import("../components/auth/Register.vue"),
@@ -157,8 +165,25 @@ router.beforeResolve((to, from, next) => {
 });*/
 
 router.beforeEach((to, from, next) => {
+    var authorization = store.state.userStore.currentUserData.authorization;
     document.title = to.meta.title;
-    next();
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (authorization) {
+            next()
+        } else if (authorization == '') {
+            next('/logoff')
+            return
+        } else {
+            next('/')
+        }
+    } else {
+        if (to.path != "/logoff" && authorization == '') {
+            next('/logoff')
+            return
+        } else {
+            next()
+        }
+    }
 });
 
 // Loading chunk error

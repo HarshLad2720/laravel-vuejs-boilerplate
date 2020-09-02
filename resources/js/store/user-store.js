@@ -49,6 +49,9 @@ const userStore = {
         setTableData(state, payload) {
             state.tableData = payload;
         },
+        removeAuthorization(state, payload) {
+            state.currentUserData.authorization = payload;
+        },
         clearUserData(state) {
             state.currentUserData = [];
         },
@@ -102,6 +105,9 @@ const userStore = {
                     reject(e);
                 })
             })
+        },
+        logoff({commit}, param) {
+            commit('removeAuthorization', param);
         },
         getAll({ commit }, param) {
             return new Promise((resolve, reject) => {
@@ -181,7 +187,7 @@ const userStore = {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "users-import-bulk", param).then(response => {
                     resolve(response);
-                }).catch(e => {
+                }).catch(e => {F
                     reject(e);
                 })
             })
@@ -204,6 +210,19 @@ const userStore = {
                         reject(e);
                     })
             })
+        },
+    },
+    getters:{
+        userFullName: state => {
+            let user_name = state.currentUserData.name;
+            return user_name;
+        },
+        userProfilePicture: state => {
+            if (state.currentUserData.profile == '') {
+                return '/images/profile.png';
+            } else {
+                return state.currentUserData.profile;
+            }
         },
     }
 }

@@ -270,7 +270,7 @@ export default {
             return filterData;
         },
         objToJson(param) {
-            let filter = JSON.stringify(param);
+            let filter = encodeURIComponent(JSON.stringify(param));
             filter = filter.replace(/\\/g, '');
             return filter;
         },

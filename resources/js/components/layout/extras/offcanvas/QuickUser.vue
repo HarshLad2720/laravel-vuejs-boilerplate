@@ -113,6 +113,7 @@ import KTOffcanvas from "../../../../../assets/js/components/offcanvas.js";
 import ChangePassword from "../../../auth/ChangePassword.vue";
 import { mapGetters, mapState} from 'vuex';
 import CommonServices from '../../../../common_services/common.js';
+import idle from '../../../../common_services/idle.js';
 
 export default {
   name: "KTQuickUser",
@@ -154,7 +155,7 @@ export default {
       userEmail: '',
     };
   },
-  mixins: [CommonServices],
+  mixins: [CommonServices,idle],
   components:{ChangePassword},
   mounted() {
     this.userEmail = this.$store.state.userStore.currentUserData.email;

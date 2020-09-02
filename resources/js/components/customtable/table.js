@@ -93,7 +93,7 @@ export default Vue.extend({
                 limit: tableOptions.itemsPerPage,
                 orderBy: tableOptions.sortBy.length> 0 ? tableOptions.sortBy[0] : '',
                 ascending: tableOptions.sortDesc.length> 0 ? tableOptions.sortDesc[0] : '',
-                filter: this.filterModel != '' && this.filterModel != undefined ? JSON.stringify(this.filterModel) : '',
+                filter: this.filterModel != '' && this.filterModel != undefined ? encodeURIComponent(JSON.stringify(this.filterModel)) : '',
             });
             this.getData();
         },
@@ -107,7 +107,7 @@ export default Vue.extend({
                 limit: this.state.pagination.limit,
                 orderBy: this.state.pagination.orderBy,
                 ascending: this.state.pagination.ascending,
-                filter: this.filterModel != '' && this.filterModel != undefined ? JSON.stringify(this.filterModel) : '',
+                filter: this.filterModel != '' && this.filterModel != undefined ? encodeURIComponent(JSON.stringify(this.filterModel)) : '',
             });
         },
         /**

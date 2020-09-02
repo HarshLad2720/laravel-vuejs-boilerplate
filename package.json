@@ -48,6 +48,7 @@
         "lg-thumbnail.js": "^1.0.0",
         "lg-zoom.js": "^1.0.1",
         "lightgallery-vue": "0.0.2",
-        "lightgallery.js": "^1.2.0"
+        "lightgallery.js": "^1.2.0",
+        "idle-vue": "^2.0.5"
     }
 }

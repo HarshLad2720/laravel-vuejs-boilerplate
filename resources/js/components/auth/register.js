@@ -189,7 +189,7 @@ export default {
          * State filter from country
          */
         getState() {
-            let filter = JSON.stringify({"country_id": [this.model.country_id]});
+            let filter = encodeURIComponent(JSON.stringify({"country_id": [this.model.country_id]}));
             this.$store.dispatch('stateStore/getAll', {page:1, limit:1000, filter:filter,query:''}).then(response => {
                 if (response.error) {
                     this.errorMessage = response.data.error;
@@ -206,7 +206,7 @@ export default {
          * City filter from state
          */
         getCity() {
-            let filter = JSON.stringify({"state_id": [this.model.state_id]});
+            let filter = encodeURIComponent(JSON.stringify({"state_id": [this.model.state_id]}));
             this.$store.dispatch('cityStore/getAll', {page:1, limit:1000, filter:filter,query:''}).then(response => {
                 if (response.error) {
                     this.errorMessage = response.data.error;
