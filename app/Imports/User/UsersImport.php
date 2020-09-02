@@ -5,6 +5,7 @@ namespace App\Imports\User;
 use App\User;
 use App\Models\User\UserGallery;
 use App\Traits\Scopes;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -102,7 +103,7 @@ class UsersImport implements ToCollection, WithStartRow
                 /* Insert Profile Images */
                 if($col[11]) {
                     $profile_path = 'user/' . $user->id . '/' . $col[11];
-                    $date = date("Y-m-d g:i:s");
+                    $date = Carbon::now();
                     $user->email_verified_at = $date;
                     $user->profile = $profile_path;
                     $user->save();
