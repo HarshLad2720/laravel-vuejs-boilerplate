@@ -2,7 +2,6 @@
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
 
 class UsersSeeder extends Seeder
 {
@@ -26,9 +25,9 @@ class UsersSeeder extends Seeder
                 'state_id'=>'1',
                 'city_id'=>'1',
                 'status'=>'1',
-                'email_verified_at'=> Carbon::now(),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'email_verified_at'=> config('constants.calender.date_time'),
+                'created_at' => config('constants.calender.date_time'),
+                'updated_at' => config('constants.calender.date_time')
             ),
 
             array(
@@ -42,8 +41,8 @@ class UsersSeeder extends Seeder
                 'city_id'=>'1',
                 'status'=>'0',
                 'email_verified_at'=> Null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => config('constants.calender.date_time'),
+                'updated_at' => config('constants.calender.date_time')
             ),
 
             array(
@@ -57,8 +56,8 @@ class UsersSeeder extends Seeder
                 'city_id'=>'1',
                 'status'=>'0',
                 'email_verified_at'=> Null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_at' => config('constants.calender.date_time'),
+                'updated_at' => config('constants.calender.date_time')
             )
         ));
     }

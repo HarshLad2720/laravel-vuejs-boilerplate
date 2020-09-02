@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
 
 class CountriesSeeder extends Seeder
 {
@@ -14,9 +13,9 @@ class CountriesSeeder extends Seeder
     {
         //
         DB::table('countries')->insert(array(
-            array('name' => 'India','created_at' => Carbon::now(),'updated_at' => Carbon::now()),
-            array('name' => 'Australia','created_at' => Carbon::now(),'updated_at' => Carbon::now()),
-            array('name' => 'Canada','created_at' => Carbon::now(),'updated_at' => Carbon::now())
+            array('name' => 'India','created_at' => config('constants.calender.date_time'),'updated_at' => config('constants.calender.date_time')),
+            array('name' => 'Australia','created_at' => config('constants.calender.date_time'),'updated_at' => config('constants.calender.date_time')),
+            array('name' => 'Canada','created_at' => config('constants.calender.date_time'),'updated_at' => config('constants.calender.date_time'))
         ));
     }
 }

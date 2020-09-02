@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 
 return [
 
@@ -15,6 +16,12 @@ return [
 
 
  */
+    'calender' => [
+        'date' => Carbon::now()->toDateString(),
+        'time' => Carbon::now()->toTimeString(),
+        'date_time' => Carbon::now()->toDateTimeString(),
+    ],
+
     'messages' => [
         'user' => [
             'invalid' => 'Invalid credentials',
