@@ -97,7 +97,6 @@ const userStore = {
         login({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(loginUrl , param.loginDetail).then(response => {
-                    debugger
                     resolve(response);
                 }).catch(e => {
                     reject(e);

@@ -113,7 +113,6 @@
             uploadCsv(){
                 this.$validator.validate().then(valid => {
                     if (valid) {
-                        debugger
                         var formData = new FormData();
                         if (this.file != null && this.file instanceof File) {
                             formData.append('file', this.file);
