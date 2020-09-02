@@ -36,9 +36,6 @@ class UsersResource extends JsonResource
             'status_text' => config('constants.user.status.'.$this->status),
             'gallery' => $this->user_galleries,
             'hobby' => $this->hobbies,
-            'role' => $this->role,
-            'permissions' => $this->permissions,
-            'authorization' => $this->authorization,
             'email_verified_at' =>$this->email_verified_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
