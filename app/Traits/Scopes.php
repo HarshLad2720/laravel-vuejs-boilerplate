@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\User\Import_csv_log;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Maatwebsite\Excel\Facades\Excel;
@@ -384,6 +385,7 @@ trait Scopes
                     PATHINFO_FILENAME)));
             $only_extension = pathinfo($request->file('file')->getClientOriginalName(), PATHINFO_EXTENSION);
 
+            Artisan::call('config:cache');
             $filename = $only_file_name . '_' . config('constants.file.name') . '.' . $only_extension;
 
             $path = $request->file('file')->storeAs('/public/' . $folderName, $filename);
