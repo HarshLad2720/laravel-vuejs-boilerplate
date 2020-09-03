@@ -22,6 +22,7 @@ const YOUR_CONSTS = {
     EMAIL_SEND_MESSAGE: 'Email sent successfully',
     RESET_PASSWORD: 'Password reset successfullly',
     CHANGED_PASSWORD: 'Password changed successfullly',
+    NOIMAGE: 'No Image Found',
 
 
     ...PERMISSION_CONSTANTS,

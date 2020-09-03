@@ -107,7 +107,8 @@
                 </v-data-table>
                 <user-modal :paramProps="paramProps" v-model="userDialogue"></user-modal>
                 <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
-
+                <custom-dialog v-model="customDialog" :title="customDialogTitle"
+                               :message="customMessage"></custom-dialog>
             </v-tab-item>
             <v-tab-item key="Tab2">
                 <v-card flat>
