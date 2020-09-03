@@ -27,10 +27,11 @@ class VerificationAPIController extends Controller
      */
     public function verify(Request $request) {
         $user = User::find($request['id']);
-        $user->email_verified_at = date("Y-m-d g:i:s");; // to enable the “email_verified_at field of that user be a current time stamp user must verify email feature
+        $user->email_verified_at = config('constants.calender.date_time'); // to enable the “email_verified_at field of that user be a current time stamp user must verify email feature
         $user->status = config('constants.user.status_code.active');
         $user->save();
-        return redirect('');
+
+        return redirect('home');
 
     }
 
@@ -42,7 +43,7 @@ class VerificationAPIController extends Controller
     public function resend(Request $request)
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return response()->json('User already have verified email!', config('constants.validation_codes.unprocessable_entity'));
+            return response()->json('User already have verified email!', config('constants.validation_codes.422'));
         }
         $request->user()->sendEmailVerificationNotification();
         return response()->json('The notification has been resubmitted');

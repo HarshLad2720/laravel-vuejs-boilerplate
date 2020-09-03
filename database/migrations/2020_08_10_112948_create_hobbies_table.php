@@ -21,14 +21,6 @@ class CreateHobbiesTable extends Migration
             $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
             $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
         });
-
-        DB::table('hobbies')->insert(array(
-            array('name' => 'Sports','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
-            array('name' => 'Travelling','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
-            array('name' => 'Music','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
-            array('name' => 'Reading','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
-            array('name' => 'Social Activities','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
-        ));
     }
 
     /**

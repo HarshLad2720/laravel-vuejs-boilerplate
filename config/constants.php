@@ -1,10 +1,19 @@
 <?php
 
-
 use Carbon\Carbon;
 
 return [
 
+    'calender' => [
+        'date' => Carbon::now()->toDateString(),
+        'date_format' => Carbon::now()->format('Y-m-d'),
+        'time' => Carbon::now()->toTimeString(),
+        'date_time' => Carbon::now()->toDateTimeString(),
+    ],
+
+    'file' => [
+        'name' => Carbon::now('Asia/Kolkata')->format('d_m_Y') . '_' . Carbon::now('Asia/Kolkata')->format('g_i_a'),
+    ],
 
     'messages' => [
         'user' => [

@@ -23,12 +23,6 @@ class CreateStatesTable extends Migration
             $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
             $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
         });
-
-        DB::table('states')->insert(array(
-            array('country_id'=>'1','name' => 'Gujarat','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
-            array('country_id'=>'1','name' => 'Rajasthan','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
-            array('country_id'=>'2','name' => 'Sydney','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'))
-        ));
     }
 
     /**

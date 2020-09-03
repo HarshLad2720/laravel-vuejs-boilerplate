@@ -102,7 +102,7 @@ class UsersImport implements ToCollection, WithStartRow
                 /* Insert Profile Images */
                 if($col[11]) {
                     $profile_path = 'user/' . $user->id . '/' . $col[11];
-                    $date = date("Y-m-d g:i:s");
+                    $date = config('constants.calender.date_time');
                     $user->email_verified_at = $date;
                     $user->profile = $profile_path;
                     $user->save();

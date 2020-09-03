@@ -21,10 +21,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Scopes;
 use Laravel\Passport\HasApiTokens;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Traits\UploadTrait;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable,Scopes,HasApiTokens, SoftDeletes;
+    use Notifiable,Scopes,HasApiTokens, SoftDeletes, UploadTrait;
 
     protected $table = 'users';
 
@@ -196,22 +197,14 @@ class User extends Authenticatable implements MustVerifyEmail
         $user = User::create($data);
 
         if($request->hasfile('profile')) {
-            $real_path = 'user/' . $user->id . '/';
-            $file_data = $request->file('profile')->store('/public/' . $real_path);
-            $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
-            $user->update(['profile' => $filename]);
+            $path = $this->uploadOne($request->file('profile'), '/public/user/' . $user->id);
+            $user->update(['profile' => $path]);
         }
 
         if($request->hasfile('gallery')) {
-
             foreach ($request->gallery as $image) {
-                $real_path = 'gallery/'.$user->id.'/';
-                $file_data = $image->store('/public/' . $real_path);
-                $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
-                UserGallery::create([
-                    'user_id' => $user->id,
-                    'filename' => $filename
-                ]);
+                $path = $this->uploadOne($image, '/public/user/' . $user->id);
+                UserGallery::create(['user_id' => $user->id, 'filename' => $path]);
             }
         }
 
@@ -220,7 +213,7 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         $user->sendEmailVerificationNotification();
-        return response()->json(['success' => config('constants.messages.registration_success')], config('constants.validation_codes.ok'));
+        return response()->json(['success' => config('constants.messages.registration_success')], config('constants.validation_codes.200'));
     }
 
     /**
@@ -235,7 +228,7 @@ class User extends Authenticatable implements MustVerifyEmail
             return new DataTrueResource(true);
         }
         else{
-            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], config('constants.validation_codes.unprocessable_entity'));
+            return response()->json(['error' =>config('constants.messages.delete_multiple_error')], config('constants.validation_codes.422'));
         }
     }
 
@@ -249,22 +242,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeUpdateUser($query,$request,$user){
         $data = $request->all();
         if($request->hasfile('profile')) {
-            $real_path = 'user/' . $user->id . '/';
-            $file_data = $request->file('profile')->store('/public/' . $real_path);
-            $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
-            $data['profile'] = $filename;
+            $this->deleteOne('/public/user/' . $user->id . '/' . basename($user->profile));
+            $path = $this->uploadOne($request->file('profile'), '/public/user/' . $user->id);
+            $user->update(['profile' => $path]);
         }
 
         if($request->hasfile('gallery')) {
-
             foreach ($request->gallery as $image) {
-                $real_path = 'gallery/'.$user->id.'/';
-                $file_data = $image->store('/public/' . $real_path);
-                $filename = $real_path . pathinfo($file_data, PATHINFO_BASENAME);
-                UserGallery::create([
-                    'user_id' => $user->id,
-                    'filename' => $filename
-                ]);
+                $path = $this->uploadOne($image, '/public/user/' . $user->id);
+                UserGallery::create(['user_id' => $user->id, 'filename' => $path]);
             }
         }
 
@@ -276,5 +262,4 @@ class User extends Authenticatable implements MustVerifyEmail
         $user->update($data);
         return new UsersResource($user);
     }
-
 }

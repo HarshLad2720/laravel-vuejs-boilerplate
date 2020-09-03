@@ -23,12 +23,6 @@ class CreateCitiesTable extends Migration
             $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
             $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
         });
-
-        DB::table('cities')->insert(array(
-            array('state_id'=>'1','name' => 'Surat','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
-            array('state_id'=>'1','name' => 'Baroda','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s')),
-            array('state_id'=>'2','name' => 'Jaipur','created_at' => date('Y-m-d H:i:s'),'updated_at' => date('Y-m-d H:i:s'))
-        ));
     }
 
     /**
