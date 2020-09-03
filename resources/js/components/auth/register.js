@@ -3,7 +3,7 @@ import ErrorBlockServer from "../../partials/ErrorBlockServer";
 import ErrorModal from "../../partials/ErrorModal";
 import {mapActions, mapState} from 'vuex'
 import Snackbar from "../../partials/Snackbar.vue"
-import gallaryImageModal from "../user/gallaryImageModal"
+import GallaryImageModal from "../user/GallaryImageModal"
 
 export default {
     name: "register",
@@ -11,7 +11,7 @@ export default {
         ErrorModal,
         ErrorBlockServer,
         Snackbar,
-        gallaryImageModal
+        GallaryImageModal
     },
     data() {
         return {
@@ -78,7 +78,6 @@ export default {
          * Register Submit Method
          */
         onSubmit() {
-            console.log(self.model);
             this.$validator.validate().then(valid => {
                 var self = this;
                 if (valid) {
@@ -110,16 +109,12 @@ export default {
                             formData.append('hobby[' + parseInt(index) + ']', self.model.hobby[index]);
                         }
 
-                        if (self.model.gallery.length > 0) {
-                            for (var index2 in self.model.gallery) {
-                                if (self.model.gallery[index2] instanceof File) {
-                                    formData.append('gallery[' + parseInt(index2) + ']', self.model.gallery[index2]);
-                                }
+                        formData.delete('gallery');
+                        for (var index2 in self.model.gallery) {
+                            if (self.model.gallery[index2] instanceof File) {
+                                formData.append('gallery[' + parseInt(index2) + ']', self.model.gallery[index2]);
                             }
-                        } else {
-                            formData.delete('gallery');
                         }
-
 
                     } else {
                         // Register
@@ -152,12 +147,11 @@ export default {
                         } else {
                             self.isSubmitting = false;
                             if (self.$store.state.userStore.editId > 0) {
-                                // debugger;
-                                self.$parent.getData();
+                                // Emit while update
+                                self.$emit('register-form-emit', response.data);
+                            } else {
+                               this.onCancel();
                             }
-                            // Reset data
-                            self.onModalDataPost('userStore');
-
                             // Success message
                             self.$store.commit("snackbarStore/setMsg", msgType);
                         }
@@ -223,12 +217,13 @@ export default {
          * Cancel button
          */
         onCancel() {
-            // this.onModalCancelPref('userStore');
-            this.$emit('input');
+            // Reset data
+            this.onModalDataPost('userStore');
+            this.$emit('cancel');
         }
     },
     mounted() {
-        this.$store.dispatch('countryStore/getCountryList').then(response => {
+        this.$store.dispatch("countryStore/getAll",{page:1,limit:5000}).then(response => {
             if (response.error) {
                 this.errorMessage = response.data.error;
             } else {
@@ -238,7 +233,7 @@ export default {
         }, function (error) {
             this.errorMessage = this.getAPIErrorMessage(error.response);
         });
-        this.$store.dispatch('hobbyStore/getHobbyList').then(response => {
+        this.$store.dispatch("hobbyStore/getAll",{page:1,limit:5000}).then(response => {
             if (response.error) {
                 this.errorMessage = response.data.error;
             } else {

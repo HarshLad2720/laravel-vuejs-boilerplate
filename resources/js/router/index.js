@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 import store from '../store/store';
+import { RESET_LAYOUT_CONFIG } from "../store/config.module";
 
 var siteName = " - Admin Panel";
 /* Create new instance of VueRouter */
@@ -126,37 +127,59 @@ const router = new VueRouter({
     ]
 });
 
-/*router.beforeEach((to, from, next) => {
-    // debugger;
-    var authorization = store.state.userStore.currentUser.authorization;
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (authorization) {
-            next()
-        } else if (authorization == '') {
-            next('/logoff')
-            return
-        } else {
-            next('/login')
-        }
-    } else {
-        if (to.path == "/" && authorization) {
-            next('/users')
-        } else if (to.path != "/logoff" && authorization == '') {
-            next('/logoff')
-            return
-        } else {
-            next()
-        }
-    }
-})
-router.beforeResolve((to, from, next) => {
+
+/*router.beforeResolve((to, from, next) => {
+    debugger;
     var permissionData = store.state.permissionStore.userPermissions;
+    console.log(permissionData);
     if (to.matched.some(record => record.meta.permission)) {
         var permissionArray = permissionData.filter(permission => permission.name == to.meta.permission);
+        debugger;
         if (permissionArray.length > 0) {
             next('/');
             return
         } else {
+            next('/');
+        }
+    } else {
+        next();
+    }
+});
+
+router.beforeResolve((to, from, next) => {
+    var permissionData = store.state.permissionStore.userPermissions;
+    var currentUserId = store.state.userStore.currentUser.user_id;
+    var currentBusinessId = store.state.userStore.currentBusinessId;
+    var access = 'can-access';
+    if (to.matched.some(record => record.meta.permission)) {
+        var permissionArray = permissionData.filter(permission => permission.name == to.meta.permission);
+        if (permissionArray.length > 0) {
+            var subpermissionArray = permissionArray[0].sub_permissions;
+            if (to.matched.some(record => record.meta.subpermission)) {
+                var subpermissionmain = permissionArray[0].sub_permissions.filter(subpermissionmain => subpermissionmain.name == to.meta.subpermission);
+                if (subpermissionmain.length > 0) {
+                    subpermissionArray = subpermissionmain[0].sub_permissions;
+                } else {
+                    next('/');
+                    return
+                }
+            }
+            if (subpermissionArray.length > 0) {
+                var subpermission = subpermissionArray.filter(subpermission => (subpermission.name == access && subpermission.is_permission == "1"));
+                if (subpermission.length > 0) {
+                    next()
+                } else {
+                    next('/');
+                    store.commit('permissionStore/setPermissionDialog', true);
+                }
+            }
+        } else {
+            next('/');
+        }
+    } else if (to.matched.some(record => record.meta.mainSuperAdmin)){
+        if(currentUserId=='1' && currentBusinessId=='1') {
+            next();
+        }else {
             next('/');
         }
     } else {
@@ -167,6 +190,10 @@ router.beforeResolve((to, from, next) => {
 router.beforeEach((to, from, next) => {
     var authorization = store.state.userStore.currentUserData.authorization;
     document.title = to.meta.title;
+
+    // reset config to initial state
+    store.dispatch(RESET_LAYOUT_CONFIG);
+
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (authorization) {
             next()

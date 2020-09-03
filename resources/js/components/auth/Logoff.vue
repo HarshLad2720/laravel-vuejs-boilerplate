@@ -6,7 +6,7 @@
         <!--begin::Signin-->
         <div class="login-form login-signin">
             <div class="text-center mb-10 mb-lg-20">
-                <h3 class="font-size-h1">LogIn</h3>
+                <h3 class="font-size-h1">Log In</h3>
                 <p class="text-muted font-weight-semi-bold">
                     You have been logged off. Please enter your password to get Login again.
                 </p>
@@ -24,7 +24,7 @@
                 <v-layout row wrap class="display-block">
                     <div class="text-center">
                         <img :src="userProfilePicture" class="img-responsive rounded-circle logoff-user">
-                        <h3 class="logoff-user-name">{{userFullName}}</h3>
+                        <h3 class="logoff-user-name mt-3">{{userFullName}}</h3>
                         <v-text-field
                                 label="Password*" type="password"
                                 name="password"
