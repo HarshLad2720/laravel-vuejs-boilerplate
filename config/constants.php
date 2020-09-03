@@ -118,10 +118,4 @@ return [
         'country_dir_path' => 'import/country/',
         'state_dir_path' => 'import/state/',
     ],
-
-    'date_format'=>[
-        'import_date' => Carbon::now()->format('Y-m-d_g_i_s')
-    ],
-
-
 ];
