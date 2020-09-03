@@ -71,10 +71,10 @@ export default {
             this.$emit('input'); //Close Pop-up
         },
         onModalClear(storeName, stateName) {
+            this.$emit('input'); //Close Pop-up
             this.$validator.reset();
             this.isSubmitting = false;
             this.errorMessage = '';
-            this.$emit('input'); //Close Pop-up
             this.$store.commit(storeName + '/' + stateName);
         },
         onModalDataPost(storeName) {
