@@ -13,7 +13,6 @@ function initialState() {
             filter: ''
         },
         tableData:[],
-        roleList: [],
         roledropdownlist: [],
         editId: 0,
         model:{

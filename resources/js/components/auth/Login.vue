@@ -68,6 +68,7 @@
         <!--end::Signin-->
         <forgot-password-modal v-model="fpdialog" @forget-password-email="forgotPassword"></forgot-password-modal>
         <snackbar v-model="snackbar"></snackbar>
+        <permission-dialog v-model="permissionDialog"></permission-dialog>
     </div>
 </template>
 

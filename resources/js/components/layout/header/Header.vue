@@ -29,6 +29,7 @@
       <KTTopbar></KTTopbar>
     </div>
       <snackbar v-model="snackbar"></snackbar>
+      <permission-dialog v-model="permissionDialog"></permission-dialog>
   </div>
   <!-- end:: Header -->
 </template>
@@ -39,14 +40,16 @@ import KTTopbar from "../../../components/layout/header/Topbar.vue";
 import KTLayoutHeader from "../../../../assets/js/layout/base/header.js";
 import KTLayoutHeaderMenu from "../../../../assets/js/layout/base/header-menu.js";
 import KTMenu from "../../../components/layout/header/Menu.vue";
-import Snackbar from "../../../partials/Snackbar.vue"
+import Snackbar from "../../../partials/Snackbar.vue";
+import PermissionDialog from "../../../partials/PermissionDialog";
 
 export default {
   name: "KTHeader",
   components: {
     KTTopbar,
     KTMenu,
-      Snackbar
+      Snackbar,
+      PermissionDialog
   },
   mounted() {
     // Init Desktop & Mobile Headers
@@ -63,6 +66,7 @@ export default {
 
       ...mapState({
           snackbar: state => state.snackbarStore.snackbar,
+          permissionDialog: state => state.permissionStore.permissionDialog,
       }),
 
     /**

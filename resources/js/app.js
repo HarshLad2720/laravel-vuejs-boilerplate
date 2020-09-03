@@ -53,11 +53,13 @@ Vue.directive('update', hasPermission); //update
 Vue.directive('destroy', hasPermission); // delete
 Vue.directive('export', hasPermission); // export
 Vue.directive('importBulk', hasPermission); // import
-Vue.directive('delete_gallery', hasPermission);
-Vue.directive('getPermissionsByRole', hasPermission);
-Vue.directive('setUnsetPermissionToRole', hasPermission);
-Vue.directive('changePassword', hasPermission);
-Vue.directive('logout', hasPermission);
+Vue.directive('delete_gallery', hasPermission); // delete gallery
+Vue.directive('getPermissionsByRole', hasPermission); // get permission by role
+Vue.directive('setUnsetPermissionToRole', hasPermission); // set unset permission
+Vue.directive('changePassword', hasPermission); // change password
+Vue.directive('logout', hasPermission); // logout
+Vue.directive('deleteAll', hasPermission); // delete all functionality
+
 
 const app = new Vue({
     router,

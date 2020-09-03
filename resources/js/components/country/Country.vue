@@ -46,7 +46,7 @@
                                     </v-tooltip>
                                     <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps" v-export="$getConst('COUNTRY')"></export-btn>
                                     <template v-if="selected.length>1">
-                                    <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps"></multi-delete>
+                                    <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps" v-deleteAll="$getConst('COUNTRY')"></multi-delete>
                                     </template>
                                 </div>
                             </v-flex>
