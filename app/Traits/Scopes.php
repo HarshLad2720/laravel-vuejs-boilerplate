@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\User\Import_csv_log;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Maatwebsite\Excel\Facades\Excel;
@@ -378,17 +379,24 @@ trait Scopes
     {
 
         if($request->hasfile('file')) {
-            $file_name = config('constants.date_format.import_date')."_".$request->file('file')->getClientOriginalName();
-            $path = $request->file('file')->storeAs('/public/' . $folderName, $file_name);
-            $filename = $folderName . pathinfo($path, PATHINFO_BASENAME);
+
+            $only_file_name = str_replace(' ', '_',
+                strtolower(pathinfo($request->file('file')->getClientOriginalName(),
+                    PATHINFO_FILENAME)));
+            $only_extension = pathinfo($request->file('file')->getClientOriginalName(), PATHINFO_EXTENSION);
+
+            Artisan::call('config:cache');
+            $filename = $only_file_name . '_' . config('constants.file.name') . '.' . $only_extension;
+
+            $path = $request->file('file')->storeAs('/public/' . $folderName, $filename);
+            $file_path = $folderName . pathinfo($path, PATHINFO_BASENAME);
 
             $data = Excel::import($model, $path);
             if (count($model->getErrors()) > 0) {
-                $file = $request->file('file')->getClientOriginalName();
                 $error_json = json_encode($model->getErrors());
                 Import_csv_log::create([
-                    'file_path' => $filename,
-                    'filename' => $file,
+                    'file_path' => $file_path,
+                    'filename' => $filename,
                     'model_name' => $modelType,
                     'error_log' => $error_json
                 ]);

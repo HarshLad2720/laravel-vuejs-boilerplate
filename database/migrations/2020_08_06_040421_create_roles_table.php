@@ -23,6 +23,14 @@ class CreateRolesTable extends Migration
             $table->unsignedInteger('created_by')->nullable()->comment('Users table ID');
             $table->unsignedInteger('updated_by')->nullable()->comment('Users table ID');
         });
+
+        DB::table('roles')->insert(array(
+            array('name' => 'Administrator','created_at' => config('constants.calender.date_time'),'updated_at' => config('constants.calender.date_time')),
+            array('name' => 'Test','created_at' => config('constants.calender.date_time'),'updated_at' => config('constants.calender.date_time')),
+            array('name' => 'Test_2','created_at' => config('constants.calender.date_time'),'updated_at' => config('constants.calender.date_time')),
+            array('name' => 'Test_3','created_at' => config('constants.calender.date_time'),'updated_at' => config('constants.calender.date_time')),
+            array('name' => 'Test_4','created_at' => config('constants.calender.date_time'),'updated_at' => config('constants.calender.date_time')),
+        ));
     }
 
     /**

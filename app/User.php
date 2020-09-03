@@ -19,6 +19,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Scopes;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\UploadTrait;
@@ -29,30 +31,26 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $table = 'users';
 
-    public function scopeCommonFunctionMethod($query,$model, $request, $preQuery = null, $tablename = null, $groupBy = null, $export_select = false, $no_paginate = false)
+    public function scopeCommonFunctionMethod($query, $model, $request, $preQuery = null, $tablename = null, $groupBy = null, $export_select = false, $no_paginate = false)
     {
         return $this->getCommonFunctionMethod($model, $request, $preQuery, $tablename , $groupBy , $export_select , $no_paginate);
     }
 
     public static function getCommonFunctionMethod($model, $request, $preQuery = null, $tablename = null, $groupBy = null, $export_select = false, $no_paginate = false)
     {
+        if(isset($request->id) && is_array($request->get('id')) && !empty($request->get('id'))) {
+            $model->whereIn('id', $request->get('id'))->get();
+        }
         if (is_null($preQuery)) {
-
-
             $mainQuery = $model::withSearch($request->get('search'), $export_select);
-        }else {
-
+        } else {
             $mainQuery = $model->withSearch($request->get('search'), $export_select);
         }
-
         if($request->filled('filter') != '')
             $mainQuery = $mainQuery->withFilter($request->get('filter'));
-
         if(!is_null($groupBy))
             $mainQuery = $mainQuery->groupBy($groupBy);
-
         if ( $no_paginate ){
-
             return $mainQuery->withOrderBy($request->get('sort'), $request->get('order_by'), $tablename, $export_select);
         }else{
             return $mainQuery->withOrderBy($request->get('sort'), $request->get('order_by'), $tablename, $export_select)
@@ -72,7 +70,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     public $sortable=[
-        'id','name'
+        'id', 'name', 'email', 'mobile_no', 'gender', 'dob', 'address'
     ];
 
     public $foreign_sortable = [
