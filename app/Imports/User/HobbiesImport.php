@@ -12,7 +12,7 @@ use App\Traits\CreatedbyUpdatedby;
 
 class HobbiesImport implements ToCollection, WithStartRow
 {
-    use Scopes,CreatedbyUpdatedby;
+    use Scopes, CreatedbyUpdatedby;
     private $errors = [];
 
     public function startRow(): int
