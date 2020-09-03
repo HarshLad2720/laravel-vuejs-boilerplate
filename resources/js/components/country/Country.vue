@@ -5,7 +5,7 @@
                 <p>Country</p>
             </v-tab>
             <v-tab key="Tab2" @click.native="importDataTable()">
-                <p>Import</p>
+                <p class="mt-2">Import</p>
             </v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">

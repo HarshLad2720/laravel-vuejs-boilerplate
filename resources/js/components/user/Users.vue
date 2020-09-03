@@ -5,7 +5,7 @@
                 <p>User</p>
             </v-tab>
             <v-tab key="Tab2" v-importBulk="$getConst('USER')" @click.native="importDataTable()">
-                <p>Import</p>
+                <p class="mt-2">Import</p>
             </v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
@@ -80,7 +80,6 @@
                     <template v-slot:item.dob="{ item }">
                         <span>{{ getDateFormat(item.dob) }}</span>
                     </template>
-
                     <template v-slot:item.actions="{ item }">
                         <v-icon
                                 small
@@ -91,6 +90,14 @@
                             {{ icons.mdiPencil }}
                         </v-icon>
                         <v-icon
+                            small
+                            class="mr-2"
+                            @click="openGallery(item)"
+                            v-can-show = "$getConst('USER')"
+                        >
+                            {{ icons.mdiImage }}
+                        </v-icon>
+                        <v-icon
                                 small
                                 @click="deleteItem(item.id)"
                                 v-destroy = "$getConst('USER')"
@@ -98,10 +105,10 @@
                             {{ icons.mdiDelete }}
                         </v-icon>
                     </template>
-
                 </v-data-table>
                 <user-modal :paramProps="paramProps" v-model="userDialogue"></user-modal>
                 <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
+
             </v-tab-item>
             <v-tab-item key="Tab2">
                 <v-card flat>
@@ -111,8 +118,15 @@
                 </v-card>
             </v-tab-item>
         </v-tabs-items>
-
-
+        <lightGallery
+            :images="images"
+            id="lightgallery"
+            ref="lightGallery"
+            :dynamic="true"
+            :show-caption="true"
+            :show-thumbs="true"
+            :show-light-box="true"
+        ></lightGallery>
     </div>
 </template>
 
