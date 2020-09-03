@@ -8,10 +8,11 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\CreatedbyUpdatedby;
 
 class CitiesImport implements ToCollection, WithStartRow
 {
-    use Scopes;
+    use Scopes,CreatedbyUpdatedby;
     private $errors = [];
 
     public function startRow(): int

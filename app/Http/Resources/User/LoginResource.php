@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\User;
 
-use App\Models\User\Hobby_user;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LoginResource extends JsonResource
