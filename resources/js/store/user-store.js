@@ -16,7 +16,7 @@ function initialState() {
         },
         tableData:[],
         roleList: [],
-        currentUserData: [],
+        currentUserData: {},
 
         model: {
             name: '',
@@ -53,7 +53,7 @@ const userStore = {
             state.currentUserData.authorization = payload;
         },
         clearUserData(state) {
-            state.currentUserData = [];
+            state.currentUserData = {};
         },
         setCurrentUserData(state, payload) {
             state.currentUserData = payload;

@@ -1,7 +1,6 @@
 import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
 import ExportBtn from "../../partials/ExportBtn";
-import Vue from 'vue';
 import UserModal from "./UserModal.vue";
 import {mapState} from "vuex";
 import CommonServices from '../../common_services/common.js';

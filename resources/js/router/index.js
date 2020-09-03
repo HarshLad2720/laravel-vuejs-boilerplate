@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 import store from '../store/store';
+import { RESET_LAYOUT_CONFIG } from "../store/config.module";
 
 var siteName = " - Admin Panel";
 /* Create new instance of VueRouter */
@@ -167,6 +168,10 @@ router.beforeResolve((to, from, next) => {
 router.beforeEach((to, from, next) => {
     var authorization = store.state.userStore.currentUserData.authorization;
     document.title = to.meta.title;
+
+    // reset config to initial state
+    store.dispatch(RESET_LAYOUT_CONFIG);
+
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (authorization) {
             next()
