@@ -69,7 +69,7 @@ export default {
             hobbyList: state => state.hobbyStore.hobbyList,
         }),
         computedDateFormatted () {
-            return this.formatDate(this.model.dob)
+            return this.getDateFormat(this.model.dob)
         },
     },
     mixins: [CommonServices],
@@ -161,15 +161,6 @@ export default {
                     });
                 }
             });
-        },
-
-        /**
-         * Format DOB
-         */
-        formatDate (date) {
-            if (!date) return null
-            const [year, month, day] = date.split('-')
-            return `${day}/${month}/${year}`
         },
 
         /**

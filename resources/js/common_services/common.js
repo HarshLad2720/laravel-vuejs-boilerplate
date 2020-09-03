@@ -71,7 +71,6 @@ export default {
             this.$emit('input'); //Close Pop-up
         },
         onModalClear(storeName, stateName) {
-            debugger;
             this.$validator.reset();
             this.isSubmitting = false;
             this.errorMessage = '';

@@ -2,7 +2,7 @@
 //https://dev.to/nkoik/writing-a-very-simple-plugin-in-vuejs---example-8g8*/
 import {PERMISSION_CONSTANTS} from './permission/permission-constants'
 const YOUR_CONSTS = {
-    DATE_CONST: 'DD-MM-YYYY',
+    DATE_CONST: 'DD/MM/YYYY',
     TIME_CONST: 'hh:mm A',
     DATE_TIME_CONST: 'DD/MM/YYYY hh:mm A',
     CREATE_ACTION: 'Inserted Successfully',

@@ -4,6 +4,7 @@ import ErrorModal from "../../partials/ErrorModal";
 import BootstrapVue from "../../plugins/bootstrap-vue";
 import ForgotPasswordModal from "./ForgotPasswordModal.vue";
 import Snackbar from "../../partials/Snackbar.vue"
+import PermissionDialog from "../../partials/PermissionDialog";
 import {mapState} from "vuex";
 
 export default {
@@ -33,7 +34,7 @@ export default {
             isSubmitting: false,
         };
     },
-    components:{ForgotPasswordModal, Snackbar, ErrorBlockServer, ErrorModal},
+    components:{ForgotPasswordModal, Snackbar, ErrorBlockServer, ErrorModal,PermissionDialog},
     mixins:[BootstrapVue, CommonServices],
     methods: {
         /**
@@ -107,6 +108,7 @@ export default {
     computed: {
         ...mapState({
             snackbar: state => state.snackbarStore.snackbar,
+            permissionDialog: state => state.permissionStore.permissionDialog,
         }),
     },
 };

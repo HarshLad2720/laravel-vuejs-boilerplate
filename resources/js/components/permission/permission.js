@@ -21,15 +21,18 @@ export default {
     },
     mounted() {
         this.$store.commit('permissionStore/clearPermissions');
-        this.$store.dispatch('roleStore/getRoleList').then(response => {
+        this.$store.dispatch("roleStore/getAll",{page:1,limit:5000}).then(response => {
             if (response.error) {
                 this.errorArr = response.data.error;
                 this.errorDialog = true;
+            } else {
+                this.$store.commit('roleStore/setRoleList', response.data.data);
             }
         }, error => {
-            this.errorArr = this.getAPIErrorMessage(error.response);
+            this.errorArr = this.getModalAPIerrorMessage(error);
             this.errorDialog = true;
         });
+
     },
     methods: {
         getPermissions() {
