@@ -223,7 +223,7 @@ export default {
         }
     },
     mounted() {
-        this.$store.dispatch('countryStore/getCountryList').then(response => {
+        this.$store.dispatch("countryStore/getAll",{page:1,limit:5000}).then(response => {
             if (response.error) {
                 this.errorMessage = response.data.error;
             } else {
@@ -233,7 +233,7 @@ export default {
         }, function (error) {
             this.errorMessage = this.getAPIErrorMessage(error.response);
         });
-        this.$store.dispatch('hobbyStore/getHobbyList').then(response => {
+        this.$store.dispatch("hobbyStore/getAll",{page:1,limit:5000}).then(response => {
             if (response.error) {
                 this.errorMessage = response.data.error;
             } else {

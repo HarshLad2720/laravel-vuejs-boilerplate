@@ -93,7 +93,6 @@
                             small
                             class="mr-2"
                             @click="openGallery(item)"
-                            v-can-show = "$getConst('USER')"
                         >
                             {{ icons.mdiImage }}
                         </v-icon>
