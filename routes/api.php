@@ -50,7 +50,6 @@ Route::group([
             'middleware' => ['auth:api', 'check.permission'],
         ], function() {
 
-
             Route::resource('countries', 'CountriesAPIController', [
                 'only' => ['show', 'store', 'update', 'destroy']
             ]);
@@ -58,7 +57,6 @@ Route::group([
             Route::post('countries-export', 'CountriesAPIController@export');
             Route::get('countries-export', 'CountriesAPIController@export');
             Route::post('countries-import-bulk', 'CountriesAPIController@importBulk');
-
 
             Route::resource('states', 'StatesAPIController', [
                 'only' => ['show', 'store', 'update', 'destroy']
@@ -68,7 +66,6 @@ Route::group([
             Route::get('states-export', 'StatesAPIController@export');
             Route::post('states-import-bulk', 'StatesAPIController@importBulk');
 
-
             Route::resource('cities', 'CitiesAPIController', [
                 'only' => ['show', 'store', 'update', 'destroy']
             ]);
@@ -76,7 +73,6 @@ Route::group([
             Route::post('cities-export', 'CitiesAPIController@export');
             Route::get('cities-export', 'CitiesAPIController@export');
             Route::post('cities-import-bulk', 'CitiesAPIController@importBulk');
-
 
             Route::resource('hobbies', 'HobbiesAPIController', [
                 'only' => ['show', 'store', 'update', 'destroy']
