@@ -105,7 +105,6 @@
                         </v-icon>
                     </template>
                 </v-data-table>
-                <user-modal :paramProps="paramProps" v-model="userDialogue"></user-modal>
                 <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
                 <custom-dialog v-model="customDialog" :title="customDialogTitle"
                                :message="customMessage"></custom-dialog>
@@ -118,6 +117,7 @@
                 </v-card>
             </v-tab-item>
         </v-tabs-items>
+        <user-modal :paramProps="paramProps" v-model="userDialogue"></user-modal>
         <lightGallery
             :images="images"
             id="lightgallery"

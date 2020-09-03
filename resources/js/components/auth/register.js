@@ -208,9 +208,14 @@ export default {
          * Cancel button
          */
         onCancel() {
+            debugger;
             // Reset data
-            this.onModalDataPost('userStore');
-            this.$emit('cancel');
+            if (this.$store.state.userStore.editId > 0) {
+                this.$emit('cancel');
+            } else {
+                this.onModalDataPost('userStore');
+            }
+
         }
     },
     mounted() {
