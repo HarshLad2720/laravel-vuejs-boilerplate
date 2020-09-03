@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class Hobby extends Model
 {
-    use SoftDeletes, Scopes,CreatedbyUpdatedby;
+    use SoftDeletes, Scopes, CreatedbyUpdatedby;
     /**
      * The attributes that are mass assignable.
      *
