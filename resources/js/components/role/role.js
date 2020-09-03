@@ -131,9 +131,6 @@ export default CustomTable.extend({
             this.selected.forEach((element, index) => {
                 rowIds[index] = element.id;
             });
-
-            console.log(rowIds);
-
             this.deleteProps.ids = rowIds;
             this.deleteProps.store = 'roleStore';
             this.$refs.multipleDeleteBtn.deleteMulti();

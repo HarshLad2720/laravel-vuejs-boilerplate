@@ -119,7 +119,6 @@ export default Vue.extend({
                     this.$store.commit(this.stateName + '/setTableData', response.data);
                 }, error => {
                     this.$store.commit(this.stateName + '/setTableData', []);
-                    console.log(error);
                 });
             }
         },

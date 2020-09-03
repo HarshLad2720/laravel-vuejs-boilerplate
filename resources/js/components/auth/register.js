@@ -208,7 +208,6 @@ export default {
          * Cancel button
          */
         onCancel() {
-            debugger;
             // Reset data
             if (this.$store.state.userStore.editId > 0) {
                 this.$emit('cancel');

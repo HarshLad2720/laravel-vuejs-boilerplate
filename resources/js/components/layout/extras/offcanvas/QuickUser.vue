@@ -175,7 +175,11 @@ export default {
 
     }),
     picture() {
-      return this.$store.state.userStore.currentUserData.profile;
+      if(this.$store.state.userStore.currentUserData.profile != ''){
+        return this.$store.state.userStore.currentUserData.profile;
+      }else{
+        return "/images/profile.png";
+      }
     }
   },
 };

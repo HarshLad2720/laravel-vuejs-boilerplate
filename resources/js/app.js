@@ -1,26 +1,32 @@
 require('./bootstrap');
 import router from "./router";
 import Vue from 'vue';
+import Vuex from 'vuex';
+
+// router store and plugins
 import App from './components/App.vue';
-import vuetify from './plugins/vuetify'
 import store from './store/store';
-import IdleVue from 'idle-vue';
+import constants from './common_services/constantPlugin';
 import VueRouter from 'vue-router';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
-import Vuex from 'vuex';
+import IdleVue from 'idle-vue';
+import vuetify from './plugins/vuetify'
 import registerStoreModule from './common_services/register-store-module';
-import constants from './common_services/constantPlugin';
 import persistentState from 'vue-persistent-state';
 import VeeValidate from 'vee-validate';
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import bugsnagVue from '@bugsnag/plugin-vue'
+
+// theme support plugin
+import "../js/plugins/metronic";
 import { InlineSvgPlugin } from "vue-inline-svg";
 import KTUtil from "../assets/js/components/util.js";
 window.KTUtil = KTUtil
-import "../js/plugins/metronic";
 import PerfectScrollbar from "vue2-perfect-scrollbar";
 window.PerfectScrollbar = PerfectScrollbar;
-import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
-import bugsnagVue from '@bugsnag/plugin-vue'
+
+
 if(process.env.MIX_MODE == 'production') {
     var bugsnagClient = bugsnag({
         apiKey: process.env.MIX_BUGSNAG_API_KEY,
@@ -31,15 +37,14 @@ if(process.env.MIX_MODE == 'production') {
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
 Vue.use(Vuex);
-Vue.use(constants);
-Vue.mixin(registerStoreModule); //Constants as plugin
 Vue.use(persistentState);
 Vue.use(VeeValidate);
-Vue.use(InlineSvgPlugin);
+Vue.use(constants); //Constants as plugin
+Vue.mixin(registerStoreModule);
 
+Vue.use(InlineSvgPlugin);
 // Perfect scrollbar
 Vue.use(PerfectScrollbar);
-
 // Install BootstrapVue
 Vue.use(BootstrapVue);
 

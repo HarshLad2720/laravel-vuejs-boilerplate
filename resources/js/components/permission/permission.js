@@ -17,6 +17,7 @@ export default {
         ...mapState({
             permissions: state => state.permissionStore.permissions,
             roleList: state => state.roleStore.roledropdownlist,
+            currentUser: state => state.userStore.currentUserData,
         }),
     },
     mounted() {
@@ -46,6 +47,24 @@ export default {
                 this.errorDialog = true;
             });
         },
+        /**
+         * reset permission if permission is set or revoked from current role
+         */
+        resetPermission() {
+            this.$store.dispatch("permissionStore/getById", this.role_id).then(response => {
+                if (response.error) {
+                    this.errorDialog = false;
+                    this.errorArr = response.data.error;
+                }else{
+                    if(response.data && response.data.length > 0) {
+                        this.$store.commit('permissionStore/setUserPermissions', response.data);
+                    }
+                }
+            }, error => {
+                this.errorArr = this.getAPIErrorMessage(error.response);
+                this.errorDialog = true;
+            });
+        },
         editPermission(permission) {
             let sendParams = {
                 role_id: this.role_id,
@@ -57,6 +76,9 @@ export default {
                     this.errorDialog = false;
                     this.errorArr = response.data.error;
                 } else {
+                    if(this.currentUser.role_id == this.role_id){
+                        this.resetPermission();
+                    }
                     this.$store.commit("snackbarStore/setMsg", this.$getConst('UPDATE_ACTION'));
                 }
             }, error => {
