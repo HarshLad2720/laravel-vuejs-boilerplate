@@ -27,7 +27,7 @@
                             <v-flex xs12 sm12 md12 lg12 class="">
                                 <div class="permission-table">
                                     <table class="table borderless table-responsive" v-if="permissions.length > 0">
-                                        <tbody>
+                                        <tbody v-setUnsetPermissionToRole="$getConst('PERMISSION')">
 <!--                                        {{permissions}}-->
                                         <tr v-for="permission in permissions" :key="permission.id">
                                             <td :colspan="permission.is_third_level && permission.is_third_level == '1' ? '4' : ''">
@@ -44,8 +44,8 @@
                                                         true-value="1"
                                                         false-value="0"
                                                         :label="subPermission.display_name"
+                                                        v-setUnsetPermissionToRole="$getConst('PERMISSION')"
                                                     ></v-checkbox>
-<!--                                                    v-set-unset-permission-to-role="$getConst('PERMISSION')"-->
                                                 </td>
                                             </template>
                                         </tr>

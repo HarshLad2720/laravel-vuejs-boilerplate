@@ -1,13 +1,16 @@
 import CustomTable from '../../components/customtable/table'
 import DeleteModal from "../../partials/DeleteModal";
 import ExportBtn from "../../partials/ExportBtn";
-import Vue from 'vue';
 import UserModal from "./UserModal.vue";
 import {mapState} from "vuex";
 import CommonServices from '../../common_services/common.js';
 import ErrorModal from "../../partials/ErrorModal";
 import MultiDelete from "../../partials/MultiDelete";
 import Import from "../../partials/Import";
+import lightGallery from 'lightgallery-vue';
+import 'lg-zoom.js';
+import 'lg-fullscreen.js';
+import 'lg-thumbnail.js';
 
 export default CustomTable.extend({
     name: "Users",
@@ -61,6 +64,8 @@ export default CustomTable.extend({
             errorDialog: false,
             role_id:'',
             filtermenu: false,
+            images: [],
+            ImageIndex: 0,
         }
     },
     mixins: [CommonServices],
@@ -71,6 +76,7 @@ export default CustomTable.extend({
         ExportBtn,
         MultiDelete,
         Import,
+        lightGallery
     },
     computed: {
         ...mapState({
@@ -79,7 +85,7 @@ export default CustomTable.extend({
             setCityList: state => state.cityStore.cityList,
             setRoleList: state => state.roleStore.roledropdownlist,
             pagination : state => state.roleStore.pagination,
-        })
+        }),
     },
     watch: {
     },
@@ -125,7 +131,11 @@ export default CustomTable.extend({
             this.deleteProps.store = 'userStore';
             this.$refs.multipleDeleteBtn.deleteMulti();
         },
-        /* Edit User */
+
+        /*
+        * Edit User
+        * @param id
+        *  */
         onEdit(id) {
             this.$store.commit('userStore/setEditId', id);
             this.$store.dispatch('userStore/getById', id).then(response => {
@@ -167,7 +177,30 @@ export default CustomTable.extend({
             this.$refs.importdata.refreshImport();
         },
 
+        /*
+        * Open Gallery
+        * @param row
+        *  */
+        openGallery(row) {
+            this.images = [];
+            var index = this.tableData.findIndex(item => item.id === row.id);
+            if(index && index > 0) {
+                for (var i = 0; i < row.gallery.length; i++) {
+                    let obj = {
+                        thumb: row.gallery[i].filename,
+                        src: row.gallery[i].filename
+                    };
+                    this.images.push(obj);
+                    this.$forceUpdate();
+                }
+                var self = this;
+                setTimeout(function () {
+                    self.$refs.lightGallery.showImage(index);
+                }, 2000);
+            }
+        },
     },
+
     mounted(){
         this.$store.dispatch("roleStore/getAll",{page:1,limit:5000}).then(response => {
             if (response.error) {
@@ -180,5 +213,23 @@ export default CustomTable.extend({
             this.errorArr = this.getModalAPIerrorMessage(error);
             this.errorDialog = true;
         });
+
+        /* For lightgallery */
+        var self = this;
+        var lg = document.getElementById('lightgallery');
+        lg.addEventListener('onAfterOpen', function(e){
+            window.lightGallery(lg, {
+                dynamic: true,
+                dynamicEl: self.images
+            });
+        }, true);
+        lg.addEventListener('onBeforeClose', function(e){
+            window.lgData[lg.getAttribute('lg-uid')].destroy(true);
+        }, true);
+
+    },
+
+    beforeDestroy() {
+        this.$store.commit('userStore/clearStore');
     }
 });

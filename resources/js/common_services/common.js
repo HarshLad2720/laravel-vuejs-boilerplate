@@ -13,7 +13,8 @@ import {
     mdiPlus,
     mdiEye,
     mdiDownload,
-    mdiUpload
+    mdiUpload,
+    mdiImage
 } from '@mdi/js'
 import Vue from "vue";
 
@@ -43,6 +44,7 @@ export default {
                 mdiEye,
                 mdiDownload,
                 mdiUpload,
+                mdiImage
             },
         }
     },
@@ -69,6 +71,7 @@ export default {
             this.$emit('input'); //Close Pop-up
         },
         onModalClear(storeName, stateName) {
+            debugger;
             this.$validator.reset();
             this.isSubmitting = false;
             this.errorMessage = '';

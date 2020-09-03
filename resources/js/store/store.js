@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersist from 'vuex-persist';
+
+
 import htmlClass from "./htmlclass.module";
 import config from "./config.module";
 import breadcrumbs from "./breadcrumbs.module";
+
+
+
 import snackbarStore from './snackbar-store.js';
 import userStore from './user-store';
 import roleStore from './role-store';
@@ -26,12 +31,12 @@ const vuexPersist = new VuexPersist({
 export default new Vuex.Store({
     plugins: [vuexPersist.plugin],
     modules: {
-        userStore,
-        snackbarStore,
-        roleStore,
         htmlClass,
         config,
         breadcrumbs,
+        userStore,
+        snackbarStore,
+        roleStore,
         forgotPasswordStore,
         changePasswordStore,
         permissionStore,

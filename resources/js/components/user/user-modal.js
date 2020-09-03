@@ -20,8 +20,17 @@ export default {
     },
     // mixins: [CommonServices],
     methods: {
-        onCancel(){
+        /* Emit method from update user */
+        registerForm(payload){
+            debugger;
+            this.$parent.$parent.$parent.getData();
+            this.$emit('input');
+        },
 
+        /* Cancel */
+        onCancel(){
+            debugger;
+            this.onModalClear('userStore', 'clearStore');
         }
     },
 };
