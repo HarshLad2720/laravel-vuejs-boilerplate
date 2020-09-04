@@ -13,7 +13,6 @@
         "apexcharts": "^3.19.0",
         "axios": "^0.19",
         "bootstrap": "^4.5.0",
-        "bootstrap-vue": "^2.13.0",
         "cross-env": "^7.0",
         "jquery": "^3.2",
         "laravel-mix": "^5.0.1",
@@ -27,13 +26,13 @@
         "vue-router": "^3.1.5",
         "vue-template-compiler": "^2.6.11",
         "vuetify": "^2.2.26",
+        "popper.js": "^1.16.1",
         "deepmerge": "^4.2.2"
     },
     "dependencies": {
         "vuex": "^3.5.1",
         "vuex-persist": "^2.2.0",
         "vue-persistent-state": "^0.2.1",
-        "vue-session": "^1.0.0",
         "moment-timezone": "^0.5.28",
         "vee-validate": "^2.2.14",
         "@mdi/js": "^5.5.55",
@@ -49,6 +48,8 @@
         "lg-zoom.js": "^1.0.1",
         "lightgallery-vue": "0.0.2",
         "lightgallery.js": "^1.2.0",
-        "idle-vue": "^2.0.5"
+        "idle-vue": "^2.0.5",
+        "babel-polyfill": "^6.26.0",
+        "qs": "^6.9.4"
     }
 }

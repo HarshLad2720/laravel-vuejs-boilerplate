@@ -1,7 +1,6 @@
 import CommonServices from '../../common_services/common.js';
 import ErrorBlockServer from "../../partials/ErrorBlockServer";
 import ErrorModal from "../../partials/ErrorModal";
-import BootstrapVue from "../../plugins/bootstrap-vue";
 import Snackbar from "../../partials/Snackbar.vue"
 import {mapGetters, mapState} from "vuex";
 
@@ -29,7 +28,7 @@ export default {
         };
     },
     components:{Snackbar, ErrorBlockServer, ErrorModal},
-    mixins:[BootstrapVue, CommonServices],
+    mixins:[CommonServices],
     methods: {
         /**
          * Login Submit Method

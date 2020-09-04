@@ -5,7 +5,7 @@
                 class="headline black-bg"
                 primary-title
             >
-                {{isEditMode ? 'Update' : 'Add'}} State
+                {{isEditMode ? this.$getConst('TXT_UPDATE') : this.$getConst('TXT_ADD')}} State
             </v-card-title>
 
             <v-card-text>

@@ -76,17 +76,6 @@ export default {
         },
     },
     mounted() {
-        this.$store.dispatch("countryStore/getAll",{page:1,limit:5000}).then((response) => {
-            if (response.error) {
-                this.errorArr = response.data.error;
-                this.errorDialog = true;
-            } else {
-                this.$store.commit('countryStore/setCountryList', response.data.data);
-            }
-        }, error => {
-            this.errorArr = this.getModalAPIerrorMessage(error);
-            this.errorDialog = true;
-        });
         // clear errorMessage
         this.errorMessage = '';
     }

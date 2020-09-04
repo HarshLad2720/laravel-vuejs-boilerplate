@@ -13,7 +13,7 @@
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                     <v-layout row wrap class="display-block m-0 ">
                         <v-flex xs12>
-                            <p>{{confirmation.description ? confirmation.description : 'Are you sure you want to delete this record'}}</p>
+                            <p>{{confirmation.description ? confirmation.description : 'Are you sure you want to delete this record?'}}</p>
                         </v-flex>
                     </v-layout>
 

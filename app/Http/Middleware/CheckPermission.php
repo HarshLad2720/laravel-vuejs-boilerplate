@@ -28,7 +28,11 @@ class CheckPermission
 
         $action = $actionName[1];
         $permission = $action.'-'.$module;
-        $excluded_permissions = [];// Like this - 'changePassword-user'
+        $excluded_permissions = [
+        ];// Like this - 'changePassword-user'
+
+        if($request->path() == 'api/v1/batch_request')
+            return $next($request);
 
         if(in_array($permission,$excluded_permissions))
             return $next($request);

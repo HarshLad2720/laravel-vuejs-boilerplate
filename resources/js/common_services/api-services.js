@@ -1,4 +1,4 @@
-window._ = require('lodash');
+require('../../js/bootstrap.js');
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -7,7 +7,6 @@ window._ = require('lodash');
 
 import store from '../store/store';
 
-window.axios = require('axios');
 window.axios.defaults.headers.common['Content-Type'] = 'application/json';
 export const HTTP = window.axios;
 
@@ -27,6 +26,9 @@ HTTP.interceptors.request.use(
         var authorizationtoken = store.state.userStore.currentUserData.authorization; //get authorization token from login response data
 
         if (!authorizationtoken) {
+            if(config.params && config.params.noAuth){
+                return config;
+            }
             window.location.href = "/";
         } else {
             config.headers.common.Authorization = 'Bearer ' + authorizationtoken;

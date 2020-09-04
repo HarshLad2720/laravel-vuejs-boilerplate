@@ -2,6 +2,7 @@ import CommonServices from '../common_services/common.js';
 import ErrorModal from '../partials/ErrorModal';
 import ImportErrorModal from '../partials/ImportErrorModal';
 import CustomTable from '../components/customtable/table'
+import {mapState} from "vuex";
 
 export default CustomTable.extend( {
     data() {
@@ -37,7 +38,20 @@ export default CustomTable.extend( {
     },
     props: ['value', 'importProps'],
     mixins: [CommonServices],
+    computed: {
+        ...mapState({
+            sampleExcels: state => state.userStore.currentUserData.samples_excels,
+        }),
+    },
     methods: {
+        downloadSampleFile(){
+            if(this.sampleExcels.length>0) {
+                let file_url = this.sampleExcels[0]['sample_' + this.importProps.modelName];
+                if (file_url) {
+                    this.downloadFile(file_url, 'DOWNLOAD_SAMPLE_CSV');
+                }
+            }
+        },
         uploadCsv(){
             this.$validator.validate().then(valid => {
                 if (valid) {
@@ -52,17 +66,19 @@ export default CustomTable.extend( {
                             }
                         }).then(response => {
                         if (response.error) {
+                            this.loading = false;
                             this.errorArr = response.data.error;
-                            this.getData();
                             this.errorDialog = true;
+                            this.getData();
                         } else {
-                            // if no error this code wiil execute
+                            // if no error this code will execute
+                            this.loading = false;
                             this.$store.commit("snackbarStore/setMsg", this.$getConst('UPLOAD_CSV'));
                             this.getData();
-                            this.loading = false;
                             this.file = null;
                         }
                     }, error => {
+                        this.loading = false;
                         this.errorArr = this.getAPIErrorMessage(error.response);
                         this.errorDialog = true;
                         this.getData();

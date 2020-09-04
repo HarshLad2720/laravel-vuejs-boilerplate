@@ -5,7 +5,7 @@
                 class="headline black-bg"
                 primary-title
             >
-                {{isEditMode ? 'Update' : 'Add'}} City
+                {{isEditMode ? this.$getConst('TXT_UPDATE') : this.$getConst('TXT_ADD')}} City
             </v-card-title>
 
             <v-card-text>
@@ -24,7 +24,7 @@
                         <v-flex xs12>
                             <v-autocomplete
                                     v-model="model.state_id"
-                                    name="state"
+                                    name="State"
                                     item-text="name"
                                     item-value="id"
                                     :items="setStateList"

@@ -1,7 +1,7 @@
 import CommonServices from '../../common_services/common.js';
 import ErrorBlockServer from "../../partials/ErrorBlockServer";
 import ErrorModal from "../../partials/ErrorModal";
-import {mapActions, mapState} from 'vuex'
+import {mapState} from 'vuex'
 import Snackbar from "../../partials/Snackbar.vue"
 import GalleryImageModal from "../user/GalleryImageModal"
 
@@ -35,12 +35,13 @@ export default {
                     value: 'File size should be less than 4 MB!'
                 }, {
                     key: 'ext',
-                    value: 'Invalid image'
+                    value: 'Please upload jpeg,png,jpg,gif,svg format only'
                 }],
                 "gender": [{key: 'required', value: 'Gender required'}],
                 "dob": [{key: 'required', value: 'Date of Birth required'}],
                 "address": [{key: 'required', value: ['Address required']}],
                 "country_id": [{key: 'required', value: 'Country required'}],
+                "role_id": [{key: 'required', value: 'Role required'}],
                 "state_id": [{key: 'required', value: 'State required'}],
                 "city_id": [{key: 'required', value: 'City required'}],
                 "gallery": [{key: 'required', value: 'Gallery required'}, {
@@ -48,12 +49,12 @@ export default {
                     value: 'File size should be less than 4 MB!'
                 }, {
                     key: 'ext',
-                    value: 'Invalid image'
+                    value: 'Please upload jpeg,png,jpg,gif,svg format only'
                 }],
                 "hobby": [{key: 'url', value: 'Hobby required'}]
             },
             isSubmitting: false,
-            menu: false,
+            dobMenu: false,
             todayDate: new Date().toISOString().slice(0,10),
             imageModal: false,
         };
@@ -67,6 +68,7 @@ export default {
             cityList: state => state.cityStore.cityList,
             stateList: state => state.stateStore.stateList,
             hobbyList: state => state.hobbyStore.hobbyList,
+            roleList: state => state.roleStore.roledropdownlist,
         }),
         computedDateFormatted () {
             return this.getDateFormat(this.model.dob)
@@ -222,26 +224,36 @@ export default {
         }
     },
     mounted() {
-        this.$store.dispatch("countryStore/getAll",{page:1,limit:5000}).then((response) => {
-            if (response.error) {
-                this.errorArr = response.data.error;
-                this.errorDialog = true;
-            } else {
-                this.$store.commit('countryStore/setCountryList', response.data.data);
-            }
+        this.$store.commit("stateStore/setStateList", []);
+        this.$store.commit("cityStore/setCityList", []);
+        /**
+         * Batch request of Treatment (Max 10 request is allowed at a time)
+         */
+        var requestArray = [{
+            "url": 'api/v1/countries?page=1&per_page=5000',
+            "request_id": "countryList"
+        }, {
+            "url": "api/v1/hobbies?page=1&per_page=5000",
+            "request_id": "hobbyList"
+        }];
+        if(this.isEditMode){
+            requestArray.push({
+                "url": "api/v1/roles?page=1&per_page=5000",
+                "request_id": "roleList"
+            });
+            requestArray.push({
+                "url": "api/v1/states?page=1&per_page=5000&filter="+encodeURIComponent(JSON.stringify({"country_id": [this.model.country_id]})),
+                "request_id": "stateList"
+            });
+            requestArray.push({
+                "url": "api/v1/cities?page=1&per_page=5000&filter="+encodeURIComponent(JSON.stringify({"state_id": [this.model.state_id]})),
+                "request_id": "cityList"
+            });
+
+        }
+        this.$store.dispatch('batchRequestStore/getBatchUser', requestArray).then(response => {
         }, error => {
-            this.errorArr = this.getModalAPIerrorMessage(error);
-            this.errorDialog = true;
-        });
-        this.$store.dispatch("hobbyStore/getAll",{page:1,limit:5000}).then(response => {
-            if (response.error) {
-                this.errorArr = response.data.error;
-                this.errorDialog = true;
-            } else {
-                //set Hobby list
-                this.$store.commit("hobbyStore/setHobbyList", response.data.data);
-            }
-        }, function (error) {
+            //Error Handling for batch request
             this.errorArr = this.getModalAPIerrorMessage(error);
             this.errorDialog = true;
         });

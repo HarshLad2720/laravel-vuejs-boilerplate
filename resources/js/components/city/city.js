@@ -88,7 +88,18 @@ export default CustomTable.extend({
         * Add City Modal method
         * */
         addCity(){
-            this.addCityModal = true;
+            this.$store.dispatch("stateStore/getAll",{page:1,limit:5000}).then((response) => {
+                if (response.error) {
+                    this.errorArr = response.data.error;
+                    this.errorDialog = true;
+                } else {
+                    this.$store.commit('stateStore/setStateList', response.data.data);
+                    this.addCityModal = true;
+                }
+            }, error => {
+                this.errorArr = this.getModalAPIerrorMessage(error);
+                this.errorDialog = true;
+            });
         },
         /*
         * Edit city Modal
@@ -103,7 +114,7 @@ export default CustomTable.extend({
                     this.errorDialog = true;
                 } else {
                     this.$store.commit('cityStore/setList', response.data);
-                    this.addCityModal = true;
+                    this.addCity();
                 }
             }, error => {
                 this.errorArr = this.getModalAPIerrorMessage(error);

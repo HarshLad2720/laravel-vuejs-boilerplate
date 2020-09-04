@@ -9,6 +9,7 @@ import breadcrumbs from "./breadcrumbs.module";
 
 
 // module store
+import batchRequestStore from './batch-request-store';
 import snackbarStore from './snackbar-store.js';
 import userStore from './user-store';
 import roleStore from './role-store';
@@ -34,6 +35,7 @@ export default new Vuex.Store({
         htmlClass,
         config,
         breadcrumbs,
+        batchRequestStore,
         userStore,
         snackbarStore,
         roleStore,

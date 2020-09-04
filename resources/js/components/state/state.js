@@ -87,7 +87,18 @@ export default CustomTable.extend({
         * Add state Modal method
         * */
         addSate(){
-            this.addSateModal = true;
+            this.$store.dispatch("countryStore/getAll",{page:1,limit:5000}).then((response) => {
+                if (response.error) {
+                    this.errorArr = response.data.error;
+                    this.errorDialog = true;
+                } else {
+                    this.$store.commit('countryStore/setCountryList', response.data.data);
+                    this.addSateModal = true;
+                }
+            }, error => {
+                this.errorArr = this.getModalAPIerrorMessage(error);
+                this.errorDialog = true;
+            });
         },
         /*
         * Edit state Modal
@@ -102,7 +113,7 @@ export default CustomTable.extend({
                     this.errorDialog = true;
                 } else {
                     this.$store.commit('stateStore/setModel', {model: response.data});
-                    this.addSateModal = true;
+                    this.addSate();
                 }
             }, error => {
                 this.errorArr = this.getModalAPIerrorMessage(error);

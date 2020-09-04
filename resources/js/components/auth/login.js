@@ -1,6 +1,5 @@
 import CommonServices from '../../common_services/common.js';
 import ErrorBlockServer from "../../partials/ErrorBlockServer";
-import BootstrapVue from "../../plugins/bootstrap-vue";
 import ForgotPasswordModal from "./ForgotPasswordModal.vue";
 import Snackbar from "../../partials/Snackbar.vue"
 import PermissionDialog from "../../partials/PermissionDialog";
@@ -27,12 +26,12 @@ export default {
                 email: '',
                 password: '',
             },
-            fpdialog : false,
+            forgotPasswordDialog : false,
             isSubmitting: false,
         };
     },
     components:{ForgotPasswordModal, Snackbar, ErrorBlockServer, PermissionDialog},
-    mixins:[BootstrapVue, CommonServices],
+    mixins:[CommonServices],
     methods: {
         /**
          * Login Submit Method
