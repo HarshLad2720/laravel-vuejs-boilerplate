@@ -185,7 +185,7 @@
               </v-flex>
               <v-flex xs12>
                   <v-file-input multiple name="gallery" v-model="model.gallery"
-                                :error-messages="getErrorValue('gallery')" :rules="multipleFileRules"
+                                :error-messages="getErrorValue('gallery')"
                                 v-validate="isEditMode ? 'ext:jpeg,png,jpg,gif,svg|size:4000' :'required|ext:jpeg,png,jpg,gif,svg|size:4000'" :label="!isEditMode ? 'Gallery*' : 'Gallery'"></v-file-input>
               </v-flex>
               <v-flex xs12 class="mt-3">
