@@ -66,17 +66,19 @@ export default CustomTable.extend( {
                             }
                         }).then(response => {
                         if (response.error) {
+                            this.loading = false;
                             this.errorArr = response.data.error;
-                            this.getData();
                             this.errorDialog = true;
+                            this.getData();
                         } else {
-                            // if no error this code wiil execute
+                            // if no error this code will execute
+                            this.loading = false;
                             this.$store.commit("snackbarStore/setMsg", this.$getConst('UPLOAD_CSV'));
                             this.getData();
-                            this.loading = false;
                             this.file = null;
                         }
                     }, error => {
+                        this.loading = false;
                         this.errorArr = this.getAPIErrorMessage(error.response);
                         this.errorDialog = true;
                         this.getData();
