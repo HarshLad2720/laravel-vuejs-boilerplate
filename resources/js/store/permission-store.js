@@ -27,6 +27,11 @@ const permissionStore = {
         }
     },
     actions: {
+        /**
+         * Used for set/unset permission
+         * @param commit
+         * @param param
+         */
         edit({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "set_unset_permission_to_role", param).then(response => {
@@ -36,6 +41,13 @@ const permissionStore = {
                 })
             })
         },
+
+        /**
+         * Used to get role by permission
+         * @param commit
+         * @param state - used for edit Id
+         * @param param
+         */
         getById({commit, state}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'get_role_by_permissions/' + param).then(response => {

@@ -55,6 +55,11 @@ const roleStore = {
         },
     },
     actions: {
+        /**
+         * Used to get all role
+         * @param commit
+         * @param param
+         */
         getAll({ commit }, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "roles" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + (param.query ? param.query : "") + "&filter=" + (param.filter ? param.filter : "" ) + "&sort=" + (param.orderBy ? param.orderBy : "") + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -64,6 +69,11 @@ const roleStore = {
                 })
             })
         },
+        /**
+         * Used for add role
+         * @param commit
+         * @param param
+         */
         add({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "roles", param.model).then(response => {
@@ -73,6 +83,12 @@ const roleStore = {
                 })
             })
         },
+
+        /**
+         * Used for edit role
+         * @param commit
+         * @param param
+         */
         edit({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.put(baseUrl + "roles/" + param.editId, param.model).then(response => {
@@ -82,6 +98,12 @@ const roleStore = {
                 })
             })
         },
+
+        /**
+         * Used for delete role
+         * @param commit
+         * @param param
+         */
         delete({ commit }, param) {
             return new Promise((resolve, reject) => {
                 HTTP.delete(baseUrl + "roles/"  + param, { _method: 'DELETE' }).then(response => {
@@ -91,6 +113,12 @@ const roleStore = {
                 })
             })
         },
+
+        /**
+         * Used for multiple delete
+         * @param commit
+         * @param param
+         */
         multiDelete({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "roles-delete-multiple", param).then(response => {
@@ -100,6 +128,12 @@ const roleStore = {
                 })
             })
         },
+
+        /**
+         * Used to get a particular role record
+         * @param commit
+         * @param state - used for edit Id
+         */
         getById({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'roles' + "/" + state.editId).then(response => {
@@ -110,6 +144,12 @@ const roleStore = {
                     })
             })
         },
+
+        /**
+         * Used for export functionality
+         * @param commit
+         * @param param
+         */
         export({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "roles-export" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -119,6 +159,12 @@ const roleStore = {
                 })
             })
         },
+
+        /**
+         * Used for import functionality (upload file)
+         * @param commit
+         * @param param
+         */
         import({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "roles-import-bulk", param).then(response => {
@@ -128,6 +174,12 @@ const roleStore = {
                 })
             })
         },
+
+        /**
+         * Used to display import history
+         * @param commit
+         * @param param
+         */
         getAllImport({ commit }, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "import-csv-log" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -137,6 +189,12 @@ const roleStore = {
                 })
             })
         },
+
+        /**
+         * Used for display particular import history
+         * @param commit
+         * @param state
+         */
         getByImportId({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'import-csv-log' + "/" + state.editId).then(response => {

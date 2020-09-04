@@ -20,6 +20,11 @@ const forgotPasswordStore = {
         },
     },
     actions: {
+        /**
+         * Used for send forgot password mail
+         * @param commit
+         * @param param
+         */
         sendForgotPasswordEmail({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "forgot-passsword", param).then(response => {
@@ -29,6 +34,12 @@ const forgotPasswordStore = {
                 })
             })
         },
+
+        /**
+         * Used for reset password
+         * @param commit
+         * @param param
+         */
         resetPassword({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "reset-password", param).then(response => {
