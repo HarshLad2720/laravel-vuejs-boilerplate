@@ -41,14 +41,6 @@ export default CustomTable.extend({
                 btnCancelText: self.$getConst('BTN_CANCEL'),
                 btnConfirmationText: self.$getConst('BTN_OK'),
             },
-            paramRole: {
-                title: '',
-                description: '',
-                btnCancelText: self.$getConst('BTN_CANCEL'),
-                btnConfirmationText: self.$getConst('BTN_OK'),
-                idProps: '',
-                storeProps: '',
-            },
             role_id:'',
         }
     },
@@ -116,6 +108,10 @@ export default CustomTable.extend({
                 this.errorDialog = true;
             });
         },
+        /**
+         * Delete Data from row
+         * @param id
+         */
         deleteItem (id) {
             this.paramProps.idProps = id;
             this.paramProps.storeProps = 'roleStore';

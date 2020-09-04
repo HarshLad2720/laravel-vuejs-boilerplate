@@ -1,11 +1,13 @@
 import CommonServices from '../../common_services/common.js';
-import ErrorBlock from "../../partials/ErrorBlock.vue"
+import ErrorModal from "../../partials/ErrorModal";
 import ErrorBlockServer from "../../partials/ErrorBlockServer.vue"
 import {mapState} from "vuex";
 
 export default {
     data() {
         return {
+            errorArr: [],
+            errorDialog: false,
             errorMessage: '',
             validationMessages: {
                 "city": [{key: 'required', value: 'Enter city name'}],
@@ -16,8 +18,8 @@ export default {
     },
     components: {
         CommonServices,
-        ErrorBlock,
         ErrorBlockServer,
+        ErrorModal
     },
     props: ['value'],
     mixins: [CommonServices],

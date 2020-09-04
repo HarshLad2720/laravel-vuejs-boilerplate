@@ -1,8 +1,8 @@
 import {HTTP} from "../common_services/api-services";
 var baseUrl='/api/v1/';
-const stateStore = {
-    namespaced:true,
-    state: {
+
+function initialState() {
+    return {
         pagination:{
             query: '',
             page: 1,
@@ -20,8 +20,12 @@ const stateStore = {
             remark:'',
         },
         editId: 0,
+    }
+}
 
-    },
+const stateStore = {
+    namespaced:true,
+    state: initialState,
     mutations: {
         setPagination(state,payload){
             state.pagination = payload;

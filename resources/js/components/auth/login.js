@@ -1,6 +1,5 @@
 import CommonServices from '../../common_services/common.js';
 import ErrorBlockServer from "../../partials/ErrorBlockServer";
-import ErrorModal from "../../partials/ErrorModal";
 import BootstrapVue from "../../plugins/bootstrap-vue";
 import ForgotPasswordModal from "./ForgotPasswordModal.vue";
 import Snackbar from "../../partials/Snackbar.vue"
@@ -11,8 +10,6 @@ export default {
     name: "Login",
     data() {
         return {
-            errorArr: [],
-            errorDialog: false,
             errorMessage: '',
             //Validation Message
             validationMessages: {
@@ -34,16 +31,13 @@ export default {
             isSubmitting: false,
         };
     },
-    components:{ForgotPasswordModal, Snackbar, ErrorBlockServer, ErrorModal,PermissionDialog},
+    components:{ForgotPasswordModal, Snackbar, ErrorBlockServer, PermissionDialog},
     mixins:[BootstrapVue, CommonServices],
     methods: {
         /**
          * Login Submit Method
          */
         onSubmit() {
-            // set spinner to submit button
-           /* var submitButton = this.$refs["kt_login_signin_submit"];
-            submitButton.classList.add("spinner", "spinner-light", "spinner-right");*/
             this.$validator.validate().then(valid => {
                 if (valid) {
                     this.isSubmitting = true;
@@ -73,14 +67,7 @@ export default {
                     })
                     // If Login has Error
                         .catch(err => {
-                            // Remove spinner to submit button
-                            /*submitButton.classList.remove(
-                                "spinner",
-                                "spinner-light",
-                                "spinner-light",
-                                "spinner-right"
-                            );*/
-                             this.isSubmitting = false;
+                            this.isSubmitting = false;
                             this.errorMessage = this.getAPIErrorMessage(err.response);
                         });
                 } else {

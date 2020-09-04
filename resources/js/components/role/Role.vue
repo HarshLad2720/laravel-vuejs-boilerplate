@@ -68,7 +68,7 @@
                     </template>
 
                 </v-data-table>
-                <add-role v-model="addRoleModal" :paramRole="paramRole"></add-role>
+                <add-role v-model="addRoleModal"></add-role>
                 <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
             </v-tab-item>
             <!--<v-tab-item key="Tab2">

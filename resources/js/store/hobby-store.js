@@ -1,8 +1,8 @@
 import {HTTP} from "../common_services/api-services";
 var baseUrl='/api/v1/';
-const hobbyStore = {
-    namespaced:true,
-    state: {
+
+function initialState() {
+    return {
         pagination:{
             query: '',
             page: 1,
@@ -19,8 +19,12 @@ const hobbyStore = {
             remark:'',
         },
         editId: 0,
+    }
+}
 
-    },
+const hobbyStore = {
+    namespaced:true,
+    state: initialState,
     mutations: {
         setPagination(state,payload){
             state.pagination = payload;

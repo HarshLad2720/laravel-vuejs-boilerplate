@@ -26,9 +26,9 @@
                         <v-flex xs12>
                             <v-text-field
                                 label="State*" type="text"
-                                name="role"
+                                name="state"
                                 v-model="model.name"
-                                :error-messages="getErrorValue('role')"
+                                :error-messages="getErrorValue('state')"
                                 v-validate="'required'"
                             ></v-text-field>
                         </v-flex>
