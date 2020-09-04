@@ -12,7 +12,8 @@ export default CustomTable.extend({
     data: function () {
         var self = this;
         return {
-            tab: null,
+            tab: 'tab1',
+            isImportLoaded: false,
             modalOpen: false,
             addSateModal: false,
             urlApi: 'stateStore/getAll',// set store name here to set/get pagination data and for access of actions/mutation via custom table
@@ -161,10 +162,17 @@ export default CustomTable.extend({
             this.changeFilter();
         },
         refreshData(){
-            this.refresh();
-        },
-        importDataTable(){
-            this.$refs.importdata.refreshImport();
+            var self = this;
+            setTimeout(function () {
+                if(self.tab == 'tab1') {
+                    self.refresh();
+                } else if(self.tab == 'tab2' && self.$refs.importdata) {
+                    if(this.isImportLoaded) {
+                        self.$refs.importdata.refreshImport();
+                    }
+                    this.isImportLoaded = true;
+                }
+            }, 100);
         },
     },
     mounted(){
