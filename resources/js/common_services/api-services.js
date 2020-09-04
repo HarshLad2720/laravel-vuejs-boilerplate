@@ -26,6 +26,9 @@ HTTP.interceptors.request.use(
         var authorizationtoken = store.state.userStore.currentUserData.authorization; //get authorization token from login response data
 
         if (!authorizationtoken) {
+            if(config.params && config.params.noAuth){
+                return config;
+            }
             window.location.href = "/";
         } else {
             config.headers.common.Authorization = 'Bearer ' + authorizationtoken;
