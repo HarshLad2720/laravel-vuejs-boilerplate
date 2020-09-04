@@ -26,7 +26,7 @@
                                 </v-flex>
                                 <v-flex xs12 sm12 md6 lg6 class="p-4">
                                     <v-btn @click.native="uploadCsv()" large color="primary"><v-icon small>{{icons.mdiUpload}}</v-icon>Upload</v-btn>
-                                    <v-btn large color="primary"><v-icon small>{{icons.mdiDownload}}</v-icon>Download Sample CSV</v-btn>
+                                    <v-btn large color="success"><v-icon small>{{icons.mdiDownload}}</v-icon>Download Sample CSV</v-btn>
                                 </v-flex>
                             </v-layout>
                         </v-row>
