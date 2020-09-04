@@ -70,10 +70,7 @@
                             {{ icons.mdiDelete }}
                         </v-icon>
                     </template>
-
                 </v-data-table>
-                <add-hobby v-model="addCityModal"></add-hobby>
-                <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
             </v-tab-item>
             <v-tab-item key="Tab2">
                 <v-card flat>
@@ -83,6 +80,8 @@
                 </v-card>
             </v-tab-item>
         </v-tabs-items>
+        <add-hobby v-model="addCityModal"></add-hobby>
+        <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
     </div>
 </template>
 

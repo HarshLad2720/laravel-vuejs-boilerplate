@@ -187,7 +187,7 @@ const userStore = {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "users-import-bulk", param).then(response => {
                     resolve(response);
-                }).catch(e => {F
+                }).catch(e => {
                     reject(e);
                 })
             })

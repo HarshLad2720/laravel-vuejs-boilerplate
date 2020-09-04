@@ -4,9 +4,6 @@
             <v-tab key="Tab1" @click.native="refreshData()">
                 <p>Role</p>
             </v-tab>
-            <!--<v-tab key="Tab2" @click.native="importDataTable()">
-                <p class="mt-2">Import</p>
-            </v-tab>-->
         </v-tabs>
         <v-tabs-items v-model="tab">
             <v-tab-item key="Tab1">
@@ -68,17 +65,10 @@
                     </template>
 
                 </v-data-table>
-                <add-role v-model="addRoleModal"></add-role>
-                <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
             </v-tab-item>
-            <!--<v-tab-item key="Tab2">
-                <v-card flat>
-                    <v-card-text>
-                        <import ref="importdata" :importProps="importProps"></import>
-                    </v-card-text>
-                </v-card>
-            </v-tab-item>-->
         </v-tabs-items>
+        <add-role v-model="addRoleModal"></add-role>
+        <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
     </div>
 </template>
 

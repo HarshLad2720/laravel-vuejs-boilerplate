@@ -56,13 +56,24 @@ export default {
         }),
     },
     methods: {
+        /**
+         * clear object Method
+         * @param object
+         */
         clearObject(object) {
             Object.keys(object).forEach(function (key) {
                 delete object[key];
             });
         },
+
+        /**
+         * Modal clear functionality
+         * @param storeName
+         * @param stateName
+         * @param isOpen - want to open modal or not (true, false)
+         */
         onModalClear(storeName, stateName, isOpen) {
-            if(stateName == ''){
+            if(!stateName){
                 stateName = 'clearStore';
             }
             if(!isOpen) {
@@ -81,6 +92,10 @@ export default {
             this.$router.push("/");
         },
 
+        /**
+         * Used error rule check
+         * @param field - name of the field
+         */
         getErrorRule(field) {
             var error = this.errors.items.find(function (item) {
                 if (item.scope) {
@@ -93,6 +108,13 @@ export default {
                 return error.rule;
             }
         },
+
+        /**
+         * Used for displaying error message
+         * @param field - name of the field
+         * @param indexVal - if in v-for send index
+         * @returns Message
+         */
         getErrorValue(field, indexVal) {
             let rule = '';
             if (indexVal != null && indexVal != 'undefined') {
@@ -113,6 +135,7 @@ export default {
                 return;
             }
         },
+
         /**
          * Used for changing :error property where only color needs to change and no message needs to be shown e.g; checkbox
          * @param field - name of the field
@@ -132,6 +155,12 @@ export default {
                 return false;
             }
         },
+
+        /**
+         * Used for get API error messsage
+         * @param response - response of error
+         * @returns error
+         */
         getAPIErrorMessage(response) {
             var error = "Something went wrong. Please try again later.";
             if (!response)
@@ -156,6 +185,12 @@ export default {
             }
             return error;
         },
+
+        /**
+         * Used for get error code
+         * @param response - response of error
+         * @returns error
+         */
         getErrorCode(response) {
             var error = "Something went wrong. Please try again later.";
             if (response.status == 422) {
@@ -173,6 +208,12 @@ export default {
             }
             return error;
         },
+
+        /**
+         * Used for get errors from response
+         * @param response - response of error
+         * @returns error
+         */
         getErrosFromResponse(response) {
             var err = "";
             Object.keys(response).forEach(function (key) {
@@ -180,6 +221,12 @@ export default {
             });
             return err;
         },
+
+        /**
+         * Used for get modal API error message
+         * @param response - response of error
+         * @returns error
+         */
         getModalAPIerrorMessage(response) {
             var err = [];
             var self = this;
@@ -261,11 +308,24 @@ export default {
             });
             return filterData;
         },
+
+        /**
+         * Used for converting object to json format
+         * @param param - param that we want to convert
+         */
         objToJson(param) {
             let filter = encodeURIComponent(JSON.stringify(param));
             filter = filter.replace(/\\/g, '');
             return filter;
         },
+
+        /**
+         * Used for convert to CSV format
+         * @param filename - name of file
+         * @param data - response data
+         * @param type - type of CSV
+         * @param extension - extension of CSV
+         */
         convertToCSV(filename, data, type = 'text/csv;charset=utf-8;', extension = '.csv') {
             var exportedFilename = filename + '' + new Date() + extension;
             var blob = new Blob([data], {type: type});
@@ -287,6 +347,7 @@ export default {
         },
     },
     beforeCreate() {
+        // reset snackbar
         this.$store.commit('snackbarStore/clearStore');
     },
     created() { },

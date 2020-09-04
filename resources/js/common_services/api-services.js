@@ -13,17 +13,23 @@ export const HTTP = window.axios;
 
 HTTP.interceptors.request.use(
     function (config) {
-        if (config.url == "/api/v1/login" || config.url.includes("forgot-passsword") || config.url.includes("reset-password") || config.url.includes("register") || config.url.includes("countries") || config.url.includes("states") || config.url.includes("cities") || config.url.includes("hobbies")) {
+        if (config.url == "/api/v1/login" || config.url.includes("forgot-passsword") || config.url.includes("reset-password") || config.url.includes("register")) {
             return config;
         }
-        // Check authorizationData
-        var authorizationtoken = store.state.userStore.currentUserData.authorization; //get authorizationtoken from login response data
+        if (config.method == 'get' && (config.url.includes("countries") || config.url.includes("states") || config.url.includes("cities") || config.url.includes("hobbies"))) {
+            var authorizationtoken = store.state.userStore.currentUserData.authorization; //get authorization token from login response data
+            if (authorizationtoken) {
+                config.headers.common.Authorization = 'Bearer ' + authorizationtoken;
+            }
+            return config;
+        }
+        // Check authorization token
+        var authorizationtoken = store.state.userStore.currentUserData.authorization; //get authorization token from login response data
 
         if (!authorizationtoken) {
             window.location.href = "/";
         } else {
             config.headers.common.Authorization = 'Bearer ' + authorizationtoken;
-            // If organisation login
             return config;
         }
     },
