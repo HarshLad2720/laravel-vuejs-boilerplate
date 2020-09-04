@@ -4,6 +4,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 // router store and plugins
+import 'babel-polyfill';
 import App from './components/App.vue';
 import store from './store/store';
 import constants from './common_services/constantPlugin';
@@ -13,7 +14,6 @@ import vuetify from './plugins/vuetify'
 import registerStoreModule from './common_services/register-store-module';
 import persistentState from 'vue-persistent-state';
 import VeeValidate from 'vee-validate';
-import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import bugsnagVue from '@bugsnag/plugin-vue'
 
 // theme support plugin
@@ -43,8 +43,6 @@ Vue.mixin(registerStoreModule);
 Vue.use(InlineSvgPlugin);
 // Perfect scrollbar
 Vue.use(PerfectScrollbar);
-// Install BootstrapVue
-Vue.use(BootstrapVue);
 
 
 // Permission directives

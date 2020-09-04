@@ -48,7 +48,7 @@
 
                 <!--begin::Action-->
                 <div class="form-group d-flex flex-wrap flex-center">
-                    <a class="text-dark-60 text-hover-primary my-3 mr-2" id="kt_login_forgot" @click="fpdialog = true">
+                    <a class="text-dark-60 text-hover-primary my-3 mr-2" id="kt_login_forgot" @click="forgotPasswordDialog = true">
                         Forgot Password ?
                     </a>
                     <v-btn ref="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4" type="submit" :loading="isSubmitting">
@@ -61,17 +61,11 @@
             <!--end::Form-->
         </div>
         <!--end::Signin-->
-        <forgot-password-modal v-model="fpdialog" @forget-password-email="forgotPassword"></forgot-password-modal>
+        <forgot-password-modal v-model="forgotPasswordDialog" @forget-password-email="forgotPassword"></forgot-password-modal>
         <snackbar v-model="snackbar"></snackbar>
         <permission-dialog v-model="permissionDialog"></permission-dialog>
     </div>
 </template>
-
-<style lang="scss" scoped>
-    .spinner.spinner-right {
-        padding-right: 3.5rem !important;
-    }
-</style>
 
 
 <script src="./login.js"></script>
