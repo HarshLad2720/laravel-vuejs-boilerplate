@@ -2,6 +2,7 @@ import CommonServices from '../common_services/common.js';
 import ErrorModal from '../partials/ErrorModal';
 import ImportErrorModal from '../partials/ImportErrorModal';
 import CustomTable from '../components/customtable/table'
+import {mapState} from "vuex";
 
 export default CustomTable.extend( {
     data() {
@@ -37,7 +38,20 @@ export default CustomTable.extend( {
     },
     props: ['value', 'importProps'],
     mixins: [CommonServices],
+    computed: {
+        ...mapState({
+            sampleExcels: state => state.userStore.currentUserData.samples_excels,
+        }),
+    },
     methods: {
+        downloadSampleFile(){
+            if(this.sampleExcels.length>0) {
+                let file_url = this.sampleExcels[0]['sample_' + this.importProps.modelName];
+                if (file_url) {
+                    this.downloadFile(file_url, 'DOWNLOAD_SAMPLE_CSV');
+                }
+            }
+        },
         uploadCsv(){
             this.$validator.validate().then(valid => {
                 if (valid) {
