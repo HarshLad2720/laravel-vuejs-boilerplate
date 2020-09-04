@@ -115,7 +115,7 @@ class HobbiesAPIController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function importBulk(CsvRequest $request)
+    public function importBulk(Request $request)
     {
         return User::importBulk($request,new HobbiesImport(),config('constants.models.hobby_model'),config('constants.import_dir_path.hobby_dir_path'));
     }

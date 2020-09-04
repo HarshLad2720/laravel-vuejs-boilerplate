@@ -115,7 +115,7 @@ class StatesAPIController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function importBulk(CsvRequest $request)
+    public function importBulk(Request $request)
     {
         return User::importBulk($request,new StatesImport(),config('constants.models.state_model'),config('constants.import_dir_path.state_dir_path'));
     }

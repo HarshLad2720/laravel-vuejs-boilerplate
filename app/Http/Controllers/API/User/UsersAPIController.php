@@ -139,7 +139,7 @@ class UsersAPIController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function importBulk(CsvRequest $request)
+    public function importBulk(Request $request)
     {
         return User::importBulk($request,new UsersImport(),config('constants.models.user_model'),config('constants.import_dir_path.user_dir_path'));
     }
