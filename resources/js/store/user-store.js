@@ -109,6 +109,12 @@ const userStore = {
         logoff({commit}, param) {
             commit('removeAuthorization', param);
         },
+
+        /**
+         * Used to get all user
+         * @param commit
+         * @param param
+         */
         getAll({ commit }, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "users" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + (param.query ? param.query : "") + "&filter=" + (param.filter ? param.filter : "") + "&sort=" + (param.orderBy ? param.orderBy : "") + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -118,6 +124,12 @@ const userStore = {
                 })
             })
         },
+
+        /**
+         * Used for registration
+         * @param commit
+         * @param param
+         */
         register({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "register", param.model).then(response => {
@@ -127,6 +139,12 @@ const userStore = {
                 })
             })
         },
+
+        /**
+         * Used to get a particular user record
+         * @param commit
+         * @param state - used for edit Id
+         */
         getById({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'users' + "/" + state.editId).then(response => {
@@ -138,6 +156,12 @@ const userStore = {
                     })
             })
         },
+
+        /**
+         * Used for edit user
+         * @param commit
+         * @param param
+         */
         edit({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "users/" + param.editId, param.model).then(response => {
@@ -147,6 +171,12 @@ const userStore = {
                 })
             })
         },
+
+        /**
+         * Used for delete user
+         * @param commit
+         * @param param
+         */
         delete({ commit }, param) {
             return new Promise((resolve, reject) => {
                 HTTP.delete(baseUrl + "users/"  + param, { _method: 'DELETE' }).then(response => {
@@ -156,6 +186,12 @@ const userStore = {
                 })
             })
         },
+
+        /**
+         * Used for multiple delete
+         * @param commit
+         * @param param
+         */
         multiDelete({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "users-delete-multiple", param).then(response => {
@@ -165,6 +201,12 @@ const userStore = {
                 })
             })
         },
+
+        /**
+         * Used for delete gallery image
+         * @param commit
+         * @param param
+         */
         deleteImage({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.delete(baseUrl + "gallery/" + param).then(response => {
@@ -174,6 +216,12 @@ const userStore = {
                 })
             })
         },
+
+        /**
+         * Used for export functionality
+         * @param commit
+         * @param param
+         */
         export({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "users-export" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -183,6 +231,11 @@ const userStore = {
                 })
             })
         },
+        /**
+         * Used for import functionality (upload file)
+         * @param commit
+         * @param param
+         */
         import({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "users-import-bulk", param).then(response => {
@@ -192,6 +245,12 @@ const userStore = {
                 })
             })
         },
+
+        /**
+         * Used to display import history
+         * @param commit
+         * @param param
+         */
         getAllImport({ commit }, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "import-csv-log" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -201,6 +260,12 @@ const userStore = {
                 })
             })
         },
+
+        /**
+         * Used for display particular import history
+         * @param commit
+         * @param state
+         */
         getByImportId({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'import-csv-log' + "/" + state.editId).then(response => {
@@ -213,10 +278,17 @@ const userStore = {
         },
     },
     getters:{
+        /**
+         * Used to get user fullname
+         */
         userFullName: state => {
             let user_name = state.currentUserData.name;
             return user_name;
         },
+
+        /**
+         * Used to get user profile image
+         */
         userProfilePicture: state => {
             if (state.currentUserData.profile == '') {
                 return '/images/profile.png';

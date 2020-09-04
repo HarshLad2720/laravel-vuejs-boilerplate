@@ -52,6 +52,11 @@ const hobbyStore = {
         },
     },
     actions: {
+        /**
+         * Used for add hobby
+         * @param commit
+         * @param param
+         */
         add({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "hobbies", param.model).then(response => {
@@ -62,6 +67,12 @@ const hobbyStore = {
                 })
             })
         },
+
+        /**
+         * Used for edit hobby
+         * @param commit
+         * @param param
+         */
         edit({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.put(baseUrl + "hobbies/" + param.editId, param.model).then(response => {
@@ -72,6 +83,12 @@ const hobbyStore = {
                 })
             })
         },
+
+        /**
+         * Used to get all hobby
+         * @param commit
+         * @param param
+         */
         getAll({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "hobbies" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + (param.query ? param.query : "") + "&filter=" + (param.filter ? param.filter : "") + "&sort=" + (param.orderBy ? param.orderBy : "") + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -81,6 +98,12 @@ const hobbyStore = {
                 })
             })
         },
+
+        /**
+         * Used for delete hobby
+         * @param commit
+         * @param param
+         */
         delete({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.delete(baseUrl + "hobbies" + "/" + param,
@@ -91,6 +114,12 @@ const hobbyStore = {
                 })
             })
         },
+
+        /**
+         * Used for multiple delete
+         * @param commit
+         * @param param
+         */
         multiDelete({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "hobbies-delete-multiple", param).then(response => {
@@ -100,6 +129,12 @@ const hobbyStore = {
                 })
             })
         },
+
+        /**
+         * Used to get a particular hobby record
+         * @param commit
+         * @param state - used for edit Id
+         */
         getById({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'hobbies' + "/" + state.editId).then(response => {
@@ -110,6 +145,12 @@ const hobbyStore = {
                     })
             })
         },
+
+        /**
+         * Used for export functionality
+         * @param commit
+         * @param param
+         */
         export({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "hobbies-export" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&sort=" + param.orderBy + "&order_by=" + (param.orderBy.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -119,6 +160,12 @@ const hobbyStore = {
                 })
             })
         },
+
+        /**
+         * Used for import functionality (upload file)
+         * @param commit
+         * @param param
+         */
         import({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "hobbies-import-bulk", param).then(response => {
@@ -128,6 +175,12 @@ const hobbyStore = {
                 })
             })
         },
+
+        /**
+         * Used to display import history
+         * @param commit
+         * @param param
+         */
         getAllImport({ commit }, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "import-csv-log" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -137,6 +190,12 @@ const hobbyStore = {
                 })
             })
         },
+
+        /**
+         * Used for display particular import history
+         * @param commit
+         * @param state
+         */
         getByImportId({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'import-csv-log' + "/" + state.editId).then(response => {

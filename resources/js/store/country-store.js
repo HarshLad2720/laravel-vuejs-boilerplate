@@ -50,6 +50,11 @@ const countryStore = {
         },
     },
     actions: {
+        /**
+         * Used for add country
+         * @param commit
+         * @param param
+         */
         add({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "countries", param.model).then(response => {
@@ -60,6 +65,12 @@ const countryStore = {
                 })
             })
         },
+
+        /**
+         * Used for edit country
+         * @param commit
+         * @param param
+         */
         edit({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.put(baseUrl + "countries/" + param.editId, param.model).then(response => {
@@ -70,6 +81,12 @@ const countryStore = {
                 })
             })
         },
+
+        /**
+         * Used to get all country
+         * @param commit
+         * @param param
+         */
         getAll({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "countries" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + (param.query ? param.query : "") + "&filter=" + (param.filter ? param.filter : "") +"&sort=" + (param.orderBy ? param.orderBy : "") + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -79,6 +96,12 @@ const countryStore = {
                 })
             })
         },
+
+        /**
+         * Used for delete country
+         * @param commit
+         * @param param
+         */
         delete({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.delete(baseUrl + "countries" + "/" + param,
@@ -89,6 +112,12 @@ const countryStore = {
                 })
             })
         },
+
+        /**
+         * Used for multiple delete
+         * @param commit
+         * @param param
+         */
         multiDelete({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "countries-delete-multiple", param).then(response => {
@@ -98,6 +127,12 @@ const countryStore = {
                 })
             })
         },
+
+        /**
+         * Used to get a particular country record
+         * @param commit
+         * @param state - used for edit Id
+         */
         getById({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'countries' + "/" + state.editId).then(response => {
@@ -108,6 +143,12 @@ const countryStore = {
                     })
             })
         },
+
+        /**
+         * Used for export functionality
+         * @param commit
+         * @param param
+         */
         export({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "countries-export" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -117,6 +158,12 @@ const countryStore = {
                 })
             })
         },
+
+        /**
+         * Used for import functionality (upload file)
+         * @param commit
+         * @param param
+         */
         import({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "countries-import-bulk", param).then(response => {
@@ -126,6 +173,12 @@ const countryStore = {
                 })
             })
         },
+
+        /**
+         * Used to display import history
+         * @param commit
+         * @param param
+         */
         getAllImport({ commit }, param) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + "import-csv-log" + "?page=" + param.page + "&per_page=" + param.limit + "&search=" + param.query + "&filter=" + param.filter + "&sort=" + param.orderBy + "&order_by=" + (param.ascending == 1 ? "asc" : "desc")).then(response => {
@@ -135,6 +188,12 @@ const countryStore = {
                 })
             })
         },
+
+        /**
+         * Used for display particular import history
+         * @param commit
+         * @param state
+         */
         getByImportId({commit, state}) {
             return new Promise((resolve, reject) => {
                 HTTP.get(baseUrl + 'import-csv-log' + "/" + state.editId).then(response => {

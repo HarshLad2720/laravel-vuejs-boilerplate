@@ -15,12 +15,21 @@ const changePasswordStore = {
     namespaced: true,
     state: initialState,
     mutations: {
+        /**
+         * Clear store
+         * @param state
+         */
         clearStore(state) {
             let s = initialState();
             state.model = s.model;
         },
     },
     actions: {
+        /**
+         * change the password
+         * @param commit
+         * @param payload
+         */
         changePassword({commit}, param) {
             return new Promise((resolve, reject) => {
                 HTTP.post(baseUrl + "change-password", param).then(response => {
