@@ -59,6 +59,18 @@
                   ></v-text-field>
               </v-flex>
               <v-flex xs12>
+                  <v-select v-if="isEditMode"
+                      label="Role*"
+                      name="role_id"
+                      v-model="model.role_id"
+                      :items="roleList"
+                      item-text="name"
+                      item-value="id"
+                      :error-messages="getErrorValue('role_id')"
+                      v-validate="'required'"
+                  ></v-select>
+              </v-flex>
+              <v-flex xs12>
                   <v-text-field
                       label="Mobile No*"
                       type="text"

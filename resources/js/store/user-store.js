@@ -23,6 +23,7 @@ function initialState() {
             email: '',
             password: '',
             mobile_no:'',
+            role_id: '',
             profile:'',
             profile_upload: null,
             gender: '',
@@ -67,6 +68,7 @@ const userStore = {
             state.model.name = param.model.name;
             state.model.email = param.model.email;
             state.model.mobile_no = param.model.mobile_no;
+            state.model.role_id = param.model.role_id;
             state.model.profile = param.model.profile;
             state.model.profile_upload = null;
             state.model.gender = param.model.gender;

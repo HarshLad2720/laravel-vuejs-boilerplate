@@ -41,6 +41,7 @@ export default {
                 "dob": [{key: 'required', value: 'Date of Birth required'}],
                 "address": [{key: 'required', value: ['Address required']}],
                 "country_id": [{key: 'required', value: 'Country required'}],
+                "role_id": [{key: 'required', value: 'Role required'}],
                 "state_id": [{key: 'required', value: 'State required'}],
                 "city_id": [{key: 'required', value: 'City required'}],
                 "gallery": [{key: 'required', value: 'Gallery required'}, {
