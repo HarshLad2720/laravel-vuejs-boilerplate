@@ -4,7 +4,7 @@
         <v-card>
             <v-card-title
                 class="headline black-bg mb-4" primary-title>
-                <span>{{isEditMode ? 'Update' : 'Create'}} User</span>
+                <span>{{isEditMode ? this.$getConst('TXT_UPDATE') : this.$getConst('TXT_CREATE')}} User</span>
             </v-card-title>
 
             <v-card-text>

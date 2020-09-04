@@ -5,7 +5,7 @@
                 class="headline black-bg"
                 primary-title
             >
-                {{isEditMode ? 'Update' : 'Add'}} Country
+                {{isEditMode ? this.$getConst('TXT_UPDATE') : this.$getConst('TXT_ADD')}} Country
             </v-card-title>
 
             <v-card-text>

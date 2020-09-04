@@ -18,11 +18,14 @@ const YOUR_CONSTS = {
     UPLOAD_CSV: 'CSV uploaded successively',
     ROLE_TITLE: 'Add Role',
     ROLE_DESC: 'Please Enter Your Role',
-    WARNING: 'Are you sure you want to delete this record',
+    WARNING: 'Are you sure you want to delete this record?',
     EMAIL_SEND_MESSAGE: 'Email sent successfully',
     RESET_PASSWORD: 'Password reset successfullly',
     CHANGED_PASSWORD: 'Password changed successfullly',
     NOIMAGE: 'No Image Found',
+    TXT_UPDATE: 'Update',
+    TXT_ADD: 'Add',
+    TXT_CREATE: 'Create',
 
 
     ...PERMISSION_CONSTANTS,

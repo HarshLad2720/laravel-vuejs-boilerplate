@@ -4,7 +4,7 @@
             <v-tab key="Tab1" @click.native="refreshData()">
                 <p>Hobby</p>
             </v-tab>
-            <v-tab key="Tab2" @click.native="importDataTable()">
+            <v-tab key="Tab2" v-importBulk="$getConst('HOBBY')" @click.native="importDataTable()">
                 <p class="mt-2">Import</p>
             </v-tab>
         </v-tabs>

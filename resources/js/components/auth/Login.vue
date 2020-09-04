@@ -24,8 +24,8 @@
 
             <!--begin::Form-->
             <v-form class="form" @submit.prevent="onSubmit" novalidate autocomplete="off">
-                <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                 <v-layout row wrap class="display-block">
+                    <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                     <v-flex xs12>
                         <v-text-field
                             label="Email*" type="text"
