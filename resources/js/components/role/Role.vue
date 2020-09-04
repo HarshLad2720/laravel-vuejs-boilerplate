@@ -1,12 +1,12 @@
 <template>
     <div>
-        <v-tabs v-model="tab" class="mb-5">
-            <v-tab key="Tab1" @click.native="refreshData()">
-                <p>Role</p>
+        <v-tabs v-model="tab" class="mb-5" @click.native="refreshData()">
+            <v-tab href="#tab1">
+                <p class="mt-2">Role</p>
             </v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
-            <v-tab-item key="Tab1">
+            <v-tab-item value="tab1">
                 <v-data-table
                         v-model="selected"
                         :headers="headers"

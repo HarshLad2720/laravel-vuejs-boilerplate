@@ -12,7 +12,7 @@ export default CustomTable.extend({
     data: function () {
         var self = this;
         return {
-            tab: null,
+            tab: 'tab1',
             files: [],
             modalOpen: false,
             addRoleModal: false,

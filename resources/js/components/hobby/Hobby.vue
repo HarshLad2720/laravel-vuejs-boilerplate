@@ -1,8 +1,8 @@
 <template>
     <div>
         <v-tabs v-model="tab" class="mb-5" @change="refreshData()">
-            <v-tab href="#tab1">
-                <p>Hobby</p>
+            <v-tab href="#tab1" v-index = "$getConst('HOBBY')">
+                <p class="mt-2">Hobby</p>
             </v-tab>
             <v-tab href="#tab2" v-importBulk="$getConst('HOBBY')">
                 <p class="mt-2">Import</p>

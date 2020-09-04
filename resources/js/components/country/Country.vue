@@ -2,7 +2,7 @@
     <div>
         <v-tabs v-model="tab" class="mb-5" @change="refreshData()">
             <v-tab href="#tab1" v-index="$getConst('COUNTRY')">
-                <p>Country</p>
+                <p class="mt-2">Country</p>
             </v-tab>
             <v-tab href="#tab2" v-importBulk="$getConst('COUNTRY')">
                 <p class="mt-2">Import</p>

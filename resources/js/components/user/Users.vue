@@ -2,7 +2,7 @@
     <div>
         <v-tabs v-model="tab" class="mb-5" @change="refreshData()">
             <v-tab href="#tab1" v-index="$getConst('USER')">
-                <p>User</p>
+                <p class="mt-2">User</p>
             </v-tab>
             <v-tab href="#tab2" v-importBulk="$getConst('USER')">
                 <p class="mt-2">Import</p>
