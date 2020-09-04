@@ -72,6 +72,7 @@ export default CustomTable.extend({
          *
          */
         setExport(){
+            debugger
             let rowIds = [];
             this.selected.forEach((element, index) => {
                 rowIds[index] = element.id;

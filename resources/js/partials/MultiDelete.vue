@@ -36,8 +36,7 @@
                     } else {
                         // if no error this code wiil execute
                         this.$store.commit("snackbarStore/setMsg",this.$getConst('DELETE_TITLE'));
-                        this.onCancel();
-                        this.$parent.getData();
+                        this.$emit('multiDelete');
                         this.loading =false;
                     }
                 }, error => {
