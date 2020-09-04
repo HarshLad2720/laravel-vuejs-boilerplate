@@ -2,12 +2,10 @@
 
 namespace App\Models\User;
 use App\Http\Resources\DataTrueResource;
-use App\Imports\User\CitiesImport;
 use App\Traits\CreatedbyUpdatedby;
 use App\Traits\Scopes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Maatwebsite\Excel\Facades\Excel;
 
 class City extends Model
 {
