@@ -49,17 +49,17 @@
                       v-validate="'required|email'" autocomplete="email"
                   ></v-text-field>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 v-show="!isEditMode">
                   <v-text-field type="password"
                       name="password"
                       label="Password*"
                       v-model="model.password"
                       :error-messages="getErrorValue('password')"
-                      v-validate="isEditMode ? '' :'required|min:6'" autocomplete="new-password" v-if="!isEditMode"
+                      v-validate="isEditMode ? '' :'required|min:6'" autocomplete="new-password"
                   ></v-text-field>
               </v-flex>
-              <v-flex xs12>
-                  <v-select v-if="isEditMode"
+              <v-flex xs12 v-show="isEditMode">
+                  <v-select
                       label="Role*"
                       name="role_id"
                       v-model="model.role_id"

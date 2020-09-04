@@ -242,11 +242,11 @@ export default {
                 "request_id": "roleList"
             });
             requestArray.push({
-                "url": "api/v1/states?page=1&per_page=5000&filter"+encodeURIComponent(JSON.stringify({"country_id": [this.model.country_id]})),
+                "url": "api/v1/states?page=1&per_page=5000&filter="+encodeURIComponent(JSON.stringify({"country_id": [this.model.country_id]})),
                 "request_id": "stateList"
             });
             requestArray.push({
-                "url": "api/v1/cities?page=1&per_page=5000&filter"+encodeURIComponent(JSON.stringify({"state_id": [this.model.state_id]})),
+                "url": "api/v1/cities?page=1&per_page=5000&filter="+encodeURIComponent(JSON.stringify({"state_id": [this.model.state_id]})),
                 "request_id": "cityList"
             });
 
