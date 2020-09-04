@@ -345,6 +345,17 @@ export default {
                 }
             }
         },
+        importSampleFile(url){
+            var link = document.createElement("a");
+            var filename = url.substring(url.lastIndexOf('/'+1));
+            link.setAttribute("href", url);
+            link.setAttribute("download", filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            this.$store.commit("snackbarStore/setMsg", this.$getConst('DOWNLOAD_ASSETS'));
+        }
     },
     beforeCreate() {
         // reset snackbar
