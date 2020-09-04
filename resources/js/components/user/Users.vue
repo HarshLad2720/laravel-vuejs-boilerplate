@@ -81,6 +81,13 @@
                         <span>{{ getDateFormat(item.dob) }}</span>
                     </template>
                     <template v-slot:item.actions="{ item }">
+                        <v-icon v-if="item.gallery.length>0"
+                                small
+                                class="mr-2"
+                                @click="openGallery(item)"
+                        >
+                            {{ icons.mdiImage }}
+                        </v-icon>
                         <v-icon
                                 small
                                 class="mr-2"
@@ -88,13 +95,6 @@
                                 v-update = "$getConst('USER')"
                         >
                             {{ icons.mdiPencil }}
-                        </v-icon>
-                        <v-icon
-                            small
-                            class="mr-2"
-                            @click="openGallery(item)"
-                        >
-                            {{ icons.mdiImage }}
                         </v-icon>
                         <v-icon
                                 small
@@ -106,8 +106,7 @@
                     </template>
                 </v-data-table>
                 <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
-                <custom-dialog v-model="customDialog" :title="customDialogTitle"
-                               :message="customMessage"></custom-dialog>
+
             </v-tab-item>
             <v-tab-item key="Tab2">
                 <v-card flat>

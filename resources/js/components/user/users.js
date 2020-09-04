@@ -8,7 +8,6 @@ import ErrorModal from "../../partials/ErrorModal";
 import MultiDelete from "../../partials/MultiDelete";
 import Import from "../../partials/Import";
 import lightGallery from 'lightgallery-vue';
-import CustomDialog from "../../partials/CustomDialog";
 import 'lg-zoom.js';
 import 'lg-fullscreen.js';
 import 'lg-thumbnail.js';
@@ -66,9 +65,6 @@ export default CustomTable.extend({
             role_id:'',
             filterMenu: false,
             images: [],
-            customDialog: false,
-            customMessage: '',
-            customDialogTitle: '',
         }
     },
     mixins: [CommonServices],
@@ -80,7 +76,6 @@ export default CustomTable.extend({
         MultiDelete,
         Import,
         lightGallery,
-        CustomDialog
     },
     computed: {
         ...mapState({
@@ -197,20 +192,11 @@ export default CustomTable.extend({
                     this.images.push(obj);
                     this.$forceUpdate();
                 }
-                if(this.images.length>0) {
-                    var self = this;
-                    setTimeout(function () {
-                        self.$refs.lightGallery.showImage(index);
-                    }, 2000);
-                } else {
-                    this.customDialog = true;
-                    this.customDialogTitle = '';
-                    this.customMessage = this.$getConst('NOIMAGE');
-                }
-            } else {
-                this.customDialog = true;
-                this.customDialogTitle = '';
-                this.customMessage = this.$getConst('NOIMAGE');
+                var self = this;
+                setTimeout(function () {
+                    self.$refs.lightGallery.showImage(index);
+                }, 2000);
+
             }
         },
     },
