@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Str;
-use App\Http\Controllers\Api\AuthController;
 
 class CheckPermission
 {
@@ -26,9 +25,6 @@ class CheckPermission
             $module = Str::lower(str_replace("APIController","",$actionName[0]));
         else
             $module = Str::lower(str_replace("sAPIController","",$actionName[0]));
-        //get controller method
-
-
 
         $action = $actionName[1];
         $permission = $action.'-'.$module;

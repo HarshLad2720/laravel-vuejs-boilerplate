@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ets
- * Date: 31/7/19
- * Time: 2:12 PM
- */
 
 namespace App\Http\Resources;
 

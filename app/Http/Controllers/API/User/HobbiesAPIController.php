@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Exports\User\HobbiesExport;
-use App\Http\Requests\User\CsvRequest;
 use App\Http\Resources\DataTrueResource;
 use App\Imports\User\HobbiesImport;
 use App\User;
@@ -79,9 +78,10 @@ class HobbiesAPIController extends Controller
 
     /**
      * Delete Hobby
+     *
      * @param Request $request
      * @param Hobby $hobby
-     * @return \Illuminate\Http\JsonResponse
+     * @return DataTrueResource
      * @throws \Exception
      */
     public function destroy(Request $request, Hobby $hobby)

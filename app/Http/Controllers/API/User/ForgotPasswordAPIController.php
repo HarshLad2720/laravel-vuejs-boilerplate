@@ -58,9 +58,6 @@ class ForgotPasswordAPIController extends Controller
             ]);
         }
 
-       /* return back()
-            ->withInput($request->only('email'))
-            ->withErrors(['email' => trans($response)]);*/
         return response()->json(['error' => trans($response)], config('constants.validation_codes.unprocessable_entity'));
     }
 }

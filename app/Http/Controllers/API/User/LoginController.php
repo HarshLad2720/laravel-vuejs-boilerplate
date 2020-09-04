@@ -11,7 +11,6 @@ use App\Http\Resources\DataTrueResource;
 use App\User;
 use App\Models\User\Role;
 use App\Models\User\Permission;
-use App\Scopes\VerifiedScope;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,12 +28,12 @@ use Hash;
 
 class LoginController extends Controller
 {
+
     /**
      * Login user and create token
+     *
      * @param LoginRequest $request
-     //* @return UsersResource
-     //* @return \Illuminate\Http\JsonResponse
-     //* @throws \Exception
+     * @return LoginResource|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function login(LoginRequest $request)
     {
@@ -52,7 +51,6 @@ class LoginController extends Controller
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
 
-        //$user->permissions = [];
         if($user != null){
             //get User Permission and save permission in token
             $token->scopes = $user->role->permissions->pluck('name')->toArray();
@@ -81,13 +79,14 @@ class LoginController extends Controller
         if (Hash::check($data['old_password'], $masterUser->password)) {
             $masterData['password'] = bcrypt($data['new_password']);
             //update user password in master user table
-            if ($masterUser->update($masterData)) {
+            if ($masterUser->update($masterData))
                 return new DataTrueResource($masterUser);
-            }else
+            else
                 return response()->json(['error' => config("constants.messages.something_wrong")],config('constants.validation_codes.unprocessable_entity'));
-        } else {
-            return response()->json(['error' => config("constants.messages.invalid_old_password")],config('constants.validation_codes.unprocessable_entity'));
         }
+        else
+            return response()->json(['error' => config("constants.messages.invalid_old_password")],config('constants.validation_codes.unprocessable_entity'));
+
     }
 
     /**

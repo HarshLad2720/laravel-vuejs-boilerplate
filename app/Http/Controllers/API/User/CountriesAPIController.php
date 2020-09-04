@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Exports\User\CountriesExport;
-use App\Http\Requests\User\CsvRequest;
 use App\Http\Resources\DataTrueResource;
 use App\Imports\User\CountriesImport;
 use App\User;
@@ -78,9 +77,10 @@ class CountriesAPIController extends Controller
 
     /**
      * Delete Country
+     *
      * @param Request $request
      * @param Country $country
-     * @return \Illuminate\Http\JsonResponse
+     * @return DataTrueResource
      * @throws \Exception
      */
     public function destroy(Request $request, Country $country)

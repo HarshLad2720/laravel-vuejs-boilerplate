@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Closure;
 use Exception;
-use Laravel\Passport\Passport;
 
 class Authenticate extends Middleware
 {
@@ -30,13 +29,7 @@ class Authenticate extends Middleware
 
         try {
 
-            $uri = $request->path();
             $this->authenticate($request, $guards);
-            // $user = $request->user();
-
-            /*if ($uri == 'api/user' && !$request->user()->tokenCan('place-orders_1')) { // api/user is api route &  $request->user()->tokenCan('place-orders_1') is permission checker code.
-                return \Illuminate\Support\Facades\Response::make('user has not permission', 403);
-            }*/
             return parent::handle($request, $next, ...$guards);
         }
 
@@ -55,9 +48,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-
-            //return route('login');
-            return '';
+            return ''; //return route('login');
         }
     }
 }
