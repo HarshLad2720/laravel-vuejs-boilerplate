@@ -23,7 +23,7 @@ import hobbyStore from './hobby-store';
 Vue.use(Vuex);
 
 const vuexPersist = new VuexPersist({
-    key: 'demo',
+    key: 'boilerplate',
     storage: localStorage
 });
 
