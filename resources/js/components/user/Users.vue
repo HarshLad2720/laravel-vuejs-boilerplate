@@ -81,7 +81,7 @@
                         <span>{{ getDateFormat(item.dob) }}</span>
                     </template>
                     <template v-slot:item.actions="{ item }">
-                        <v-icon v-if="item.gallery.length>0"
+                        <v-icon v-if="item.gallery && item.gallery.length>0"
                                 small
                                 class="mr-2"
                                 @click="openGallery(item)"

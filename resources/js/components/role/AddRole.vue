@@ -9,8 +9,7 @@
             </v-card-title>
 
             <v-card-text>
-                <!--the form will load once the loader is loaded-->
-                <form method="POST" name="" role="form" novalidate @submit.prevent="addAction">
+                <form method="POST" name="role-form" role="form" novalidate autocomplete="off" @submit.prevent="addAction">
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                     <v-layout row wrap class="display-block m-0 ">
                         <v-flex xs12>
@@ -33,10 +32,8 @@
                         </v-flex>
                     </v-layout>
                 </form>
-
             </v-card-text>
         </v-card>
-
     </v-dialog>
 </template>
 
