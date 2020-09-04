@@ -24,7 +24,7 @@
                       to="/users"
                       v-slot="{ href, navigate, isActive, isExactActive }"
                   >
-                      <li
+                      <li v-index="$getConst('USER')"
                           aria-haspopup="true"
                           data-menu-toggle="hover"
                           class="menu-item"
@@ -46,7 +46,7 @@
                       to="/role"
                       v-slot="{ href, navigate, isActive, isExactActive }"
                   >
-                      <li
+                      <li v-index="$getConst('ROLE')"
                           aria-haspopup="true"
                           data-menu-toggle="hover"
                           class="menu-item"
@@ -68,7 +68,7 @@
                       to="/country"
                       v-slot="{ href, navigate, isActive, isExactActive }"
                   >
-                      <li
+                      <li v-index="$getConst('COUNTRY')"
                           aria-haspopup="true"
                           data-menu-toggle="hover"
                           class="menu-item"
@@ -89,7 +89,7 @@
                       to="/state"
                       v-slot="{ href, navigate, isActive, isExactActive }"
                   >
-                      <li
+                      <li v-index = "$getConst('STATE')"
                           aria-haspopup="true"
                           data-menu-toggle="hover"
                           class="menu-item"
@@ -111,7 +111,7 @@
                       to="/city"
                       v-slot="{ href, navigate, isActive, isExactActive }"
                   >
-                      <li
+                      <li v-index = "$getConst('CITY')"
                           aria-haspopup="true"
                           data-menu-toggle="hover"
                           class="menu-item"
@@ -133,7 +133,7 @@
                       to="/hobby"
                       v-slot="{ href, navigate, isActive, isExactActive }"
                   >
-                      <li
+                      <li v-index = "$getConst('HOBBY')"
                           aria-haspopup="true"
                           data-menu-toggle="hover"
                           class="menu-item"
@@ -154,7 +154,7 @@
                       to="/permission"
                       v-slot="{ href, navigate, isActive, isExactActive }"
                   >
-                      <li
+                      <li v-index = "$getConst('PERMISSION')"
                           aria-haspopup="true"
                           data-menu-toggle="hover"
                           class="menu-item"

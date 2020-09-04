@@ -147,6 +147,7 @@ router.beforeEach((to, from, next) => {
 
 router.beforeResolve((to, from, next) => {
     var permissionData = store.state.permissionStore.userPermissions;
+    var access = 'index';
     if (to.matched.some(record => record.meta.permission)) {
         var permissionArray = permissionData.filter(permission => permission.name == to.meta.permission);
         if (permissionArray.length > 0) {
@@ -161,11 +162,11 @@ router.beforeResolve((to, from, next) => {
                 }
             }
             if (subpermissionArray.length > 0) {
-                var subpermission = subpermissionArray.filter(subpermission => (subpermission.is_permission == "1"));
+                var subpermission = subpermissionArray.filter(subpermission => (subpermission.name == access && subpermission.is_permission == "1"));
                 if (subpermission.length > 0) {
                     next()
                 } else {
-                    next('/');
+                    next('/users');
                     store.commit('permissionStore/setPermissionDialog', true);
                 }
             }

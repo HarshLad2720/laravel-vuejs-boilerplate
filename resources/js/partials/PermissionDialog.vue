@@ -9,13 +9,13 @@
 
             <v-card-text>
                 <form method="POST" name="" role="form">
-                    <v-layout row wrap>
+                    <v-layout row wrap class="display-block m-0 ">
                         <v-flex xs12>
                             <p> {{$getConst('PERMISSION_DIALOG_MSG')}}</p>
                         </v-flex>
                     </v-layout>
 
-                    <v-layout row wrap>
+                    <v-layout row wrap class="display-block m-0 ">
                         <v-flex xs12>
                             <v-btn class="btn btn-black m-b-10 m-t-10" @click="confirmationAction(false)">Ok</v-btn>
                         </v-flex>
