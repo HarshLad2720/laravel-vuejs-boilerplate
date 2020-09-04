@@ -2,17 +2,17 @@ import Vue from 'vue';
 import _debounce from "lodash.debounce";
 
 export default Vue.extend({
-    name:'CustomTable',
+    name: 'CustomTable',
     data() {
         return {
             loading: false,
             singleSelect: false,
             selected: [],
-            stateName:"",
-            urlApi:"",
-            searchModel:"",
+            stateName: "",
+            urlApi: "",
+            searchModel: "",
             filterModel: {},
-            headers:[],
+            headers: [],
             options: {},
             footerProps: {
                 'items-per-page-options': [10, 20, 30, 50, 100]
@@ -87,12 +87,12 @@ export default Vue.extend({
          */
         updateTable(options) {
             var tableOptions = this.$refs.table.options;
-            this.$store.commit(this.stateName+'/setPagination', {
+            this.$store.commit(this.stateName + '/setPagination', {
                 query: this.searchModel,
                 page: tableOptions.page,
                 limit: tableOptions.itemsPerPage,
-                orderBy: tableOptions.sortBy.length> 0 ? tableOptions.sortBy[0] : '',
-                ascending: tableOptions.sortDesc.length> 0 ? tableOptions.sortDesc[0] : '',
+                orderBy: tableOptions.sortBy.length > 0 ? tableOptions.sortBy[0] : '',
+                ascending: tableOptions.sortDesc.length > 0 ? tableOptions.sortDesc[0] : '',
                 filter: this.filterModel != '' && this.filterModel != undefined ? encodeURIComponent(JSON.stringify(this.filterModel)) : '',
             });
             this.getData();
@@ -100,8 +100,8 @@ export default Vue.extend({
         /**
          * reset pagination data but except filter
          */
-        resetPagination(){
-            this.$store.commit(this.stateName+'/setPagination', {
+        resetPagination() {
+            this.$store.commit(this.stateName + '/setPagination', {
                 query: this.searchModel,
                 page: 1,
                 limit: this.state.pagination.limit,
@@ -110,23 +110,38 @@ export default Vue.extend({
                 filter: this.filterModel != '' && this.filterModel != undefined ? encodeURIComponent(JSON.stringify(this.filterModel)) : '',
             });
         },
+        setData(response) {
+            this.$store.commit(this.stateName + '/setTableData', response.data);
+        },
         /**
          * call api to get data
          */
-        getData(){
-            if(this.$refs.table && this.urlApi && this.urlApi != '') {
-                this.$store.dispatch(this.urlApi, this.state.pagination).then(response => {
-                    this.$store.commit(this.stateName + '/setTableData', response.data);
-                }, error => {
-                    this.$store.commit(this.stateName + '/setTableData', []);
+        getData(promiseOnly) {
+            if (this.$refs.table && this.urlApi && this.urlApi != '') {
+                return new Promise((resolve, reject) => {
+                    this.$store.dispatch(this.urlApi, this.state.pagination).then(response => {
+                        if (response.error) {
+                            this.setData([]);
+                            reject(false);
+                        } else {
+                            if (promiseOnly) { // if parse promiseOnly then resolve response data else set data directly in table
+                                resolve(response);
+                            } else {
+                                this.setData(response);
+                            }
+                        }
+                    }, error => {
+                        this.setData([]);
+                        reject(false);
+                    });
                 });
             }
         },
         /**
          * reset pagination data but except filter and get data
          */
-        refresh(){
-            if(this.$refs.table && this.urlApi && this.urlApi != '') {
+        refresh() {
+            if (this.$refs.table && this.urlApi && this.urlApi != '') {
                 this.resetPagination();
                 this.getData();
             }

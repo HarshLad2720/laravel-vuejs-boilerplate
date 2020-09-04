@@ -1,3 +1,16 @@
+/**
+ * sample csv import file
+ */
+import userCSV from "../../assets/samples/user.csv"
+import stateCSV from "../../assets/samples/state.csv"
+import cityCSV from "../../assets/samples/city.csv"
+import countryCSV from "../../assets/samples/country.csv"
+import hobbyCSV from "../../assets/samples/hobby.csv"
+/**
+ * end of sample csv import file
+ */
+
+
 import CommonServices from '../common_services/common.js';
 import ErrorModal from '../partials/ErrorModal';
 import ImportErrorModal from '../partials/ImportErrorModal';
@@ -28,7 +41,7 @@ export default CustomTable.extend( {
                     {key: 'size', value: 'File size should be less than 4 MB!'},
                     {key: 'ext', value: 'Only CSV File'}
                 ],
-            }
+            },
         }
     },
     components: {
@@ -45,16 +58,31 @@ export default CustomTable.extend( {
     },
     methods: {
         /**
-         *Download Sample File
+         * Download csv
          */
         downloadSampleFile(){
-            if(this.sampleExcels.length>0) {
-                let file_url = this.sampleExcels[0]['sample_' + this.importProps.modelName];
-                if (file_url) {
-                    this.downloadFile(file_url, 'DOWNLOAD_SAMPLE_CSV');
-                }
+            let file_url = '';
+            if(this.importProps.modelName == 'user'){
+                file_url= userCSV;
             }
+            if(this.importProps.modelName == 'state'){
+                file_url= stateCSV;
+            }if(this.importProps.modelName == 'city'){
+                file_url= cityCSV;
+            }if(this.importProps.modelName == 'country'){
+                file_url= countryCSV;
+            }if(this.importProps.modelName == 'hobby'){
+                file_url= hobbyCSV;
+            }
+
+            if (file_url) {
+                this.downloadFile(file_url, 'DOWNLOAD_SAMPLE_CSV');
+            }
+
         },
+        /**
+         * upload csv
+         */
         uploadCsv(){
             this.$validator.validate().then(valid => {
                 if (valid) {
@@ -89,6 +117,9 @@ export default CustomTable.extend( {
                 }
             });
         },
+        /**
+         * refresh Table Data
+         */
         refreshImport(){
             this.refresh();
         },
