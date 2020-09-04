@@ -38,9 +38,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public static function getCommonFunctionMethod($model, $request, $preQuery = null, $tablename = null, $groupBy = null, $export_select = false, $no_paginate = false)
     {
-//        if(isset($request->id) && is_array($request->get('id')) && !empty($request->get('id'))) {
-//            return $model->whereIn('id', $request->get('id'))->get();
-//        } else {
         if (is_null($preQuery)) {
             $mainQuery = $model::withSearch($request->get('search'), $export_select);
         } else {
@@ -56,7 +53,6 @@ class User extends Authenticatable implements MustVerifyEmail
             return $mainQuery->withOrderBy($request->get('sort'), $request->get('order_by'), $tablename, $export_select)
                 ->withPerPage($request->get('per_page'));
         }
-//        }
     }
     /**
      * The attributes that are mass assignable.
