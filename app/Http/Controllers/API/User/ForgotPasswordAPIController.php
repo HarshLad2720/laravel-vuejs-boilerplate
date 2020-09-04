@@ -21,16 +21,12 @@ class ForgotPasswordAPIController extends Controller
 {
     use SendsPasswordResetEmails;
 
-    /**
-     * Validate the email for the given request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return void
-     */
 
-    protected function validateEmail(Request $request)
+    protected function validateEmail()
     {
-        $request->validate(['email' => 'required|email|max:255|exists:users,email,deleted_at,NULL']);
+        return [
+            'email' => 'required|email|max:255|exists:users,email,deleted_at,NULL'
+        ];
     }
 
     /**
@@ -58,9 +54,6 @@ class ForgotPasswordAPIController extends Controller
             ]);
         }
 
-       /* return back()
-            ->withInput($request->only('email'))
-            ->withErrors(['email' => trans($response)]);*/
         return response()->json(['error' => trans($response)], config('constants.validation_codes.unprocessable_entity'));
     }
 }

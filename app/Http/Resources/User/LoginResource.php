@@ -38,6 +38,12 @@ class LoginResource extends JsonResource
             'role' => $this->role,
             'permissions' => $this->permissions,
             'authorization' => $this->authorization,
+            'samples_excels'=>array([
+                'sample_users' => url(config('constants.sample_dir_path.sample_users')),
+                'sample_cities' => url(config('constants.sample_dir_path.sample_cities')),
+                'sample_hobbies' => url(config('constants.sample_dir_path.sample_hobbies')),
+                'sample_countries' => url(config('constants.sample_dir_path.sample_countries')),
+                'sample_states' => url(config('constants.sample_dir_path.sample_states'))]),
             'email_verified_at' =>$this->email_verified_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

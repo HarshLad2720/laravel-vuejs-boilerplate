@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Exports\User\CountriesExport;
-use App\Http\Requests\User\CsvRequest;
 use App\Http\Resources\DataTrueResource;
 use App\Imports\User\CountriesImport;
 use App\User;
@@ -78,9 +77,10 @@ class CountriesAPIController extends Controller
 
     /**
      * Delete Country
+     *
      * @param Request $request
      * @param Country $country
-     * @return \Illuminate\Http\JsonResponse
+     * @return DataTrueResource
      * @throws \Exception
      */
     public function destroy(Request $request, Country $country)
@@ -114,7 +114,7 @@ class CountriesAPIController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function importBulk(CsvRequest $request)
+    public function importBulk(Request $request)
     {
         return User::importBulk($request,new CountriesImport(),config('constants.models.country_model'),config('constants.import_dir_path.country_dir_path'));
     }

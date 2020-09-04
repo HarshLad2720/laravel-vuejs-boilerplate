@@ -118,4 +118,12 @@ return [
         'country_dir_path' => 'import/country/',
         'state_dir_path' => 'import/state/',
     ],
+
+    'sample_dir_path'=>[
+        'sample_users' => '/samples/users.csv',
+        'sample_cities' => '/samples/city.csv',
+        'sample_hobbies' => '/samples/hobby.csv',
+        'sample_countries' => '/samples/country.csv',
+        'sample_states' => '/samples/state.csv',
+    ],
 ];

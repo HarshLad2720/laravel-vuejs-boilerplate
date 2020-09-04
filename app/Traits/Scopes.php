@@ -5,7 +5,6 @@ namespace App\Traits;
 use App\Models\User\Import_csv_log;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Maatwebsite\Excel\Facades\Excel;
 use function is_array;
 use function is_null;
@@ -391,7 +390,7 @@ trait Scopes
             $path = $request->file('file')->storeAs('/public/' . $folderName, $filename);
             $file_path = $folderName . pathinfo($path, PATHINFO_BASENAME);
 
-            $data = Excel::import($model, $path);
+            Excel::import($model, $path);
             if (count($model->getErrors()) > 0) {
                 $error_json = json_encode($model->getErrors());
                 Import_csv_log::create([

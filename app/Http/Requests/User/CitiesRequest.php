@@ -2,11 +2,8 @@
 
 namespace App\Http\Requests\User;
 
-//use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-
 
 class CitiesRequest extends FormRequest
 {

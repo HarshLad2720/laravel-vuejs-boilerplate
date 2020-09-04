@@ -4,12 +4,9 @@ namespace App\Http\Controllers\API\User;
 use App\Exports\User\UsersExport;
 use App\Http\Resources\DataTrueResource;
 use App\Imports\User\UsersImport;
-use App\Models\User\Hobby_user;
-use Illuminate\Filesystem\Filesystem;
 use App\User;
 use App\Models\User\UserGallery;
 use App\Http\Requests\User\UsersRequest;
-use App\Http\Requests\User\CsvRequest;
 use App\Http\Resources\User\UsersCollection;
 use App\Http\Resources\User\UsersResource;
 use Illuminate\Http\Request;
@@ -82,9 +79,10 @@ class UsersAPIController extends Controller
 
     /**
      * Delete User
+     *
      * @param Request $request
      * @param User $user
-     * @return \Illuminate\Http\JsonResponse
+     * @return DataTrueResource
      * @throws \Exception
      */
     public function destroy(Request $request, User $user)
@@ -139,7 +137,7 @@ class UsersAPIController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function importBulk(CsvRequest $request)
+    public function importBulk(Request $request)
     {
         return User::importBulk($request,new UsersImport(),config('constants.models.user_model'),config('constants.import_dir_path.user_dir_path'));
     }

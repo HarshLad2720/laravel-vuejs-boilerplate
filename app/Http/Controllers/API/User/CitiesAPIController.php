@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\User;
 
 use App\Exports\User\CitiesExport;
-use App\Http\Requests\User\CsvRequest;
 use App\Http\Resources\DataTrueResource;
 use App\Imports\User\CitiesImport;
 use App\User;
@@ -79,9 +78,10 @@ class CitiesAPIController extends Controller
 
     /**
      * Delete City
+     *
      * @param Request $request
      * @param City $city
-     * @return \Illuminate\Http\JsonResponse
+     * @return DataTrueResource
      * @throws \Exception
      */
     public function destroy(Request $request, City $city)
@@ -116,7 +116,7 @@ class CitiesAPIController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function importBulk(CsvRequest $request)
+    public function importBulk(Request $request)
     {
         return User::importBulk($request,new CitiesImport(),config('constants.models.city_model'),config('constants.import_dir_path.city_dir_path'));
     }

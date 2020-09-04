@@ -3,26 +3,18 @@
 namespace App;
 use App\Http\Resources\DataTrueResource;
 use App\Http\Resources\User\UsersResource;
-use App\Imports\User\UsersImport;
 use App\Models\User\Country;
 use App\Models\User\Hobby;
-use App\Models\User\Import_csv_log;
 use App\Models\User\State;
 use App\Models\User\City;
 use App\Models\User\Role;
 use App\Models\User\UserGallery;
-use App\Models\User\Hobby_user;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\Scopes;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\UploadTrait;
 
 class User extends Authenticatable implements MustVerifyEmail
