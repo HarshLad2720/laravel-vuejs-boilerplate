@@ -24,12 +24,7 @@
 
             <!--begin::Form-->
             <v-form class="form" @submit.prevent="onSubmit" novalidate autocomplete="off">
-                <div role="alert" v-bind:class="{ show: errorMessage.length }" class="alert fade alert-danger">
-                    <div class="alert-text">
-                        {{ errorMessage }}
-                    </div>
-                </div>
-<!--                <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>-->
+                <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                 <v-layout row wrap class="display-block">
                     <v-flex xs12>
                         <v-text-field
@@ -56,7 +51,7 @@
                     <a class="text-dark-60 text-hover-primary my-3 mr-2" id="kt_login_forgot" @click="fpdialog = true">
                         Forgot Password ?
                     </a>
-                    <v-btn ref="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4" type="submit">
+                    <v-btn ref="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 font-size-3 mx-4" type="submit" :loading="isSubmitting">
                         Submit
                     </v-btn>
 <!--                    <v-btn class="btn btn-primary" type="submit" :loading="isSubmitting">{{// $getConst('BTN_SUBMIT')}}</v-btn>-->
