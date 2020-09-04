@@ -19,7 +19,20 @@ mix.webpackConfig({
     output: {
         chunkFilename: 'js/[name].[chunkhash].js'
     },
-    module: {},
+    module: {
+        /**
+         * rule added to handle download csv
+         */
+        rules: [
+            {
+                test: /\.(csv|xlsx|xls)$/,
+                loader: 'file-loader',
+                options: {
+                    name: `csv/[name].[ext]`
+                }
+            },
+        ],
+    },
     plugins: [
         new webpack.ProvidePlugin({
             $: "jquery",
