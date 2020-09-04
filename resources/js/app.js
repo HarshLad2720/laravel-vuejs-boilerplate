@@ -8,8 +8,6 @@ import App from './components/App.vue';
 import store from './store/store';
 import constants from './common_services/constantPlugin';
 import VueRouter from 'vue-router';
-import VueAxios from 'vue-axios';
-import axios from 'axios';
 import IdleVue from 'idle-vue';
 import vuetify from './plugins/vuetify'
 import registerStoreModule from './common_services/register-store-module';
@@ -35,7 +33,7 @@ if(process.env.MIX_MODE == 'production') {
 }
 
 Vue.use(VueRouter);
-Vue.use(VueAxios, axios);
+
 Vue.use(Vuex);
 Vue.use(persistentState);
 Vue.use(VeeValidate);
