@@ -40,18 +40,6 @@
                             </tr>
                             </tbody>
                         </table>
-                    </v-flex>
-                    <v-btn class="btn btn-grey m-l-10" @click="onCancel()">{{ $getConst('BTN_CANCEL') }}</v-btn>
-                </v-layout>
-            </v-card-text>
-        </v-card>
-        <error-modal v-model="errorDialog" :errorArr="errorArr"></error-modal>
-        <delete-confirm @delete="deleteImage" :paramProps="paramProps" v-model="deleteConfirm"></delete-confirm>
-        <custom-dialog v-model="customDialog" :title="customDialogTitle"
-                       :message="customMessage"></custom-dialog>
+                    </v-flex>r
 
-    </v-dialog>
-</template>
-
-
-<script src="./gallary-image-modal.js"></script>
+<script src="gallery-image-modal.js"></script>

@@ -5,7 +5,7 @@ import Snackbar from "../../partials/Snackbar.vue"
 import {mapActions, mapState} from 'vuex';
 
 export default {
-    name: "resetpassword",
+    name: "ResetPassword",
     components: {
         ErrorModal,
         ErrorBlockServer,

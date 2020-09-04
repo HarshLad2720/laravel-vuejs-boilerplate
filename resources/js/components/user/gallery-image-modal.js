@@ -1,15 +1,13 @@
 import {mapGetters, mapState} from 'vuex';
 import CommonServices from "../../common_services/common";
 import ErrorBlockServer from "../../partials/ErrorBlockServer.vue"
-import {mdiDelete, mdiPencil} from "@mdi/js";
 import DeleteConfirm from "../../partials/DeleteConfirm.vue"
 import ErrorModal from '../../partials/ErrorModal.vue';
-import CustomDialog from "../../partials/CustomDialog";
 
 export default {
-    name: "galleryImageModal",
+    name: "GalleryImageModal",
     components: {
-        ErrorBlockServer,DeleteConfirm,ErrorModal,CustomDialog
+        ErrorBlockServer,DeleteConfirm,ErrorModal
     },
     props: ['value'],
     mixins: [CommonServices],
@@ -20,13 +18,6 @@ export default {
             errorMessage: '',
             errorArr: [],
             errorDialog: false,
-            customDialog: false,
-            customMessage: '',
-            customDialogTitle: '',
-            icons: {
-                mdiPencil,
-                mdiDelete,
-            },
             deleteConfirm: false,
             paramProps: {
                 idProps: '',
@@ -58,22 +49,18 @@ export default {
         /* Delete Image */
         deleteImage(payload){
             this.deleteConfirm = false;
-            var apiName = 'deleteImage';
-            var msg='DELETE_ACTION';
-            this.$store.dispatch('userStore/'+apiName,payload.idProps).then(response => {
+            this.$store.dispatch('userStore/deleteImage' ,payload.idProps).then(response => {
                 this.deleting = false;
                 if (response.error) {
-                    this.customDialog = true;
-                    this.customDialogTitle = this.$getConst('ERROR');
-                    this.customMessage = response.data.error;
+                    this.errorArr = response.data.error;
+                    this.errorDialog = true;
                 } else {
-                    // remove the image that we want to delete
-                    this.galleryList.splice(payload.indexProps, 1);
-                    this.$store.commit("userStore/setGalleryImageList", this.galleryList);
-                    this.$store.commit("snackbarStore/setMsg", this.$getConst(msg));
+                    this.galleryList.splice(payload.indexProps, 1); // remove the image that we want to delete
+                    this.$store.commit("userStore/setGalleryImageList", this.galleryList); // set Gallery image list
+                    this.$store.commit("snackbarStore/setMsg", this.$getConst('DELETE_ACTION')); //Delete msg
                 }
             }, error => {
-                this.errorArr = this.getAPIErrorMessage(error.response);
+                this.errorArr = this.getModalAPIerrorMessage(error);
                 this.errorDialog = true;
             });
         },

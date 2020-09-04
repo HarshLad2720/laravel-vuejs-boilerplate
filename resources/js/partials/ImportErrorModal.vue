@@ -35,7 +35,7 @@
 
 <script>
     export default {
-        name: "import-error-modal",
+        name: "ImportErrorModal",
         props: ['value', 'importErrorArr'],
     }
 </script>

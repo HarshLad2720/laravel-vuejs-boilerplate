@@ -3,7 +3,7 @@ import CommonServices from "../../common_services/common";
 import {mapActions, mapState} from 'vuex';
 
 export default {
-    name: "usermodal",
+    name: "UserModal",
     components: {
         RegisterForm
     },

@@ -3,15 +3,15 @@ import ErrorBlockServer from "../../partials/ErrorBlockServer";
 import ErrorModal from "../../partials/ErrorModal";
 import {mapActions, mapState} from 'vuex'
 import Snackbar from "../../partials/Snackbar.vue"
-import GallaryImageModal from "../user/GallaryImageModal"
+import GalleryImageModal from "../user/GalleryImageModal"
 
 export default {
-    name: "register",
+    name: "Register",
     components: {
         ErrorModal,
         ErrorBlockServer,
         Snackbar,
-        GallaryImageModal
+        GalleryImageModal
     },
     data() {
         return {

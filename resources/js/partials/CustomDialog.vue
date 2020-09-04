@@ -21,7 +21,7 @@
 
 <script>
     export default {
-        name: "custom-dialog",
+        name: "CustomDialog",
         props: ['value','title','message']
     }
 </script>

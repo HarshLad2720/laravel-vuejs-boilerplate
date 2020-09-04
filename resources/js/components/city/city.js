@@ -55,7 +55,7 @@ export default CustomTable.extend({
                 storeProps: '',
             },
             state_id:'',
-            filtermenu: false,
+            filterMenu: false,
         }
     },
     mixins: [CommonServices],
@@ -148,7 +148,7 @@ export default CustomTable.extend({
             }
             this.filterModel =filter;
             this.refresh();
-            this.filtermenu= false;
+            this.filterMenu= false;
         },
         /**
          * Reset Filter

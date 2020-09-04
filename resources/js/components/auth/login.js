@@ -8,7 +8,7 @@ import PermissionDialog from "../../partials/PermissionDialog";
 import {mapState} from "vuex";
 
 export default {
-    name: "login",
+    name: "Login",
     data() {
         return {
             errorArr: [],
