@@ -9,18 +9,8 @@
             </v-card-title>
 
             <v-card-text>
-                <!-- loader -->
-                <!--<v-progress-linear
-                        :active="loading"
-                        :indeterminate="loading"
-                        absolute
-                        bottom
-                        color="light-blue"
-                ></v-progress-linear>-->
-                <!-- loader ends -->
-
                 <!--the form will load once the loader is loaded-->
-                <form method="POST" name="" role="form">
+                <form method="POST" name="" role="form" novalidate @submit.prevent="addAction">
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                     <v-layout row wrap class="display-block m-0 ">
                         <v-flex xs12>
@@ -34,7 +24,7 @@
 
                         </v-flex>
                         <v-flex xs12 class="mt-4">
-                            <v-btn class="btn btn-primary" @click.native="addAction" :loading="loading">
+                            <v-btn class="btn btn-primary" type="submit" :loading="loading">
                                 {{isEditMode ?  $getConst('BTN_UPDATE') : $getConst('BTN_SUBMIT') }}
                             </v-btn>
                             <v-btn class="btn btn-grey" @click.native="onCancel()" :disabled="loading">
@@ -45,9 +35,7 @@
                 </form>
 
             </v-card-text>
-
         </v-card>
-
 
     </v-dialog>
 </template>

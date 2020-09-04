@@ -108,8 +108,6 @@
                     </template>
 
                 </v-data-table>
-                <add-city v-model="addCityModal"></add-city>
-                <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
             </v-tab-item>
             <v-tab-item key="Tab2">
                 <v-card flat>
@@ -119,6 +117,8 @@
                 </v-card>
             </v-tab-item>
         </v-tabs-items>
+        <add-city v-model="addCityModal"></add-city>
+        <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
     </div>
 </template>
 

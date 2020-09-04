@@ -143,7 +143,7 @@
                                 this.file = null;
                             }
                         }, error => {
-                            this.errorArr = this.getAPIErrorMessage(error);
+                            this.errorArr = this.getAPIErrorMessage(error.response);
                             this.errorDialog = true;
                             this.getData();
                         });
@@ -170,7 +170,7 @@
                         this.importErrorDialog = true;
                     }
                 }, error => {
-                    this.errorArr = this.getModalAPIerrorMessage(error);
+                    this.errorArr = this.getModalAPIerrorMessage(error.response);
                     this.errorDialog = true;
                 });
             },
