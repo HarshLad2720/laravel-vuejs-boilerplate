@@ -87,8 +87,9 @@ export default {
                         error = response.data.error;
                     }
                 }
-            }
-            if (response.status == 401) {
+            } else if (response.status == 403) {
+                error = response.data;
+            } else if (response.status == 401) {
                 this.logout();
             }
             return error;
@@ -110,6 +111,8 @@ export default {
                 if (response.data.error) {
                     error = response.data.error;
                 }
+            } else if (response.status == 403) {
+                error = response.data;
             } else if (response.status == 401) {
                 this.logout();
             }
