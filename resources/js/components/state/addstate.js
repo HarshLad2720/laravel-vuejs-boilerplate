@@ -72,7 +72,7 @@ export default {
         },
         onCancel() {
             // clear model
-            this.onModalClear('stateStore', 'clearStore');
+            this.onModalClear('stateStore');
         },
     },
     mounted() {
