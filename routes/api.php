@@ -33,6 +33,7 @@ Route::group([
         Route::post('forgot-passsword','ForgotPasswordAPIController@sendResetLinkEmail');
 
         Route::post('register', 'UsersAPIController@register');
+        Route::get('batch_request', 'UsersAPIController@batchRequest');
         Route::post('login','LoginController@login');
 
         Route::get('countries', 'CountriesAPIController@index');

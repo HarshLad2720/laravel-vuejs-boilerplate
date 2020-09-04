@@ -15,6 +15,7 @@ use Auth;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Traits\UploadTrait;
+use URL;
 
 /*
  |--------------------------------------------------------------------------
@@ -140,6 +141,50 @@ class UsersAPIController extends Controller
     public function importBulk(Request $request)
     {
         return User::importBulk($request,new UsersImport(),config('constants.models.user_model'),config('constants.import_dir_path.user_dir_path'));
+    }
+
+    /**
+     * This is a batch request API
+     *
+     * @param Request $requestObj
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function batchRequest(Request $requestObj)
+    {
+        $requests  = $requestObj->get('request');//get request
+        $output = array();
+        $cnt = 0;
+        foreach ($requests as $request) {// foreach for all requests inside batch
+
+            $request = (object) $request;// array request convert to object
+
+            if($cnt == 10)// limit maximum call 10 requests
+                break;
+
+            $url = parse_url($request->url);
+
+            //querystrings code
+            $query = array();
+            if (isset($url['query'])) {
+                parse_str($url['query'], $query);
+            }
+
+            $server = ['HTTP_HOST'=> preg_replace('#^https?://#', '', URL::to('/')), 'HTTPS' => 'on'];
+            $req = Request::create($request->url, 'GET', $query, [],[], $server);// set request
+
+            $req->headers->set('Accept', 'application/json');//set accept header
+            $res = app()->handle($req);//call request
+
+            if (isset($request->request_id)) {// check request_id is set or not
+                $output[$request->request_id] = json_decode($res->getContent()); // get response and set into output array
+            } else {
+                $output[] = $res;
+            }
+
+            $cnt++;// request counter
+        }
+
+        return response()->json(array('response' => $output));// return batch response
     }
 
 }
