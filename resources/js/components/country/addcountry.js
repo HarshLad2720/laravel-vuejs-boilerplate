@@ -69,6 +69,7 @@ export default {
         },
         onCancel() {
             // clear model
+            debugger;
             this.onModalClear('countryStore', 'clearStore');
         },
     },

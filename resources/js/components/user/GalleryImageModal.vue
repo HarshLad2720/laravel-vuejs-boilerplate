@@ -1,6 +1,5 @@
 <template>
     <v-dialog :value="value" content-class="modal-dialog" @click:outside="onCancel()" @keydown.esc="onCancel">
-
         <v-card>
             <v-card-title
                 class="headline black-bg"
@@ -8,7 +7,6 @@
             >
                 Gallery Image
             </v-card-title>
-
             <v-card-text>
                 <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                 <v-layout row wrap class="display-block m-0 ">
@@ -25,7 +23,7 @@
                                 <tr v-for="(galleryImage, index) in galleryList">
                                     <td>
                                         <a :href="galleryImage.filename" target="_blank">
-                                        <img :src="galleryImage.filename" height="70px">
+                                            <img :src="galleryImage.filename" height="70px">
                                         </a>
                                     </td>
                                     <td style="width:25%;">
@@ -40,6 +38,16 @@
                             </tr>
                             </tbody>
                         </table>
-                    </v-flex>r
+                    </v-flex>
+                    <v-btn class="btn btn-grey m-l-10" @click="onCancel()">{{ $getConst('BTN_CANCEL') }}</v-btn>
+                </v-layout>
+            </v-card-text>
+        </v-card>
+        <error-modal v-model="errorDialog" :errorArr="errorArr"></error-modal>
+        <delete-confirm @delete="deleteImage" :paramProps="paramProps" v-model="deleteConfirm"></delete-confirm>
 
-<script src="gallery-image-modal.js"></script>
+    </v-dialog>
+</template>
+
+
+<script src="./gallery-image-modal.js"></script>

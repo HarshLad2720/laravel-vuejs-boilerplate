@@ -212,31 +212,34 @@ export default {
             if (this.$store.state.userStore.editId > 0) {
                 this.$emit('cancel');
             } else {
-                this.onModalDataPost('userStore');
+                this.onModalClear('userStore','clearStore');
             }
 
         }
     },
     mounted() {
-        this.$store.dispatch("countryStore/getAll",{page:1,limit:5000}).then(response => {
+        this.$store.dispatch("countryStore/getAll",{page:1,limit:5000}).then((response) => {
             if (response.error) {
-                this.errorMessage = response.data.error;
+                this.errorArr = response.data.error;
+                this.errorDialog = true;
             } else {
-                //set Country list
-                this.$store.commit("countryStore/setCountryList", response.data.data);
+                this.$store.commit('countryStore/setCountryList', response.data.data);
             }
-        }, function (error) {
-            this.errorMessage = this.getAPIErrorMessage(error.response);
+        }, error => {
+            this.errorArr = this.getModalAPIerrorMessage(error);
+            this.errorDialog = true;
         });
         this.$store.dispatch("hobbyStore/getAll",{page:1,limit:5000}).then(response => {
             if (response.error) {
-                this.errorMessage = response.data.error;
+                this.errorArr = response.data.error;
+                this.errorDialog = true;
             } else {
                 //set Hobby list
                 this.$store.commit("hobbyStore/setHobbyList", response.data.data);
             }
         }, function (error) {
-            this.errorMessage = this.getAPIErrorMessage(error.response);
+            this.errorArr = this.getModalAPIerrorMessage(error);
+            this.errorDialog = true;
         });
     },
 };

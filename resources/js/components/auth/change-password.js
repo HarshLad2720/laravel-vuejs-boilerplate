@@ -58,8 +58,7 @@ export default {
             this.show_old_password= false;
             this.show_new_password= false;
             this.show_new_confirmation_password= false;
-            this.onModalCancelPref('changePasswordStore');
-            this.$emit('input');
+            this.onModalClear('changePasswordStore','clearStore');
         }
     }
 }

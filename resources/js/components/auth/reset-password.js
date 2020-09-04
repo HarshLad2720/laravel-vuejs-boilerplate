@@ -48,7 +48,7 @@ export default {
                             this.errorMessage = response.data.error;
                         } else {
                             this.$store.commit("snackbarStore/setMsg", this.$getConst('RESET_PASSWORD'));
-                            this.onModalCancelPref('forgotPasswordStore');
+                            this.onModalClear('forgotPasswordStore','clearStore');
                             setTimeout(() => {
                                 this.$router.push({path: '/'});
                             }, 1000)

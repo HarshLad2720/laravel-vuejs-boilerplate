@@ -24,11 +24,7 @@ export default {
          * Cancel Method
          */
         onCancel(){
-            this.email = '';
-            this.$validator.reset();
-            this.isSubmitting = false;
-            this.errorMessage = '';
-            this.$emit('input');
+            this.onModalClear('forgotPasswordStore','clearStore');
         },
 
         /**
