@@ -49,7 +49,7 @@ export default {
                     this.isSubmitting = true;
                     this.$store.dispatch("userStore/login",
                         {
-                            loginDetail: {}
+                            loginDetail: this.loginDetail
                         }).then(response => {
                         if (response.error) {
                             // loader disable if any error and display the error
