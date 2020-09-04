@@ -1,7 +1,7 @@
 import CommonServices from '../../common_services/common.js';
 import ErrorBlockServer from "../../partials/ErrorBlockServer";
 import ErrorModal from "../../partials/ErrorModal";
-import {mapActions, mapState} from 'vuex'
+import {mapState} from 'vuex'
 import Snackbar from "../../partials/Snackbar.vue"
 import GalleryImageModal from "../user/GalleryImageModal"
 
@@ -35,7 +35,7 @@ export default {
                     value: 'File size should be less than 4 MB!'
                 }, {
                     key: 'ext',
-                    value: 'Invalid image'
+                    value: 'Please upload jpeg,png,jpg,gif,svg format only'
                 }],
                 "gender": [{key: 'required', value: 'Gender required'}],
                 "dob": [{key: 'required', value: 'Date of Birth required'}],
@@ -48,12 +48,12 @@ export default {
                     value: 'File size should be less than 4 MB!'
                 }, {
                     key: 'ext',
-                    value: 'Invalid image'
+                    value: 'Please upload jpeg,png,jpg,gif,svg format only'
                 }],
                 "hobby": [{key: 'url', value: 'Hobby required'}]
             },
             isSubmitting: false,
-            menu: false,
+            dobMenu: false,
             todayDate: new Date().toISOString().slice(0,10),
             imageModal: false,
         };

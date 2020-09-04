@@ -84,7 +84,7 @@
                       @click:clear="model.profile_upload=null"
                       id="profile" name="profile" ref="profile"
                       :error-messages="getErrorValue('profile')"
-                      v-validate="!isEditMode ? 'required' : ''">
+                      v-validate="!isEditMode ? 'required|ext:jpeg,png,jpg,gif,svg|size:4000' : 'ext:jpeg,png,jpg,gif,svg|size:4000'">
                   </v-file-input>
               </v-flex>
               <v-flex xs12 class="mt-3">
@@ -99,12 +99,12 @@
               </v-flex>
               <v-flex xs12>
                   <v-menu
-                      v-model="menu"
+                      v-model="dobMenu"
                       :close-on-content-click="false"
                       :nudge-right="40"
                       transition="scale-transition"
                       offset-y
-                      class="display-inline-blc"
+                      class="display-inline-blc" min-width="unset"
                   >
                       <template v-slot:activator="{ on }">
                           <v-text-field
@@ -172,8 +172,9 @@
                   <a @click="onImageModal()">View Gallery Images</a>
               </v-flex>
               <v-flex xs12>
-                  <v-file-input multiple name="gallery" v-model="model.gallery" :error-messages="getErrorValue('gallery')"
-                                v-validate="isEditMode ? '' :'required'" :label="!isEditMode ? 'Gallery*' : 'Gallery'"></v-file-input>
+                  <v-file-input multiple name="gallery" v-model="model.gallery"
+                                :error-messages="getErrorValue('gallery')" :rules="multipleFileRules"
+                                v-validate="isEditMode ? 'ext:jpeg,png,jpg,gif,svg|size:4000' :'required|ext:jpeg,png,jpg,gif,svg|size:4000'" :label="!isEditMode ? 'Gallery*' : 'Gallery'"></v-file-input>
               </v-flex>
               <v-flex xs12 class="mt-3">
                   <label>Hobby*</label>

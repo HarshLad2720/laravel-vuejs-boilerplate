@@ -37,14 +37,6 @@ const router = new VueRouter({
                         title: "Register" + siteName
                     }
                 },
-                {
-                    path: '/api/password/reset/:id',
-                    name: 'Reset Password',
-                    component: () => import('../components/auth/ResetPassword.vue'),
-                    meta: {
-                        title: "Reset Password" + siteName
-                    }
-                },
             ]
         },
         {
