@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{ w70 : !isEditMode }">
     <!--begin::Content header-->
     <div
       class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10" v-if="!isEditMode"
@@ -28,9 +28,8 @@
       <!--begin::Form-->
       <v-form class="form" @submit.prevent="onSubmit"  method="POST" role="form" enctype="multipart/form-data" autocomplete="off">
           <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
-          <v-layout row wrap class="display-block m-0 ">
-
-              <v-flex xs12>
+          <v-layout row wrap class="m-0">
+              <v-flex xs12 lg6>
                   <v-text-field type="text"
                       name="name"
                       label="Name*"
@@ -39,7 +38,17 @@
                       v-validate="'required'"
                   ></v-text-field>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 lg6 class="pl-4">
+                  <v-text-field
+                      label="Mobile No*"
+                      type="text"
+                      name="mobile_no"
+                      v-model="model.mobile_no"
+                      :error-messages="getErrorValue('mobile_no')"
+                      v-validate="'required|min:10|max:10'"
+                  ></v-text-field>
+              </v-flex>
+              <v-flex xs12 lg6>
                   <v-text-field type="text"
                       name="email"
                       v-model="model.email"
@@ -49,7 +58,7 @@
                       v-validate="'required|email'" autocomplete="email"
                   ></v-text-field>
               </v-flex>
-              <v-flex xs12 v-show="!isEditMode">
+              <v-flex xs12 lg6 class="pl-4" v-show="!isEditMode">
                   <v-text-field type="password"
                       name="password"
                       label="Password*"
@@ -58,7 +67,7 @@
                       v-validate="isEditMode ? '' :'required|min:6'" autocomplete="new-password"
                   ></v-text-field>
               </v-flex>
-              <v-flex xs12 v-show="isEditMode">
+              <v-flex xs12 lg6 class="pl-4" v-show="isEditMode">
                   <v-select
                       label="Role*"
                       name="role_id"
@@ -70,16 +79,9 @@
                       v-validate="'required'"
                   ></v-select>
               </v-flex>
-              <v-flex xs12>
-                  <v-text-field
-                      label="Mobile No*"
-                      type="text"
-                      name="mobile_no"
-                      v-model="model.mobile_no"
-                      :error-messages="getErrorValue('mobile_no')"
-                      v-validate="'required|min:10|max:10'"
-                  ></v-text-field>
-              </v-flex>
+              <v-flex xs12 lg12>
+              <v-layout row wrap class="m-0">
+              <v-flex xs12 lg6>
               <template row wrap v-if="model.profile != ''">
                   <v-flex lg6>
                       Existing Profile Image :
@@ -99,17 +101,20 @@
                       v-validate="!isEditMode ? 'required|ext:jpeg,png,jpg,gif,svg|size:4000' : 'ext:jpeg,png,jpg,gif,svg|size:4000'">
                   </v-file-input>
               </v-flex>
-              <v-flex xs12 class="mt-3">
-                  <label>Gender*</label>
-                  <v-radio-group row v-model="model.gender"
-                                 name="gender"
-                                 :error-messages="getErrorValue('gender')"
-                                 v-validate="'required'" class="p-0 mt-1">
-                      <v-radio label="Male" value="1"></v-radio>
-                      <v-radio label="Female" value="0"></v-radio>
-                  </v-radio-group>
+              </v-flex>
+              <v-flex xs12 lg6 class="pl-4">
+              <v-flex xs12 v-if="isEditMode" class="mb-3">
+                  <a @click="onImageModal()">View Gallery Images</a>
               </v-flex>
               <v-flex xs12>
+                  <v-file-input multiple name="gallery" v-model="model.gallery"
+                                :error-messages="getErrorValue('gallery')"
+                                v-validate="isEditMode ? 'ext:jpeg,png,jpg,gif,svg|size:4000' :'required|ext:jpeg,png,jpg,gif,svg|size:4000'" :label="!isEditMode ? 'Gallery*' : 'Gallery'"></v-file-input>
+              </v-flex>
+              </v-flex>
+              </v-layout>
+              </v-flex>
+              <v-flex xs12 lg6>
                   <v-menu
                       v-model="dobMenu"
                       :close-on-content-click="false"
@@ -133,7 +138,7 @@
                                      @input="menu = false"></v-date-picker>
                   </v-menu>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 lg6 class="pl-4">
                   <v-text-field type="text"
                       name="address"
                       label="Address*"
@@ -142,7 +147,7 @@
                       v-validate="'required'"
                   ></v-text-field>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 lg4>
                   <v-select
                       label="Country*"
                       name="country_id"
@@ -155,7 +160,7 @@
                       @change="getState()"
                   ></v-select>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 lg4 class="pl-4">
                   <v-select
                       label="State*"
                       name="state_id"
@@ -168,7 +173,7 @@
                       @change="getCity()"
                   ></v-select>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 lg4 class="pl-4">
                   <v-select
                       label="City*"
                       name="city_id"
@@ -180,25 +185,27 @@
                       v-validate="'required'"
                   ></v-select>
               </v-flex>
-              <v-flex xs12 v-if="isEditMode" class="mb-3">
-                  <a @click="onImageModal()">View Gallery Images</a>
+              <v-flex xs12 lg4 class="mt-3">
+                  <label>Gender*</label>
+                  <v-radio-group row v-model="model.gender"
+                                 name="gender"
+                                 :error-messages="getErrorValue('gender')"
+                                 v-validate="'required'" class="p-0 mt-1">
+                      <v-radio label="Male" value="1"></v-radio>
+                      <v-radio label="Female" value="0"></v-radio>
+                  </v-radio-group>
               </v-flex>
-              <v-flex xs12>
-                  <v-file-input multiple name="gallery" v-model="model.gallery"
-                                :error-messages="getErrorValue('gallery')"
-                                v-validate="isEditMode ? 'ext:jpeg,png,jpg,gif,svg|size:4000' :'required|ext:jpeg,png,jpg,gif,svg|size:4000'" :label="!isEditMode ? 'Gallery*' : 'Gallery'"></v-file-input>
-              </v-flex>
-              <v-flex xs12 class="mt-3">
+              <v-flex xs12 lg8 class="mt-3 pl-4">
                   <label>Hobby*</label>
                   <v-row class="ml-0">
                       <template v-for="(hList,index) in hobbyList" >
-                      <v-checkbox :id="'hobby'+hList.id"
-                                  :key="'hobby'+index"
-                                  :label="hList.name"
-                                  :name="'hobby'+hList.id"
-                                  :value="hList.id"
-                                  v-model="model.hobby" class="mt-0 mr-2"
-                                  v-validate="'required'" :error="getErrorCount('hobby' +hList.id)"></v-checkbox>
+                          <v-checkbox :id="'hobby'+hList.id"
+                                      :key="'hobby'+index"
+                                      :label="hList.name"
+                                      :name="'hobby'+hList.id"
+                                      :value="hList.id"
+                                      v-model="model.hobby" class="mt-0 mr-2"
+                                      v-validate="'required'" :error="getErrorCount('hobby' +hList.id)"></v-checkbox>
                       </template>
                   </v-row>
               </v-flex>

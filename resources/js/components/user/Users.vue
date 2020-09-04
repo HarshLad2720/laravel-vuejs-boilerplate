@@ -1,29 +1,29 @@
 <template>
     <div>
-        <v-tabs v-model="tab" class="mb-5">
-            <v-tab @click.native="refreshData()" key="Tab1">
+        <v-tabs v-model="tab" class="mb-5" @change="refreshData()">
+            <v-tab href="#tab1" v-index="$getConst('USER')">
                 <p>User</p>
             </v-tab>
-            <v-tab key="Tab2" v-importBulk="$getConst('USER')" @click.native="importDataTable()">
+            <v-tab href="#tab2" v-importBulk="$getConst('USER')">
                 <p class="mt-2">Import</p>
             </v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
-            <v-tab-item key="Tab1">
+            <v-tab-item value="tab1">
                 <v-data-table
-                        v-model="selected"
-                        :headers="headers"
-                        :items="tableData"
-                        :loading="loading"
-                        :options.sync="options"
-                        :items-per-page="limit"
-                        :server-items-length="pageCount"
-                        :footer-props="footerProps"
-                        @update:options="onUpdateOptions"
-                        class="elevation-1"
-                        :show-select="true"
-                        v-index="$getConst('USER')"
-                        ref="table"
+                    v-model="selected"
+                    :headers="headers"
+                    :items="tableData"
+                    :loading="loading"
+                    :options.sync="options"
+                    :items-per-page="limit"
+                    :server-items-length="pageCount"
+                    :footer-props="footerProps"
+                    @update:options="onUpdateOptions"
+                    class="elevation-1"
+                    :show-select="true"
+                    v-index="$getConst('USER')"
+                    ref="table"
                 >
                     <template v-slot:top>
                         <v-layout>
@@ -71,7 +71,7 @@
                                     </v-menu>
                                     <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps" v-export="$getConst('USER')"></export-btn>
                                     <template v-if="selected.length>1">
-                                    <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps" v-deleteAll="$getConst('USER')"></multi-delete>
+                                        <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps" v-deleteAll="$getConst('USER')"></multi-delete>
                                     </template>
                                 </div>
                             </v-flex>
@@ -89,29 +89,29 @@
                             {{ icons.mdiImage }}
                         </v-icon>
                         <v-icon
-                                small
-                                class="mr-2"
-                                @click="onEdit(item.id)"
-                                v-update = "$getConst('USER')"
+                            small
+                            class="mr-2"
+                            @click="onEdit(item.id)"
+                            v-update = "$getConst('USER')"
                         >
                             {{ icons.mdiPencil }}
                         </v-icon>
                         <v-icon
-                                small
-                                @click="deleteItem(item.id)"
-                                v-destroy = "$getConst('USER')"
+                            small
+                            @click="deleteItem(item.id)"
+                            v-destroy = "$getConst('USER')"
                         >
                             {{ icons.mdiDelete }}
                         </v-icon>
                     </template>
                 </v-data-table>
-                <delete-modal  v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
+                <delete-modal v-model="modalOpen" :paramProps="paramProps" :confirmation="confirmation"></delete-modal>
 
             </v-tab-item>
-            <v-tab-item key="Tab2">
+            <v-tab-item value="tab2">
                 <v-card flat>
                     <v-card-text>
-                        <import  ref="importdata" :importProps="importProps"></import>
+                        <import ref="importdata" :importProps="importProps"></import>
                     </v-card-text>
                 </v-card>
             </v-tab-item>

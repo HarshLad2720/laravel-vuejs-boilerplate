@@ -44,6 +44,9 @@ export default CustomTable.extend( {
         }),
     },
     methods: {
+        /**
+         *Download Sample File
+         */
         downloadSampleFile(){
             if(this.sampleExcels.length>0) {
                 let file_url = this.sampleExcels[0]['sample_' + this.importProps.modelName];

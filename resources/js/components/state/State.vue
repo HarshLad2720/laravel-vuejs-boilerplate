@@ -1,15 +1,15 @@
 <template>
     <div>
-        <v-tabs v-model="tab" class="mb-5">
-            <v-tab @click.native="refreshData()" key="Tab1">
+        <v-tabs v-model="tab" class="mb-5" @change="refreshData()">
+            <v-tab href="#tab1" v-index = "$getConst('STATE')">
                 <p>State</p>
             </v-tab>
-            <v-tab key="Tab2" v-importBulk="$getConst('STATE')" @click.native="importDataTable()">
+            <v-tab href="#tab2" v-importBulk="$getConst('STATE')">
                 <p class="mt-2">Import</p>
             </v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
-            <v-tab-item key="Tab1">
+            <v-tab-item value="tab1">
                 <v-data-table
                         v-model="selected"
                         :headers="headers"
@@ -82,7 +82,7 @@
                                     </v-tooltip>
                                     <export-btn @click.native="setExport()" ref="exportbtn" :exportProps="exportProps"  v-export = "$getConst('STATE')"></export-btn>
                                     <template v-if="selected.length>1">
-                                    <multi-delete @click.native="multipleDelete()" ref="multipleDeleteBtn" :deleteProps="deleteProps" v-deleteAll = "$getConst('STATE')"></multi-delete>
+                                    <multi-delete @click.native="multipleDelete()" @multiDelete="getData()" ref="multipleDeleteBtn" :deleteProps="deleteProps" v-deleteAll = "$getConst('STATE')"></multi-delete>
                                     </template>
                                 </div>
                             </v-flex>
@@ -109,7 +109,7 @@
 
                 </v-data-table>
             </v-tab-item>
-            <v-tab-item key="Tab2">
+            <v-tab-item value="tab2">
                 <v-card flat>
                     <v-card-text>
                         <import ref="importdata" :importProps="importProps"></import>
