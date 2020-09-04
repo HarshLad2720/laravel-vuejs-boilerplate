@@ -45,14 +45,6 @@ export default CustomTable.extend({
                 ids: '',
                 store: '',
             },
-            paramRole: {
-                title: '',
-                description: '',
-                btnCancelText: self.$getConst('BTN_CANCEL'),
-                btnConfirmationText: self.$getConst('BTN_OK'),
-                idProps: '',
-                storeProps: '',
-            },
         }
     },
     mixins: [CommonServices],
@@ -114,6 +106,10 @@ export default CustomTable.extend({
                 this.errorDialog = true;
             });
         },
+        /**
+         * Delete Data from row
+         * @param id
+         */
         deleteItem (id) {
             this.paramProps.idProps = id;
             this.paramProps.storeProps = 'hobbyStore';
@@ -136,9 +132,15 @@ export default CustomTable.extend({
             this.deleteProps.store = 'hobbyStore';
             this.$refs.multipleDeleteBtn.deleteMulti();
         },
+        /**
+         *Refresh data on tab Click
+         */
         refreshData(){
             this.refresh();
         },
+        /**
+         *To refresh import table
+         */
         importDataTable(){
             this.$refs.importdata.refreshImport();
         },

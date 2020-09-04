@@ -33,7 +33,7 @@
                             <v-flex xs12 sm12 md8 lg8>
                                 <div class="float-right mt-4">
                                     <v-menu
-                                        v-model="filtermenu"
+                                        v-model="filterMenu"
                                         :close-on-content-click="false"
                                         :nudge-width="200"
                                         offset-y
@@ -50,7 +50,7 @@
                                         </template>
                                         <v-card class="p-4">
                                             <v-list>
-                                                <v-btn text @click="filtermenu = false" class="float-right filter-close-btn"><v-icon small>{{ icons.mdiClose }}</v-icon></v-btn>
+                                                <v-btn text @click="filterMenu = false" class="float-right filter-close-btn"><v-icon small>{{ icons.mdiClose }}</v-icon></v-btn>
                                                 <v-select
                                                     v-model="country_id"
                                                     name="country"

@@ -10,9 +10,8 @@
                                     <v-file-input
                                             v-model="file"
                                             name="import_file"
-                                            placeholder="Upload your file"
                                             accept="csv"
-                                            label="File input"
+                                            label="File Upload"
                                             show-size
                                             counter
                                             :prepend-icon="icons.mdiPaperclip"
@@ -106,8 +105,8 @@
                     "import_file": [
                         {key: 'required', value: 'File required'},
                         {key: 'size', value: 'File size should be less than 4 MB!'},
-                        {key: 'ext', value: 'Only CSV Files'}
-                        ],
+                        {key: 'ext', value: 'Only CSV File'}
+                    ],
                 }
             }
         },

@@ -33,7 +33,7 @@
 
 <script>
     export default {
-        name: "confirmation-modal",
+        name: "ConfirmationModal",
         props: ['value', 'confirmation'],
     }
 </script>

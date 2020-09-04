@@ -46,7 +46,7 @@ export default CustomTable.extend({
                 btnConfirmationText: self.$getConst('BTN_OK'),
             },
             country_id:'',
-            filtermenu: false,
+            filterMenu: false,
         }
     },
     mixins: [CommonServices],
@@ -139,7 +139,7 @@ export default CustomTable.extend({
             }
             this.filterModel =filter;
             this.refresh();
-            this.filtermenu= false;
+            this.filterMenu= false;
         },
         /**
          * Reset Filter

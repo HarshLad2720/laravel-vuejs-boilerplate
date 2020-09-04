@@ -8,7 +8,7 @@ export default {
         return {
             errorMessage: '',
             validationMessages: {
-                "role": [{key: 'required', value: 'Enter state name'},],
+                "state": [{key: 'required', value: 'Enter state name'},],
                 "country": [{key: 'required', value: 'Please select a country'},]
             },
             loading: false

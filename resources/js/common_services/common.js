@@ -16,13 +16,11 @@ import {
     mdiUpload,
     mdiImage
 } from '@mdi/js'
-import Vue from "vue";
+
 
 export default {
     data() {
         return {
-            datenow: '',
-            yesnoArr: [{value: '0', text: 'No'}, {value: '1', text: 'Yes'}],
             rules: [
                 value => !value || value.size < 4000000 || 'File size should be less than 4 MB!',
             ],
@@ -63,25 +61,17 @@ export default {
                 delete object[key];
             });
         },
-        onModalCancelPref(storeName) {
-            this.$validator.reset();
-            this.isSubmitting = false;
-            this.errorMessage = '';
-            this.$store.commit(storeName + '/clearStore');
-            this.$emit('input'); //Close Pop-up
-        },
-        onModalClear(storeName, stateName) {
-            this.$emit('input'); //Close Pop-up
+        onModalClear(storeName, stateName, isOpen) {
+            if(stateName == ''){
+                stateName = 'clearStore';
+            }
+            if(!isOpen) {
+                this.$emit('input'); //Close Pop-up
+            }
             this.$validator.reset();
             this.isSubmitting = false;
             this.errorMessage = '';
             this.$store.commit(storeName + '/' + stateName);
-        },
-        onModalDataPost(storeName) {
-            this.$validator.reset();
-            this.isSubmitting = false;
-            this.errorMessage = '';
-            this.$store.commit(storeName + '/clearStore');
         },
 
         /* Logout */

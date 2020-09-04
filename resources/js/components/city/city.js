@@ -46,16 +46,8 @@ export default CustomTable.extend({
                 store: 'cityStore',
                 modelName: 'city',
             },
-            paramRole: {
-                title: '',
-                description: '',
-                btnCancelText: self.$getConst('BTN_CANCEL'),
-                btnConfirmationText: self.$getConst('BTN_OK'),
-                idProps: '',
-                storeProps: '',
-            },
             state_id:'',
-            filtermenu: false,
+            filterMenu: false,
         }
     },
     mixins: [CommonServices],
@@ -118,6 +110,10 @@ export default CustomTable.extend({
                 this.errorDialog = true;
             });
         },
+        /**
+         * Delete Data from row
+         * @param id
+         */
         deleteItem (id) {
             this.paramProps.idProps = id;
             this.paramProps.storeProps = 'cityStore';
@@ -148,7 +144,7 @@ export default CustomTable.extend({
             }
             this.filterModel =filter;
             this.refresh();
-            this.filtermenu= false;
+            this.filterMenu= false;
         },
         /**
          * Reset Filter
@@ -157,9 +153,15 @@ export default CustomTable.extend({
             this.state_id = '';
             this.changeFilter();
         },
+        /**
+         *Refresh data on tab Click
+         */
         refreshData(){
             this.refresh();
         },
+        /**
+        *To refresh import table
+        */
         importDataTable(){
             this.$refs.importdata.refreshImport();
         },

@@ -5,7 +5,7 @@
                 class="headline black-bg"
                 primary-title
             >
-                {{confirmation.title}}
+                {{confirmation.title ? confirmation.title : 'Delete Confirmation'}}
             </v-card-title>
 
             <v-card-text>
@@ -13,16 +13,16 @@
                     <ErrorBlockServer :errorMessage="errorMessage"></ErrorBlockServer>
                     <v-layout row wrap class="display-block m-0 ">
                         <v-flex xs12>
-                            <p>{{confirmation.description}}</p>
+                            <p>{{confirmation.description ? confirmation.description : 'Are you sure you want to delete this record'}}</p>
                         </v-flex>
                     </v-layout>
 
                     <v-layout row wrap class="display-block m-0 ">
                         <v-flex xs12>
-                            <v-btn class="btn btn-black m-b-10 m-t-10" @click.native="deleteAction">{{confirmation.btnConfirmationText}}
+                            <v-btn class="btn btn-black m-b-10 m-t-10" @click.native="deleteAction">{{confirmation.btnConfirmationText ? confirmation.btnConfirmationText : 'Ok'}}
                             </v-btn>
                             <v-btn class="btn btn-grey m-b-10 m-t-10" @click.native="onCancel">
-                                {{confirmation.btnCancelText}}
+                                {{confirmation.btnCancelText ? confirmation.btnCancelText : 'Cancel'}}
                             </v-btn>
                         </v-flex>
                     </v-layout>

@@ -2,7 +2,7 @@ import {mapGetters, mapState} from 'vuex';
 import CommonServices from "../../common_services/common";
 import ErrorBlockServer from "../../partials/ErrorBlockServer.vue"
 export default {
-    name: "forgotPassword",
+    name: "ForgotPassword",
     components: {
         ErrorBlockServer,
     },
@@ -24,11 +24,7 @@ export default {
          * Cancel Method
          */
         onCancel(){
-            this.email = '';
-            this.$validator.reset();
-            this.isSubmitting = false;
-            this.errorMessage = '';
-            this.$emit('input');
+            this.onModalClear('forgotPasswordStore','clearStore');
         },
 
         /**

@@ -40,7 +40,7 @@
 
 <script>
     export default {
-        name: "error-modal",
+        name: "ErrorModal",
         props: ['value', 'errorArr'],
     }
 </script>

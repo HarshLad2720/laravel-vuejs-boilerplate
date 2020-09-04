@@ -60,7 +60,7 @@
 <script>
 
 export default {
-  name: "auth",
+  name: "Auth",
   methods: {},
   computed: {
     backgroundImage() {

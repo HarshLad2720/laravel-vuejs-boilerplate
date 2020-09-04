@@ -1,13 +1,17 @@
 import {HTTP} from "../common_services/api-services";
 
 var baseUrl = '/api/v1/';
-const permissionStore = {
-    namespaced: true,
-    state: {
+
+function initialState() {
+    return {
         permissions: [],
         userPermissions: [],
         permissionDialog: false,
-    },
+    }
+}
+const permissionStore = {
+    namespaced: true,
+    state: initialState,
     mutations: {
         setPermissions(state, param) {
             state.permissions = param;

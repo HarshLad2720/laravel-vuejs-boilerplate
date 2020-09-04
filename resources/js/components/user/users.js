@@ -64,7 +64,7 @@ export default CustomTable.extend({
             errorArr: [],
             errorDialog: false,
             role_id:'',
-            filtermenu: false,
+            filterMenu: false,
             images: [],
             customDialog: false,
             customMessage: '',
@@ -165,7 +165,7 @@ export default CustomTable.extend({
             }
             this.filterModel =filter;
             this.refresh();
-            this.filtermenu= false;
+            this.filterMenu= false;
         },
         /**
          * Reset Filter

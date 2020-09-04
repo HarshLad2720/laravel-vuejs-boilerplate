@@ -208,7 +208,7 @@
     </div>
     <!--end::Signup-->
       <snackbar v-model="snackbar"></snackbar>
-      <gallary-image-modal v-model="imageModal"></gallary-image-modal>
+      <gallery-image-modal v-model="imageModal"></gallery-image-modal>
   </div>
 </template>
 
