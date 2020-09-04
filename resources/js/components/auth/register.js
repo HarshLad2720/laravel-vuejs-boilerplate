@@ -68,6 +68,7 @@ export default {
             cityList: state => state.cityStore.cityList,
             stateList: state => state.stateStore.stateList,
             hobbyList: state => state.hobbyStore.hobbyList,
+            roleList: state => state.roleStore.roledropdownlist,
         }),
         computedDateFormatted () {
             return this.getDateFormat(this.model.dob)
@@ -237,7 +238,7 @@ export default {
         }];
         if(this.isEditMode){
             requestArray.push({
-                "url": "api/v1/roles?page=1&per_page=5000?",
+                "url": "api/v1/roles?page=1&per_page=5000",
                 "request_id": "roleList"
             });
             requestArray.push({

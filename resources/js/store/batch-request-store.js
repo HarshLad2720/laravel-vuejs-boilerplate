@@ -25,13 +25,13 @@ export default {
                     commit('countryStore/setCountryList', obj.countryList.data, {root: true});
                     commit('hobbyStore/setHobbyList', obj.hobbyList.data, {root: true});
                     if (obj.roleList) {
-                        commit('roleStore/setRoleList', obj.roleList, {root: true});
+                        commit('roleStore/setRoleList', obj.roleList.data, {root: true});
                     }
                     if (obj.stateList) {
                         commit('stateStore/setStateList', obj.stateList.data, {root: true});
                     }
                     if (obj.cityList) {
-                        commit('cityStore/setCityList', obj.cityList, {root: true});
+                        commit('cityStore/setCityList', obj.cityList.data, {root: true});
                     }
                     Object.keys(obj).forEach(function (key) {
                         var val = obj[key];
