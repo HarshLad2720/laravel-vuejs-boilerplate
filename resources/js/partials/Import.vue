@@ -1,12 +1,10 @@
 <template>
     <div>
         <v-card class=" mx-auto mb-5">
-            <v-container>
-                <v-row justify="space-between">
-                    <v-container>
+            <v-card-text>
                         <form method="POST" name="import-csv-form" role="form" novalidate autocomplete="off" @submit.prevent="uploadCsv()">
-                        <v-row justify="space-between">
-                            <v-layout>
+
+                            <v-layout row wrap>
                                 <v-flex xs12 sm12 md4 lg4 class="p-4">
                                     <v-file-input
                                             v-model="file"
@@ -27,14 +25,12 @@
                                 </v-flex>
                                 <v-flex xs12 sm12 md6 lg6 class="p-4">
                                     <v-btn type="submit" :loading="loading" large color="primary"><v-icon small>{{icons.mdiUpload}}</v-icon>Upload</v-btn>
-                                    <v-btn @click.native="downloadSampleFile()"large color="success"><v-icon small>{{icons.mdiDownload}}</v-icon>Download Sample CSV</v-btn>
+                                    <v-btn class="mt-xs-1" @click.native="downloadSampleFile()"large color="success"><v-icon small>{{icons.mdiDownload}}</v-icon>Download Sample CSV</v-btn>
                                 </v-flex>
                             </v-layout>
-                        </v-row>
+
                         </form>
-                    </v-container>
-                </v-row>
-            </v-container>
+            </v-card-text>
         </v-card>
         <v-data-table
                 v-model="selected"

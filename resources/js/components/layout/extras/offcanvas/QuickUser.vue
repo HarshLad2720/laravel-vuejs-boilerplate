@@ -5,12 +5,12 @@
       id="kt_quick_user_toggle"
     >
       <span
-        class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1"
+        class="text-muted font-weight-bold font-size-base d-md-inline mr-1"
       >
         Hi,
       </span>
       <span
-        class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3"
+        class="text-dark-50 font-weight-bolder font-size-base d-md-inline mr-3"
       >
         {{username}}
       </span>
