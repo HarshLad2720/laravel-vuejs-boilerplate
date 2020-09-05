@@ -20,15 +20,6 @@
         <span></span>
       </button>
       <!--end::Aside Mobile Toggle-->
-      <!--begin::Header Menu Mobile Toggle-->
-      <button
-        class="btn p-0 burger-icon ml-4"
-        id="kt_header_mobile_toggle"
-        ref="kt_header_mobile_toggle"
-      >
-        <span></span>
-      </button>
-      <!--end::Header Menu Mobile Toggle-->
       <!--begin::Topbar Mobile Toggle-->
       <button
         class="btn btn-hover-text-primary p-0 ml-2"
