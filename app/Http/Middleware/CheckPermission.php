@@ -31,7 +31,7 @@ class CheckPermission
         $excluded_permissions = [
         ];// Like this - 'changePassword-user'
 
-        if($request->path() == 'api/v1/batch_request')
+        if($request->path() == 'api/v1/batch_request' || $request->path() == 'api/v1/auth_batch_request')
             return $next($request);
 
         if(in_array($permission,$excluded_permissions))

@@ -33,6 +33,7 @@ Route::group([
         Route::post('forgot-passsword','ForgotPasswordAPIController@sendResetLinkEmail');
 
         Route::post('register', 'UsersAPIController@register');
+        Route::get('batch_request', 'UsersAPIController@batchRequest');
         Route::post('login','LoginController@login');
 
         Route::get('countries', 'CountriesAPIController@index');
@@ -77,7 +78,7 @@ Route::group([
             Route::get('users-export', 'UsersAPIController@export');
             Route::post('users-delete-multiple', 'UsersAPIController@deleteAll');
             Route::post('users-import-bulk', 'UsersAPIController@importBulk');
-            Route::get('batch_request', 'UsersAPIController@batchRequest');
+            Route::get('auth_batch_request', 'UsersAPIController@batchRequest');
 
             Route::apiResource('roles', 'RolesAPIController');
             Route::get('roles-export', 'RolesAPIController@export');
