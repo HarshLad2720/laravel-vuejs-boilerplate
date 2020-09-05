@@ -226,18 +226,18 @@ export default {
     mounted() {
         this.$store.commit("stateStore/setStateList", []);
         this.$store.commit("cityStore/setCityList", []);
-
+        /**
+         * Batch request of Treatment (Max 10 request is allowed at a time)
+         */
+        var api = 'getBatchRegister';
+        var requestArray = [{
+            "url": 'api/v1/countries?page=1&per_page=5000',
+            "request_id": "countryList"
+        }, {
+            "url": "api/v1/hobbies?page=1&per_page=5000",
+            "request_id": "hobbyList"
+        }];
         if(this.isEditMode){
-            /**
-             * Batch request of Treatment (Max 10 request is allowed at a time)
-             */
-            var requestArray = [{
-                "url": 'api/v1/countries?page=1&per_page=5000',
-                "request_id": "countryList"
-            }, {
-                "url": "api/v1/hobbies?page=1&per_page=5000",
-                "request_id": "hobbyList"
-            }];
             requestArray.push({
                 "url": "api/v1/roles?page=1&per_page=5000",
                 "request_id": "roleList"
@@ -250,37 +250,14 @@ export default {
                 "url": "api/v1/cities?page=1&per_page=5000&filter="+encodeURIComponent(JSON.stringify({"state_id": [this.model.state_id]})),
                 "request_id": "cityList"
             });
-            this.$store.dispatch('batchRequestStore/getBatchUser', requestArray).then(response => {
-            }, error => {
-                //Error Handling for batch request
-                this.errorArr = this.getModalAPIerrorMessage(error);
-                this.errorDialog = true;
-            });
-        } else {
-            this.$store.dispatch("countryStore/getAll",{page:1,limit:5000}).then((response) => {
-                if (response.error) {
-                    this.errorArr = response.data.error;
-                    this.errorDialog = true;
-                } else {
-                    this.$store.commit('countryStore/setCountryList', response.data.data);
-                }
-            }, error => {
-                this.errorArr = this.getModalAPIerrorMessage(error);
-                this.errorDialog = true;
-            });
-            this.$store.dispatch("hobbyStore/getAll",{page:1,limit:5000}).then(response => {
-                if (response.error) {
-                    this.errorArr = response.data.error;
-                    this.errorDialog = true;
-                } else {
-                    //set Hobby list
-                    this.$store.commit("hobbyStore/setHobbyList", response.data.data);
-                }
-            }, function (error) {
-                this.errorArr = this.getModalAPIerrorMessage(error);
-                this.errorDialog = true;
-            });
+            api = 'getBatchUser';
         }
+        this.$store.dispatch('batchRequestStore/'+api, requestArray).then(response => {
+        }, error => {
+            //Error Handling for batch request
+            this.errorArr = this.getModalAPIerrorMessage(error);
+            this.errorDialog = true;
+        });
 
     },
 };
