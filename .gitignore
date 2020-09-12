@@ -26,6 +26,8 @@ public/storage
 public/css
 public/js
 public/images
+public/media
+public/csv
 public/fonts
 public/*.js
 public/mix-manifest.json
